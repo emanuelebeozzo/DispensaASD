@@ -85,25 +85,26 @@
 \contentsline {lstlisting}{\numberline {85}2 colorazione di Grafo con i wrestler}{76}{lstlisting.85}
 \contentsline {lstlisting}{\numberline {86}Pozzo universale}{77}{lstlisting.86}
 \contentsline {lstlisting}{\numberline {87}Pozzo universale Montresor}{77}{lstlisting.87}
-\contentsline {lstlisting}{\numberline {88}Zaino (ottimizzazione memoria)}{79}{lstlisting.88}
-\contentsline {lstlisting}{\numberline {89}Sottoinsieme Crescente di Somma Massima}{80}{lstlisting.89}
-\contentsline {lstlisting}{\numberline {90}Occorrenze di valori in un ABR}{81}{lstlisting.90}
-\contentsline {lstlisting}{\numberline {91}Alberobello}{82}{lstlisting.91}
-\contentsline {lstlisting}{\numberline {92}\IeC {\'E} un albero red-black?}{82}{lstlisting.92}
-\contentsline {lstlisting}{\numberline {93}Il grafo contiene la sottosequenza LODE?}{83}{lstlisting.93}
-\contentsline {lstlisting}{\numberline {94}Griglia quadra - costruzione grafo}{84}{lstlisting.94}
-\contentsline {lstlisting}{\numberline {95}Griglia quadra}{85}{lstlisting.95}
-\contentsline {lstlisting}{\numberline {96}Nodi che distano un numero di archi $\leq $ d}{85}{lstlisting.96}
-\contentsline {lstlisting}{\numberline {97}Albero Binario Allopato}{86}{lstlisting.97}
-\contentsline {lstlisting}{\numberline {98}Colorazione Alberi}{87}{lstlisting.98}
-\contentsline {lstlisting}{\numberline {99}Colorazione Alberi (by Montresor)}{87}{lstlisting.99}
-\contentsline {lstlisting}{\numberline {100}Posso vincere Mikado/Shangai in un unico turno?}{88}{lstlisting.100}
-\contentsline {lstlisting}{\numberline {101}Le votazioni}{88}{lstlisting.101}
-\contentsline {lstlisting}{\numberline {102}Foresta con costruzione del grafo}{89}{lstlisting.102}
-\contentsline {lstlisting}{\numberline {103}Foresta senza costruzione del grafo}{90}{lstlisting.103}
-\contentsline {lstlisting}{\numberline {104}Nodi che raggiungo ovunque}{91}{lstlisting.104}
-\contentsline {lstlisting}{\numberline {105}Prima Occorrenza}{91}{lstlisting.105}
-\contentsline {lstlisting}{\numberline {106}Prima Occorrenza (by Montresor)}{92}{lstlisting.106}
-\contentsline {lstlisting}{\numberline {107}Valore unico}{92}{lstlisting.107}
-\contentsline {lstlisting}{\numberline {108}Zero}{93}{lstlisting.108}
-\contentsline {lstlisting}{\numberline {109}Esercizi da schedare}{95}{lstlisting.109}
+\contentsline {lstlisting}{\numberline {88}Zaino (ottimizzazione memoria)}{80}{lstlisting.88}
+\contentsline {lstlisting}{\numberline {89}Sottoinsieme Crescente di Somma Massima}{81}{lstlisting.89}
+\contentsline {lstlisting}{\numberline {90}Le pillole della Zia}{82}{lstlisting.90}
+\contentsline {lstlisting}{\numberline {91}Occorrenze di valori in un ABR}{84}{lstlisting.91}
+\contentsline {lstlisting}{\numberline {92}Alberobello}{85}{lstlisting.92}
+\contentsline {lstlisting}{\numberline {93}\IeC {\'E} un albero red-black?}{85}{lstlisting.93}
+\contentsline {lstlisting}{\numberline {94}Il grafo contiene la sottosequenza LODE?}{86}{lstlisting.94}
+\contentsline {lstlisting}{\numberline {95}Griglia quadra - costruzione grafo}{87}{lstlisting.95}
+\contentsline {lstlisting}{\numberline {96}Griglia quadra}{88}{lstlisting.96}
+\contentsline {lstlisting}{\numberline {97}Nodi che distano un numero di archi $\leq $ d}{88}{lstlisting.97}
+\contentsline {lstlisting}{\numberline {98}Albero Binario Allopato}{89}{lstlisting.98}
+\contentsline {lstlisting}{\numberline {99}Colorazione Alberi}{90}{lstlisting.99}
+\contentsline {lstlisting}{\numberline {100}Colorazione Alberi (by Montresor)}{90}{lstlisting.100}
+\contentsline {lstlisting}{\numberline {101}Posso vincere Mikado/Shangai in un unico turno?}{91}{lstlisting.101}
+\contentsline {lstlisting}{\numberline {102}Le votazioni}{91}{lstlisting.102}
+\contentsline {lstlisting}{\numberline {103}Foresta con costruzione del grafo}{92}{lstlisting.103}
+\contentsline {lstlisting}{\numberline {104}Foresta senza costruzione del grafo}{93}{lstlisting.104}
+\contentsline {lstlisting}{\numberline {105}Nodi che raggiungo ovunque}{94}{lstlisting.105}
+\contentsline {lstlisting}{\numberline {106}Prima Occorrenza}{94}{lstlisting.106}
+\contentsline {lstlisting}{\numberline {107}Prima Occorrenza (by Montresor)}{95}{lstlisting.107}
+\contentsline {lstlisting}{\numberline {108}Valore unico}{95}{lstlisting.108}
+\contentsline {lstlisting}{\numberline {109}Zero}{96}{lstlisting.109}
+\contentsline {lstlisting}{\numberline {110}Esercizi da schedare}{98}{lstlisting.110}

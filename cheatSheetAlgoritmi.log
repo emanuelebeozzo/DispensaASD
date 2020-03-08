@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.4)  8 MAR 2020 15:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6800 64-bit) (preloaded format=pdflatex 2018.9.4)  8 MAR 2020 17:58
 entering extended mode
 **./cheatSheetAlgoritmi.tex
 (cheatSheetAlgoritmi.tex
@@ -1591,7 +1591,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 139--149
 
  []
 
-[78]) (laboratori/07_laboratorio_7.tex
+[78]) (esercitazioni/06_esercitazione_6.tex)
+(esercitazioni/07_esercitazione_7.tex [79]) (laboratori/07_laboratorio_7.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--9
 
  []
@@ -1606,32 +1607,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 46--51
 
  []
 
-[79] [80]) (tutorati/01_ASD_1.tex) (tutorati/02_ASD_2.tex
+[80]
+Underfull \hbox (badness 10000) in paragraph at lines 66--80
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--80
+
+ []
+
+[81] [82]
+Underfull \hbox (badness 10000) in paragraph at lines 105--106
+
+ []
+
+[83]) (tutorati/01_ASD_1.tex) (tutorati/02_ASD_2.tex
 Underfull \hbox (badness 10000) in paragraph at lines 20--24
 
  []
 
-[81]) (tutorati/03_ASD_3.tex
+[84]) (tutorati/03_ASD_3.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
 
-[82]) (tutorati/04_ASD_4.tex) (tutorati/05_ASD_5.tex [83]
+[85]) (tutorati/04_ASD_4.tex) (tutorati/05_ASD_5.tex [86]
 Underfull \hbox (badness 10000) in paragraph at lines 79--83
 
  []
 
-[84]) (tutorati/06_ASD_6.tex
+[87]) (tutorati/06_ASD_6.tex
 Underfull \hbox (badness 10000) in paragraph at lines 17--26
 
  []
 
-[85]) (tutorati/07_ASD_7.tex [86] [87]) (tutorati/08_ASD_8.tex
+[88]) (tutorati/07_ASD_7.tex [89] [90]) (tutorati/08_ASD_8.tex
 Underfull \hbox (badness 10000) in paragraph at lines 28--31
 
  []
 
-[88]) (tutorati/09_ASD_9.tex [89]
+[91]) (tutorati/09_ASD_9.tex [92]
 Underfull \hbox (badness 10000) in paragraph at lines 64--66
 
  []
@@ -1646,30 +1662,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 83--87
 
  []
 
-[90]) (tutorati/10_ASD_10.tex [91]) (tutorati/11_ASD_11.tex [92]
+[93]) (tutorati/10_ASD_10.tex [94]) (tutorati/11_ASD_11.tex [95]
 Underfull \hbox (badness 10000) in paragraph at lines 28--31
 
  []
 
-[93]) (esercizi_vari/01_esame_07022019.tex) (esercizi_vari/02_esercizi_vari.tex
-[94] [95]) [96]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 66.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 66.
+[96]) (esercizi_vari/01_esame_07022019.tex) (esercizi_vari/02_esercizi_vari.tex
+[97] [98]) [99]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 68.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 68.
  (cheatSheetAlgoritmi.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 66.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 66.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 68.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 68.
 Package rerunfilecheck Info: File `cheatSheetAlgoritmi.out' has not changed.
-(rerunfilecheck)             Checksum: 46491686962083A48A7FB4C9CF5379BE;6728.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 66.
+(rerunfilecheck)             Checksum: E543C0470303C811A0336C3BF94A4AD7;6888.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 68.
  ) 
 Here is how much of TeX's memory you used:
- 23040 strings out of 492973
- 416231 string characters out of 3126693
- 612551 words of memory out of 3000000
- 24194 multiletter control sequences out of 15000+200000
+ 23082 strings out of 492973
+ 417125 string characters out of 3126693
+ 613551 words of memory out of 3000000
+ 24202 multiletter control sequences out of 15000+200000
  15697 words of font info for 59 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,16n,59p,1256b,2009s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,16n,59p,1260b,2009s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\emabe\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\
 tcrm1000.pk> <C:\Users\emabe\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\
 ec\dpi600\tcrm1200.pk><C:/Users/emabe/AppData/Local/Programs/MiKTeX 2.9/fonts/t
@@ -1697,9 +1713,9 @@ s/emabe/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12
 nts/cm/cmti8.pfb><C:/Users/emabe/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
 public/amsfonts/latxfont/line10.pfb><C:/Users/emabe/AppData/Local/Programs/MiKT
 eX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on cheatSheetAlgoritmi.pdf (96 pages, 963220 bytes).
+Output written on cheatSheetAlgoritmi.pdf (99 pages, 975172 bytes).
 PDF statistics:
- 3820 PDF objects out of 4296 (max. 8388607)
- 2258 named destinations out of 2487 (max. 500000)
- 781 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3875 PDF objects out of 4296 (max. 8388607)
+ 2286 named destinations out of 2487 (max. 500000)
+ 797 words of extra memory for PDF output out of 10000 (max. 10000000)
 

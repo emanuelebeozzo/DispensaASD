@@ -166,7 +166,7 @@ L'output deve essere un insieme S  $\subseteq$ $\{$1, ..., n $\}$ tale che:
 capacità c $\leq$ C. Il massimo profitto ottenibile per il problema originale è rappresentato da DP[n][C]. \ Considerando i vari casi (prendere o meno l'ultimo elemento e i vari casi base) otteniamo la seguente formula ricorsiva: 
 
 \begin{equation*}
-  	DP[i] =\begin{cases}
+  	DP[i][c] =\begin{cases}
     	0 & \text{$i = 0$  or  $c = 0$}\\
     	-\infty & \text{$c < 0$}\\
     	max(DP[i -1][c-w[i]]+p[i], DP[i-1][c]) & \text{$altrimenti$}

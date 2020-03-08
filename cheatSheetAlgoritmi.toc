@@ -77,20 +77,22 @@
 \contentsline {subsection}{\numberline {17.3}Esecitazione 3 - 26/11/19}{67}{subsection.17.3}
 \contentsline {subsection}{\numberline {17.4}Esecitazione 4 - 05/12/19}{72}{subsection.17.4}
 \contentsline {subsection}{\numberline {17.5}Esecitazione 5 - 19/12/19}{75}{subsection.17.5}
-\contentsline {section}{\numberline {18}Laboratori}{79}{section.18}
-\contentsline {subsection}{\numberline {18.1}Laboratorio 7 - 04/03/20}{79}{subsection.18.1}
-\contentsline {section}{\numberline {19}Tutorati: Esercizi Utili}{81}{section.19}
-\contentsline {subsection}{\numberline {19.1}ASD1}{81}{subsection.19.1}
-\contentsline {subsection}{\numberline {19.2}ASD2}{81}{subsection.19.2}
-\contentsline {subsection}{\numberline {19.3}ASD3}{82}{subsection.19.3}
-\contentsline {subsection}{\numberline {19.4}ASD4}{83}{subsection.19.4}
-\contentsline {subsection}{\numberline {19.5}ASD5}{83}{subsection.19.5}
-\contentsline {subsection}{\numberline {19.6}ASD6}{85}{subsection.19.6}
-\contentsline {subsection}{\numberline {19.7}ASD7}{86}{subsection.19.7}
-\contentsline {subsection}{\numberline {19.8}ASD8}{88}{subsection.19.8}
-\contentsline {subsection}{\numberline {19.9}ASD9}{89}{subsection.19.9}
-\contentsline {subsection}{\numberline {19.10}ASD10}{91}{subsection.19.10}
-\contentsline {subsection}{\numberline {19.11}ASD11}{92}{subsection.19.11}
-\contentsline {section}{\numberline {20}Esami anni passati}{94}{section.20}
-\contentsline {subsection}{\numberline {20.1}Esame 07/02/2019}{94}{subsection.20.1}
-\contentsline {subsection}{\numberline {20.2}Esercizi vari}{95}{subsection.20.2}
+\contentsline {subsection}{\numberline {17.6}Esecitazione 6 - 20/02/2020}{79}{subsection.17.6}
+\contentsline {subsection}{\numberline {17.7}Esecitazione 7 - 02/03/2020}{79}{subsection.17.7}
+\contentsline {section}{\numberline {18}Laboratori}{80}{section.18}
+\contentsline {subsection}{\numberline {18.1}Laboratorio 7 - 04/03/20}{80}{subsection.18.1}
+\contentsline {section}{\numberline {19}Tutorati: Esercizi Utili}{84}{section.19}
+\contentsline {subsection}{\numberline {19.1}ASD1}{84}{subsection.19.1}
+\contentsline {subsection}{\numberline {19.2}ASD2}{84}{subsection.19.2}
+\contentsline {subsection}{\numberline {19.3}ASD3}{85}{subsection.19.3}
+\contentsline {subsection}{\numberline {19.4}ASD4}{86}{subsection.19.4}
+\contentsline {subsection}{\numberline {19.5}ASD5}{86}{subsection.19.5}
+\contentsline {subsection}{\numberline {19.6}ASD6}{88}{subsection.19.6}
+\contentsline {subsection}{\numberline {19.7}ASD7}{89}{subsection.19.7}
+\contentsline {subsection}{\numberline {19.8}ASD8}{91}{subsection.19.8}
+\contentsline {subsection}{\numberline {19.9}ASD9}{92}{subsection.19.9}
+\contentsline {subsection}{\numberline {19.10}ASD10}{94}{subsection.19.10}
+\contentsline {subsection}{\numberline {19.11}ASD11}{95}{subsection.19.11}
+\contentsline {section}{\numberline {20}Esami anni passati}{97}{section.20}
+\contentsline {subsection}{\numberline {20.1}Esame 07/02/2019}{97}{subsection.20.1}
+\contentsline {subsection}{\numberline {20.2}Esercizi vari}{98}{subsection.20.2}

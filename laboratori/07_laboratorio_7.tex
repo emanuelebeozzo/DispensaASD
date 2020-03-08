@@ -63,8 +63,61 @@ int sottocres(int n, int[] A)
 		massimo = max(massimo, DP[i])
 	return massimo
 \end{lstlisting} 
-Spiegazione: ad ogni iterazione del ciclo for andiamo ad inizializzare l'elemento $DP[i]$ con $A[i]$; questa operazione viene fatta per due motivi: il primo è che magari l'emento che stiamo analizzando è di per sè già la più grande sottosequenza crescente che possiamo ottenere all'interno del nostro input, il secondo è perchè, non avendo inizializzato il vettore $DP$, la nostra funzione farebbe degli accessi non leciti. All'interno del primo ciclo si ha un secondo ciclo (questo ci suggerisce che la complessità della nostra funzione è $\mathcal{O}(n^{2})$) che serve per controllare nuovamente tutti gli elementi che abbiamo inserito fino ad ora ed inserire con certezza il massimo in quella casella. Il controllo che viene eseguito si occupa di verificare non solo che $A[i] \geq A[j]$ (notare il fatto che sono ritenuti validi anche numeri uguali perchè definito in questi termini il problema) ma anche che $DP[i] < DP[j] + A[i]$ e che quindi, come dicevamo prima, ci sia effettivamente un guadagno rispetto al numero a cui inizializzamo la cella, oppure che, nel caso di più possibilità, consideriamo effettivamente quella che porta il guadagno massimo.
+Spiegazione: ad ogni iterazione del ciclo for andiamo ad inizializzare l'elemento $DP[i]$ con $A[i]$; questa operazione viene fatta per due motivi: il primo è che magari l'emento che stiamo analizzando è di per sè già la più grande sottosequenza crescente che possiamo ottenere all'interno del nostro input, il secondo è perchè, non avendo inizializzato il vettore $DP$, la nostra funzione farebbe degli accessi non leciti. All'interno del primo ciclo si ha un secondo ciclo (questo ci suggerisce che la complessità della nostra funzione è $\mathcal{O}(n^{2})$) che serve per controllare nuovamente tutti gli elementi che abbiamo inserito fino ad ora ed inserire con certezza il massimo in quella casella. Il controllo che viene eseguito si occupa di verificare non solo che $A[i] \geq A[j]$ (notare il fatto che sono ritenuti validi anche numeri uguali perchè definito in questi termini il problema) ma anche che $DP[i] < DP[j] + A[i]$ e che quindi, come dicevamo prima, ci sia effettivamente un guadagno rispetto al numero a cui inizializzamo la cella, oppure che, nel caso di più possibilità, consideriamo effettivamente quella che porta il guadagno massimo.\\\\
+\textbf{Le pillole della zia (pillole)}\\
+La zia Lucilla deve assumere ogni giorno mezza pillola di una certa medicina. Lei inizia il trattamento con un bottiglia che contiene esattamente $N$ pillole.\\\
+Durante il primo giorno lei prende una pillola dalla bottiglia, la spezza in due, ne ingerisce una metà e rimette l'altra metà nella bottiglia.\\
+Nei giorni seguenti lei prende un pezzo a caso della bottiglia (potrebbe essere una pillola intera o una mezza pillola).\\
+Se ha pescato una mezza pillola la ingerisce. Se ha pescato una pillola intera la spezza a metà, rimette una delle due mezze pillole nella bottiglia e ingerisce l’altra mezza pillola.
+La zia può svuotare la bottiglia in tanti modi diversi. Rappresentiamo la cura come una stringa di $2N$ caratteri, in cui il carattere i-esimo è “$I$” se la zia ha pescato una pillola intera nel giorno i e “$M$” se la zia ha invece pescato una mezza pillola. Nel caso in cui la bottiglia originaria contenga 3 pillole intere, le possibili sequenze sono le seguenti:\\
+$IIIMMM$\\
+$IIMIMM$\\
+$IIMMIM$\\
+$IMIIMM$\\
+$IMIMIM$\\
+Il problema vi richiede di scrivere un programma che, dato $N$, restituisca il numero di possibili sequenze nel trattamento.\\\\
+Soluzione proposta: il seguente problema può essere risolto mediante Memoization creando una Matrice $DP[N][N]$ dove indichiamo sulle colonne il numero di pastiglie intere mentre sulle righe il numero di pastiglie a metà. Ad esempio con 3 pastiglie il nostro risultato si troverà in posizione $DP[0][3]$. Semplicemente ogni volta ci chiederemo se spezzare la pastiglia (e quindi andare in posizione $DP[i+1][j-1]$) oppure se prendere una metà (e accedere dunque in posizione $DP[i][j-1]$). Ovviamente questa operazione non può essere svolta sempre in maniera duplice (ad esempio partendo con 3 pastiglie intere possiamo soltanto spezzarne una, è indifferente quale) e i casi base sono quando abbiamo solo pastiglie a metà (quindi per $DP[i][0]$), quando si ha soltanto una pastiglia intera ($DP[0][1]$) oppure quando non se ne ha nessuna ($DP[0][0]$).
+\begin{lstlisting}[caption=Le pillole della Zia]
+long long int pilloleRec(int row, int col, long long int[][] DP)
+	long long int contenuto = DP[row][col]
+	if contenuto $\neq$ 0 then
+		return contenuto
+	else
+		if row $==$ 0 then
+			DP[row][col] = pilloleRec(row+1, col-1, DP)
+		else
+			DP[row][col] = pilloleRec(row+1, col-1, DP) + 
+				pilloleRec(row+1, col, DP)
+		return DP[row][col]
 
-
+long long int pillole(int N)
+	long long int[][] DP = new long long int[N][N]
+	for i = 0 to N do
+		for j = 0 to N do
+			if j $==$ 0 then
+				DP[i][j] = 1
+			else
+				DP[i][j] = 0
+	DP[0][1] = 1
+	return pilloleRec(0, N, DP)
+\end{lstlisting}
+\newpage
+Esempio riempimento tabella:\\
+\begin{center}
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{ |c|c|c|c|c| } 
+		\hline
+			$j \backslash i$ &0 &1 &2 &3\\
+		\hline
+			0 &1 &1 &2 &$\swarrow$ 5\\
+		\hline
+			1 &1 & $\substack{\swarrow\\[-1em] \uparrow} 2$ & $\substack{\swarrow\\[-1em] \uparrow} 5$&0 \\
+		\hline
+			2 &1 & $\substack{\swarrow\\[-1em] \uparrow} 3$ &0 &0\\
+		\hline
+			3 &1 &0 &0 &0\\
+		\hline
+	\end{tabular}
+\end{center}
 \newpage
 \end{document}
