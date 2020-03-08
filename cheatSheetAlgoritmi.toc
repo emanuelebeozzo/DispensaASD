@@ -1,0 +1,96 @@
+\contentsline {section}{\numberline {1}Lo Pseudocodice}{8}{section.1}
+\contentsline {subsection}{\numberline {1.1}Notazione in pseudocodice}{8}{subsection.1.1}
+\contentsline {section}{\numberline {2}Sottovettore di Somma Massima: Algoritmo di Kadane}{9}{section.2}
+\contentsline {section}{\numberline {3}Valutazione Algoritmi}{9}{section.3}
+\contentsline {subsection}{\numberline {3.1}Calcolo del Minimo}{9}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Ricerca Binaria}{10}{subsection.3.2}
+\contentsline {section}{\numberline {4}Analisi degli Algoritmi}{10}{section.4}
+\contentsline {subsection}{\numberline {4.1}Tempo di Calcolo}{10}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Complessit\IeC {\`a} Algoritmi vs Complessit\IeC {\`a} Problemi: Moltiplicazione di Gauss}{11}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Notazione Asintotica e Propriet\IeC {\`a}}{11}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Complessit\IeC {\`a}}{11}{subsection.4.4}
+\contentsline {section}{\numberline {5}Equazioni di Ricorrenza}{12}{section.5}
+\contentsline {subsection}{\numberline {5.1}Metodo dell'Albero di Ricorsione, o per Livelli}{12}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Metodo di Sostituzione, o per Tentativi}{13}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Metodo dell'Esperto, o delle Ricorrenze Comuni}{15}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Ricorrenze Lineari con Partizione Bilanciata (Estesa)}{16}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Ricorrenze Lineari di Ordine Costante}{16}{subsection.5.5}
+\contentsline {section}{\numberline {6}Algoritmi di Ordinamento}{17}{section.6}
+\contentsline {subsection}{\numberline {6.1}Selection Sort}{17}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Insertion Sort}{17}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Merge Sort}{18}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Heap Sort}{18}{subsection.6.4}
+\contentsline {subsection}{\numberline {6.5}Quick Sort}{18}{subsection.6.5}
+\contentsline {section}{\numberline {7}Strutture dati base}{19}{section.7}
+\contentsline {subsection}{\numberline {7.1}Insiemi}{19}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Dizionari}{19}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Stack}{19}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Queue}{20}{subsection.7.4}
+\contentsline {section}{\numberline {8}Alberi}{20}{section.8}
+\contentsline {subsection}{\numberline {8.1}Alberi binari}{20}{subsection.8.1}
+\contentsline {subsubsection}{\numberline {8.1.1}Visite alberi binari}{22}{subsubsection.8.1.1}
+\contentsline {subsubsection}{\numberline {8.1.2}Esempi visite alberi binari con DFS}{23}{subsubsection.8.1.2}
+\contentsline {subsubsection}{\numberline {8.1.3}Esempi visite alberi binari con BFS}{23}{subsubsection.8.1.3}
+\contentsline {subsection}{\numberline {8.2}Alberi generici}{24}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}Visite alberi generici}{25}{subsubsection.8.2.1}
+\contentsline {subsection}{\numberline {8.3}Alberi Binari di Ricerca (ABR)}{26}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}Alberi Red-Black}{30}{subsection.8.4}
+\contentsline {section}{\numberline {9}Grafi}{31}{section.9}
+\contentsline {subsection}{\numberline {9.1}Visite grafi}{31}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}Cammini pi\IeC {\`u} brevi: BFS}{33}{subsection.9.2}
+\contentsline {subsection}{\numberline {9.3}Componenti connesse: DFS}{33}{subsection.9.3}
+\contentsline {subsection}{\numberline {9.4}Grafo non orientato aciclico: DFS}{34}{subsection.9.4}
+\contentsline {subsubsection}{\numberline {9.4.1}Albero di copertura DFS}{35}{subsubsection.9.4.1}
+\contentsline {subsection}{\numberline {9.5}Grafo orientato aciclico(DAG): DFS}{35}{subsection.9.5}
+\contentsline {subsection}{\numberline {9.6}Ordinamento topologico: DFS}{36}{subsection.9.6}
+\contentsline {subsection}{\numberline {9.7}Componenti fortemente connesse (SCC): DFS}{36}{subsection.9.7}
+\contentsline {section}{\numberline {10}Hashing}{38}{section.10}
+\contentsline {subsection}{\numberline {10.1}Doppio hashing}{38}{subsection.10.1}
+\contentsline {section}{\numberline {11}Insiemi e dizionari}{40}{section.11}
+\contentsline {subsection}{\numberline {11.1}Insiemi con vettori booleani}{40}{subsection.11.1}
+\contentsline {subsection}{\numberline {11.2}Bloom Filters}{41}{subsection.11.2}
+\contentsline {section}{\numberline {12}Strutture dati speciali}{42}{section.12}
+\contentsline {subsection}{\numberline {12.1}Heap}{42}{subsection.12.1}
+\contentsline {subsection}{\numberline {12.2}Code a priorit\IeC {\`a}}{43}{subsection.12.2}
+\contentsline {section}{\numberline {13}Divide-et-impera}{45}{section.13}
+\contentsline {subsection}{\numberline {13.1}QuickSort}{45}{subsection.13.1}
+\contentsline {subsection}{\numberline {13.2}Gap}{45}{subsection.13.2}
+\contentsline {section}{\numberline {14}Regole Matematiche}{46}{section.14}
+\contentsline {subsection}{\numberline {14.1}Sommatorie}{46}{subsection.14.1}
+\contentsline {subsection}{\numberline {14.2}Cambiamento di Base}{46}{subsection.14.2}
+\contentsline {section}{\numberline {15}Trattare le matrici quadrate come Grafi}{47}{section.15}
+\contentsline {subsection}{\numberline {15.1}Costruire un grafo a partire da una matrice}{47}{subsection.15.1}
+\contentsline {subsection}{\numberline {15.2}Visita di una matrice in DFS}{47}{subsection.15.2}
+\contentsline {subsection}{\numberline {15.3}Visita di una matrice in BFS}{49}{subsection.15.3}
+\contentsline {section}{\numberline {16}Programmazione dinamica e memoization}{50}{section.16}
+\contentsline {subsection}{\numberline {16.1}Programmazione dinamica}{50}{subsection.16.1}
+\contentsline {subsubsection}{\numberline {16.1.1}Domino}{50}{subsubsection.16.1.1}
+\contentsline {subsubsection}{\numberline {16.1.2}Hateville}{51}{subsubsection.16.1.2}
+\contentsline {subsubsection}{\numberline {16.1.3}Zaino (Knapsack)}{53}{subsubsection.16.1.3}
+\contentsline {subsection}{\numberline {16.2}Memoization}{54}{subsection.16.2}
+\contentsline {subsubsection}{\numberline {16.2.1}Zaino (Knapsack)}{54}{subsubsection.16.2.1}
+\contentsline {subsubsection}{\numberline {16.2.2}Zaino (Knapsack) senza limiti}{55}{subsubsection.16.2.2}
+\contentsline {subsection}{\numberline {16.3}Esempio reale: Sottosequenza comune massimale}{57}{subsection.16.3}
+\contentsline {section}{\numberline {17}Esercitazioni}{60}{section.17}
+\contentsline {subsection}{\numberline {17.1}Esecitazione 1 - 10/10/19}{60}{subsection.17.1}
+\contentsline {subsection}{\numberline {17.2}Esecitazione 2 - 29/10/19}{63}{subsection.17.2}
+\contentsline {subsection}{\numberline {17.3}Esecitazione 3 - 26/11/19}{67}{subsection.17.3}
+\contentsline {subsection}{\numberline {17.4}Esecitazione 4 - 05/12/19}{72}{subsection.17.4}
+\contentsline {subsection}{\numberline {17.5}Esecitazione 5 - 19/12/19}{75}{subsection.17.5}
+\contentsline {section}{\numberline {18}Laboratori}{79}{section.18}
+\contentsline {subsection}{\numberline {18.1}Laboratorio 7 - 04/03/20}{79}{subsection.18.1}
+\contentsline {section}{\numberline {19}Tutorati: Esercizi Utili}{81}{section.19}
+\contentsline {subsection}{\numberline {19.1}ASD1}{81}{subsection.19.1}
+\contentsline {subsection}{\numberline {19.2}ASD2}{81}{subsection.19.2}
+\contentsline {subsection}{\numberline {19.3}ASD3}{82}{subsection.19.3}
+\contentsline {subsection}{\numberline {19.4}ASD4}{83}{subsection.19.4}
+\contentsline {subsection}{\numberline {19.5}ASD5}{83}{subsection.19.5}
+\contentsline {subsection}{\numberline {19.6}ASD6}{85}{subsection.19.6}
+\contentsline {subsection}{\numberline {19.7}ASD7}{86}{subsection.19.7}
+\contentsline {subsection}{\numberline {19.8}ASD8}{88}{subsection.19.8}
+\contentsline {subsection}{\numberline {19.9}ASD9}{89}{subsection.19.9}
+\contentsline {subsection}{\numberline {19.10}ASD10}{91}{subsection.19.10}
+\contentsline {subsection}{\numberline {19.11}ASD11}{92}{subsection.19.11}
+\contentsline {section}{\numberline {20}Esami anni passati}{94}{section.20}
+\contentsline {subsection}{\numberline {20.1}Esame 07/02/2019}{94}{subsection.20.1}
+\contentsline {subsection}{\numberline {20.2}Esercizi vari}{95}{subsection.20.2}

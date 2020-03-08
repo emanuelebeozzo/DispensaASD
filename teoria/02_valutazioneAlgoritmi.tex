@@ -1,0 +1,126 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Sottovettore di Somma Massima: Algoritmo di Kadane}
+\textbf{Problema}: Dato un vettore di interi A[1...n], restituire il sottovettore A[i...j] (con i, j $<$ n e i $\leq$ j) di somma massimale, ovvero la cui somma degli elementi $\sum\limits_{k=i}^j A[k]$ è più grande o uguale alla somma degli elementi di qualunque altro sottovettore.\\
+\textbf{Soluzione} (con Programmazione Dinamica): \textbf{Algoritmo di Kadane}
+\begin{lstlisting}[caption=Kadane Algorithm]
+int maxSumKadane(int[] A, int n)
+	int maxSoFar = 0
+	int maxHere = 0
+	for i = 1 to n do
+		maxHere = max(maxHere + A[i], 0)
+		maxSoFar = max(maxSoFar, maxHere)
+	return maxSoFar
+\end{lstlisting}
+
+\section{Valutazione Algoritmi} \subsection{Calcolo del Minimo}
+\textbf{Problema}: Dato un vettore di interi S[1...n] trovare il minimo\\
+\textbf{Soluzione}:
+\begin{lstlisting}[ caption=Ricerca Minimo]
+int min(int[] S, int n)
+	int min = S[1]
+	for i=2 to n do
+		if S[i] < min then
+			min = S[i]
+	return min
+\end{lstlisting}
+Nella versione seguente viene ritornata una coppia <int, int> che contiene minimo e la sua posizione:
+\begin{lstlisting}[caption=Ricerca Minimo ritornando gli indici]
+(int, int) min(int[] S, int n)
+	int min = S[1]
+	int posMin = 1;
+	for i=2 to n do
+		if S[i] < min then
+			min = S[i]
+			minPos = i
+	return (min, minPos)
+\end{lstlisting}
+\newpage
+
+\subsection{Ricerca Binaria}
+\textbf{Problema}: Dato un vettore ordinato di interi S[1...n] e un intero v, controllare se nel vettore è presente un elemento A[i] = v (con 0$\leq$i$\leq$n) e in quel caso restituirne l'indice.\\
+\textbf{Soluzione} (Ricerca Binaria): Analizzo l'elemento centrale del sottovettore (indice m)
+\begin{itemize}
+	\item S[m]=v allora ho trovato il valore cercato;
+	\item S[m]$<$v allora vuol dire che dovrò cercare il valore nella metà di destra;
+	\item S[m]$>$v allora vuol dire che dovrò cercare il valore nella metà di sinistra
+\end{itemize}
+\begin{lstlisting}[ caption=Ricerca Binaria]
+int binarySearch(int[] S, int v, int start, int end)
+	if start < end then
+		return 0
+	else
+		int m = $\lfloor$(start+end)/2$\rfloor$
+		if S[m] == v then
+			return m
+		else if S[m] < v then
+			return binarySearch(S, v, m+1, end)
+		else
+			return binarySearch(S, v, start, m-1)
+\end{lstlisting}
+
+\section{Analisi degli Algoritmi}
+\subsection{Tempo di Calcolo}
+\begin{itemize}
+	\item Ogni istruzione richiede un tempo costante per essere eseguita;
+	\item Questa costante è potenzialmente diversa per ogni istruzione;
+	\item Ogni istruzione viene eseguita un certo numero (\#) di volte che dipende da codice a codice
+\end{itemize}
+\textbf{Funzione min()}
+\begin{lstlisting}[caption=Ricerca Minimo + calcolo del costo]
+int min(int[] S, int n)			% Costo # Volte
+	int min = S[1]	    		% c1   	 1
+	for i = 2 to n do		% c2     n
+		if S[i] < min then 	% c3 	 n-1
+			min = S[i]	% c4 	 n-1
+	return min			% c5	 1
+\end{lstlisting}
+T(n) = c1 + c2n + c3(n-1) + c4(n-1) + c5 = (c2 + c3 + c4)n + (c1 + c5 - c3 - c4) = \textcolor{red}{an + b}
+
+\newpage
+
+\subsection{Complessità Algoritmi vs Complessità Problemi: Moltiplicazione di Gauss}
+\textbf{Problema: Moltiplicazione numeri complessi}
+\begin{itemize}
+	\item (a + bi)(c + di) = [ac - bd] + [ad + bc]i
+	\item Input: a, b, c, d
+	\item Output: ac - bd, ad + bc
+\end{itemize}
+Se consideriamo un modello di calcolo dove la moltiplicazione costa 1 mentre le addizioni e le sottrazioni costano 0.01 otteniamo che il costo dell'algoritmo risulta essere 2*(2 + 0.01) = 4.02\\
+Usiamo la tecnica della \textbf{moltiplicazione di Gauss}:
+\begin{itemize}
+	\item A1 = a*c
+	\item A2 = b*d
+	\item m = (a + b)*(c + d)
+	\item A3 = m - A1 - A2 = (a + b)*(c + d) - (a*c) - (b*d) = \cancel{ac} + ad + bc + \cancel{bd} - \cancel{ac} -\cancel{bd} = ad + bc
+	\item A4 = A1 - A2 = ac - bd
+\end{itemize}
+Notiamo che A3 e A4 sono esattamente i termini che ci aspettiamo vengano restituiti dalla moltiplicazione dei numeri complessi e che, in questo caso, il costo delle operazioni all'interno del nostro sistema risulta essere 3.05.
+
+\subsection{Notazione Asintotica e Proprietà}
+Definzione \textcolor{red}{$\mathcal{O}(g(n))$}:\\
+Sia g(n) una funzione di costo; indichiamo con $\mathcal{O}(g(n))$ un insieme di funzioni f(n) tali per cui:
+\begin{center}
+$\exists$c $>$ 0, $\exists$m $\geq$ 0 : \textcolor{red}{f(n) $\leq$ cg(n)} , $\forall$n $\geq$ m
+\end{center}
+Definizione \textcolor{red}{$\Omega(g(n))$}:\\
+Sia g(n) una funzione di costo; indichiamo con $\Omega(g(n))$ un insieme di funzioni f(n) tali per cui:
+\begin{center}
+$\exists$c $>$ 0, $\exists$m $\geq$ 0 : \textcolor{red}{f(n) $\geq$ cg(n)} , $\forall$n $\geq$ m
+\end{center}
+\textbf{Regola Generale:}
+\begin{itemize}
+	\item \textbf{Espressioni Polinomiali}\\
+		\textcolor{red}{a$\textsubscript{k}$$n^k$ + a$\textsubscript{k-1}$$n^{k-1}$ + ... + a$\textsubscript{1}$n + a$\textsubscript{0}$, a$\textsubscript{k}$ $>$ 0 $\implies$ f(n) = $\Theta$($n^k$)}
+	\item \textbf{Casi Particolari}\\
+		La complessità di \textcolor{red}{f(n) = 5} e di \textcolor{red}{f(n) = 5 + $\sin$(n)} è \textcolor{red}{ $\Theta$(1)}\\
+		(P.S. la stessa cosa vale se vi è una limitazione al numero di dati che è necessario fornire in input)
+	\item ... altri casi trattati nella parte di teoria
+\end{itemize}
+
+\subsection{Complessità}
+$\forall$r $<$ s, h $<$ k, a $<$ b\\
+\textcolor{red}{$\mathcal{O}(1)$ $\subset$ $\mathcal{O}$($\log$$^{r}n$) $\subset$ $\mathcal{O}$($\log$$^{s}n$) $\subset$ $\mathcal{O}$($n^{h}$) $\subset$ $\mathcal{O}$($n^{h}$$\log$$^{r}n$)  $\subset$ $\mathcal{O}$($n^{h}$$\log$$^{s}n$) $\subset$ $\mathcal{O}$($n^{k}$) $\subset$ $\mathcal{O}$($a^{n}$) $\subset$ $\mathcal{O}$($b^{n}$)}
+
+\end{document}

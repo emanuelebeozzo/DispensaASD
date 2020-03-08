@@ -1,0 +1,74 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{ASD8}
+\textbf{Il gioco del Mikado/Shangai}
+\begin{lstlisting}[caption=Posso vincere Mikado/Shangai in un unico turno?]
+GRAPH buildGraph(int[] X, int[] Y, int n, int m)
+	GRAPH G = new GRAPH
+  	for i = 1 to n do
+    	G.insertNode(i)
+  	for i = 1 to m do
+    	G.insertEdge(X[i], Y[i])
+  	return G
+
+boolean isShangaiSolvable(int[] X, int[] n, int m)
+	GRAPH G = buildGraph(X, Y, n, m)
+  	int time = 1
+  	int[] dt = new int[1...G.size()]
+  	int[] ft = new int[1...G.size()]
+  	foreach u $\in$ G.V() do
+    	dt[u] = 0
+    	ft[u] = 0
+  	foreach u $\in$ G.V() do
+    	if dt[u] == 0 and hasCycle(G, u, time, dt, ft) then
+      		return false
+  	return true
+\end{lstlisting}
+Il problema può essere visto come un problema di assenza di cicli in un grafo. Dove i numeri da $1$ a \textit{n} che identificano i bastoncini sono difatto dei nodi, mentre invece le relazioni identificate dal verbo "sovrasta" degli archi. É molto semplice dunque realizzare un grafo con i dati che ci vengono forniti (si noti che $X[i]$ sovrasta \textit{Y[i]}) e verficare se esso è un \textit{DAG}, ovvero se non presenta cicli. \\ 
+Per farlo possiamo semplicemente avvalerci della funzione hasCycle per i grafi orientati, che si trova nella sezione: 8.5 Grafo orientato aciclico(DAG): DFS.\\\\
+\textbf{Votazioni}
+\begin{lstlisting}[caption=Le votazioni]
+int[] election(GRAPH G, int[] status)
+	QUEUE qpp = new QUEUE
+  	QUEUE qpe = new QUEUE
+  	int[] distanzePP = new int[1..G.size()]
+  	int[] distanzePE = new int[1..G.size()]
+  	foreach u $\in$ G.V() do
+    	if status[u] == PP then
+      		distanzePP[u] = 0
+      		distanzePE[u] = $+\infty$
+      		qpp.enqueue(u)
+    	else if status[u] == PE then
+      		distanzePP[u] = $+\infty$
+      		distanzePE[u] = 0
+      		qpe.enqueue(u)
+    	else
+      		distanzePP[u] = $+\infty$
+      		distanzePE[u] = $+\infty$
+
+  	while not qpp.isEmpty() then
+    	NODE u = qpp.pop()
+    	foreach v $\in$ G.adj(u) do
+      		if distanzePP[v] == $+\infty$ then
+        		distanzePP[v] = distanzePP[u] + 1
+        		qpp.enqueue(v)
+  
+  	while not qpe.isEmpty() then
+    	NODE u = qpe.pop()
+    	foreach v $\in$ G.adj(u) do
+      		if distanzePE[v] == $+\infty$ then
+        		distanzePE[v] = distanzePE[u] + 1
+        		qpe.enqueue(v)
+  
+  	int indecisi = 0
+  	foreach u $\in$ G.V() do
+    	if distanzePP[u] == distanzePE[u] then
+      		indecisi = indecisi + 1
+  
+  	return indecisi
+\end{lstlisting}
+Per risolvere questo problema sono necessarie due visite in bfs assegnando dunque le distanze minori ai nodi dai nodi facenti parte del partito PE e una visita assegnando la distanza minima dai nodi PP. La visita viene effettuata incodando i corrispettivi membri del partito nella loro appostita coda con distanza pari a 0, la distanza viene aggiornata non appena vengono scoperti (lo stesso principio di ragionamento è presente nell'algoritmo di \textit{Erdos}). Una volta che abbiamo le distanze minime dai membri del partito PE e PP controlliamo se qualche nodo possiede la stessa dai membri dei due schieramenti, se questo avviene incrementiamo il numero degli indecisi.\\
+Ritorniamo infine gli indecisi totali.
+
+\end{document}

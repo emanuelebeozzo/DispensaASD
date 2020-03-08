@@ -1,0 +1,38 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{ASD3}
+\textbf{É un albero red-black?}\\
+\begin{lstlisting}[caption=É un albero red-black?]
+boolean isRedBlack(TREE T)
+	% controllo sulla radice
+  	if T.color == RED then
+    	return false
+  	else
+    	return (blackHeight(T) > 0)
+
+int blackHeight(TREE T)
+  	% Tutte le foglie devono essere rosse
+  	if T.value == nil then
+    	return iif(T.color == RED, -1, 1)
+  	% Ogni nodo rosso deve avere entrambi i figli neri
+  	if T.color == RED and T.parent $\neq$ nil and T.parent.color == RED then
+    	return -1
+  	% Il numero di nodi neri incontrati su tutti i possibili percorsi dalla radice ad una foglia deve essere lo stesso
+  	int bhL = blackHeight(T.left)
+  	int bhR = blackHeight(T.right)
+  	if bhL < 0 or bhR < 0 or bhL $\neq$ bhR then
+    	return -1
+  	else
+    	return bhL + iif(t.color == BLACK, 1, 0)
+\end{lstlisting}
+Per verificare se un albero è red-black è necessario assicurarsi che tutti i vincoli siano rispettati, in particolare che nessuno di essi venga violato:
+\begin{itemize}
+ 	\item La radice deve essere nera
+ 	\item Tutte le foglie sono nere
+ 	\item Entrambi i figli di un nodo rosso sono neri
+ 	\item Tutti i cammini semplici da un nodo \textit{u} ad una delle foglie contenute nel sottoalbero radicato in \textit{u} hanno lo stesso numero di nodi neri.\\ Una volta ricevuto l'albero in input l'algoritmo ne controlla la radice, restituendo false se il vincolo viene violato. A questo punto l'algoritmo si appoggia su una procedura ricorsiva che restituisce iun intero (necessario per il vincolo 4, ovvero quello dei cammini).
+Ogni volta che la parte ricorsiva si porta in una foglia (il valore è nil) allora controlla che il suo colore sia corretto, se si allora ritorna 1 (in quanto è un nodo nero), -1 altrimenti. Viene verificato il vincolo 3 mediante un controllo sul padre qualora il colore della foglia esaminata sia rossa. Controlla infine le altezze nere, se non combaciano, oppure un vincolo è stato violato nei livelli sottostanti (il valore ottenuto è $<$ 0) esso torna -1. In questo modo è possibile risalire con un semplice controllo di maggiore se i vincoli sono stati rispettati o meno.
+\end{itemize}\
+
+\end{document}

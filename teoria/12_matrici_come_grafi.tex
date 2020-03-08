@@ -1,0 +1,103 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Trattare le matrici quadrate come Grafi}
+\textbf{Attenzione!} In questa sezione si vogliono elencare delle tecniche per trattare una matrice quadrata come grafi. \\Tuttavia gli schemi riportati in seguito nelle sottosezioni successive non forniscono delle soluzioni già pronte, ma vanno rielaborate a seconda dell'esercizio (essendo infatti degli schemi guida).
+\subsection{Costruire un grafo a partire da una matrice}
+Schema generico della costruzione di un grafo a partire da una matrice quadrata:
+\begin{lstlisting}[caption=Schema costruzione Grafo da una matrice]
+GRAPH schemaCostruisciGrafo(int[][] A, int n)
+	GRAPH G = new GRAPH
+  	% inserimento nodi (tanti quante le celle della matrice)
+  	for i = 1 to n $\cdot$ n do
+  		G.insertNode(i)
+  	% inserimento archi
+  	for riga = 1 to n do
+    	for colonna = 1 to n do
+      		% id sequenziale del nodo
+      		int idNodo = colonna + (riga - 1) $\cdot$ n
+      		if riga $\neq$ 1 then 
+        		int idAdiacente = colonna + (riga - 2) $\cdot$ n
+        		G.insertEdge(idNodo, idAdiacente)
+      		if colonna $\neq$ 1 then
+        		int idAdiacente = (colonna - 1) + (riga - 1) $\cdot$ n
+        		G.insertEdge(idNodo, idAdiacente)
+      		if colonna $\neq$ n then
+        		int idAdiacente = (colonna + 1) + (riga - 1) $\cdot$ n
+        		G.insertEdge(idNodo, idAdiacente)
+      		if riga $\neq$ n then
+        		int idAdiacente = colonna + riga $\cdot$ n
+        		G.insertEdge(idNodo, idAdiacente)
+  	return G
+\end{lstlisting}
+\subsection{Visita di una matrice in DFS}
+\begin{lstlisting}[ caption=Generica visita DFS ricorsiva in una matrice quadrata]
+dfsRec(int[][] M, int n, int r, int c)
+	if 1 $\leq$ r < n and 1 $\leq$ c < n and M[r][c] > 0 then
+    	% Visita della cella della matrice
+    	M[r][c] = 0	%  Visited
+    	% chiamate ricorsive
+    	dfsRec(M, n, r - 1, c)
+    	dfsRec(M, n, r + 1, c)
+    	dfsRec(M, n, r, c - 1)
+    	dfsRec(M, n, r, c + 1)
+
+procedura(int[][] M, int n)
+	for r = 1 to n do
+    	for c = 1 to n do
+      		if M[r][c] > 0 then
+        		dfsRec(M, n, r, c)
+\end{lstlisting}
+Si osservi che nella precedente visita in DFS la visita del nodo deve avvenire \textbf{sempre} nei limiti consentiti dalla matrice ed eventualmente una \textbf{condizione}, che nel caso illustrato in precedenza è $M[r][c] > 0$. \\
+Successivamente per non iterare all'infinito è sufficiente settare, non appena il nodo viene visitato un flag visited, questo è possibile farlo con una matrice costruita ad hoc in precedenza di booleani oppure modificando il valore della cella dopo averla visitata, in modo da rendere falsa la condizione di visita. Nel caso precedente è stato scelto: $M[r][c] = 0$ che contraddice $M[r][c] > 0$. La chiamata ricorsiva infine va propagata su tutti e 4 i lati (destra, sinistra, in alto ed in basso), non dobbiamo preoccuparci di sforare gli indici in quanto è già previsto dalla visita in DFS.\\
+La funzione procedura invece è il wrapper che chiamerà ricorsivamente la dfs su tutti i nodi non visitati, ancora una volta, lo statement $M[r][c] > 0$ è solo a scopo illustrativo, la condizione dipenderà esclusivamente dal problema, inoltre se si è più comodi è possibile, per non visitare nuovamente i nodi, utilizzare una matrice di supporto booleana in cui si segna se un nodo è stato o meno visitato. In questo esempio si è deciso di farlo rendendo falsa la condizione di visita non appena il nodo viene visitato.\\
+\textbf{Un altro esempio di visita DFS è il seguente}
+\begin{lstlisting}[caption=DFS generica con return di valore]
+% esempio tenere il valore massimo
+int procedura(ITEM[][]A, int n)
+	int maxsofar = 0
+  	for r = 1 to n do
+    	for c = 1 to n do
+      		if A[r, c] = $condizione$ then
+       	 		maxsofar = max(maxsofar, dfs(A, r, c, n))
+  	return maxsofar
+
+int dfs(ITEM[][]A, int r, int j, int n)
+	if 1 $\leq$ r $\leq$ n and 1 $\leq$ c $\leq$ n and A[r, c] = $condizione$ then
+    	A[r, c] = $\neg$ $condizione$
+    	% propagazione con somma di un determinato valore
+    	return $valore$ + dfs(A, r - 1, c, n) + dfs(A, r, c - 1, n) + dfs(A, r +
+  		1, c, n) + dfs(A, r, c + 1, n)
+  	else
+    	return 0
+\end{lstlisting}
+L'esempio precedente riporta una semplice DFS con i principi illustrati in precedenza. Tale BFS ritorna un valore in base ad una certa condizione, la procedura ne ritorna il massimo in tutta la matrice quadrata vista come grafo.
+\newpage
+\subsection{Visita di una matrice in BFS}
+\begin{lstlisting}[caption=Schema BFS con Matrice quadra]
+int grid(int[][] M, int n)
+	int[] dr = [-1, 0, +1, 0] % Mosse possibili sulle righe
+  	int[] dc = [0, -1, 0, +1] % Mosse possibili sulle colonne
+  	int[] distance = new int[1...n][1...n]
+  	QUEUE Q = QUEUE
+  	for r = 1 to n do
+    	for c = 1 to n do
+      		distance[r][c] = iif(M[r][c] == 1, 0, -1)
+      		if M[r][c] == 1 then
+        		Q.enqueue(<r, c>)
+  	while not Q.isEmpty() do
+    	int, int r, c = Q.dequeue()   % Riga, colonna della cella corrente
+    	for i = 1 to 4 do
+      		nr = r + dr[i] % Nuova riga
+      		nc = c + dc[i] % Nuova colonna
+      		if 1 $\leq$ nr $\leq$ n and 1 $\leq$ nc $\leq$ n and distance[nr][nc] < 0 then
+        		distance[nr][nc] = distance[r][c] + 1
+        		if M[nr][nc] == $destinazione$ then
+          			return distance[nr][nc]
+        		else
+          			Q.enqueue(<nr, nc>)
+\end{lstlisting}
+L'esempio precedente è stato fatto seguendo il principio di un algoritmo di \textit{Erdos} sulla matrice. Questo schema è liberamente modificabile, si ricordi tuttavia di settare i nodi come visitati, in modo da non inserirli più volte nella coda, in questo esempio è stato utilizzato un vettore delle distanze, ma come prima è possibile modificare le celle vistitate in modo da rendere falsa la condizione di visita oppure utilizzare una matrice di appoggio di booleani che per ogni cella segna se è stata visitata o meno. Si noti infine come è molto importane controllare che le chiamate non abbiano superato gli indici della matrice.
+
+\newpage
+\end{document}

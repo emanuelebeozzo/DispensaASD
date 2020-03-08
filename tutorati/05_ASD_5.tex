@@ -1,0 +1,108 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{ASD5}
+\textbf{Grafo etichettato}
+\begin{lstlisting}[caption=Il grafo contiene la sottosequenza LODE?]
+boolean checkPath(GRAPH G, char[] l, char[] A, int n)
+	foreach u $\in$ G.V() do
+    	if checkLabels(G, l, A, n,1, u) then
+      		return true
+
+boolean checkLabels(GRAPH G, char[] l, char[] A, int n, int i, int u)
+	if l[u] = A[i] then
+    	if i = n then
+      		return true
+    	foreach v $\in$ G.adj(u) do
+      		if checkLabels(G, l, A, n, i+1, v) then
+        		return true
+  	return false
+\end{lstlisting}
+Questo algoritmo per risolvere il problema effettua una visita a
+partire da ogni nodo, verificando nodo per nodo se la sequenza viene rispettata, altrimenti, interrompe la
+visita qualora le etichette non corrispondano. Semplicemente viene fatto passare per ogni nodo l'algoritmo \textit{checkLabels}, il quale in dfs controlla se il suo valore è pari al valore del vettore nella posizione passata, se si allora esso propaga l'algoritmo con la posizione successiva agli adiacenti, altrimenti non fa nulla. Qualora si arrivasse alla fine del percorso l'algoritmo ritorna true. Si noti che la complessità è superpolinomiale, in quanto è
+necessario seguire tutti i possibili percorsi, anche tenendo conto che il
+grafo e aciclico.\\
+\textbf{Griglia quadra}\\
+Soluzione con costruzione del grafo:
+\begin{lstlisting}[caption=Griglia quadra - costruzione grafo]
+(GRAPH, int[]) costruisciGrafo(int[][] A, int n)
+	GRAPH G = new GRAPH
+  	int[] colors = new colors[1..n]
+  	% inserimento nodi
+  	for i = 1 to n $\cdot$ n do
+    	G.insertNode(i)
+  	% inserimento archi
+  	for riga = 1 to n do
+    	for colonna = 1 to n do
+      		% id sequenziale del nodo
+      		int idNodo = colonna + (riga - 1) $\cdot$ n
+      		colors[idNodo] = A[riga][colonna]
+      		int idAdiacente
+      		if riga $\neq$ 1 then 
+        		idAdiacente = colonna + (riga - 2) $\cdot$ n
+        		G.insertEdge(idNodo, idAdiacente)
+      		if colonna $\neq$ 1 then
+        		idAdiacente = (colonna - 1) + (riga - 1) $\cdot$ n
+        		G.insertEdge(idNodo, idAdiacente)
+      		if colonna $\neq$ n then
+        		idAdiacente = (colonna + 1) + (riga - 1) $\cdot$ n
+        		G.insertEdge(idNodo, idAdiacente)
+      		if riga $\neq$ n then
+        		idAdiacente = colonna + riga $\cdot$ n
+        		G.insertEdge(idNodo, idAdiacente)
+  	return (G, colors)
+
+int distanza1_3(int[][] A, int n)
+	GRAPH G
+  	int[] colors = new int[1..n$\cdot$n]
+  	(G, colors) = costruisciGrafo(A, n)
+  	QUEUE q = new QUEUE
+  	int[] distanze = new distanze[1..G.size()]
+  	foreach u $\in$ G.V() do
+    	if colors[u] == 1 then
+      		distanze[u] = 0
+      		q.enqueue(u)
+    	else
+      		distanze[u] = $+\infty$
+  	while not q.isEmpty() do
+    	NODE u = q.dequeue()
+    	foreach v $\in$ G.adj(u) do
+      		if distanze[v] == $+\infty$ then
+        		distanze[v] = distanze[u] + 1
+        		if colors[v] == 3 then 
+          			return distanze[v]
+        		else
+          			q.enqueue(v)
+  	return $+\infty$
+\end{lstlisting}
+La costruzione del grafo partendo dalla matrice ha un costo di $\Theta(n^2)$, e si può fare con dei semplici accorgimenti: un assegnazione univoca di un identificatore del nodo, semplicemente un numero da 1 a $n^2$ e un controllo sugli indici per non selezionare un nodo non esistente. \\
+Questo algoritmo costruisce un grafo partendo da una matrice, si occupa inoltre di inserire all'interno di un vettore \textit{colors[i]} il valore della cella della matrice associata al nodo \textit{i}. \\ Avendo questo è semplice trovare la distanza minima dalle celle di colore 1 ad una cella di colore 3, effettuando una bfs assegnando distanza 0 dei nodi con colore pari a 1 e procedendo come insegna \textit{Erdos}. Ritorniamo la distanza della prima occorrenza di colore 3 in quanto essendo la bfs una visita per livelli, la prima occorrenza è anche la meno distante.
+\\\\
+Soluzione con bfs direttamente sulla matrice:
+\begin{lstlisting}[caption=Griglia quadra]
+int grid(int[][] M, int n)
+  int[] dr = [-1, 0, +1, 0] % Mosse possibili sulle righe
+  int[] dc = [0, -1, 0, +1] % Mosse possibili sulle colonne
+  int[] distance = new int[1...n][1...n]
+  QUEUE Q = QUEUE
+  for r = 1 to n do
+    for c = 1 to n do
+      distance[r][c] = iif(M[r][c] == 1, 0, -1)
+      if M[r][c] == 1 then
+        Q.enqueue(<r, c>)
+  while not Q.isEmpty() do
+    int, int r, c = Q.dequeue()   % Riga, colonna della cella corrente
+    for i = 1 to 4 do
+      nr = r + dr[i] % Nuova riga
+      nc = c + dc[i] % Nuova colonna
+      if 1 $\leq$ nr $\leq$ n and 1 $\leq$ nc $\leq$ n and distance[nr][nc] < 0 then
+        distance[nr][nc] = distance[r][c] + 1
+        if M[nr][nc] == 3 then
+          return distance[nr][nc]
+        else
+          Q.enqueue(<nr, nc>)
+\end{lstlisting}
+Il principio di funzinamento è sempre lo stesso, ovvero una visita in bfs assegnando ai nodi di colore 1 la distanza 0. Il foreach della bfs viene fatto corrispondere ad un for sulle mosse possibili. Viene inoltre controllato se viene sforato uno dei possibili indici, se non viene sforato allora ci si comporta come nell'algoritmo precedente.
+
+\end{document}

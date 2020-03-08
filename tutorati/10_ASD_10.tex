@@ -1,0 +1,39 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{ASD10}
+\textbf{Prima Occorrenza}\\
+Visto che il vettore di interi che viene passato è ordinato possiamo utilizzare la ricerca binaria in modo da trovare in complessità logaritmica la prima occorrenza di un numero \textit{v}. Di seguito viene proposta un'implementazione definita poco elegante ma che ci è venuta subito in mente: l'idea è quella di continuare la ricerca dicotomica nella parte sinistra dell'array quando si trova l'elemento cercato (con l'accortezza di includere all'interno di questo array anche l'elemento appena analizzato - nel caso in cui fosse effettivamente la prima occorrenza) e restituire l'indice soltanto quando si analizza uno e un solo elemento.
+\begin{lstlisting}[caption=Prima Occorrenza]
+int binaryFirst(int[] A, int start, int end, int v)
+	if start $==$ end then
+		return start
+  	else
+    	int m = (start + end)/2
+    	if A[m] $==$ v then
+      		return binaryFirst(A, start, m, v)
+    	else if A[m] < v then
+        	return binaryFirst(A, m+1, end, v)
+      	else
+        	return binaryFirst(A, start, m-1, v)
+
+int first(int[] A, int n, int v)
+	return binaryFirst(A, 1, n, v)
+\end{lstlisting}
+Nella soluzione seguente Montresor decide semplicemente di unificare i casi in un unico if else con la condizione del $\leq$
+\begin{lstlisting}[caption=Prima Occorrenza (by Montresor)]
+int firstRec(int[] A, int i, int j, int v)
+	if i $==$ j then
+    	return i
+  	else
+    	int m = (i + j)/2
+    	if A[m] $\leq$ v then
+      		return binaryFirst(A, i, m, v)
+    	else
+      		return binaryFirst(A, j, m+1, v)
+      
+int first(int[] A, int n, int v)
+	return binaryFirst(A, 1, n, v)
+\end{lstlisting}
+
+\end{document}

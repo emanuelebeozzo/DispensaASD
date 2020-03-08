@@ -1,0 +1,21 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{ASD4}
+\textbf{Ricorrenza Parametrizzata rispetto a K}
+\begin{center}
+	\begin{equation*}
+  		T_{k}(n)=\begin{cases}
+    		k^{2}T_{k}(n/k) + n^{k/2}  & \text{$n > 1$}\\
+    		1 & \text{$n \leq 1$}
+  		\end{cases}
+	\end{equation*}
+\end{center}
+Possiamo notare che è possibile appicare il master theorem:\\
+$a = k^{2}$, $b = k$, $\beta = k/2$, $\alpha = \log_{n}{k^{2}}= 2$\\
+Se $k = 2$ $\implies$ $\beta = 1$ $\implies$ $\alpha > \beta$ $\implies$ $\Theta(n^{2})$\\
+Se $k = 3$ $\implies$ $\beta = 3/2$ $\implies$ $\alpha > \beta$ $\implies$ $\Theta(n^{2})$\\
+Se $k = 4$ $\implies$ $\beta = 2$ $\implies$ $\alpha = \beta$ $\implies$ $\Theta(n^{2}\log{n})$\\
+Risulta dunque chiato che l'algoritmo che va scartato è quello per $k = 4$.
+
+\end{document}

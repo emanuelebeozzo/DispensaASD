@@ -1,0 +1,151 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esecitazione 5 - 19/12/19}
+\textbf{Per fare un albero (binario di ricerca) ci vuole...}\\
+Dato un vettore \textit{V} di \textit{n} interi ordinati e distinti, scrivere una procedurache costruisce un albero binario di ricerca di altezza minima.Discuterne la correttezza e la complessità
+\\\\
+Soluzione proposta:
+\begin{lstlisting}[ caption=Costruzione ABR a partire da vettore ordinato]
+Tree buildTree(int[] A, int n)
+	return buildTreeRec(A, 1, n)
+
+Tree buildTreeRec(int[] A, int inizio, int fine)
+	if inzio > fine then 
+    	return nil
+  	else
+    	int meta = (inizio + fine)/2
+    	Tree albero = new Tree(A[meta])
+    	albero.insertLeft(buildTreeRec(A, inzio, meta - 1))
+    	albero.insertRight(buildTreeRec(A, meta + 1, fine))
+    	return albero
+\end{lstlisting}
+Il funzionamento dell'algoritmo proposto in precedenza è molto semplice, in quanto il vettore è ordinato per costruire l'albero di altezza minima è encessario che abbia alla sinistra e alla sua destra lo stesso numero di nodi o che differiscano di al massimo 1 (Il fattore di bilanciamento $\beta(v)$ di un nodo \textit{v} è la massima differenza
+di altezza fra i sottoalberi di \textit{v} deve $\leq$ 1). Si noti che prendendo sempre il valore mediano i due sottovettori ottenuti sono composti da un numero di elementi che differisce l'uno dall'altro, al più di 1. La parte di sinistra contiene valori minori del valore centrale, mentre la parte di destra valori maggiori, tali parti andranno a comporre rispettivamente il sottoalbero sinistro e destro dell'albero con radice il valore centrale.
+L'algoritmo così descritto è dunque corretto ed ha complessità data dalla seguente equazione di ricorrenza:
+\begin{center}
+	\begin{equation*}
+  		T(n)=\begin{cases}
+    		2T(n/2)  & \text{$n > 0$}\\
+    		1 & \text{$n \leq 0$}
+  		\end{cases}
+	\end{equation*}
+\end{center}
+Dal \textit{Master Theorem} sappiamo che:\\
+$a = 2, b = 2, \beta = 0, \alpha = \log_a(b) = \log_2(2) = 1$\\
+Dunque: $\alpha > \beta$ allora $T(n) = \Theta(n^\alpha) = \Theta(n)$ 
+\\\\
+\textbf{Good vs bad guys}\\
+Fra ogni coppia di wrestler professionisti può esserci una rivalità oppureno. Per ragioni di marketing, è una buona idea dividere i wrestler professionisti in due gruppi, "buoni" e "cattivi", e farli combattere fra di loro. Supponete di avere in input un insieme di rivalità, rappresentate comeun vettore di coppie \textit{(x, y)}, dove \textit{x} e \textit{y} sono identificatori di wrestler compresi fra \textit{1} ed \textit{n}. Scrivere un algoritmo che restituisca \textit{true} se è possibile suddividere i wrestler professionisti in due sottoinsiemi non vuoti ("buoni" e"cattivi"), non necessariamente della stessa dimensione, in modo tale che non ci siano rivalità all’intero dei due gruppi; \textit{false} altrimenti.
+\newpage
+Soluzione proposta:
+\begin{lstlisting}[ caption=2 colorazione di Grafo con i wrestler]
+GRAPH rivalitaWrestler(int[] x, int[] y, int n)
+	GRAPH G = new GRAPH
+  	for indice = 1 to n do
+    	G.insertNode(indice)
+  	for indice = 1 to n do
+    	G.insertEdge(x[i], y[i])
+    	G.insertEdge(y[i], x[i])
+  	return G
+
+boolean 2wrestlercolorabile(GRAPH G)
+	int[] colors = new int[1..G.size()]
+  	foreach u $\in$  G.V() do
+    	colors[u] = - 1
+  	foreach u $\in$  G.V() do
+    	if colors[u] == -1 then
+      		if not 2wrestlercolorabile_rec(G, u, colors, 0) then
+        		return false
+  	return true
+
+boolean 2wrestlercolorabile_rec(GRAPH G, NODE u, int colors[], int color)
+	colors[u] = color
+  	foreach v $\in$ G.V() do
+    	if colors[v] == -1 then
+      		if not 2wrestlercolorabile_rec(G, v, colors, (color + 1) mod 2)
+        		return false
+    	else
+      		if colors[v] == color then
+        		return false
+  	return true
+\end{lstlisting}
+
+Il problema proposto è un problema di grafo 2-colorabile, infatti è necessario, dopo la costruzione del grafo a partire dai vettori di rivalità, effetuare una visita in dfs con la colorazione del grafo. \\
+La spiegazione della colorazione del grafo la si può trovare nel'esercitazione 3 sotto la voce "Grafi bipartiti".
+\newpage
+\textbf{Grafi – Pozzo universale}\\
+\begin{itemize}
+	\item Un pozzo universale è un nodo con out-degree uguale a zero e in-degree uguale a $n-1$.
+	\item Dato un grafo orientato \textit{G} rappresentato tramite matrice diadiacenza, scrivere un algoritmo che opera in tempo $\Theta(n)$ in grado di determinare se \textit{G} contiene un pozzo universale.
+	\item È possibile ottenere la stessa complessità con liste di adiacenza?
+\end{itemize}
+La soluzione proposta è la seguente:\\
+\begin{lstlisting}[ caption=Pozzo universale]
+boolean hashPozzo(NODE[][] G, int n)
+	int candidate = 0 % riga candidata
+  	% scorro le colonne
+  	for indice = 1 to n do
+  		% se trovassi uno 0 allora proseguo, candidato valido, gli altri non lo sono di sicuro perche' non hanno quel in degree che gli serve
+    	if G[candidate][indice] == 1 then
+      		% cambio candidato a quello indicato dall'indice
+      		candidate = indice
+  			% finito il for ho la mia riga candiata, la sua colonna deve contenere tuti 1 per essere un effettivo pozzo universale
+  	for riga = 1 to n do
+    	if riga != candidate then
+      		if A[riga][candidate] == 0 then
+        		return false
+  	% deve anche contenere tutti 0 sulla sua riga
+  	for colonna = 1 to n do
+  		if A[candidate][colonna] == 1 then
+    		return false
+  	return true
+\end{lstlisting}
+La soluzione di Montresor è la seguente:
+\begin{lstlisting}[ caption=Pozzo universale Montresor]
+boolean universalSink(NODE[][] G, int n)
+	int i = 1
+  	boolean candidate = false
+  	while i < n and candidate == false do
+    	int j = i + 1
+    	while j $\leq$ and A[i][j] == 0 do
+      		j = j + 1
+    	if j > n then
+      		candidate = true
+    	else
+      		i = j
+  	int rowtot = $\sum_{j \in {1..n}}A[i][j]$
+  	int coltot = $\sum_{j \in {1..n}}A[j][i]$
+  	return rowtot = 0 and coltot == n - 1
+\end{lstlisting}
+
+La logica che sta dietro alla soluzione è la seguente: \\
+In quanto in input abbiamo una matrice di adiacenza, allora un pozzo universale è dato dall'indice della riga composta da tutti 0, la cui colonna (sempre allo stesso indice) è composta da tutti 1, fatta eccezione per la cella alla sua riga. \\ Osserviamo inoltre che non è possibile che ci siano più pozzi universali, in quanto se ne esistesse un altro allora dovrebbe avere $n-1$ come in-degree per definizione, ma questo è impossibile dato che esiste un altro pozzo universale che ha out-degree pari a 0.\\
+ L'obiettivo è quello di trovare un possibile candidato attraverso una visita il più possibile lineare, per farlo scorriamo la prima riga: nel momento in cui troviamo uno 0, significa che la riga corrente è un potenziale pozzo universale, mentre la colonna di tale 0 non è sicuramente un pozzo universale dato che non può avere in-degree pari a $n-1$. \\
+Nel momento in cui troviamo una cella di valore 1 allora tale riga non può essere un pozzo universale, ci spostiamo dunque sulla riga identificata dalla colonna del valore 1 trovato, questo perché le righe corrispondenti alle colonne precedenti sono state scartate, se si è verificato il caso precedente, mentre non possiamo scartare tale riga in quanto può avere in-degree pari a $n-1$ e dunque un potenziale candidato.\\
+Arrivati al termine della visita lineare abbiamo un candidato, dunque verifichiamo se esso è realmente un pozzo universale effettuando, con costo ancora lineare, la somma di tutti i valori sulla sua riga e sulla sua colonna; se out-degree = \textit{0} e in-degree = $n - 1$ abbiamo trovato il pozzo universale.\\
+Il costo dell'algoritmo è pari a 3 visite di grandezza n, dunque: $\Theta(n)$.
+\\\\
+\textbf{Ricorrenza $4T(\sqrt(n)) + \log^2(n)$}\\\\
+Si ottengano limiti superiori e inferiori per la seguente ricorrenza:
+\begin{center}
+	\begin{equation*}
+  		T(n)=\begin{cases}
+    		4T(\lfloor \sqrt(n) \rfloor) + \log^2(n)  & \text{$n > 1$}\\
+    		1 & \text{$n = 1$}
+  		\end{cases}
+	\end{equation*}
+\end{center}
+Questa equazione, in quanto presenta una radice è difficile da portare ad una forma chiusa, dobbiamo dunque ricorrere ad una supposizione che ci semplificherà i calcoli. In particolare:
+Poniamo $n = 2^k$, sostituendo tale valore nella ricorrenza otteniamo:\\
+$T(2^k) = 4T(\sqrt(2^k)) + \log^{2}(k^2)= 4T(2^{k/2}) + k^2$\\\\
+Sostituiamo quindi la variable $T(2^k)$ con $S(k)$ e otteniamo tramite \textit{Master Theorem}\\
+$S(k) = 4S(\frac{k}{2}) +k^2$ \\
+Vale:\\
+$a = 4, b = 2, \beta = 2, \alpha = \log_b(a) = \log_2(4) = 2$\\
+Segue che: $\alpha = \beta$ dunque $S(k) = \Theta(k^\alpha \log(k)) = \Theta(k^2 \log(k))$\\
+Esprimiamo la ricorrenza in termini di $T(n)$ applicando la sostituzione $k = \log(n)$, derivata dalla precedente sostituzione $n = 2^k$:\\
+$T(n) = \Theta(\log^2(n)\log(\log(n)))$
+
+\newpage
+\end{document}

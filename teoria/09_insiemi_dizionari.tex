@@ -1,0 +1,90 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Insiemi e dizionari}
+\subsection{Insiemi con vettori booleani}
+\textbf{Descrizione}: Un insieme è una collezione di m oggetti con valori compresi tra 1..m. Un insieme può essere memorizzato in un vettore booleano di m elementi, con l'indice che rappresenta l'elemento e il contenuto del vettore se l'elemento è presente o meno. I vantaggi sono: implementazione semplice e velocità nel verificare se un elemento appartiene all'insieme, mentre come svantaggi abbiamo che occupiamo O(m) memoria anche per salvare pochi elementi e che alcune operazioni vengono eseguite in O(m).\\
+\textbf{Implementazione}: Possibile implementazione del Set attraverso vettori booleani.\
+\begin{lstlisting}[ caption= Set con vettore booleano: operazioni base]
+% definizione struttura dati SET
+SET 
+	boolean[] V
+	int size	% numero di elementi presenti attualmente nel SET
+	int dim		% numero di elementi che possono stare in totale nel SET
+	
+SET Set(int m)
+	SET t = new SET
+	t.size = 0
+	t.dim = m
+	t.V = [false] * m    % inizializzo tutti gli elementi a false
+	return t
+	
+boolean contains(int x)
+	if 1 $\leq$ x $\leq$ dim then
+		return V[x]
+	else
+		return false
+		
+int size()
+	return size
+
+insert(int x)
+	if 1 $\leq$ x $\leq$ dim then
+		if not V[x] then
+			size = size+1
+			v[x] = true
+			
+remove(int x)
+	if 1 $\leq$ x $\leq$ dim then 
+		if V[x] then
+			size = size-1
+			v[x]= false
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[ caption= Set con vettore booleano: operazioni base]
+% definizione struttura dati SET
+SET union(SET A, SET B)
+	SET C = Set(max(A.dim, B.dim))
+	for i = 1 to A.dim do
+		if A.contains(i) then
+			C.insert(i)
+	for i = 1 to B.dim do
+		if B.contains(i) then
+			C.insert(i)
+
+SET intersection(SET A, SET B)
+	SET C = Set(min(A.dim, B.dim))
+	for i = 1 to min(A.dim, B.dim) do
+		if A.contains(i) and B.contains(i) then
+			C.insert(i)
+
+SET difference(SET A, SET B)
+	SET C = Set(A.dim)
+	for i = 1 to A.dim do
+		if A.contains(i) and not B.contains(i) then
+			C.insert(i)	
+\end{lstlisting}	
+
+\textbf{Implementazioni reali}: In Java e C++ sono già implementati i set e sono già presenti nelle librerie standard con in nome BitSet. Esistono anche implementazioni dei set con liste, vettori non ordinati o strutture dati più complesse come alberi e hash table.
+
+\subsection{Bloom Filters}
+\textbf{Descrizione}: Struttura dati che unisce i vantaggi dei BitSet a quelli delle tabelle di Hash. Vantaggi: struttura dati dinamica e bassa occupazione di memoria. Svantaggi: non è possibile effettuare cancellazioni, le risposte ricevute dalla struttura sono probabilistiche e i dati non sono realmente memorizzati nella struttura.\\
+\textbf{Specifica}: Sono presenti due principali operazioni:
+\begin{itemize}
+ 	\item insert(k): inserisce l'elemento k nel bloom filter 
+ 	\item bool contains(k): restituisce false se l'elemento k è sicuramente  non presente nell'insieme, restituisce true se l'elemento può essere presente oppure no (falsi positivi). 
+\end{itemize}
+Per l'implementazione usiamo un vettore booleano A di m bit, inizializzato a false e k funzioni di hash: h$_{1}$, h$_{2}$, ..., h$_{k}$: U $\rightarrow$ [0, m-1]\
+\begin{lstlisting}[ caption= Implementazione Bloom Filter]
+insert(k)
+	for i = 1 to k do
+		A[hi(k)] = true
+		
+boolean contains(k)
+	for i = 1 to k do
+		if A[hi(k)] == false then 
+			return false
+	return true
+\end{lstlisting}
+
+\end{document}

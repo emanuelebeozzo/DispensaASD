@@ -1,0 +1,47 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{ASD11}
+\textbf{Valore unico}\\
+Dato un vettore ordinato di interi in cui gli elementi compaiono esattamente due volte tranne un elemento, trovare e restituire tale elemento che compare solo una volta. La soluzione più efficiente si basa su una ricerca binaria modificata. Usiamo indici tra 1 e n per il vettore. Se consideriamo l'elemento a metà del vettore, il suo indice sarà pari o dispari. Se tale indice è dispari e se il suo l'elemento successivo è uguale, vuol dire che tutti gli elementi prima sono presenti a coppie e quindi cerchiamo solo nella  metà successiva al mediano, altrimenti sappiamo che tutti gli elementi dopo sono coppie e dobbiamo cerca negli elementi precedenti. Il ragionamento è lo stesso per il caso di indice dell'elemento a metà pari e il test dell'elemento precedente.
+ 
+\begin{lstlisting}[ caption= Valore unico]
+int singleRec(ITEM[] A, int i, int j)
+	if i = j then
+		return A[i]
+	int m = floor((i + j)/2)
+	if m mod 2 = 1 then
+		if A[m] = A[m + 1] then
+			return singleRec(A, m+2, j)
+		else
+			return singleRec(A, i, m)
+	else
+			if A[m - 1] = A[m] then
+			return singleRec(A, m+1, j)
+		else
+			return singleRec(A, i, m - 1)
+			
+//funzione wrapper
+int single(ITEM[] A, int n)
+	return singleRec(A, 1, n)
+\end{lstlisting}
+Il costo di tale soluzione è $\mathcal{O}$(log n).\\\\
+\textbf{Zero}\\
+Dato un vettore contenente n interi (n $\geq$ 3) e tale per cui: il primo elemento è minore di 0, l'ultimo elemento è maggiore di 0 e per ogni indice $\leq$ di 2 vale | V[i-1] - V[i]| $\leq$ 1, trovare l'indice dell'elemento 0 (se esiste). La soluzione è basata su un algoritmo divide-et-impera. Possiamo notare che l'elemento 0 sarà sempre presente all'interno del vettore per via delle condizioni poste all'inizio. Per risolvere il problema, l'algoritmo divide a metà il problema trovando indice dell'elemento m a metà dell'array. Se l'elemento a tale indice è uguale a 0, abbiamo finito, altrimenti se l'elemento è più piccolo di 0 dobbiamo cercare ricorsivamente nella metà destra dell'array oppure se è maggiore dobbiamo ricercare nella metà sinistra. Il caso base considera un vettore di 3 elementi: -1, 0 e 1.
+ 
+\begin{lstlisting}[ caption= Zero]
+int zerorec(ITEM[] A, int i, int j)
+	int m = floor((i + j)/2)
+	if A[m] = 0 then
+		return m
+	else if(A[m] > 0)
+		return zerorec(A, i, m)
+	else
+		return zerorec(A, m, j)
+			
+int zero(ITEM[] A, int n)
+	return zerorec(A, 1, n)
+\end{lstlisting}
+
+\newpage
+\end{document}

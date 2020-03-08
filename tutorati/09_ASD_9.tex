@@ -1,0 +1,114 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{ASD9}
+\textbf{Foresta}
+\begin{lstlisting}[caption=Foresta con costruzione del grafo]
+(GRAPH, int[]) costruisciGrafo(int[][] A, int n)
+	GRAPH G = new GRAPH
+  	int[] types = new int[1..n]
+  	% inserimento nodi
+  	for i = 1 to n $\cdot$ n do
+    	G.insertNode(i)
+  	% inserimento archi
+  	for riga = 1 to n do
+    	for colonna = 1 to n do
+      	% id sequenziale del nodo
+      	int idNodo = colonna + (riga - 1) $\cdot$ n
+      	types[idNodo] = A[riga][colonna]
+      	if A[riga][colonna] == 1 then
+        	if riga $\neq$ 1 then 
+          		if A[colonna][riga - 1] == 1 then 
+            		int idAdiacente = colonna + (riga - 2) $\cdot$ n
+            		G.insertEdge(idNodo, idAdiacente)
+        if colonna $\neq$ 1 then
+          	if A[colonna - 1][riga] == 1 then 
+            	int idAdiacente = (colonna - 1) + (riga - 1) $\cdot$ n
+            	G.insertEdge(idNodo, idAdiacente)
+        if colonna $\neq$ n then
+          	if A[colonna + 1][riga] == 1 then 
+            	int idAdiacente = (colonna + 1) + (riga - 1) $\cdot$ n
+            	G.insertEdge(idNodo, idAdiacente)
+        if riga $\neq$ n then
+          	if A[colonna][riga + 1] == 1 then 
+            	int idAdiacente = colonna + riga $\cdot$ n
+            	G.insertEdge(idNodo, idAdiacente)
+  	return (G, type)
+
+int searchForest(int[][] A, int n)
+	int[] types = new int[1..n$\cdot$n]
+  	GRAPH G = new GRAPH
+  	(G, types) costruisciGrafo(A, n)
+  	% trovo le componenti connesse che siano foreste
+  	int[] ids = new int[1..G.size()]
+  	foreach u $\in$ G.V() do
+  		ids[u] = 0
+  	int counter = 0
+ 	int maxSoFar = 0
+  	int maxTot = 0
+  	foreach u $\in$ G.V() do
+    	counter = counter + 1
+    	ccdfs(G, counter, u, ids, types, maxTot)
+    	maxTot = max(maxTot, maxSoFar) 
+    	maxSoFar = 0
+  	return maxTot
+
+ccdfs(GRAPH G, int counter, NODE u, int[] id, int[] types, int& maxSoFar)
+	id[u] = counter
+  	if types[u] == 1 then
+  		maxSoFar = maxSoFar + 1
+ 		foreach v $\in$ G.adj(u) do
+    		if id[v] == 0 then
+      			ccdfs(G, counter, v, id, types, maxSoFar)
+\end{lstlisting}
+L'algoritmo costruisce a partire dalla matrice una semplice grafo. Non appena il grafo è stato preparato si chiama, per tutti i nodi, la procedura in dfs chiamata \textit{ccdfs} con una piccola modifca, essa modifca la grandezza della componente connessa per riferimento che viene opportunatamente resettata al termine della procedura; l'algoritmo inoltre non si propaga se il tipo della casella è pari a 0. Infine si tiene sempre morizzata la grandezza della componente connessa massima che verrà ritornata dalla procedura principale.\\\\
+Soluzione alternativa senza la costruzione del grafo:
+\begin{lstlisting}[caption=Foresta senza costruzione del grafo]
+int searchForest(int[][]A, int n)
+	maxsofar = 0
+  	for i = 1 to n do
+    	for j = 1 to n do
+      		if A[i, j] = 1 then
+        		maxsofar = max(maxsofar, dfs(A, i, j, n))
+  	return maxsofar
+
+int dfs(int[][]A, int i, int j, int n)
+	if 1 $\leq$ i $\leq$ n and 1 $\leq$ j $\leq$ n and A[i, j] = 1 then
+    	A[i, j] = 0
+    	return 1 + dfs(A, i - 1, j, n) + dfs(A, i, j - 1, n) + dfs(A, i +
+    1, j, n) + dfs(A, i, j + 1, n)
+  	else
+    	return 0
+\end{lstlisting}
+Lo scopo di questo algoritmo è analogo al precedente, in questo caso, come nel precedente si chiama sui nodi foresta la procedura in dfs.\\
+La procedura torna un valore diverso da 0 se la cella tornata è in una posizione valida ed ovviamente è di tipo foresta. \\
+Ogni nodo viene settato visitato modificando direttamente la matrice, in particolare viene settato il campo stesso a 0 e viene fatta una chiamata ricorsiva su tutte e quattro le direzioni consentite. \\  Ovviamente la procedura finale ritornerà la dimensione della foresta connessa più grande.\\\\
+\textbf{Nodi che raggiungo ovunque}\\
+\begin{lstlisting}[caption=Nodi che raggiungo ovunque]
+int nodiRaggiunti(GRAPH G, NODE r)
+	boolean[] visited = new boolean[1..G.size()]
+  	QUEUE q = new QUEUE()
+  	foreach u $\in$ G.V()-{r} do
+    	visited[u] = false
+  	visited[r] = true
+  	int nodiVisitati = 1
+  	q.enqueue(r)
+  	while not q.isEmpty() do
+    	NODE u = q.dequeue()
+    	foreach v $\in$ G.adj(u) do
+      		if not visited[v] then
+        		nodiVisitati = nodiVisitati + 1
+        		visited[v] = true
+        		q.enqueue(v)
+  	return nodiVisitati
+
+int nodiOnniscenti(GRAPH G)
+	int countNodi = 0
+  	foreach u $\in$ G.V() do
+    	if nodiRaggiunti(G, u) == G.size() then
+      		countNodi = countNodi + 1
+  	return countNodi
+\end{lstlisting}
+Il principio di base è quello di lanciare una visita in bfs per ogni nodo che compone il grafo e controllare se tutti i nodi sono stati vistati; se questo accade allora il numero di nodi visti sarà pari al numero di nodi totali, incrementando dunque il contatore dei nodi che raggiungono ovunque. \\ L'algoritmo termina ritornando il numero di nodi che raggiungono ovunque.
+
+\end{document}

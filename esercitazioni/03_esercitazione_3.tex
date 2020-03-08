@@ -1,0 +1,199 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esecitazione 3 - 26/11/19}
+\textbf{Grafi – Stessa distanza} \\
+\begin{itemize}
+\item In un grafo orientato G, dati due nodi \textit{s} e \textit{v}, si dice che:
+	\begin{itemize}
+		\item \textit{v} è raggiungibile dasse esiste un cammino da \textit{s} a \textit{v};
+		\item a distanza divda \textit{s} è la lunghezza del più breve cammino da \textit{s} a \textit{v} (misurato in numero di archi), oppure $+\infty$ se \textit{v} non è raggiungibile da \textit{s}
+	\end{itemize}
+	
+	\item Scrivere un algoritmo che prenda in input un grafo orientato $G=(V, E)$ e due nodi $s_1$, $s_2$ $\in V$ e che restituisca il numero di nodi in $V$ tali che:
+	\begin{itemize}
+		\item siano raggiungibili sia da $s_1$ che da $s_2$, e si trovino alla stessa distanza da $s_1$ e da $s_2$.
+	\end{itemize}
+	\item Discutere la complessità dell’algoritmo proposto.
+\end{itemize}
+La soluzione proposta è la seguente:
+\begin{lstlisting}[ caption=Grafi-Stessa Distanza]
+int stessaDistanza(GRAPH G, NODE s, NODE v)
+	int[] erdos_s = new int[1..G.size()]
+  	int[] erdos_v = new int[1..G.size()]
+  	NODE parent_s = new NODE[1..G.size()]
+ 	NODE parent_v = new NODE[1..G.size()]
+ 	erdos(G, s, erdos_s, parent_s)
+ 	erds(G, v, erdos_v, parent_v)
+  	int nodiStessaDistanza = 0
+  	foreach u $\in$ G.V() do
+    	if erdos_s[u] == erdos_v[u] and erdos_s[u] $\neq$ +$\infty$ then
+      		nodiStessaDistanza = nodiStessaDistanza + 1
+  	return nodiStessaDistanza
+\end{lstlisting}
+L'algoritmo utilizza due volte la procedura di Erdos, che è possibile trovare nell'apposita sezione Grafi. \\ Si ricorda che la procedura di Erdos ritorna la distanza minima, intesa come numero di archi attraversati, dal nodo passato a tutti gli altri nodi, salvando il valore di $+\infty$ se il nodo non è raggiungibile dalla sorgente. Dunque è facile trovare la soluzione al problema trovando i nodi abbiano la stessa distanza dalla rispettiva radice e che siano raggiungibli.
+La soluzione presentata è dunque corretta, per la breve spiegazione riportata in precedenza, e si può notare che la complessità è dell'ordine di $\Theta(n + m)$ 
+\newpage
+\textbf{Grafi – Grafi bipartiti} \\
+\begin{itemize}
+	\item Un grafo non orientato \textit{G} è \textbf{bipartito} se l’insieme dei nodi può essere partizionato in due sotto insiemi disgiunti tali che nessun arco del grafo connette due nodi appartenenti allo stesso sottoinsieme.
+	\item $G = (V, E)$ è \textbf{2-colorabile} se è possibile trovare una 2-colorazione di esso, ovvero un assegnamento $c[u] \in C$ per ogni nodo $u \in V$, dove $C$ è un insieme di "colori" di dimensione 2, tale che: \\
+
+	\begin{center}
+		$(u, v) \in E \Rightarrow c(u) \neq c(v)$.
+	\end{center}
+
+	\item Si dimostri che \textit{G} è bipartito:
+	
+	\begin{itemize}
+		\item se e solo se è 2-colorabile
+		\item se e solo se non contiene circuiti di lunghezza dispari
+	\end{itemize}
+	\item Scrivere un algoritmo che prenda in input un grafo bipartito \textit{G} e restituisca una 2-colorazione di \textit{G} sull’insieme di colori $C = {0,1}$, espressa come un vettore $c[...n]$. Discuterne la complessità
+\end{itemize}
+
+La prima soluzione proposta è la seguente:
+\begin{lstlisting}[ caption=Grafi-bipartiti-bfs]
+int[] is2colorabile_bfs(GRAPH G, NODE r)
+	int[] colors = new int[1..G.size()]
+  	foreach u $\in$ G.V()-{r} do
+    	colors[u] = - 1
+  	colors[r] = 0
+  	QUEUE q = new QUEUE
+  	q.enqueue(r)
+  	while not q.isEmpty() do
+    	NODE u = q.enqueue()
+    	foreach v $\in$ G.adj(u) do
+      		if colors[v] == - 1 then
+        		colors[v] = (colors[u] + 1) mod 2
+        		q.enqueue()
+      		else if colors[v] == colors[u] then
+        		return nil % errore nessuna colorazione possibile
+  	return colors
+\end{lstlisting}
+Questo primo approccio richiede una radice del grafo e cerca di assegnare ad ogni nodo un colore mediante una visita in bfs. Si noti che qualora trova un adiacente con colore uguale al nodo corrente restituisce nil in quanto non sono possibili 2-colorazioni. Ovviamente questa soluzione, dato che sfrutta una bfs funziona solamente per grafi connessi, in quanto colora i nodi che sono raggiungibili dalla radice.\\
+Una soluzione che prevede la visita di tutti i nodi di un grafo può essere data dalla seguente soluzione:
+\newpage
+\begin{lstlisting}[ caption=Grafi-bipartiti-dfs]
+boolean is2colorabile_rec_dfs(GRAPH G, NODE u, int[] colors, int color)
+	colors[u] = color
+  	foreach v $\in$ G.adj(u) do
+    	if colors[v] == -1 then
+      		if not is2colorabile_rec_dfs(G, v, colors, (color + 1) mod 2) then
+        		return false
+    	else if colors[v] == color then
+      		return false
+  	return true
+
+int[] is2colorabile(GRAPH G)
+ 	int[] colors = new int[1..G.size()]
+  	foreach u $\in$ G.V() do
+    	colors[u] = - 1
+  	foreach u $\in$ G.V() do
+    	if colors[u] == -1 then 
+      		if not is2colorabile_rec_dfs(G, u, colors, 0) then
+        		return nil
+  	return colors
+\end{lstlisting}
+Il funzionamento della soluzione con dfs è pressoché identico a quella con bfs, essa si avvale di una funzione i\textit{s2colorabile\_rec\_dfs}, la quale propaga ricosivamente la colorazione tra nodi, qualora essa trovi lo stesso colore in due nodi adiacenti essa ritorna false e dunque l'intero algoritmo ritornerà nil, in quanto non è possibile alcuna 2-colorazione. \\ Il colore assegnato al primo nodo di ogni componente connessa è 0, tale valore ovviamente è ininfluente ai fini della correttezza dell'algoritmo. \\
+La soluzione dell'algoritmo proposto è $\Theta(n + m)$ in entrambe le versioni, in quanto si sfrutta una semplice visita di un grafo mediante liste di adiacenza. \\\\
+\textbf{Grafi – Distanza fra partizioni}\\
+
+\begin{itemize}
+	\item Dato un grafo G e due sottoinsiemi $V_1$ e $V_2$ dei suoi vertici, sidefinisce distanza tra $V_1$ e $V_2$ la distanza minima per andare da unnodo in $V_1$ ad un nodo in $V_2$, misurata in numero di archi.
+	\item Nel caso $V_1$ e $V_2$ non siano disgiunti, allora la distanza è 0.
+	\item Scrivere un algoritmo \textit{mindist(Graph G, Set $V_1$, Set $V_2$)} che restituisce la distanza minima fra $V_1$ e $V_2$.
+	\item Discutere complessità e correttezza, assumendo che l’implementazione degli insiemi sia tale che il costo di verificare l’appartenenza di un elemento all’insieme abbia costo $\mathcal{O}(1)$.
+	\item Nota: è facile scrivere un algoritmo $\mathcal{O}(nm)$; esistono tuttavia algoritmi di complessità $\mathcal{O}(n^2)$ (con matrice di adiacenza) e $\mathcal{O}(n + m)$.
+\end{itemize}
+
+\newpage
+\begin{lstlisting}[ caption=Distanza fra partizioni]
+int distanzaPartizioni(GRAPH G, SET V1, SET V2)
+	QUEUE q = new QUEUE
+  	int[] distanze = new int[1..G.size()]
+  	foreach u $\in$ G.V() do
+    	if V1.contains(u) then
+      		q.enqueue(u)
+      		distanze[u] = 0
+      	if V2.contains(u) then
+        	return 0
+    	else
+      		distanze[u] = +$\infty$
+ 	while not q.isEmpty() do
+    	NODE u = q.dequeue()
+    	foreach v $\in$ G.adj(u) do
+    	if distanze[v] == +$\infty$ then
+      		distanze[v] = distanze[u] + 1
+      	if V2.contains(v) then
+        	return distanze[v]
+      	q.enqueue(v)
+  	return +$\infty$
+\end{lstlisting}
+Lo pseudocodice precedente prima di tutto inizializza un vettore delle distanze dai vertici del set $V_1$ al set $V_2$, mettendo le distanze di tutti i vettori di $V_1$ la distanza 0 altrimenti $+\infty$. Qualora un vettore del primo set appartenga al secondo allora la distanza tra le due partizioni è 0. \\
+Successivamente si esegue una visita bfs in cui si sfrutta il principio che sta dietro all'algoritmo dei cammini minimi di Erdos, ovvero assegno ad ogni elemento la distanza del padre dal set $V_1 + 1$, il primo nodo che appartiene a $V_2$ trovato durante la visita è quello con distanza minima, dunque viene tornato il numero di archi attraversati. \\
+Qualora questo non funzionasse allora le due partizioni appartengono a due componenti connesse distinte per cui la distanza è: $+\infty$. \\
+La complessità della soluzione proposta è pari a $\Theta(n + m)$ dato dal costo della visita bfs.
+\\\\
+\textbf{Grafi – Connetti il grafo}\\
+
+\begin{itemize}
+	\item Progettare un algoritmo efficiente che dato un grafo non orientato, restituisca il numero minimo di archi da aggiungere per renderlo connesso.
+	\item Progettare un algoritmo efficiente che dato un grafo non orientato, aggiunga il numero minimo di archi necessari a renderlo connesso.
+\end{itemize}
+
+Soluzione al primo problema:
+\newpage
+\begin{lstlisting}[ caption=Numero archi per connettere il grafo]
+int n_cc(GRAPH G)
+	int[] ids = new int[1..G.V()]
+  	foreach u $\in$ a G.V() do
+    	ids[u] = 0
+  	int counter = 0
+  	foreach u $\in$ a G.V() do
+    	if ids[u] == 0 then
+      		counter = counter + 1
+      		ccdfs(G, u, ids, counter)
+  	return counter
+
+ccdfs(GRAPH G, NODE u, int[] ids, int counter)
+	ids[u] = counter
+  	foreach v $\in$ G.adj(u) do
+    	if ids[v] == 0 then
+      	ccdfs(G, v, ids, counter)
+
+int nArchiMinimi(GRAPH G)
+	if G.size() == 0 then
+    	return 0
+  	else
+    	return n_cc(G) - 1
+\end{lstlisting}
+
+É infatti semplice vedere come il numero di archi necessari per connettere un grafo sconnesso è pari al numero di componenti connesse presenti meno 1. La correttezza è infatti immediata dato che per connettere 2 componenti connesse tra loro è necessario un arco, dunque per connettere n componenti connesse tra loro sono necessari $n-1$ archi. La complessità di tale algoritmo è pari a $\Theta(n + m)$ data dalla visita in dfs. Soluzione al problema del collegamento delle componenti connesse.
+\begin{lstlisting}[ caption=Connetti il grafo]
+connettiGrafo(GRAPH G)
+	int[] ids = new int[1..G.V()]
+  	int[] rappresentatives = new int[1..G.size()]
+  	foreach u $\in$ a G.V() do
+    	ids[u] = 0
+  	int counter = 0
+  	foreach u $\in$ a G.V() do
+    	if ids[u] == 0 then
+      		counter = counter + 1
+      		%  salvo un rappresentante
+      		rappresentative[counter] = u
+      		ccdfs(G, u, ids, counter)
+  	%  connetto il grafo
+  	for i = 1 to counter - 1 do
+  		G.insertEdge(rappresentative[i], rappresentative[i + 1])
+  
+ccdfs(GRAPH G, NODE u, int[] ids, int counter)
+	ids[u] = counter
+  	foreach v $\in$ G.adj(u) do
+    	if ids[v] == 0 then
+      	ccdfs(G, v, ids, counter)
+\end{lstlisting}
+In questa soluzione, nel momento in cui viene identificata una nuova componente connessa viene salvato il primo nodo visitato in un vettore di rappresentativi, nel quale dato l'indice della componente connessa torna il rappresentante. \\
+Al termine dell'identificazione delle componenti connesse, si esegue un ciclo per inserire i nodi che connetteranno le componenti connesse connettendo i nodi identificati dai rappresentativi.
+
+\end{document}

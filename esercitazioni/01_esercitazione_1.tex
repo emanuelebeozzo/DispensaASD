@@ -1,0 +1,126 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Esercitazioni} 
+\subsection{Esecitazione 1 - 10/10/19}
+\textbf{Analisi - Ordinamento Funzioni}\\
+Ordinare le seguenti funzioni in accordo alla loro complessità asintotica. Si scriva $f(n) < g(n)$ se $\mathcal{O}(f(n)) \subset \mathcal{O}(g(n))$. Si scriva $f(n) = g(n)$ se $\mathcal{O}(f(n)) = \mathcal{O}(g(n))$, ovvero se $f(n) = \Theta(g(n))$.\\
+$f\textsubscript{1}(n) = 2^{n+2} = \mathcal{O}(2^{n})$\\
+$f\textsubscript{2}(n) = \log^{2}{n} = \mathcal{O}(\log^{2}{n})$\\
+$f\textsubscript{3}(n) = \log_{n}{(n \cdot (\sqrt{n})^{2})} + \frac{1}{n^{2}} = \log_{n}{n^{2}} + {n^{-2}} = 2 + {n^{-2}} = \mathcal{O}(1)$\\
+$f\textsubscript{4}(n) = 3n^{0.5} = 3n^{1/2} = 3 \sqrt{n} = \mathcal{O}(\sqrt{n})$\\
+$f\textsubscript{5}(n) = 16^{n/4} = 2^{4 \cdot n/4} = 2^{n} = \mathcal{O}(2^{n})$\\
+$f\textsubscript{6}(n) =2 \sqrt{n} + 4n^{1/4} + 8n^{1/8} + 16n^{1/16} = \mathcal{O}(\sqrt{n})$\\
+$f\textsubscript{7}(n) = \sqrt{(\log{n})(\log{n})} = \sqrt{\log^{2}{n}} = \log{n} = \mathcal{O}(\log{n})$\\
+$f\textsubscript{8}(n) = \frac{n^3}{(n+1)(n+3)} = \frac{n^3}{n^{2} + 4n + 3} \approx \frac{n^{\cancel{3}}}{\cancel{n^{2}}} = \mathcal{O}(n)$\\
+$f\textsubscript{9}(n) = 2^{n} = \mathcal{O}(2^{n})$\\\\
+\textbf{Soluzione}\\
+$f\textsubscript{3}(n) < f\textsubscript{7}(n) < f\textsubscript{2}(n) < f\textsubscript{4}(n) = f\textsubscript{6}(n) < f\textsubscript{8}(n) < f\textsubscript{1}(n) = f\textsubscript{5}(n) = f\textsubscript{9}(n)$\\\\
+\textbf{Ricorrenza 2T(n/8) + 2T(n/4) + n}\\
+Trovare un limite asintotico superiore e un limite asintotico inferiore alla seguente ricorrenza, facendo uso del \textcolor{red}{metodo di sostituzione}:
+\begin{center}
+	\begin{equation*}
+		T(n)=\begin{cases}
+			1 & \text{$n \leq 1$}\\
+			2T(n/8) + 2T(n/4) + n & \text{$n > 1$}
+ 	 	\end{cases}
+	\end{equation*}
+\end{center}
+\textbf{Soluzione}\\
+Per quanto riguarda il limite asintotico inferiore possiamo affermare che $T(n) = \Omega(n)$ in quanto nell'equazione di ricorrenza compare un termine \textit{n} di grado 1.\\
+Da questa supposizione potremmo pensare di usare il metodo di sostituzione per verificare se $T(n) = \mathcal{O}(n)$. Al posto che fare tentativi a caso potremmo però vedere la ricorrenza nel modo seguente:\\
+$T(n) = 2T(n/8) + 2T(n/4) + n \leq 2T(n/4) + 2T(n/4) + n = 4T(n/4) + n$\\
+A questo punto è possibile applicare il Teorema dell'Esperto per le ricorrenze comuni:\\
+$a = 4$, $b = 4$, $\beta = 1$, $\alpha = \log_{b}{a} = \log_{4}{4} = 1 \implies \alpha = \beta$\\
+$\implies T(n) = \mathcal{O}(n\log{n})$\\
+Dunque possiamo procedere con il tentativo per $T(n) = \mathcal{O}(n)$ visto che $\mathcal{O}(n) \subset \mathcal{O}(n\log{n})$\\
+Tentativo $T(n) = \mathcal{O}(n)$\\
+$\exists c$ $>$ 0, $\exists m$ $\geq$ 0 : T(n) $\leq$ $cn$, $\forall n$ $\geq$ m\\\\
+\textbf{Ipotesi Induttiva}: $\forall k$ $<$ n : T(k) $\leq$ ck\\
+\textbf{Passo di Induzione}: Dimostriamo la disequazione per T(n)\\
+$T(n) = 2T(n/8) + 2T(n/4) + n = 2c(n/8) + 2c(n/4) + n = cn/4 + cn/2 + n$\\
+= $(\frac{1 + 2}{4})cn + n \stackrel{?}{\leq} cn \iff (\frac{3}{4})c + 1 \leq c \iff c \geq 4$\\\\
+\textbf{Caso Base}: Dimostriamo la disequazione per T(1)\\
+$T(1) = 1 \stackrel{?}{\leq} c \cdot 1 \iff c \geq 1$\\
+Le due disequazioni sono soddisfatte entrambe per valori di $c \geq 4$\\
+Visto che $T(n) = \Omega(n)$ e $T(n) = \mathcal{O}(n)$ $\implies T(n) = \Theta(n)$\\\\
+\textbf{Ricorrenza}\\
+Trovare i limiti superiore e inferiori più stretti possibili per la seguente equazione di ricorrenza:
+\begin{center}
+	\begin{equation*}
+  		T(n)=\begin{cases}
+			2T(\lfloor n/2 \rfloor) + 4T(\lfloor n/4 \rfloor) + 15T(\lfloor n/8 \rfloor) + n^{2} & \text{$n > 8$}\\
+			1 & \text{$n \leq 8$}	
+  	\end{cases}
+	\end{equation*}
+\end{center}
+Per quanto riguarda il limite asintotico inferiore possiamo affermare che $T(n) = \Omega(n^{2})$ in quanto:\\
+$T(n) = 2T(\lfloor n/2 \rfloor) + 4T(\lfloor n/4 \rfloor) + 15T(\lfloor n/8 \rfloor) + n^{2} \geq c\textsubscript{1}n^{2} = \Omega(n^{2})$\\\\
+Tentativo $T(n) = \mathcal{O}(n^{2})$\\
+$\exists c$ $>$ 0, $\exists m$ $\geq$ 0 : T(n) $\leq$ $cn^{2}$, $\forall n$ $\geq$ m\\\\
+\textbf{Ipotesi Induttiva}: $\forall k$ $<$ n : T(k) $\leq$ ck\\
+\textbf{Passo di Induzione}: Dimostriamo la disequazione per T(n)\\
+$T(n) = 2T(\lfloor n/2 \rfloor) + 4T(\lfloor n/4 \rfloor) + 15T(\lfloor n/8 \rfloor) + n^{2}$\\
+$= 2c(\lfloor n^{2}/2^{2} \rfloor) + 4c(\lfloor n^{2}/4^{2} \rfloor) + 15c(\lfloor n^{2}/8^{2} \rfloor) + n^{2}$\\
+$\leq 2c(n^{2}/4) + 4c(n^{2}/16) + 15c(n^{2}/64) + n^{2}$\\
+$= \frac{cn^{2}}{2} + \frac{cn^{2}}{4} + \frac{15cn^{2}}{64} + n^{2}  \stackrel{?}{\leq} cn^{2} \iff \frac{c}{2} + \frac{c}{4} + \frac{15c}{64} + 1  \leq c$\\
+$\iff (\frac{32 + 16 + 15}{64})c + 1 \leq c \iff (\frac{63}{64})c + 1 \leq c \iff c \geq 64$\\\\
+\textbf{Caso Base}: Dimostriamo la disequazione per i casi da T(1) a T(8)\\
+$T(1) = 1 \stackrel{?}{\leq} c \cdot 1 \iff c \geq 1$\\
+$T(2) = 1 \stackrel{?}{\leq} c \cdot 4 \iff c \geq 1/4$\\
+$T(3) = 1 \stackrel{?}{\leq} c \cdot 9 \iff c \geq 1/9$\\
+...\\
+
+Notiamo che man mano che usiamo n più grandi otteniamo \textit{c} mano a mano più piccoli dunque osserviamo che alla fine otteniamo che tutti questi casi sono validi per $c \geq 1$.
+Le due disequazioni sono soddisfatte entrambe per valori di $c \geq 64$\\
+Visto che $T(n) = \Omega(n^{2})$ e $T(n) = \mathcal{O}(n^{2})$ $\implies T(n) = \Theta(n^{2})$\\\\
+\textbf{Analisi - Algortimo di selezione deterministico}\\
+Trovare i limiti superiore e inferiori per la seguente equazione di ricorrenza con il metodo di sostituzione:
+\begin{center}
+	\begin{equation*}
+  		T(n)=\begin{cases}
+			T(\lfloor n/5 \rfloor) + T(\lfloor 7n/10 \rfloor) + \frac{11}{5}n & \text{$n > 1$}\\
+			1 & \text{$n \leq 1$}	
+ 		 \end{cases}
+	\end{equation*}
+\end{center}
+Per quanto riguarda il limite asintotico inferiore possiamo affermare che $T(n) = \Omega(n)$ in quanto:\\
+$T(n) = T(\lfloor n/5 \rfloor) + T(\lfloor 7n/10 \rfloor) + \frac{11}{5}n \geq c\textsubscript{1}n = \Omega(n)$\\\\
+Tentativo $T(n) = \mathcal{O}(n)$\\
+$\exists c$ $>$ 0, $\exists m$ $\geq$ 0 : $T(n) \leq cn^{2}$, $\forall n$ $\geq$ $m$\\\\
+\textbf{Ipotesi Induttiva}: $\forall k$ $<$ n : T(k) $\leq$ ck\\
+\textbf{Passo di Induzione}: Dimostriamo la disequazione per T(n)\\
+$T(n) = T(\lfloor n/5 \rfloor) + T(\lfloor 7n/10 \rfloor) + \frac{11}{5}n = c(\lfloor n/5 \rfloor) + c(\lfloor 7n/10 \rfloor) + \frac{11}{5}n$\\
+$\leq c(n/5) + c(7n/10) + \frac{11}{5}n = (\frac{2 + 7}{10})cn + \frac{11}{5}n = \frac{9}{10}cn + \frac{11}{5}n \stackrel{?}{\leq} cn$\\
+$\iff \frac{9}{10}c + \frac{11}{5} \leq c \iff c \geq 22$\\\\
+\textbf{Caso Base}: Dimostriamo la disequazione per T(1)\\
+$T(1) = 1 \stackrel{?}{\leq} c \cdot 1 \iff c \geq 1$\\\\
+Un valore di $c$ che soddisfa entrambe le disequazioni è $c \geq 22$\\\\
+\textbf{Analisi - MergeSortK}\\
+Si supponga di scrivere una variante di MergeSort chiamata MergeSortK che, invece di suddividere l’array da ordinare in 2 parti, lo suddivide in K parti, ri-ordina ognuna di esse applicando ricorsivamente MergeSortK, e le riunifica usando un’opportuna variante MergeK di Merge, che fonde K sottoarray invece di 2. Come cambia, se cambia, la complessità temporale di MergeSortK rispetto a quella di MergeSort?\\
+Ricordiamo che l'equazione di ricorrenza di mergeSort() è la seguente:
+\begin{center}
+	\begin{equation*}
+  		T(n)=\begin{cases}
+			2T(n/2) +  dn & \text{$n > 1$}\\
+			c & \text{$n \leq 1$}	
+  		\end{cases}
+	\end{equation*}
+\end{center}
+Da questa equazione di ricorrenza si ottiene che la complessità di mergeSort() è $\Theta(n\log{n})$\\
+Se immaginiamo che mergeSortK suddivida l'array in K parti vuol dire che dovrà chiamare la funzione mergeSortK un numero K di volte e la complessità di ogni elemento , dunque la complessità di ogni array sarà del tipo n/k. Dunque la sua equazione di ricorrenza sarà del tipo
+\begin{center}
+	\begin{equation*}
+  		T(n)=\begin{cases}
+			KT(n/K) +  dn & \text{$n > 1$}\\
+			c & \text{$n \leq 1$}	
+  		\end{cases}
+	\end{equation*}
+\end{center}
+In questo caso risulta particolarmente comodo usare il Teorema dell'Esperto per casi di $K \geq 2$:\\
+$a = K$, $b = K$, $\beta = 1$, $\alpha = \log_{K}{K} = 1$\\
+$\implies \alpha = \beta \implies T(n) = \Theta(n\log{n})$\\
+Dunque la complessità non cambia.
+
+\newpage
+\end{document}

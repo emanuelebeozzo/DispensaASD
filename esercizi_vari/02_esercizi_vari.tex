@@ -1,0 +1,86 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercizi vari}
+\begin{lstlisting}[ caption= Esercizi da schedare]
+int longestIncreasing(GRAPH G)
+	int[] longest = new int[1...G.size()]
+  	for u = 1 to G.n do
+    	longest[u] = - 1
+  	for u = 1 to G.n do
+    	if longest[u] < 0 then
+      		longIncreasingRec(G, u, longest)
+  	return max(longest)
+
+longestIncreasingRec(GRAPH G, NODE u, int[] longest)
+	longest[u] = 0
+  	foreach v $\in$ G.adj(u) do
+    	if longest[v] < 0 then
+      		longIncreasingRec(G, v, longest)
+    	if u.p < v.p and longest[u] < longest[v] + 1 then
+   			longest[u] = longest[v] + 1
+
+int ceil(int[] A, int inizio, int n, int v)
+	if inizio == fine then
+    	if A[inizio] < v then
+     		return A[inizio]
+    	else
+      		return -1
+  	int meta = (inzio + fine)/2
+  	if A[meta] <= v then
+    	return ceil(A, meta + 1, fine, v)
+  	else
+    	return ceil(A, inizio, meta, v)
+
+boolean four(int[] A, int n, int k) 
+	SET S = SET
+  	for i = 1 to n do 
+    	S.insert(A[i])
+  	for i = 1 to n do 
+    	for j = i to n do 
+      		for h = j to n do 
+        		if S.contains(k - A[i] - A[j] - A[h]) then 
+          			return true
+  	return false
+  
+
+int costLenRec(int[][] M, int n, int r, int c, SET terra, SET mare)
+	if M[r][c] > 0 and not terra.contains(<r, c>) then 
+    	terra.insert(<r, c>)
+    	return 1
+  	if M[r][c] < 0 and not contains(<r, c>) then
+    	mare.insert(<r, c>)
+    	int costo = 0
+    	if r $\neq$ 1 then
+      		costo = costo + coastLenRec(M, int n, r - 1, c, terra, mare)
+    	if r $\neq$ n then
+      		costo = costo + coastLenRec(M, int n, r + 1, c, terra, mare)
+    	if c $\neq$ 1 then
+      		costo = costo + coastLenRec(M, int n, r, c - 1, terra, mare)
+    	if c $\neq$ n then
+      		costo = costo + coastLenRec(M, int n, r1, c + 1, terra, mare)
+    	return costo
+ 	return 0
+
+int coastLen(int[][] M, int n, int r, int c)
+	SET terra = new SET
+  	SET mare = new SET
+  	return coastLenRec(M, n, r, c, terra, mare)
+  
+% sottomatrice dimensione massima
+
+int shifting(int[] A, int inizio, int fine)
+	if inizio == fine then
+    	return inizio
+  	else
+    	int meta = (inizio + fine)/2
+    	if A[meta] < A[n] then
+      		return shifting(A, inizio, meta)
+    	else
+      		return shifting(A, meta + 1, fine)
+
+int nShift(int[] A, int n)
+	return shifting(A, 1, n) - 1
+\end{lstlisting}
+
+\end{document}

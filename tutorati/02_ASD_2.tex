@@ -1,0 +1,48 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{ASD2}
+\textbf{Occorrenze di valori in un ABR}
+\begin{lstlisting}[ caption=Occorrenze di valori in un ABR]
+int occorrenze(Tree T, int min, int max)
+  if T == nil then
+    return 0
+  else
+    if T.key() < min then 
+      % lo mando a desta
+      return occorrenze(T.right(),min,max)
+    else if T.key() > max then 
+      % lo mando a sinistra
+      return occorrenze(T.left(),min,max)
+    else
+      return 1 + occorrenze(T.right(),min,max) + occorrenze(T.left(),min,max)
+\end{lstlisting}
+Semplice algoritmo che sfrutta il principio della lookup in un albero binario di ricerca, restituendo il numero di occorrenze di valori compresi tra min e max (estremi inclusi). 
+Se il valore da confrontare risulta essere minore del minimo dell'intervallo allora è inutile inoltrare la chiamata nella parte di sinstra in quanto conterrà solamente valori minori di quello visitato. Un discorso analogo può essere fatto se il valore esaminato risulta essere maggiore del massimo, in quel caso infatti propago l'algoritmo solamente nella sua parte sinistra.\\\\
+\textbf{Alberobello}\\
+La funzione nicetree riceve in input un array di caratteri contenente la visita in pre ordine di un albero; sfruttando la visita in pre ordine è possibile fare un visita fittizia dell'albero tenendo conto delle caratteristiche di un alberobello: se troviamo una I all'interno dell'array di caratteri sappiamo che questo avrà per forza di cose un sottoalbero destro e uno sinistro e, per come è definita la visita in pre ordine di un albero, visiteremo per forza di cose prima tutto il suo sottoalbero sinistro. Invece quando incontreremo una L sapremo di essere arrivati in una foglia e quindi che dovremo risalire ed guardare il prossimo carattere. Visto che il problema richiede l'altezza dell'albero il caso base della nostra funzione sarà per l'appunto trovare una L e quindi risalire nella ricorsione ad un livello superiore, mentre ogni volta che troveremo una I dovremo prima chiamare la ricorsione sul sottoalbero sinistro (incrementando mano a mano l'altezza) e, solamente dopo essere certi di averla visitata completamente, fare la ricorsione sul sottoalbero destro.
+\newpage
+\begin{lstlisting}[caption=Alberobello]
+int nicetreeRec(ITEM[] S, int& pos, int n)
+	if pos $\leq$ n then
+    	if S[pos] == ``''L'' then
+      		pos = pos + 1
+      		return 0
+    	else
+      		int altezzaSx, altezzaDx
+      		pos = pos + 1
+      		altezzaSx = 1 + nicetreeRec(S, pos, n)
+      		altezzaDx = 1 + nicetreeRec(S, pos, n)
+      		return max(altezzaDx, altezzaSx)
+  	else
+    	return 0
+    
+int nicetree(ITEM[] S, int n)
+	int pos = 1;
+  	if n > 0 then
+    	return nicetreeRec(S, pos, n)
+  	else
+    	return 0
+\end{lstlisting}
+
+\end{document}

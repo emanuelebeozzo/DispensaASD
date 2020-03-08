@@ -1,0 +1,193 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Strutture dati speciali}
+\subsection{Heap}
+\textbf{Descrizione}: Struttura dati che associa i vantaggi dell'albero a quelli di un array. Gli alberi binari max-heap (rispettivamente min-heap) sono alberi binari completi tali per cui il valore memorizzato in ogni nodo è maggiore (rispettivamente minore) dei valori memorizzati nei suoi figli. Un albero binario si dice completo se:
+\begin{itemize}
+ 	\item Tutte le foglie hanno profondità h o h-1 
+ 	\item Tutti i nodi a livello h sono accatastati a sinistra (non può mancare il figlio sinistro ed esserci il destro)
+ 	\item Tutti i nodi interni (non foglia) hanno grado 2, eccetto al più uno
+ 	\item Se il numero di nodi è n, l'altezza è h = $\lfloor$log \textit{n}$\rfloor$
+\end{itemize}
+Gli alberi binari heap non impongono un ordinamento totale, ma parziale. \
+\begin{lstlisting}[caption= Memorizzazione Heap con Vettore]
+% Vettore di memorizzazione
+A[1 ... n]
+% Radice
+root() = 1
+% Padre nodo i
+p(i) = floor(i/2)
+% Figlio sinistro nodo i
+l(i) = 2i
+% Figlio destro nodo i
+r(i) = 2i + 1
+\end{lstlisting}
+\textbf{Algoritmi sulla struttura}: L'algoritmo più famoso sulla struttura Heap è l'algoritmo di ordinamento heapsort(). \\
+\textbf{Codice heapSort}: È costituito da due parti: heapBuild() che si occupa di costruire un max-heap a partire da un vettore non ordinato e da maxHeapRestore() che si occupa di ripristinare le proprietà del max-heap ordinando nel mentre l'array.  \\
+MaxHeapRestore() ha come parametri un vettore A, un indice i tale per cui gli alberi binari con radici l(i) e r(i) sono max-heap e la dimensione dim del vettore A. 
+\begin{lstlisting}[ caption= maxHeapRestore]
+maxHeapRestore(ITEM[] A, int i, int dim)
+	int max = i
+	if l(i) $\leq$ dim and A[l(i)] > A[max] then
+		max = l(i)
+	if r(i) $\leq$ dim and A[r(i)] > A[max] then
+		max = r(i)
+	if i $\neq$ max then
+		A[i] $\leftrightarrow$ A[max]
+		maxHeapRestore(A, max, dim)
+\end{lstlisting}
+HeapBuild() ha come parametri un vettore A e la sua dimensione n. 
+\begin{lstlisting}[ caption= heapBuild]
+heapBuild(ITEM[] A, int n)
+	for i = floor(n/2) downto 1 do
+		maxHeapRestore(A, i, n)
+\end{lstlisting}
+Usando gli algoritmi sopra definiti possiamo costruire una nuova funzione heapSort() che permette di ordinare un array A di dimensione n. 
+\begin{lstlisting}[ caption= heapSort]
+heapSort(ITEM[] A, int n)
+heapBuild(A, n)
+	for i = n downto 2 do
+		A[1] $\leftrightarrow$ A[i]
+		maxHeapRestore(A, 1, i-1)
+\end{lstlisting}
+\textbf{Complessità computazionale}: La chiamata di heapBuild() costa $\Theta$(\textit{n}), mentre la chiamata maxHeapRestore() costa $\Theta$(\textit{log i}) con i elementi nel heap. La maxHeapRestore() viene eseguita per un numero di volte che va da 2 a n e quindi il costo totale è $\Theta$(\textit{n log n}).
+
+\subsection{Code a priorità}
+\textbf{Descrizione}: Le code a priorità sono usa struttura dati astratta simile ad una coda in cui ogni elemento inserito possiede una priorità. Possono esistere min-priority queue in cui l'estrazione avviene per valori crescenti di priorità, mentre nelle max-priority queue l'estrazione avviene per priorità decrescente.\\
+\textbf{Specifica}: interfaccia dei metodi per la gestione della coda a priorità.\
+\begin{lstlisting}[ caption= Min Priority Queue Specifica]
+% Crea una coda con priorita' vuota
+void MinPriorityQueue()
+% Restituisce true se la coda con priorita' e' vuota
+boolean isEmpty()  
+% Restituisce l'elemento minimo di una coda con priorita (non vuota)
+Item min()  
+% Rimuove e restituisce il minimo da una coda con priorita' (non vuota)
+Item deleteMin()  
+% Inserisce l'elemento x con priorita' p nella coda con priorita' e restituisce un oggetto PriorityItem che identifica x all'interno della coda
+PriorityItem insert(Item x, int p)
+% Diminuisce la priorita' dell'oggetto identificato da y portandola a p	
+decrease(PriorityItem y, int p) 
+\end{lstlisting}
+Di seguito una possibile implementazione dei metodi della min-priority queue facente uso del min-heap.
+\begin{lstlisting}[ caption= Min Priority Queue Implentazione]
+% Definizione di PriorityItem
+PriorityItem
+	int priority       %  Priorita'
+	Item value         % Elemento
+	int pos           % Posizione nel vettore heap
+	
+% Funzione per scambiare due elementi nella coda a priorita'
+swap(PriorityItem[] H, int i, int j)
+	H[i] $\leftrightarrow$ H[j]
+	H[i].pos = i
+	H[j].pos = j
+	
+% Definizione della struttura della coda a priorita'
+PriorityQueue
+	int capacity 		% Numero massimo di elementi nella coda
+	int dim 			% Numero attuale di elementi nella coda
+	PriorityItem[] H    % Vettore heap
+
+% Inizializzazione della coda a priorita'
+PriorityQueue priorityQueue(int n)
+	PriorityQueue t = new PriorityQueue
+	t.capacity = n
+	t.dim = 0
+	t.H = new PriorityItem[1...n]
+	return t
+	
+% Inserimento nella coda
+PriorityItem insert(Item x, int p)
+	precondition: dim < capacity
+	
+	dim = dim + 1
+	H[dim] = new PriorityItem()
+	H[dim].value = x
+	H[dim].priority = p
+	H[dim].pos = dim
+	int i = dim
+	while i > 1 and H[i].priority < H[p(i)].priority do
+		swap(H, i, p(i))
+		i = p(i)
+	return H[i]
+	
+% Cancellazione dell'elemento con priorita' minore
+Item deleteMin()
+	precondition: dim > 0
+	
+	swap(H, 1, dim)
+	dim = dim - 1
+	minHeapRestore(H, 1, dim)
+	return H[dim + 1].value
+
+% Restituisce l'elemento con priorita' minore
+Item min()
+	precondition: dim > 0
+	
+	return H[1].value
+
+% Decrementa la priorita' di un elemento della coda
+decrease(PriorityItem x, int p)
+	precondition: p < x.priority
+	
+	x.priority = p
+	int i = x.pos
+	while i > 1 and H[i].priority < H[p(i)].priority do
+		swap(H, i, p(i))
+		i = p(i)	
+\end{lstlisting}
+\textbf{Costo computazionale}: le operazioni di insert(), deleteMin(), decrease() che modificano  l'heap e lo sistemano hanno un costo di O(\textit{log n}), mentre min() ha un costo pari a $\Theta$(\textit{1}).\
+
+\newpage
+\section{Divide-et-impera}
+\subsection{QuickSort}
+\textbf{Problema}: Dato un vettore di ITEM A[1...n] e una coppia di indici start e end tali che 1  $\leq$ start  $\leq$ end  $\leq$ n, ordina il vettore A[i...n] in modo crescente. ITEM è un tipo di dato in cui è definito il confronto tra elementi.\\
+\textbf{Soluzione}: l'algoritmo utilizza la tecnica divide-et-impera e si compone di due funzioni: la funzione pivot() si occupa, dato un sotto vettore, di definire un perno e di spostare a sinistra del perno tutti gli elementi più piccoli del perno stesso e  destra  gli elementi più grandi, mentre la funzione QuickSort() si occupa di richiamare la funzione in modo ricorsivo su sotto array di dimensione minore.\
+\begin{lstlisting}[ caption=Quicksort]
+int pivot(ITEM A[], int start, int end)
+	ITEM P = A[start]
+	int j = start
+	for i = start+1 to end do
+		if A[i]<p then 
+			j = j+1
+			A[i] $\leftrightarrow$ A[j]
+	A[start] = A[j]
+	A[j] = p	
+	return j
+
+void QuickSort(ITEM A[], int start, int end)
+	if start < end then
+		int j = pivot(A, start, end)
+		QuickSort(A, start, j-1)
+		QuickSort(A, j+1, end)		
+\end{lstlisting}
+\textbf{Costo computazionale}:
+\begin{itemize}
+ 	\item Pivot: $\Theta$(\textit{n}) 
+ 	\item QuickSort: si comporta in modo diverso in base all'ordine degli elementi. Nel caso pessimo vale $\Theta$(\textit{n\textsuperscript{2}}), nel caso ottimo  $\Theta$(\textit{n log n}), mentre il caso medio è difficile da calcolare. 
+\end{itemize}
+\
+
+
+\subsection{Gap}
+\textbf{Problema}: Dato un vettore V di interi contenente n $\geq$ 2 elementi e tale che V[1] $<$ V[n], trovare la posizione di un gap nel vettore. In un vettore V contente almeno 2 interi, un gap è un indice i tale che 1 $<$ i $\leq$ n, tale che V[i-1] $<$ V[i]. Le condizioni poste nel problema di avere almeno 2 elementi e che valga V[1] $<$ V[n], garantiscono che ci sia almeno un gap.\\
+\textbf{Soluzione}: implementazione ricorsiva con tecnica divide-et-impera. Uso una funzione wrapper per avere a disposizione più parametri.
+\newpage
+\begin{lstlisting}[ caption=Gap]
+int gap(int[] V, int n)
+	return gapRect(V, 1, n)
+	
+
+int gapRec(int[] V, int i, int j)
+	if j == i+1 then
+		return j
+	m = floor((i+j)/2)
+	if V[m] < V[j] the
+		return gapRec(V, m, j)
+	else 
+		return gapRec(V, i, m)
+\end{lstlisting}\
+
+\end{document}

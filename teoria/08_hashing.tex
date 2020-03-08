@@ -1,0 +1,67 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Hashing}
+\textbf{Descrizione}: L'hash è la struttura dati più efficiente che implementa il concetto di dizionario: consente di memorizzare insiemi dinamici di coppie $<$chiave, valore$>$. Le coppie vengono indicizzate in base alla chiave. La struttura si basa su una funzione di hash che mappa ogni chiave k dell'insieme universo in un intero h(k)
+e un array  che verrà usato per salvare i dati. Quando due o più chiavi hanno lo stesso valore hash, diciamo che è avvenuta una collisione. Esistono due principali metodi di gestione delle collisioni: 
+\begin{itemize}
+ 	\item Liste di trabocco: le chiavi con lo stesso valore vengono memorizzate in una lista monodirezionale accessibile a partire dall'array (puntatore alla testa della lista). È fondamentale bilanciare la lunghezza delle liste di trabocco altrimenti si perde tutta l'efficienza della struttura. 
+ 	\item Indirizzamento aperto: tutte le chiavi vengono memorizzate nel vettore stesso, senza strutture aggiuntive. Se lo slot scelto per l'inserimento p già utilizzato, se ne cerca uno "alternativo". Esistono diverse tecniche di ricerca con indirizzamento aperto: ispezione lineare (agglomerazione primaria), ispezione quadratica e doppio hashing. 
+\end{itemize}
+
+\subsection{Doppio hashing}
+\textbf{Descrizione}: Usa una funzione del tipo: H(k,i) = (H$_{1}$(k) + i $\cdot$ H$_{2}$(k)) mod m, con m lunghezza del vettore e H$_{1}$, H$_{2}$ funzioni di hash.H$_{1}$ fornisce la prima ispezione, H$_{2}$ le ispezioni successive. Un doppio hash permette le seguenti operazioni: inserimento, cancellazione (usando uno speciale valore deleted) e ricerca. 
+\begin{lstlisting}[ caption= Hashing Doppio: struttura]
+% Definizione struttura
+HASH
+	ITEM[] K		% Tabella delle chiavi
+	ITEM[] V		% Tabella dei valori
+	int m			% Dimensione della tabella
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[ caption= Hashing Doppio: specifica]
+HASH Hash(int dim)
+	HASH t = new HASH
+	t.m = dim
+	t.K = new ITEM[0...dim-1]
+	t.V = new ITEM[0...dim-1]
+	for i = 0 to dim-1 do
+		t.K[i] = nil
+	return t
+	
+int scan(ITEM k, boolean insert)
+	int c = m		% Prima posizione deleted
+	int i = 0		% Numero di ispezione
+	int j = H1(k)	% Posizione attuale
+	while K[j] $\neq$ k and K[j] $\neq$ nil and i < m do
+		if K[j] == deleted and c == m then
+			c = j
+		j = (j + H2(k)) mod m
+		i = i + 1
+	if insert and K[j] $\neq$ k and c < m then
+		j = c
+	return j	
+	
+ITEM lookup(ITEM k)
+	int i = scan(k, false)
+	if K[i] == k then
+		return V [i]
+	else
+		return nil
+		
+insert(ITEM k, ITEM v)
+	int i = scan(k, true)
+	if K[i] == nil or K[i] == deleted or K[i] == k then
+		K[i] = k
+		V [i] = v
+	else
+		% Errore: tabella hash piena
+		
+remove(ITEM k)
+	int i = scan(k, false)
+	if K[i] == k then
+		K[i] = deleted
+\end{lstlisting}
+
+\newpage
+\end{document}

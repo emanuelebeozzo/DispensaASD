@@ -1,0 +1,52 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Esami anni passati}
+\subsection{Esame 07/02/2019}
+\textbf{Esercizio A1} Trovare un limite superiore, il più stretto possibile per la seguente equazione di ricorrenza: \
+\begin{equation*}
+  	T(n)=\begin{cases}
+    	T(\lfloor n/2 \rfloor) + T(\lfloor n/4 \rfloor)+ T(\lfloor n/8 \rfloor)+ 2T(\lfloor n/16 \rfloor) + 1 & \text{$n > 16$}\\
+    	1 & \text{$n \leq 16$}
+  	\end{cases}
+\end{equation*} \\
+\textbf{Soluzione A1} Non possiamo applicare il master theorem quindi proviamo a risolvere il problema per tentativi. Proviamo con il metodo di sostituzione a verificare e vale T(n) = $\mathcal{O}(n)$. Dimostriamo per induzione.\
+\begin{itemize}
+	\item Ipotesi induttiva: T(k) $\leq$ ck, per k $<$ n
+	\item Passo induttivo:
+\begin{equation*}
+\begin{aligned}	
+T(n)= T(\lfloor n/2 \rfloor) + T(\lfloor n/4 \rfloor)+ T(\lfloor n/8 \rfloor)+ 2T(\lfloor n/16 \rfloor) + 1\\
+\text{$\leq$} c\lfloor n/2 \rfloor + c\lfloor n/4 \rfloor+ c\lfloor n/8 \rfloor+ 2c\lfloor n/16 \rfloor + 1\\ 
+\text{$\leq$}  \dfrac{1}{2}cn + \dfrac{1}{4}cn + \dfrac{1}{8}cn + \dfrac{1}{8}cn + 1\\
+=  cn + 1 \text{$\leq$} cn \\
+\end{aligned}
+\end{equation*}
+L'ultima disequazione è falsa per un termine di ordine inferiore. 
+\end{itemize}
+
+Proviamo a dimostrare che 
+\begin{equation*}
+  \exists b \text{$>$} 0, \exists c \text{$>$} 0, \exists m \text{$\geq$} 0, : T(n) \text{$\leq$} cn-b, \forall n \text{$\geq$} m
+\end{equation*}
+\begin{itemize}
+	\item Ipotesi induttiva: T(k) $\leq$ ck-b, per k $<$ n
+	\item Passo induttivo:
+	\begin{equation*}
+		\begin{aligned}	
+			T(n)= T(\lfloor n/2 \rfloor) + T(\lfloor n/4 \rfloor)+ T(\lfloor n/8 \rfloor)+ 2T(\lfloor n/16 \rfloor) + 1\\
+			\text{$\leq$} c(lfloor n/2 \rfloor -b + c\lfloor n/4 \rfloor -b+ c\lfloor n/8 \rfloor -b + 2(c \lfloor n/16 \rfloor -b) + 1\\ 
+			\text{$\leq$}  \dfrac{1}{2}cn -b + \dfrac{1}{4}cn -b + \dfrac{1}{8}cn -b + \dfrac{2}{16}cn -2b + 1\\
+=  cn -5b + 1 \text{$\leq$} cn -b \\
+		\end{aligned}
+	\end{equation*}
+	L'ultima disequazione è vera per ogni c e per b $\geq$ $\dfrac{1}{4}$. 
+	\item Caso base: T(n)=1 $\leq$ cn-b, per tutti i valori di n compresi tra 1 e 16, ovvero: 
+	\begin{equation*}
+		c \text{$\geq$} \dfrac{b+1}{n}, \forall n: 	\text{$1 \leq n \leq 16$}
+	\end{equation*}
+	I valori $\dfrac{b+1}{n}$ sono minori o uguali di 5/4 (per T(1) vale 5/4), per 1 $\leq$ n $\leq$ 16; quindi tutte queste disequazioni sono soddisfatte da c $geq$ 5/4. 
+\end{itemize}
+Abbiamo quindi dimostrato che T(n)= $\mathcal{O}(n)$, con m= 1 e c $\geq$ 5/4.
+
+\end{document}

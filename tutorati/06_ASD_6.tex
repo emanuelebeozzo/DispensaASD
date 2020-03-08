@@ -1,0 +1,51 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{ASD6}
+\textbf{Nodi a distanza d}
+\begin{lstlisting}[caption= Nodi che distano un numero di archi $\leq$ d]
+int nodiMinUgualeDistanza(GRAPH G, NODE r, int d)
+	int[] distanze = new int[1..G.size()]
+  	NODE[] parents = new NODE[1..G.size()]
+  	erdos(G, r, distanze, parents)
+  	int nNodi = 0
+  	foreach u $\in$ G.V() do
+    	if distanze[u] $\leq$ d then 
+      		nNodi = nNodi + 1 
+  	return nNodi
+\end{lstlisting}
+Algoritmo molto semplice, una volta trovate tutte le distanze dei nodi dalla radice grazie ad $Erdos$ essa confronta le distanze con il valore d, se minore o uguale allora incrementa un contatore, che sarà ritornato alla fine dei confronti.\\\\
+\textbf{Albero Allopato}\\
+Un grafo e un "albero binario alloopato" se
+deriva da un albero binario nel modo seguente: è presente un nodo del
+grafo per ogni nodo dell’albero; e presente un arco per ogni coppia
+\textit{(padre,figlio)}, orientato dal padre al figlio; e presente un arco da ogni
+foglia alla radice dell’albero binario, chiudendo così un ciclo (loop). Gli
+archi sono pesati da una funzione $W : E\rightarrow Z$; gli archi possono avere
+peso negativo, ma non esistono cicli la cui somma dei pesi sia negativa.
+\begin{lstlisting}[caption= Albero Binario Allopato]
+int dfsSearch(GRAPH G, NODE x, NODE t, NODE r)
+	if x == t then
+    	return 0
+  	int min = $+\infty$ 
+  	foreach y $\in$ G.adj(x) do
+    	if y $\neq$ r then
+      		int d = dfsSearch(G, y, t, r)
+      	if d + w(x, y) < min then
+        	min = d + w(x, y)
+  	return min
+ 
+int computeDist(GRAPH G, NODE r, NODE u, NODE v)
+	d = dfsSearch(G, u, v, r)
+  	if d < +$\infty$ then
+    	return d
+  	else
+  		return dfsSearch(G, u, r, -1) + dfsSearch(G, r, v, r)
+\end{lstlisting}
+Il compito di dfsSearch è quello di ricavare la distanza minima tra una foglia \textit{x} e la foglia \textit{t} con un controllo postordine.
+Questa procedura tornerà un numero $n < +\infty$ se l'elemento t è nel sottalbero cercato, mentre $+\infty$ se non è presente
+Si noti che quando viene propagata la visita in dfs non viene mai fatto per la radice. \\
+Proviamo quindi come primo approccio quello di chiamare \textit{dfsSearch} sui nodi \textit{u} e \textit{v} di cui si vuole la distanza minima, se il valore ritornto dalla funzione è $+\infty$ significa che il nodo \textit{v} non è un diretto discendente di \textit{u}, dunque devo necessariamente passare per la radice.
+Detto questo, il costo effettivo della ricerca è dunque dato dalla distanza minima da u alla radice, sommato alla distanza minima dalla radice dalla radice al nodo v, ovviamente anche qui non bisogna passare ancora per la radice. Osserviamo che \textit{dfsSearch} funziona in questo caso, dato che sia \textit{u} che \textit{v} sono figli della radice dell'albero.
+
+\end{document}

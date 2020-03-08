@@ -1,0 +1,300 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Grafi}
+\textbf{Descrizione}: Un grafo orientato (rispettivamente non orientato) è una coppia G=(V,E) con V insieme di nodi (o vertici) ed E un insieme di coppie ordinate (rispettivamente non ordinate) di nodi dette archi. La complessità ottimale degli algoritmi sui grafi è espressa in termini sia di n (numero di nodi) che di m (numero di archi) e vale solitamente O(n + m). \
+\textbf{Specifica}: Tutte le operazioni possibili sui grafi sono le seguenti. 
+\begin{lstlisting}[ caption= Specifica grafo]
+% Crea un nuovo grafo
+Graph()
+% Restituisce l'insieme di tutti i nodi		
+SET V()	
+% Restituisce il numero di nodi	
+int size()
+% Restituisce l'insieme dei nodi adiacenti a u
+SET adj(NODE u)
+ % Aggiunge il nodo u al grafo
+insertNode(NODE u)
+% Aggiunge l'arco (u, v) al grafo
+insertEdge(NODE u, NODE v)
+% Rimuove il nodo u dal grafo
+deleteNode(NODE u)	
+% Rimuove l'arco (u, v) dal grafo
+deleteEdge(NODE u, NODE v)	
+\end{lstlisting}
+\textbf{Memorizzazione}: Esistono due principali metodologie per memorizzare un grafo: liste di adiacenza e matrici di adiacenza. La matrice di adiacenza consiste nel memorizzare una matrice n $\cdot$ n in cui viene segnata ad 1 la cella avente come indici gli estremi degli archi presenti. Mentre la lista di adiacenza condiste nell'avere una lista degli n nodi e per ciascun elemento avere un'altra lista contenente i nodi adiacenti al nodo stesso. Le matrici occupano più spazio e permettono più velocemente di sapere se due nodi sono adiacenti, ma richiedono più tempo per visitare tutti gli archi. Con queste tecniche è possibile memorizzare anche grafi pesati i cui archi hanno pesi differenti. \
+
+\textbf{Dettagli sull’implementazione}
+Se non diversamente specificato, nel seguito:
+\begin{itemize}
+	\item Assumeremo che l’implementazione sia basata su vettori di adiacenza, statici o dinamici
+	\item Assumeremo che la classe $NODE$ sia equivalente a int (quindi l’accesso alle informazioni avrà costo $\mathcal{O}(1)$)
+	\item Assumeremo che le operazioni per aggiungere nodi e archi abbiano costo $\mathcal{O}(1)$
+	\item Assumeremo che dopo l’inizializzazione, il grafo sia statico
+\end{itemize}
+
+\subsection{Visite grafi}
+\textbf{Problema}: Dato un grafo G=(V,E) e un vertice v $\in$ V,
+visitare una e una volta sola tutti i nodi del grafo che possono essere raggiunti da v.\
+\textbf{Soluzione}: Esistono principalmente due metodologie per visitare un grafo:\
+\begin{itemize}
+\item BFS(Breadth-First search - visita in ampiezza): visita i nodi per livelli partendo dalla radice, poi visitando i nodi a distanza 1, poi a distanze 2, ecc fino a visitare tutti i nodi raggiungibili dalla sorgente.
+\begin{lstlisting}[caption= Visita BFS]
+bfs(GRAPH G, NODE r)
+	QUEUE Q = QUEUE
+	Q.enqueue(r)
+	boolean[] visited = new boolean[1...G.size()]
+	foreach u $\in$ G.V() - {r} do
+		visited[u] = false
+	visited[r] = true
+	while not Q.isEmpty() do
+		Node u = Q.dequeue()
+		% visita il nodo u
+		foreach v : G.adj(u) do
+			% visita l'arco (u,v)
+			if not visited[v] then
+				visited[v] = true
+				Q.enqueue(v)
+
+\end{lstlisting}
+	\item DFS (Depth-First search - visita in profondità): visita ricorsiva, cioè ogni nodo viene visitato ricorsivamente, visitando anche in modo ricorsivo i suoi nodi adiacenti. Con questo tipo di visita riusciamo a visitare un intero grafo, non solo i nodi raggiungibili da una sorgente.
+\begin{lstlisting}[caption= Visita DFS]
+% versione ricorsiva con stack implicito
+dfs(GRAPH G, Node u, boolean[] visited)
+	visited[u] = true
+	% visita il nodo u (pre-order)
+	foreach v $\in$ G.adj(u) do
+		if not visited[v] then
+			% visita l'arco (u,v)
+			dfs(G, v, visited)
+	% visita il nodo u (post-order)
+
+
+% versione iterativa con stack esplicito
+dfs(GRAPH G, Node r)
+	STACK S = STACK
+	S.push(r)
+	boolean[] visited = new boolean[1...G.size()]
+	foreach u $\in$ G.V() do
+		visited[u] = false
+	while not S.isEmpty() do
+		Node u = S.pop()
+		if not visited[u] then
+			% visita il nodo u (pre-order)
+			visited[v] = true
+			foreach v $\in$ G.adj(u) do
+				% visita l'arco (u,v)
+				S.push(v)
+\end{lstlisting}
+\end{itemize}
+\newpage
+
+\subsection{Cammini più brevi: BFS}
+\textbf{Problema}: Dato un grafo G e un nodo r, calcolare il cammino più breve da r a tutti gli altri nodi. Le distanze sono misurate come il numero di archi attraversati.\
+\textbf{Soluzione}: Algoritmo per il calcolo del numero di Erdos.\
+\begin{lstlisting}[caption= Erdos]
+erdos(GRAPH G, NODE r, int[] erdos, NODE[] parent)
+	QUEUE Q = QUEUE
+	Q.enqueue(r)
+	foreach u $\in$ G.V()-{r} do
+		erdos[u] = +$\infty$
+	erdos[r] = 0
+	parent[r] = nil % permette di costruire l'albero di copertura
+	while not Q.isEmpty() do
+		NODE u = Q.dequeue()
+		foreach v $\in$ G.adj(u) do
+			if erdos[v] == +$\infty$ then		% Se il nodo v non e' stato scoperto
+				erdos[v] = erdos[u] + 1
+				parent[v] = u
+				Q.enqueue(v)
+\end{lstlisting}
+
+\textbf{Estensione}: Dopo aver calcolato Erdos aver inizializzato il vettore dei parent è possibile stampare l'albero di copertura usando tale vettore.\
+\begin{lstlisting}[ caption= Albero di copertura BFS]
+printPath(NODE r, NODE s, NODE[] parent)
+	if r == s then
+		print s
+	else if parent[s] == nil then
+		print "error"
+	else
+		printPath(r, parent[s], parent)
+		print s
+\end{lstlisting}
+
+\subsection{Componenti connesse: DFS}
+\textbf{Problema}: Dato un grafo G non orientato verificare se è connesso (cioè  ogni suo nodo è raggiungibile da ogni altro nodo) e identificare le sue componenti connesse (cioè sottografi massimali e connessi).\
+\textbf{Soluzione}: Un grafo è connesso se, al termine della DFS tutti i nodi sono stati marcati come visitati. Altrimenti la visita deve ricominciare da capo da un nodo non marcato, identificando una nuova componente del grafo. Strutture necessarie: un vettore \textit{id} che contiene gli identificatori delle componenti, in cui \textit{id}[u] è il numero che identifica la componente connessa a cui appartiene il nodo u. Se l'id di un nodo è uguale a 0, vuol dire che quel nodo deve essere ancora visitato.\
+\newpage
+\begin{lstlisting}[ caption= Componenti connesse (cc) con ricorsione]
+int[] cc(GRAPH G)
+	int[] id = new int[1...G.size()]
+	foreach u $\in$ G.V() do
+		id[u] = 0
+	int counter = 0
+	foreach u $\in$ G.V() do
+		if id[u] == 0 then
+			counter = counter +1
+			ccdfs(G, counter, u, id)
+	return id
+
+% visita ricorsiva degli adiacenti seguendo lo schema della DFS	
+ccdfs(GRAPH G, int counter, Node u, int[] id)
+	id[u] = counter
+	foreach v $\in$ G.adj(u) do
+		if id[v] == 0 then
+			ccdfs(G, counter, v, id)
+\end{lstlisting}
+
+
+\subsection{Grafo non orientato aciclico: DFS}
+\textbf{Problema}: Dato un grafo G non orientato verificare se è aciclico, cioè se non contiene cicli (con lunghezza maggiore di 2). Restituire true se G contiene un cicli, false altrimenti.\
+\textbf{Soluzione}: La soluzione si basa sempre su una DFS. \
+\begin{lstlisting}[caption= Grafo non orientato aciclico (hasCycle)]
+boolean hasCycle(GRAPH G)
+	boolean[] visited = new boolean[1...G.size()]
+	foreach u $\in$ G.V() do
+		visited[u] = false
+	foreach u $\in$ G.V() do
+		if not visited[u] then
+			if hasCycleRec(G, u, nil, visited) then
+				return true
+	return false
+
+boolean hasCycleRec(GRAPH G, Node u, Node p, boolean[] visited)
+	visited[u] = true
+	foreach v $\in$ G.adj(u)-{p} do
+		if visited[v] then
+			return true
+		else if hasCycleRec(G, v, u, visited) then
+			return true
+	return false
+\end{lstlisting}
+
+\newpage
+\subsubsection{Albero di copertura DFS}
+\textbf{Problema}: Dato un grafo G orientato creare un albero di copertura T e classificare gli archi presenti nel grafo.\
+\textbf{Soluzione}: Ogni volta che si esamina un arco da un nodo marcato ad uno non marcato,chiamiamo questo arco come arco dell'albero. Gli archi (u,v) non inclusi nell'albero (cioè non archi dell'albero) sono classificati in 3 categorie: 
+
+\begin{itemize}
+ 	\item Archi in avanti: se u è un antenato di v in T
+ 	\item Archi all'indietro: se u è un discente di v in T
+ 	\item Archi di attraversamento: tutti gli archi restanti che non sono in avanti o all'indietro.
+\end{itemize}
+Per risolvere il problema di classificazione degli archi usiamo sempre una visita DFS.
+
+\begin{lstlisting}[caption= Albero di copertura]
+% time: contatore, dt: discovery time (tempo di scoperta del nodo), ft: finish time (tempo di fine visita del nodo e dei suoi archi)
+dfs-schema(GRAPH G, Node u, int& time, int[] dt, int[] ft)
+	% visita il nodo u (pre-order)
+	time = time + 1
+	dt[u] = time
+	foreach v $\in$ G.adj(u) do
+		% visita l'arco (u,v) (qualsiasi)
+		if dt[v] == 0 then
+			% visita l'arco (u,v) (albero)
+			dfs-schema(G, v, time, dt, ft)
+		else if dt[u] > dt[v] and ft[v] == 0 then
+			%visita l'arco (u,v) (indietro)
+		else if dt[u] < dt[v] and ft[v] $\neq$ 0 then
+			%visita l'arco (u,v) (avanti)
+		else
+			% visita l'arco (u,v) (attraversamento) 
+	% visita il nodo u (post-order)
+	time = time + 1
+	ft[u] = time
+\end{lstlisting}
+
+\subsection{Grafo orientato aciclico(DAG): DFS}
+\textbf{Problema}: Dato un grafo G orientato verificare se è aciclico, cioè se non contiene cicli (con lunghezza maggiore uguale a 2). Restituire true se G contiene un cicli, false altrimenti.\
+\textbf{Soluzione}: La soluzione usata per i grafi non orientati non è sempre funzionante. Per risolvere il problema dobbiamo usare il concetto dell'albero di copertura DFS e i vari tipi di archi. Esiste un teorema che afferma che un grafo orientato è aciclico $\iff$ non esistono archi all'indietro nel grafo.
+\newpage
+
+\begin{lstlisting}[ caption= Grafo orientato aciclico (hasCycle)]
+boolean hasCycle(GRAPH G, Node u, int &time, int[] dt, int[] ft)
+	time = time + 1
+	dt[u] = time
+	foreach v $\in$ G.adj(u) do
+		if dt[v] == 0 then
+			if hasCycle(G, v, time, dt, ft) then
+				return true
+		else if dt[u] > dt[v] and ft[v] == 0 then
+			return true
+	time = time + 1
+	ft[u] = time
+	return false
+\end{lstlisting}
+
+
+\subsection{Ordinamento topologico: DFS}
+\textbf{Problema}: Dato un grafo G che rispetta le proprietà di DAG, restituire l'ordinamento topologico di tale grafo. L'ordinamento topologico è un ordinamento lineare tale che se (u,v) $\in$ E, allora u appare prima di v nell'ordinamento.\
+\textbf{Soluzione}: Usare una DFS nella quale l'operazione principale consiste nell'aggiungere il nodo in testa ad una lista in post-ordine. Il risultato sarà l'ordinamento topologico. 
+\begin{lstlisting}[caption= Ordinamento topologico]
+STACK topSort(GRAPH G)
+	STACK S = STACK
+	boolean[] visited = boolean[1...G.size()]
+	foreach u $\in$ G.V() do 
+		visited[u] = false
+	foreach u $\in$ G.V() do
+		if not visited[u] then
+			ts-dfs(G, u, visited, S)
+	return S
+	
+ts-dfs(GRAPH G, NODE u, boolean[] visited, STACK S)
+	visited[u] = true
+	foreach v $\in$ G.adj(u) do
+		if not visited[v] then
+			ts-dfs(G, v, visited, S)
+	S.push(u)
+\end{lstlisting}
+
+
+\subsection{Componenti fortemente connesse (SCC): DFS}
+\textbf{Problema}: Dato un grafo G orientato verificare se è fortemente connesso (cioè  ogni suo nodo è raggiungibile da ogni altro nodo) e identificare le sue componenti connesse (cioè sottografi orientati massimali e connessi).\
+\textbf{Soluzione}: Non è possibile usare lo stesso algoritmo che identifica le componenti fortemente connesse perchè il risultato dipende dal nodo di partenza. Una delle possibili soluzioni è usare l'algoritmo di Kosaraju che consiste nel:
+\begin{itemize}
+	\item Effettuare una DFS del grafo per calcolare l'ordinamento topologico
+	\item Calcolare il grafo trasposto G$^{T}$ di G
+	\item Effettuare una DFS per il calcolo delle cc sul grafo trasposto e usando come ordine di visita l'ordinamento topologico. 
+\end{itemize} 
+\newpage
+\begin{lstlisting}[ caption= Calcolo delle componenti fortemente connesse]
+int[] scc(GRAPH G)
+	STACK S = topSort(G) 	
+	% Prima visita DFS per calcolare il top sort
+	GT = transpose(G)		% Grafo trasposto
+	return cc(GT, S)		% CC del grafo trasporto
+	
+% calcolo del grafo trasposto
+GRAPH transpose(GRAPH G)
+	 GT = Graph()
+	foreach u $\in$ G.V() do
+		GT.insertNode(u)
+	foreach u $\in$ G.V() do
+		foreach v $\in$ G.adj(u) do
+			GT.insertEdge(v,u)
+	return GT
+
+
+int[] cc(GRAPH G, STACK S)
+	int[] id = new int[1...G.size()]
+	foreach u $\in$ G.V() do
+		id[u] = 0
+	int counter = 0
+	while not S.isEmpty() do
+		u = S.pop()
+		if id[u] == 0 then
+			counter = counter +1
+			ccdfs(G, counter, u, id)
+	return id
+	
+ccdfs(GRAPH G, int counter,NODE u, int[] id)
+	id[u] = counter
+	foreach v $\in$ G.adj(u) do
+		if id[v] == 0 then
+			ccdfs(G, counter, v, id)
+\end{lstlisting}
+
+\textbf{Realtà}: Nella realtà viene usato l'algoritmo di Tarjan che richiede solo una visita e non due e non richiede la trasposizione del grafo.
+
+\newpage
+\end{document}

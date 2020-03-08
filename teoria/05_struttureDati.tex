@@ -1,0 +1,62 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Strutture dati base}
+Nelle seguenti sottosezioni saranno elencate le specifiche (dati e operazioni) delle strutture dati base che saranno usate nei capitoli successivi.
+
+\subsection{Insiemi}
+\begin{lstlisting}[caption= Specifica SET]
+% Restituisce la cardinalita' dell'insieme
+int = size()
+% Restituisce true se x e' contenuto nell'insieme
+boolean contains(ITEM x)
+% Inserisce x nell'insieme, se non gia' presente
+insert(ITEM x)
+% Rimuove x dall'insieme, se presente
+remove(ITEM x)
+% Restituisce un nuovo insieme che e' l'unione di A e B
+SET union(SET A, SET B)
+% Restituisce un nuovo insieme che e' l'intersezione di A e B
+SET intersection(SET A, SET B)
+% Restituisce un nuovo insieme che e' la differenza di A e B
+SET difference(SET A, SET B)
+\end{lstlisting}
+
+\subsection{Dizionari}
+\begin{lstlisting}[ caption= Specifica dizionari]
+% Restituisce il valore associato alla chiave k se presente, nil altrimenti
+ITEM lookup(ITEM k)
+% Associa il valore v alla chiave k
+insert(ITEM k, ITEM v)
+% Rimuove l'associazione della chiave k
+remove(ITEM k)
+\end{lstlisting}
+L'implementazione più conosciuta è l'HashTable. 
+
+\subsection{Stack}
+\begin{lstlisting}[ caption= Specifica STACK]
+% Restituisce true se la pila e' vuota
+boolean isEmpty()
+% Inserisce v in cima alla pila
+push(ITEM v)
+% Estrae l'elemento in cima alla pila e lo restituisce al chiamante
+ITEM pop()
+% Legge l'elemento in cima alla pila
+ITEM top()
+\end{lstlisting}
+
+\newpage
+
+\subsection{Queue}
+\begin{lstlisting}[ caption= Specifica QUEUE]
+% Restituisce true se la coda e' vuota
+boolean isEmpty()
+% Inserisce v in fondo alla coda
+enqueue(ITEM v)
+% Estrae l'elemento in testa alla coda e lo restituisce al chiamante
+ITEM dequeue()
+% Legge l'elemento in testa alla coda
+ITEM top()
+\end{lstlisting}
+
+\end{document}
