@@ -214,6 +214,7 @@ int knapsack(int[] w, int[] p, int n, int C)
 			DP[i][c] = -1
 	return knapsackRec(w, p, n, C, DP )
 	
+	
 int knapsackRec(int[] w, int[] p, int i, int c, int[][] DP)
 	if c < 0 then
 		return -$\infty$
@@ -331,10 +332,11 @@ LIST solution(int[] w, int c, int[] pos)
 		L.insert(L.head(), pos[c])
 		return L
 \end{lstlisting}
-Quello che viene restituito dalla funzione solution() è una lista di indici dove i suoi elementi possono comparire più di una volta (multinsieme). Notiamo che se $c=0$ allora lo zaino è stato riempito perfettamente mentre per $pos[c]<0$ allora lo zaino non può essere riempito interamente (rimarrà della capacità residua ma nessun oggetto in grado di riempierlo perfettamente).
+Quello che viene restituito dalla funzione solution() è una lista di indici dove i suoi elementi possono comparire più di una volta (multinsieme). Notiamo che se $c=0$ allora lo zaino è stato riempito perfettamente mentre per $pos[c]<0$ allora lo zaino non può essere riempito interamente (rimarrà della capacità residua ma nessun oggetto in grado di riempirlo perfettamente).
 \\
 
-\subsection{Esempio reale: Sottosequenza comune massimale}
+\subsection{Altri esempi di programmazione dinamica} 
+\subsubsection{Sottosequenza comune massimale}
 \textbf{Definizione: Sottosequenza}\\
 Una sequenza $P$ è una \textcolor{red}{sottosequenza} di $T$ se $P$ è ottenuto da $T$ rimuovendo uno o più dei suoi elementi.\\\\
 \textbf{Definizione: Sottosequenza comune}\\
@@ -388,7 +390,7 @@ Date due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scrivere una formula ricorsi
 \end{equation*}
 L'informazione relativa alla lunghezza della LCS del problema si troverà in $DP[n][m]$.\\\\
 \textbf{Esempio funzionamento soluzione e struttura dati}\\
-La tabella seguente mostra la struttura dati che sarà presente in memoria dopo aver eseguit o l'algoritmo sulle strighe ATBCBD e TACCBT. La freccia che punta verso il basso vuol dire che l'elemento è stato ricavato dall'elemento presente sulla stessa colonna della tabella, ma sulla riga precedente, la freccia che punta verso destra che l'elemento proviene dalla stessa riga ma dalla colonna precedente, mentre la freccia diagonale che l'elemento è stato calcolato a partire dall'elemento sulla riga e sulla colonna precedente. 
+La tabella seguente mostra la struttura dati che sarà presente in memoria dopo aver eseguito l'algoritmo sulle stringhe ATBCBD e TACCBT. La freccia che punta verso il basso vuol dire che l'elemento è stato ricavato dall'elemento presente sulla stessa colonna della tabella, ma sulla riga precedente, la freccia che punta verso destra che l'elemento proviene dalla stessa riga ma dalla colonna precedente, mentre la freccia diagonale che l'elemento è stato calcolato a partire dall'elemento sulla riga e sulla colonna precedente. 
 
 \begin{center}
 	\renewcommand{\arraystretch}{1.2}
@@ -420,7 +422,7 @@ Il risultato dell'esempio lo troviamo nella tabella in posizione [6,6] e vale 3.
 int lcs(int[] T, int[] U, int n, int m)
 	int[][] DP = new int[0...n][0...m]
 	for i = 0 to n do
-		for j = 0 to n do
+		for j = 0 to m do
 			if i = 0 or j = 0 then
 				DP[i][j] = 0
 	for i = 1 to n do
@@ -452,5 +454,178 @@ LIST subsequence(int[][] DP, ITEM[] T, ITEM[] U, int i, int j)
 \end{lstlisting}
 La complessità computazionale di subsequence è al massimo $T(n) = \mathcal{O}(m+n)$ che  corrisponde al numero massimo di controlli che verranno eseguiti per ricostituire la soluzione, mentre il costo per creare e riempire la matrice è pari a $T(n) = \mathcal{O}(mn)$. In totale il costo di LCS è pari a $T(n) = \mathcal{O}(mn)$.
 
+\subsubsection{String matching approssimato}
+\textbf{Definizione:} Un'occorrenza k-approssimata di P in T, dove: 
+\begin{itemize}
+	\item P = p1...pm è una stringa detta pattern
+	\item T = t1...tn è una stringa detta testo, con m $\leq$ n,
+\end{itemize}
+è una copia di P in T in cui sono ammessi k "errori" (o differenze) tra caratteri di P e caratteri di T, del seguente tipo:
+\begin{itemize}
+	\item i corrispondenti caratteri in P, T sono diversi (sostituzione) 
+	\item un carattere in P non è incluso in T (inserimento)
+	\item un carattere in T non è incluso in P (cancellazione)\\
+\end{itemize}
+\textbf{Problema:} Trovare un'occorrenza k-approssimata di P in T con K minimo (0 $\leq$ k $\leq$ m).\\\\
+\textbf{Sottostruttura ottima e formula ricorsiva:} Sia DP[0...m][0...n] una tabella di programmazione dinamica tale che DP[i][j] sia il minimo valore k per cui esiste un’occorrenza k-approssimata di P(i) in T(j) che termina nella posizione j. \\
+\begin{equation*}
+  	DP[i][j] =\begin{cases}
+    	0 & \text{$i = 0$}\\
+    	i & \text{$i = 0$}\\
+    	min(DP[i-1][j-1] + d , DP[i-1][j] + 1, DP[i][j-1] + 1)  & \text{$altrimenti$}   	
+  	\end{cases}
+\end{equation*}
+dove d = iif(P[i] = T[j], 0 , 1).\\\\
+La formula tratta i vari casi: se P[i]=T[j] avanza su entrambi i caratteri, se P[i]$\neq$T[j] avanza aggiungi 1 e trova la soluzione minima tra avanzare sul pattern (inserimento), avanzare sul testo (cancellazione) e avanzare su entrambi i caratteri (sostituzione).\\\\
+\textbf{Implementazione:}
+\begin{lstlisting}[caption=String matching approssimato]
+int stringMatching(ITEM[] P, ITEM[] T, int m, int n)
+	int[][] DP = new int[0...m][0...n]
+	for j = 0 to n do DP[0][j] = 0  % Caso base: i = 0
+	for i = 1 to m do DP[i][0] = i  % Caso base: j = 0
+	for i = 1 to m do        	% Caso generale 
+		for j = 1 to n do
+			DP[i][j] = min( DP[i-1][j-1] + iif(P[i] == T[j], 0, 1),	
+					DP[i-1][j] + 1,
+					DP[i][j-1] + 1)
+	% Calcola minimo ultima riga
+	int pos = 0 
+	for j = 1 to n do
+		if DP[m][j] < DP[m][pos] then
+			pos = j
+	return pos
+\end{lstlisting}
+\subsubsection{Prodotto di catena di matrici}
+\textbf{Problema:} Data una sequenza di n matrici A1, A2, A3... An,compatibili due a due al prodotto, vogliamo calcolare il loro prodotto. \\Il prodotto di matrici: non è commutativo, è associativo: (A1 $\cdot$ A2) $\cdot$ A3 = A1 $\cdot$ (A2 $\cdot$ A3) e si basa sulla moltiplicazione scalare come operazione elementare. Vogliamo calcolare il prodotto delle n matrici impiegando il più basso numero possibile di moltiplicazioni scalari.\\\\
+\textbf{Definizioni:} Una parentesizzazione Pi,j del prodotto Ai $\cdot$ Ai+1 $\cdot$ ... $\cdot$ Aj consiste:
+\begin{itemize}
+	\item nella matrice Ai, se i = j;
+	\item nel prodotto di due parentesizzazioni (Pi,k $\cdot$ Pk+1,j), altrimenti.
+\end{itemize}
+La parentesizzazione che richiede il minor numero di moltiplicazioni scalari per essere completata, fra tutte le parentesizzazioni possibili.\\In ogni parentesizzazione ottima esiste un ultimo prodotto cioè  esiste un indice k tale che P[i...j] = P[i...k] $\cdot$ P[k+1...j] dove P[i...j] rappresenta una parentesizzazione per il prodotto Ai $\cdot$ Ai+1 $\cdot$ ... $\cdot$ Aj.\\Definiamo inoltre c$_{i-1}$ il numero di righe della matrice Ai e c$_{i}$  il numero di colonne della matrice Ai.\\\\
+\textbf{Sottostruttura ottima e formula ricorsiva:} Se P[ij] = P[i...k]P[k+1...j] è una parentesizzazione ottima del prodotto A[i...j], allora:
+\begin{itemize}
+	\item P[i...k] è parentesizzazione ottima del prodotto A[i...k]
+	\item P[k+1...j] è parentesizzazione ottima del prodotto A[k+1...j]
+\end{itemize}
+Non conosciamo quanto vale k, ma possiamo provare per tutti i valori possibili fra i e j-1.
+Definizione ricorsiva:
+\begin{equation*}
+  	DP[i][j] =\begin{cases}
+    	0 & \text{$i = j$}\\
+    	min_{i \leq k \leq j}(DP[i][k]+DP[k+1][j]+c_{i-1} \cdot c_{k} \cdot c_{j})  & \text{$i < j$}  
+  	\end{cases}
+\end{equation*}\\\\
+\textbf{Implementazione:}
+\begin{lstlisting}[caption= Calcolo prodotto di matrici e stampa parentesizzazione ottima usando matrice last]
+%ricostruzione della soluzione (stampa prodotto)
+printPar(int[][] last , int i, int j)
+	if i == j then
+		print "A["; print i; print "]"
+	else
+		print "("; stampaPar(last,i,last[i][j]); print "$\cdot$";
+		printPar(last,last[i][j]+1,j); print ")"
+
+%calcolo prodotto matrici usando last 
+int[][] multiply(matrix[] A, int[][] last, int i, int j)
+	if i == j then
+		return A[i]
+	else
+		int[][] X = multiply(A, last, i, last[i][j])
+		int[][] Y = multiply(A, last, last[i][j]+ 1, j)
+		%matrix-multiplication calcola il prodotto tra le  matrici X e Y
+		return matrix-multiplication(X,Y)
+\end{lstlisting}
 \newpage
+\noindent
+L'implementazione usa le matrici DP e last di dimensione n $\cdot$ n tali che:
+\begin{itemize}
+	\item DP[i][j] contiene il numero di moltiplicazioni scalari necessarie per moltiplicare le matrici A[i...j] 
+	\item last [i][j] contiene il valore k dell'ultimo prodotto che minimizza il costo per il sottoproblema
+\end{itemize}
+\begin{lstlisting}[caption= Calcolo parentesizzazione ottima]
+%calcolo della soluzione ottima
+computePar(int[] c, int n)
+	int[][] DP = new int[1...n][1... n]
+	int[][] last = new int[1...n][1...n]
+	% Fill main diagonal
+	for i = 1 to n do 
+		DP[i][i] = 0
+	% h: diagonal index
+	% i: row
+	% j: column
+	for h = 2 to n do
+		for i = 1 to n - h + 1 do 
+			int j = i + h - 1 
+			DP[i][j] = +1
+			% k: last product
+			for k = i to j - 1 do 
+				int temp = DP[i][k]+DP[k+1][j]+c[i-1]$\cdot$c[k]$\cdot$c[j]
+				if temp < DP[i][j] then
+					DP[i][j] = temp
+					last [i][j] = k
+	return DP[1][n]
+\end{lstlisting}
+\textbf{Costo computazionale:} Il costo di computePar è pari a $\mathcal{O}(n^{3})$.\\
+\subsubsection{Insieme indipendente di intervalli pesati}
+\textbf{Definizioni e input:} Siano dati n intervalli distinti [a1,b1[, ..., [an,bn[ della retta reale, aperti a destra, dove all'intervallo i è associato un profitto w$_{i}$, 1$\leq$i$\leq$n.
+Due intervalli i e j sono disgiunti se bi $leq$ ai oppure bi $\leq$ aj.\\\\ 
+\textbf{Problema:} Trovare un insieme indipendente di peso massimo, ovvero un sottoinsieme di intervalli disgiunti tra loro tale che la somma dei loro profitti sia la più grande possibile.\\\\
+\textbf{Soluzione:} Per usare la programmazione dinamica, è necessario effettuare una pre-elaborazione: ordinare gli intervalli per estremi finali crescenti cioè b1 $\leq$ b2 $\leq$ ... $\leq$ bn. \\
+Una seconda possibile pre-elaborazione consiste nel pre-calcolare il predecessore pred$_{i}$ = j di i, dove: 
+\begin{itemize}
+	\item j $<$ i è il massimo indice tale che bj $\leq$ ai
+	\item se non esiste tale indice, pred$_{i}$ = 0.
+\end{itemize}
+Definiamo la ricorrenza:
+\begin{equation*}
+  	DP[i] =\begin{cases}
+    	0 & \text{$i = 0$}\\
+    	max(DP[i-1], DP[pred_{i}] + w_{i})  & \text{$i > 0$}   	
+  	\end{cases}
+\end{equation*}
+dove DP[i] contiene il profitto massimo ottenibile con i primi i intervalli.\\\\
+\newpage
+\noindent
+\textbf{Implementazione:}
+\begin{lstlisting}[caption= Insieme indipendente di intervalli pesati]
+SET maxinterval(int[] a, int[] b, int[]w, int n)
+	{ordina gli intervalli per estremi di fine crescenti}
+	int[] pred = computePredecessor(a, b, n)
+	int[] DP = new int[0...n]
+	DP[0] = 0
+	for i = 1 to n do
+		DP[i] = max(DP[i-1], w[i]+DP[pred[i]])
+	i = n
+	SET S = Set()
+	while i > 0 do
+		if DP[i-1] > w[i] + DP[pred[i]] then
+			i = i - 1
+		else
+			S.insert(i)
+			i = pred[i]
+	return S
+
+	
+int[] computePredecessor(int[] a, int[] b, int n)
+	int[] pred = new int[0...n]
+	pred[0] = 0
+	for i = 1 to n do
+		j = i-1
+		while j > 0 and b[j] > a[i] do
+			j = j-1
+		pred[i] = j
+	return pred
+\end{lstlisting}
+\textbf{Costo computazionale:} Il costo per calcolare i predecessori mostrato nel codice è pari a $\mathcal{O}(n^{2})$, ma si può fare meglio di così ed arrivare ad un costo $\mathcal{O}$(n  log n).
+In totale il costo di maxinterval è pari a $\mathcal{O}$(n log n) in quanto il calcolo dei predecessori vale $\mathcal{O}$(n log n), l'ordinamento vale $\mathcal{O}$(n log n), il riempimento di DP vale $\mathcal{O}(n)$  e la ricostruzione della soluzione costa $\mathcal{O}(n)$.\\
+\subsection{Schema risoluzione problema}
+\textbf{Fasi risoluzione problema con programmazione dinamica/memoization:}\
+\begin{itemize}
+	\item Caratterizzare la struttura di una soluzione ottima
+	\item Dimostrare che la soluzione gode di sottostruttura ottima
+	\item Definire ricorsivamente il valore di una soluzione ottima
+	\item Calcolare il valore di una soluzione ottima "bottom-up" (programmazione dinamica) / "top-down" (memoization)
+	\item Ricostruzione di una soluzione ottima
+\end{itemize}
 \end{document}
