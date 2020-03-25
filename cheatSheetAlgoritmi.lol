@@ -67,44 +67,48 @@
 \contentsline {lstlisting}{\numberline {67}Knapsack Ricostruzione Soluzione}{57}{lstlisting.67}
 \contentsline {lstlisting}{\numberline {68}Lunghezza LCS}{59}{lstlisting.68}
 \contentsline {lstlisting}{\numberline {69}Ricostruire LCS}{59}{lstlisting.69}
-\contentsline {lstlisting}{\numberline {70}SortinoSort}{63}{lstlisting.70}
-\contentsline {lstlisting}{\numberline {71}Albero livello-valore}{65}{lstlisting.71}
-\contentsline {lstlisting}{\numberline {72}Percorso cammino-discendente}{66}{lstlisting.72}
-\contentsline {lstlisting}{\numberline {73}Percorso cammino-discendente Montresor}{66}{lstlisting.73}
-\contentsline {lstlisting}{\numberline {74}Grafi-Stessa Distanza}{67}{lstlisting.74}
-\contentsline {lstlisting}{\numberline {75}Grafi-bipartiti-bfs}{68}{lstlisting.75}
-\contentsline {lstlisting}{\numberline {76}Grafi-bipartiti-dfs}{69}{lstlisting.76}
-\contentsline {lstlisting}{\numberline {77}Distanza fra partizioni}{70}{lstlisting.77}
-\contentsline {lstlisting}{\numberline {78}Numero archi per connettere il grafo}{71}{lstlisting.78}
-\contentsline {lstlisting}{\numberline {79}Connetti il grafo}{71}{lstlisting.79}
-\contentsline {lstlisting}{\numberline {80}Chi manca}{72}{lstlisting.80}
-\contentsline {lstlisting}{\numberline {81}Punto fisso}{73}{lstlisting.81}
-\contentsline {lstlisting}{\numberline {82}Vettore unimodulare}{73}{lstlisting.82}
-\contentsline {lstlisting}{\numberline {83}Samarcanda}{74}{lstlisting.83}
-\contentsline {lstlisting}{\numberline {84}Costruzione ABR a partire da vettore ordinato}{75}{lstlisting.84}
-\contentsline {lstlisting}{\numberline {85}2 colorazione di Grafo con i wrestler}{76}{lstlisting.85}
-\contentsline {lstlisting}{\numberline {86}Pozzo universale}{77}{lstlisting.86}
-\contentsline {lstlisting}{\numberline {87}Pozzo universale Montresor}{77}{lstlisting.87}
-\contentsline {lstlisting}{\numberline {88}Zaino (ottimizzazione memoria)}{80}{lstlisting.88}
-\contentsline {lstlisting}{\numberline {89}Sottoinsieme Crescente di Somma Massima}{81}{lstlisting.89}
-\contentsline {lstlisting}{\numberline {90}Le pillole della Zia}{82}{lstlisting.90}
-\contentsline {lstlisting}{\numberline {91}Occorrenze di valori in un ABR}{84}{lstlisting.91}
-\contentsline {lstlisting}{\numberline {92}Alberobello}{85}{lstlisting.92}
-\contentsline {lstlisting}{\numberline {93}\IeC {\'E} un albero red-black?}{85}{lstlisting.93}
-\contentsline {lstlisting}{\numberline {94}Il grafo contiene la sottosequenza LODE?}{86}{lstlisting.94}
-\contentsline {lstlisting}{\numberline {95}Griglia quadra - costruzione grafo}{87}{lstlisting.95}
-\contentsline {lstlisting}{\numberline {96}Griglia quadra}{88}{lstlisting.96}
-\contentsline {lstlisting}{\numberline {97}Nodi che distano un numero di archi $\leq $ d}{88}{lstlisting.97}
-\contentsline {lstlisting}{\numberline {98}Albero Binario Allopato}{89}{lstlisting.98}
-\contentsline {lstlisting}{\numberline {99}Colorazione Alberi}{90}{lstlisting.99}
-\contentsline {lstlisting}{\numberline {100}Colorazione Alberi (by Montresor)}{90}{lstlisting.100}
-\contentsline {lstlisting}{\numberline {101}Posso vincere Mikado/Shangai in un unico turno?}{91}{lstlisting.101}
-\contentsline {lstlisting}{\numberline {102}Le votazioni}{91}{lstlisting.102}
-\contentsline {lstlisting}{\numberline {103}Foresta con costruzione del grafo}{92}{lstlisting.103}
-\contentsline {lstlisting}{\numberline {104}Foresta senza costruzione del grafo}{93}{lstlisting.104}
-\contentsline {lstlisting}{\numberline {105}Nodi che raggiungo ovunque}{94}{lstlisting.105}
-\contentsline {lstlisting}{\numberline {106}Prima Occorrenza}{94}{lstlisting.106}
-\contentsline {lstlisting}{\numberline {107}Prima Occorrenza (by Montresor)}{95}{lstlisting.107}
-\contentsline {lstlisting}{\numberline {108}Valore unico}{95}{lstlisting.108}
-\contentsline {lstlisting}{\numberline {109}Zero}{96}{lstlisting.109}
-\contentsline {lstlisting}{\numberline {110}Esercizi da schedare}{98}{lstlisting.110}
+\contentsline {lstlisting}{\numberline {70}String matching approssimato}{60}{lstlisting.70}
+\contentsline {lstlisting}{\numberline {71}Calcolo prodotto di matrici e stampa parentesizzazione ottima usando matrice last}{61}{lstlisting.71}
+\contentsline {lstlisting}{\numberline {72}Calcolo parentesizzazione ottima}{62}{lstlisting.72}
+\contentsline {lstlisting}{\numberline {73}Insieme indipendente di intervalli pesati}{63}{lstlisting.73}
+\contentsline {lstlisting}{\numberline {74}SortinoSort}{67}{lstlisting.74}
+\contentsline {lstlisting}{\numberline {75}Albero livello-valore}{69}{lstlisting.75}
+\contentsline {lstlisting}{\numberline {76}Percorso cammino-discendente}{70}{lstlisting.76}
+\contentsline {lstlisting}{\numberline {77}Percorso cammino-discendente Montresor}{70}{lstlisting.77}
+\contentsline {lstlisting}{\numberline {78}Grafi-Stessa Distanza}{71}{lstlisting.78}
+\contentsline {lstlisting}{\numberline {79}Grafi-bipartiti-bfs}{72}{lstlisting.79}
+\contentsline {lstlisting}{\numberline {80}Grafi-bipartiti-dfs}{73}{lstlisting.80}
+\contentsline {lstlisting}{\numberline {81}Distanza fra partizioni}{74}{lstlisting.81}
+\contentsline {lstlisting}{\numberline {82}Numero archi per connettere il grafo}{75}{lstlisting.82}
+\contentsline {lstlisting}{\numberline {83}Connetti il grafo}{75}{lstlisting.83}
+\contentsline {lstlisting}{\numberline {84}Chi manca}{76}{lstlisting.84}
+\contentsline {lstlisting}{\numberline {85}Punto fisso}{77}{lstlisting.85}
+\contentsline {lstlisting}{\numberline {86}Vettore unimodulare}{77}{lstlisting.86}
+\contentsline {lstlisting}{\numberline {87}Samarcanda}{78}{lstlisting.87}
+\contentsline {lstlisting}{\numberline {88}Costruzione ABR a partire da vettore ordinato}{79}{lstlisting.88}
+\contentsline {lstlisting}{\numberline {89}2 colorazione di Grafo con i wrestler}{80}{lstlisting.89}
+\contentsline {lstlisting}{\numberline {90}Pozzo universale}{81}{lstlisting.90}
+\contentsline {lstlisting}{\numberline {91}Pozzo universale Montresor}{81}{lstlisting.91}
+\contentsline {lstlisting}{\numberline {92}Zaino (ottimizzazione memoria)}{84}{lstlisting.92}
+\contentsline {lstlisting}{\numberline {93}Sottoinsieme Crescente di Somma Massima}{85}{lstlisting.93}
+\contentsline {lstlisting}{\numberline {94}Le pillole della Zia}{86}{lstlisting.94}
+\contentsline {lstlisting}{\numberline {95}Occorrenze di valori in un ABR}{88}{lstlisting.95}
+\contentsline {lstlisting}{\numberline {96}Alberobello}{89}{lstlisting.96}
+\contentsline {lstlisting}{\numberline {97}\IeC {\'E} un albero red-black?}{89}{lstlisting.97}
+\contentsline {lstlisting}{\numberline {98}Il grafo contiene la sottosequenza LODE?}{90}{lstlisting.98}
+\contentsline {lstlisting}{\numberline {99}Griglia quadra - costruzione grafo}{91}{lstlisting.99}
+\contentsline {lstlisting}{\numberline {100}Griglia quadra}{92}{lstlisting.100}
+\contentsline {lstlisting}{\numberline {101}Nodi che distano un numero di archi $\leq $ d}{92}{lstlisting.101}
+\contentsline {lstlisting}{\numberline {102}Albero Binario Allopato}{93}{lstlisting.102}
+\contentsline {lstlisting}{\numberline {103}Colorazione Alberi}{94}{lstlisting.103}
+\contentsline {lstlisting}{\numberline {104}Colorazione Alberi (by Montresor)}{94}{lstlisting.104}
+\contentsline {lstlisting}{\numberline {105}Posso vincere Mikado/Shangai in un unico turno?}{95}{lstlisting.105}
+\contentsline {lstlisting}{\numberline {106}Le votazioni}{95}{lstlisting.106}
+\contentsline {lstlisting}{\numberline {107}Foresta con costruzione del grafo}{96}{lstlisting.107}
+\contentsline {lstlisting}{\numberline {108}Foresta senza costruzione del grafo}{97}{lstlisting.108}
+\contentsline {lstlisting}{\numberline {109}Nodi che raggiungo ovunque}{98}{lstlisting.109}
+\contentsline {lstlisting}{\numberline {110}Prima Occorrenza}{98}{lstlisting.110}
+\contentsline {lstlisting}{\numberline {111}Prima Occorrenza (by Montresor)}{99}{lstlisting.111}
+\contentsline {lstlisting}{\numberline {112}Valore unico}{99}{lstlisting.112}
+\contentsline {lstlisting}{\numberline {113}Zero}{100}{lstlisting.113}
+\contentsline {lstlisting}{\numberline {114}Esercizi da schedare}{102}{lstlisting.114}
