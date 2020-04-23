@@ -138,7 +138,123 @@ decrease(PriorityItem x, int p)
 		swap(H, i, p(i))
 		i = p(i)	
 \end{lstlisting}
-\textbf{Costo computazionale}: le operazioni di insert(), deleteMin(), decrease() che modificano  l'heap e lo sistemano hanno un costo di O(\textit{log n}), mentre min() ha un costo pari a $\Theta$(\textit{1}).\
+
+\textbf{Costo computazionale}: le operazioni di insert(), deleteMin(), decrease() che modificano  l'heap e lo sistemano hanno un costo di O(\textit{log n}), mentre min() ha un costo pari a $\Theta$(\textit{1}).\\\\
+
+\subsection{Insiemi disgiunti - Merge Find Set}
+\textbf{Motivazione e operazioni fondamentali}: Siamo interessati a gestire una collezione $S = {S1, S2, ...Sk}$ di insiemi dinamici disgiunti tali che: 
+\begin{itemize}
+	\item $\forall i,j : i \neq j \Rightarrow Si \cap Sj = \emptyset$ 
+	\item $\bigcup\limits_{i=1}^{k} Si = Sj$, dove $k =|S|$
+\end{itemize}
+Le operazioni fondamentali possibili su questa struttura sono:
+\begin{itemize}
+	\item Creare n insiemi disgiunti, ognuno composto da un unico elemento
+	\item merge(): unire più insiemi
+	\item find(): identificare l'insieme a cui appartiene un elemento\\
+\end{itemize}
+\textbf{Rappresentante}: Ogni insieme è identificato da un rappresentante univoco. Il rappresentante dell'insieme $Si$ è un qualunque membro di $Si$. Più operazioni di ricerca del rappresentante svolte su uno stesso insieme devono restituire sempre lo stesso oggetto. Solo in caso di unione con altro insieme, il rappresentante degli insiemi può cambiare.\\\\
+\textbf{Specifica MFSET}:
+\begin{lstlisting}[ caption=Specifica MFSET]
+%Crea n componenti {1}, ... ,{n}
+MFSET Mfset(int n)
+%Restituisce il rappresentante della componente contenente x
+int find(int x)
+%Unisce le componenti che contengono x e y
+merge(int x, int y)
+\end{lstlisting}
+\textbf{\\Realizzazione}: Esistono 2 possibili tecniche per memorizzare gli insiemi disgiunti usando due strutture dati differenti.\\
+
+\subsubsection{Realizzazione basata su insieme di liste}
+\textbf{Descrizione}: Ogni insieme viene rappresentato da una lista concatenata. Il primo oggetto di una lista è il rappresentante dell'insieme e ogni elemento delle lista contiene: un intero/oggetto, un puntatore all'elemento successivo e un puntatore al rappresentante.
+\textbf{Operazioni}:
+\begin{itemize}
+	\item Operazione find(x): viene restituito il rappresentante dell'insieme x. L'operazione di find(x) richiede tempo O(1).
+	\item Operazione di merge(x,y): si "appende" la lista che contiene y alla lista che contiene x, modificando i puntatori ai rappresentanti nella lista "appesa" (per ogni elemento di y devo modificare il rappresentante). Nel caso pessimo, il costo di n operazione è O($n^{2}$) e quindi il coso ammortizzato di una operazione vale O(n). 
+\end{itemize}
+\subsubsection{Realizzazione basata su insieme di alberi (foresta)}
+\textbf{Descrizione}: Ogni insieme viene rappresentato da un albero. La radice è il rappresentante dell'insieme e ha un puntatore a sé stessa (per indicare che è il quel nodo il rappresentante). Ogni nodo dell'albero contiene: un intero/oggetto, un puntatore al padre.
+\textbf{Operazioni}:
+\begin{itemize}
+	\item Operazione find(x): risale la lista dei padri di x fino a trovare la radice e restituisce la radice stessa come rappresentante. Il costo è O(n) nel caso pessimo di albero lineare (in pratica una lista)
+	\item Operazione di merge(x,y): si aggancia l'albero radicato in y all'albero alla radice dell'albero x modificando il puntatore al padre della radice di y. Il costo è O(1) (non consideriamo il costo del find per cercare la radice).  
+\end{itemize}
+
+\subsubsection{Euristiche per migliorare la realizzazione}
+\textbf{Definizione algoritmo euristico}: particolare tipo di algoritmo progettato per risolvere il problema più velocemente, qualora i metodi classici siano troppo lenti o per trovare una soluzione approssimata qualora i metodi classi siano troppo lenti. Applicheremo delle euristiche ai metodi find e merge visti finito ad ora per migliorare la complessità delle due realizzazioni. \\\\
+\textbf{Euristiche per MFSET}:
+\begin{itemize}
+	\item Euristica del peso (applicata alle liste): è una strategia per diminuire il costo dell'operazione merge. Consiste nel memorizzare nelle liste l'informazione sulla loro lunghezza e nel momento del merge agganciare la lista più corta a quella più lunga in modo da modificare meno rifermenti al rappresentante. La lunghezza della lista può essere salvata e acceduta in tempo costante. Tramite analisi ammortizzata il costo di n-1 operazioni di merge è $\mathcal{O}(n log n)$ e il costo delle singole operazioni è $\mathcal{O}(log n)$
+	\item Euristica del rango (applicata agli alberi): ogni nodo mantiene informazioni sul proprio rango, cioè rank[x] del nodo x è il numero di archi del cammino più lungo tra x e una delle foglie che discendono da x (rango = altezza del sottoalbero associato al nodo). Il nostro scopo è usare il rango mantenere bassa l'altezza degli alberi. Se i due alberi hanno rango uguale si aggancia indifferentemente un albero alla radice dell'altro e il rango dell'albero finale cresce di 1. Se gli alberi hanno rango diverso si aggancia l'albero con rango più basso all'albero con rango più alto e l'altezza rimane inalterata. Possiamo dimostrare che (vedi slide) un albero MFSET con n nodi ha altezza inferiore a log n, quindi l'operazione find(x) ha costo   $\mathcal{O}(log n)$
+	\item Euristica della compressione dei cammini (applicata agli alberi): ogni volta che viene eseguita la find su un particolare albero, l'albero viene "appiattivo" in modo che le successive find sullo stesso albero siano svolte in O(1) (l'appiattimento viene eseguito solo in caso di modifica dell'albero con la merge). Questo è possibile costruendo un albero in cui tutti i nodi siano abbiano come padre direttamente il rappresentante e l'albero abbia altezza 1.  
+\end{itemize}
+Applicando entrambe le euristiche sugli alberi il rango non è più l'altezza reale, ma un limite superiore all'altezza del nodo (il rango corretto sarebbe troppo costoso da mantenere). Il costo di m operazioni di find in un insieme di m elementi usando gli alberi con le varie euristiche è  $\mathcal{O}(m \cdot \alpha(n))$, con $\alpha(n)$ funzione inversa di Ackermann che cresce molto lentamente. Il costo ammortizzato di una singola operazione è quindi O(1). \\\\
+\textbf{Implementazione}: Implementazione della struttura MFSET usando gli alberi e le varie euristiche presentante sopra.\
+\begin{lstlisting}[ caption=Implementazione MFSET]
+MFSET
+	int[] parent
+	int[] rank
+	
+MFSET Mfset(int n)
+	MFSET t = new MFSET
+	t.parent = int[1...n]
+	t.rank = int[1...n]
+	for i = 1 to n do
+		t.parent[i] = i
+		t.rank[i] = 0
+	return t
+	
+merge(int x, int y)
+	rx = find(x)
+	ry = find(y)
+	if rx != ry then
+		if rank[rx] > rank[ry] then
+			parent[ry] = rx
+		else if rank[ry] > rank[rx] then
+			parent[rx] = ry
+		else
+			parent[rx] = ry
+			rank[ry] = rank[ry] + 1
+
+int find(int x)
+	if parent[x] != x then
+		parent[x] = find(parent[x])
+	return parent[x]
+\end{lstlisting}
+\textbf{\\Complessità}: Nella tabella sotto vengono riportati i costi degli algoritmi find e merge degli insieme disgiunti. I costi con l'asterisco (*) sono stati calcolati con l'analisi ammortizzata. I costi di merge non tengo costo del costo necessario ad eseguire le 2 find ma assumono di avere già i rappresentati dei due insiemi coinvolti.\\
+\begin{center}
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{ |c|c|c| } 
+		\hline
+			\textbf{Algoritmo} & find() & merge()\\ 
+		\hline
+			Liste & $\mathcal{O}$(1) &  $\mathcal{O}$($n$)\\ 
+		\hline
+			Alberi &  $\mathcal{O}$($n$) &  $\mathcal{O}$($n^{2}$) \\
+		\hline
+			Liste + Euristica sul peso & $\mathcal{O}$(1) &  $\mathcal{O}$($log n$)*\\
+		\hline
+			Alberi + Euristica sul rango & $\mathcal{O}$($log n$) &  $\mathcal{O}$(1)\\
+		\hline
+			Alberi + Euristica sul rango + Compressione cammini & $\mathcal{O}$(1)* &  $\mathcal{O}$(1)\\
+		\hline
+	\end{tabular}
+\end{center}
+\newpage
+\subsubsection{Esempio applicazione MFSET - Componenti connesse dinamiche}
+\textbf{Problema}: Questa struttura dati può essere trovare le componenti connesse di un grafo non orientato dinamico.\\\\
+\textbf{Implementazione}:
+\begin{lstlisting}[ caption=Componenti connesse con MFSET]
+MFSET cc(Graph G)
+	%n = numero di nodi del grafo
+	MFSET M = Mfset(G.n)
+	foreach u $\in$ G.V() do
+		foreach v $\in$ G.adj(u) do
+			M.merge(u,v)
+	return M
+\end{lstlisting} 
+\textbf{\\Funzionamento}: si inizia con componenti connesse costituite da un unico vertice del grafo. Per ogni arco (u,v) $\in$ E, si esegue merge(u,v) per creare un unico insieme che contiene entrambi i lati dell'arco (visto che appartengono alla stessa componente connessa). Alla fine ogni insieme disgiunto rappresenta una componente connessa. Nodi appartenenti a componente connesse non saranno nello stesso insieme in quanto non ci sono archi che collegano i vari nodi su cui eseguire la merge.\\\\
+\textbf{Complessità}: O(n) + m operazioni di merge(), che si solito ha costo O(1) costante e la complessità risultante sarebbe (On+m). Questo algoritmo è preferibile rispetto a quello visto fino ad ora quando il grafo che dobbiamo gestire è dinamico (possiamo aggiungere anche su quel grafo) in quando con questa versione basterebbe eseguire una merge() sull'arco aggiunto, mentre con la versione classica bisognerebbe eseguire da capo l'algoritmo. \\\\
 
 \newpage
 \section{Divide-et-impera}
@@ -168,7 +284,7 @@ void QuickSort(ITEM A[], int start, int end)
  	\item Pivot: $\Theta$(\textit{n}) 
  	\item QuickSort: si comporta in modo diverso in base all'ordine degli elementi. Nel caso pessimo vale $\Theta$(\textit{n\textsuperscript{2}}), nel caso ottimo  $\Theta$(\textit{n log n}), mentre il caso medio è difficile da calcolare. 
 \end{itemize}
-\
+\textbf{Specifica e assunzioni}: Metodi per la gestione della struttura. Assumiamo di memorizzare nella struttura degli interi e non degli oggetti e prevediamo che esista una associazione intero-oggetto memorizzata esternamente.\
 
 
 \subsection{Gap}
