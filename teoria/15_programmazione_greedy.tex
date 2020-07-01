@@ -1,0 +1,108 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Programmazione Greedy}
+\subsection{Introduzione}
+Nella sezione precedente ci siamo occupati di risolvere alcuni problemi mediante l'utilizzo di programmazione dinamica e, in alcuni di questi casi, abbiamo dovuto controllare tutte le possibili soluzioni ottenute poichè non eravamo certi di dove potesse trovarsi il risultato. In questo capitolo ci occuperemo invece della programmazione greedy e ciò di selezionare una sola tra le scelte possibili, quella che ci sembra la migliore (localmente ottima), dimostrando però che questa scelta si rivela poi essere ottima a livello globale.\\
+\textbf{ATTENZIONE:} Non tutti i problemi hanno una scelta ingorda come soluzione!
+\subsection{Insieme indipendente massimale di intervalli}
+\textbf{Input}\\
+Sia $S$ = $\{1, 2, ..., n\}$ un insieme di intervalli della retta reale. Ogni intervallo $[a_i, b_i]$ con $i \in S$, è chiuso a sinistra e aperto a destra.
+\begin{itemize}
+	\item  $a_i:$ \textcolor{red}{tempo di inizio}
+	\item  $b_i:$ \textcolor{red}{tempo di fine}
+\end{itemize}
+\textbf{Definizione del Problema} \\
+Un \textcolor{red}{insieme indipendente massimale} è un sottoinsieme di massima cardinalità formato da intervalli tutti disgiunti tra loro.
+\subsubsection{Dalla programmazione dinamica...}
+Prima di parlare della risoluzione del problema con la tecnica greedy proviamo a vedere come avremmo affrontato il problema con programmazione dinamica, definendo la sottostruttura ottima, per cercare la cosiddetta scelta ingorda.\\\\
+\textbf{Sottostruttura Ottima}\\
+Si assuma che gli intervalli siano ordinati per tempo di fine: $b_1 \leq b_2 \leq ... \leq b_n$\\
+Definiamo il \textcolor{red}{sottoproblema $S[i...j]$} come l'insieme di intervalli che iniziano dopo la fine di $i$ e finiscono prima dell'inizio di $j$: $S[i...j] = \{k|b_i \leq a_k < b_k \leq a_j\}$\\
+Aggiungiamo due intervalli fittizzi:\\
+\begin{itemize}
+	\item  Intervallo 0: $b_0 = - \infty$ 
+	\item  Intervallo $n+1$: $a_{n+1} = + \infty$ 
+\end{itemize}
+Il problema iniziale corrisponde al problema $S[0,n+1]$ (ricordiamo che $S$ definisce gli intervalli che cominciano dopo $i$ - cioè dopo $- \infty$ e prima di $j$ - cioè prima di $+ \infty$).\\\\
+\textbf{Teorema}\\
+Supponiamo che $A[i...j]$ sia una soluzione ottimale di $S[i...j]$ e sia $k$ un intervallo che appartiene a $A[i...j]$; allora
+\begin{itemize}
+	\item  \textcolor{red}{Il problema $S[i...j]$ viene suddiviso in due sottoproblemi}
+		\begin{itemize}
+			\item  $S[i...k]$: gli intervalli di $S[i...j]$ che finiscono prima di $k$
+			\item  $S[k...j]$: gli intervalli di $S[i...j]$ che iniziano dopo di $k$ 
+		\end{itemize}
+	\item  \textcolor{red}{$A[i..j]$ contiene le soluzioni ottimali di $S[i...k]$ e $S[k...j]$} 
+		\begin{itemize}
+			\item  $A[i...j]$ $\cap$ $S[i...k]$ è la soluzione ottimale di $S[i...k]$
+			\item  $A[i...j]$ $\cap$ $S[k...j]$ è la soluzione ottimale di $S[k...j]$
+		\end{itemize}
+\end{itemize}
+\textbf{Dimostrazione (in pillole):} Come è possibile immaginare se ad esempio $A[i...j]$ $\cap$ $S[i...k]$ \textbf{non fosse la soluzione ottimale} di $S[i...k]$ allora vorrebbe dire che esisterebbe un altro insieme di elementi $A'[i...j]$ t.c. $A'[i...j]$ $\cap$ $S[i...k]$ è la soluzione ottimale di $S[k...j]$ ma ciò contraddirrebbe l'ipotesi iniziale! (cioè se non vale per uno dei due sottointervalli non può essere la soluzione complessiva)\\\\
+\textbf{Definizione ricorsiva della soluzione}\\
+$A[i...j]$ = $A[i...k]$ $\cup$ $\{k\}$ $\cup$ $A[k...j]$\\\\
+\textbf{Definizione Ricorsiva del suo costo}\\
+Come si determina $k$? Devo analizzare tutte le possibilità.\\
+Sia $DP[i][j]$ la dimensione del più grande sottoinsieme $A[i...j] \subseteq S[i...j]$ di intervalli indipendenti
+\begin{center}
+	\begin{equation*}
+  		DP[i][j]=\begin{cases}
+    		0  & \text{$S[i...j] = \emptyset$}\\
+    		max_{k \in S[i...j]}\{DP[i][k] + DP[k][j] + 1\} & \text{$altrimenti$}
+  		\end{cases}
+	\end{equation*}
+\end{center}
+\subsubsection{...alla soluzione ingorda}
+Grazie alla precedente definizione possiamo scrivere un algoritmo basato su programmazione dinamica o memoization e, visto che dobbiamo risolvere tutti i sottoproblemi, il costo totale è pari a $\mathcal{O}(n^3)$.\\
+Nel caso di intervalli pesati abbiamo visto che è possibile sviluppare una soluzione con costo $\mathcal{O}(n\log{n})$, ma siamo sicuri che sia necessario analizzare tutti i possibili valori $k$?\\\\
+\textbf{Teorema}\\
+Sia $S[i...j]$ un sottoproblema non vuoto e $m$ l’intervallo di $S[i ...j]$ con il minor tempo di fine (cioè $m \in S[i...j] $), allora:
+\begin{itemize}
+	\item il sottoproblema $S[i...m]$ è vuoto
+	\item $m$ è compreso in qualche soluzione ottima di $S[i ...j]$
+\end{itemize}
+\textbf{Dimostrazione 1}\\
+Sappiamo che:
+\begin{itemize}
+	\item  \textcolor{red}{$a_m < b_m$} (Definizione di intervallo)
+	\item \textcolor{red}{$\forall k \in S[i...j]$ : $b_m \leq b_k$} ($m$ ha minor tempo di fine)
+\end{itemize}
+Ne segue che: \textcolor{red}{$\forall k \in S[i...j]$ : $a_m < b_k$} (Transitività)\\
+Se nessun intervallo in $S[i...j]$ termina prima di $a_m$ allora $S[i...m] = \emptyset$.\\\\
+\textbf{Dimostrazione 2}\\
+Sia \textcolor{red}{$A'[i...j]$} una soluzione ottima di $S[i...j]$.\\
+Sia \textcolor{red}{$m'$} l'intervallo con il minor tempo di fine in $A[i...j]$.\\
+Sia \textcolor{red}{$A[i..j] = A'[i...j] - \{ m' \} \cup \{ m \}$} una nuova soluzione attenuta togliendo $m'$ e aggiungendo $m$ ad $A'[i...j]$.\\
+\textcolor{red}{$A[i...j]$ è una soluzione ottima che contiene $m$}, in quanto ha la stessa dimentsione di $A'[i...j]$ e gli intervalli sono indipendenti. Per intenderci ricadiamo in due casi differenti:
+\begin{itemize}
+	\item Se $m = m'$ allora non cambia nulla perchè ho aggiunto e tolto lo stesso elemento
+	\item Se $m \neq m'$ allora ho trovato una soluzione differente ma con la stessa cardinalità della prima 
+\end{itemize}
+\textbf{Conseguenze}\\
+\begin{itemize}
+	\item \textcolor{red}{Non è più necessario analizzare tutti i possibili valori di k}: faccio una scelta ingorda ma sicura, seleziono l'attività $m$ con il minor tempo di fine
+	\item \textcolor{red}{Non è più necessario analizzare due sottoproblemi}: elimino tutte le attività che non sono compatibili con la scelta ingorda e dunque mi rimane da risolvere solamente il sottoproblema $S[m...j]$
+\end{itemize}
+\subsubsection{Algoritmo}
+\begin{lstlisting}[caption=indipendent Set (Greedy)]
+SET indipendentSet(int[] a, int[] b)
+	$\{$ordina $a$ e $b$ in modo che $b[1] \leq b[2] \leq ... \leq b[n]$$\}$
+	SET $S$ = Set()
+	%inserisco direttamente il primo elemento perche' ordinati per fine
+	$S$.insert(1) 
+	int l$ast$ = 1
+	for i = 2 to n do
+		if $a[i] \geq b[last]$ then
+		$S$.insert($i$)
+		$last = i$
+	return $S$
+\end{lstlisting}
+La complessità dell'algoritmo è $\mathcal{O}(n\log{n})$ se l'input non è ordinato oppure $\mathcal{O}(n)$ nel caso in cui sia già ordinato.
+\subsection{Problema del resto}
+\textbf{Input}\\
+Un insieme di tagli di monete, memorizzati in un vettore di interi positivi $t[1...n]$ e un intero $R$ rappresentante il resto che dobbiamo restituire.\\\\
+\textbf{Definizione del problema}\\
+Trovare il più piccolo numero intero di pezzi necessari per dare un resto di $R$ centesimi utilizzando i tagli disponibili, assumendo di avere un numero illimitato di monete per ogni taglio.
+
+\end{document}
