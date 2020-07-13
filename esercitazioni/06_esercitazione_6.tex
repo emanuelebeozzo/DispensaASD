@@ -3,6 +3,45 @@
 
 \subsection{Esecitazione 6 - 20/02/20}
 \textbf{Ottimizza la somma}\\
-TODO
+Supponete di avere in input un vettore dininteri positivi distinti $V[1. . . n]$ e un valore $W$. Scrivere un algoritmo che:
+\begin{enumerate}
+	\item restituisca il massimo valore $X =  \sum_{i = 1}^{n} x[i] V[i]$ tale che $X \leq W$ e ogni $x[i]$ è un intero non negativo
+	\item stampi il vettore $x$
+\end{enumerate}
+Ad esempio, per $V = [18,3,21,9,12,24]$ e $W = 17$, una possibile soluzione ottima è $x = [0,2,0,1,0,0]$ da cui deriva $X= 15$.\\
+Discutere correttezza e complessità.\\\\
+Da un'osservazione più attenta del problema ci si accorge che non è altro che una versione modificata di Knapsack (versione Senza Limiti) dove $w$ e $p$, rispettivamente i vettori che indicano il profitto e il peso di un oggetto, sono entrambi rappresentati da $V$. Nonostante bastasse richiamare l'algoritmo ricorsivo proposto nella parte di memoization proproniamo una versione iterativa che permette di stampare anche il vettore $x$:\\
+\begin{lstlisting}[ caption=Ottimizza la Somma]
+int knapsack(int[] V, int n, int W)
+	int x[] = new int[1...n]
+	DP[] = new int[0...n][0...W]
+	for i = 0 to n do
+		DP[i][0] = 0
+	for w = 0 to W do
+		DP[0][w]
+	for i = 1 to n do
+		x[i] = 0
+	for i = 1 to n do
+		for w = 1 to W do
+			if V[i] $\leq$ w then
+				DP[i][w] = max(DP[i][w - V[i]] + V[i], DP[i-1][w])
+			else
+				DP[i][w] = DP[i-1][w]
+	solution(DP, n, W, V, x)
+	print("[")
+	for i = 1 to n do
+		print(x[i])
+		print(" ")
+	print("]")
+	return DP[n][W]
+	
+void solution(int[][] DP, int n, int W, int[] V, int[] x)
+	if n > 0 and W > 0 then
+		if DP[n][W] == DP[n-1][W] then
+			solution(DP, n-1, W, V, x)
+		else
+			x[n]++
+			solution(DP, n, W-1, V, x)
+\end{lstlisting}
 
 \end{document}
