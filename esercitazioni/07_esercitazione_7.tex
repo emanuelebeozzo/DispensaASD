@@ -1,15 +1,96 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esecitazione 7 - 02/03/20}
-\textbf{Mosse su scacchiera}\\
-TODO
-
+\subsection{Esercitazione 7 - 02/03/20}
+\textbf{Mosse su scacchiera}
+\begin{itemize}
+	\item Supponete di avere una scacchiera di dimensione $n \times n$ che rappresenta una scacchiera e un pedone che dovete muovere dall’estremità inferiore aquella superiore.
+	\item Il pedone si può muovere (1) una casella in alto, oppure (2) una casella in diagonale alto-destra, oppure (3) una casella in diagonale alto-sinistra.
+	\item Alla scacchiera è associata una matrice di profitto $P$; quando una cella $(r, c)$ viene visitata, si guadagna un profitto reale $P[r][c]$
+\end{itemize}
+\begin{lstlisting}[caption=Mosse su scacchiera]
+int mosseSuScacchiera(int[][] P, int n)
+    int[][] DP = new int[1..n][1..n]
+    for j = 1 to n do
+        DP[1][j] = P[1][j]
+    for i = 2 to n do
+        for j = 1 to n do
+            int[] moves = {0, 1, -1}
+            DP[i][j] = $+\infty$
+            for k = 1 to 3 do
+                int new_j = j + moves[k]
+                DP[i][j] = max(DP[i][j], DP[i-1][new_j])
+            DP[i][j] = DP[i][j] + P[i][j]
+    int maxSoFar = DP[n][1]
+    for i = 2 to n do
+        if $maxSoFar < DP[n][i]$ then
+            maxSoFar = DP[n][i]
+    return maxSoFar
+\end{lstlisting}
+La complessità della soluzione proposta è $\mathcal{O}(n^2)$ dovuta alla presenza di due cicli annidati per la costruzione della tabella delle soluzioni. La correttezza di tale algortimo può essere provata a partire dalla formula ricorsiva seguente: \\
+Sia DP[i][j] la matrice che rappresenta il massimo guadagno ottenibile partendo dalla prima riga (in una delle qualsiasi celle $(1, j)$ con $j \in {1..n}$) e arrivando nella cella $(i, j)$. Sia dunque la seguente ricorrenza:
+\begin{equation*}
+  	DP[i][j] =\begin{cases}
+        -\infty & \text{$j > n$ \textbf{or} $j < 1$} \\
+    	P[1][j] & \text{$i == 1$}\\
+    	max(DP[i-1][j], DP[i-1][j-1], DP[i-1][j+1]) & \text{$altrimenti$}
+  	\end{cases}
+\end{equation*}
+In particolare i casi base sono rappresentati dal profitto ottenibile da una qualsiasi cella della prima riga come il profitto della stessa in quanto è la posizione di partenza del pedone.\\
+La soluzione, ovvero il massimo profitto ottenibile, sarà il massimo valore contenuto nelle celle della n-esima riga.\\\\
 \textbf{Donald Trump}\\
-TODO
-
+Compito 16/7/2016\\
+La soluzione proposta si basa sul problema di Longest Increasing Subseaquence: sostanzialmente si utilizza un vettore DP per verificare che la città i-esima sia a distanza almeno D da quella j-esima già analizzata in precedenza e, se il numero di elettori è maggiore di quello precedente, allora la cella DP[i] viene aggiornata con il nuovo numero di elettori.
+\begin{lstlisting}[caption=Donald Trump]
+int donaldTrump(int[] m, int[] e, int n, int D)
+	%Presuppongo che l'input di m sia ordinato, se cosi' non fosse ordino le citta' per distanza
+	int DP[] = new int[1...n]
+	for i = 1 to n do
+		DP[i] = -1
+	DP[1] = e[1]
+	for i = 2 to n do
+		DP[i] = e[i]
+		for j = 1 to i-1 do
+			if m[i] - m[j] $\geq$ D and DP[i] $\leq$ DP[j] + e[i] then
+				DP[i] = DP[j] + e[i]
+	return max(DP[])
+\end{lstlisting}
+La complessità è pari a $\mathcal{O}(n^{2})$ poichè vengono eseguiti 2 cicli di cui quello interno nel caso peggiore andrà da $1$ a $n$. nel caso in cui fosse necessario ordinare gli elementi la complessità non cambia in quanto già il calcolo di DP costituisce un limite superiore rispetto ad un ordinamento basato su confronti ($\mathcal{O}(n\log{n})$). Per individuare il maggior numero di elettori è necessario scorrere l'array.\\
+L'equazione di ricorrenza è la seguente
+\begin{equation*}
+  	DP[i] =\begin{cases}
+    	e[i] & \text{se $m[i] - m[j] > D$ or $DP[i] > DP[j] + e[i]$, $\forall j < i$ }\\
+    	max_{\forall j < i} (DP[j] + e[i]) & \text{$altrimenti$}
+  	\end{cases}
+\end{equation*}
 \textbf{Palindroma}\\
-TODO
+Una stringa si dice palindroma se è uguale alla sua trasposta, cioè se è identica se letta da sinistra e destra o da destra a sinistra.Scrivere un algoritmo minpal(Item[ ]s)che ritorna il numero minimo di caratteri da inserire in $s$ per rendere $s$ palindroma.\\
+La soluzione è la seguente
+\begin{lstlisting}[caption=Palindroma]
+int minPal(ITEM[] s, int n)
+	int[][] DP = new int[1..n][1..n]
+    for i = 1 to n do
+    	for j = 1 to n do
+      		DP[i][j] = -1
+    return minPalRec(s, DP, 1, n)
 
+int minPalRec(ITEM[] s, int[][] DP, int i, int j)
+	if j $\leq$ i then
+		return 0
+	if DP[i][j] $\neq$ 0 then
+		if s[i] $==$ s[j] then
+			DP[i][j] = minPalRec(s, DP, i-1, j+1)
+		else
+			DP[i][j] = min(minPalRec(s, DP, i-1, j), minPalRec(s, DP, i, j+1)) + 1
+	return DP[i][j]	
+\end{lstlisting}
+Il costo è pari a $\mathcal{O}(n^{2})$ per via della matrice anche se di fatto verranno eseguite sempre al massimo $n$ mosse, una soluzione con un dizionario avrebbe permesso un costo lineare ma non avrebbe permesso di ricostruire la soluzione in un secondo momento. L'equazione di ricorrenza si può scrivere nel seguente modo 
+\begin{equation*}
+  	DP[i][j] =\begin{cases}
+    	0 & \text{$j \leq i$}\\
+    	DP[i-1][j+1] & \text{$s[i] == s[j]$}\\
+    	min(DP[i-1][j], DP[i][j+1])+1 & \text{$altrimenti$}
+  	\end{cases}
+\end{equation*}
 \newpage
 \end{document}
