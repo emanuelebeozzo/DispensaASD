@@ -1,0 +1,12 @@
+*.aux
+*.log
+*.toc
+*.dvi
+*.glg
+*.out
+*.synctex.gz
+esercitazioni/*.pdf
+esercizi_vari/*.pdf
+laboratori/*.pdf
+teoria/*.pdf
+tutorati/*.pdf
