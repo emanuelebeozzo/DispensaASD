@@ -1,0 +1,174 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esercitazione 11 - 27/04/20}
+\textbf{Zaino}
+Si consideri il problema dello zaino. Scrivere un algoritmo che prenda in input un vettore $w$ di pesi di dimensionene una capacità $C$, e stampi tutti i sottoinsiemi di indici corrispondente a sottoinsiemi di oggetti il cui peso sia inferiore o uguale a $C$.
+\begin{lstlisting}[caption=Stampa i subsets di Knapsack]
+printKnapsackSubsets(int[] w, int n, int C)
+    int[] S = new int[1..n]
+    knapsackSubsets(w, S, 1, C)
+
+knapsackSubsets(int[] w, int[] S, int i, int missing)
+    if missing $==$ 0 or i $==$ n then
+        processSubsets(S, i)
+    else 
+        SET choices = {0, 1} % taken not taken
+        foreach c $\in$ choices do
+            if c $==$ 0 or (c $==$ 1 and missing $\geq$ w[i]) then
+                S[i] = c
+                int newMissing = iif(c $==$ 1, missing - w[i], missing)
+                knapsackSubsets(w, S, i + 1, newMissing)
+                
+processSubsets(int[] S, int n) 
+    print "{"
+    for i = 1 to n do
+        if $S[i] == 1$ then
+            print i
+            print " "
+    print "}"
+\end{lstlisting}
+La complessità della funzione presentata è dell'ordine di $\mathcal{O}(n \cdot 2^n)$, dato che è necessaria una complessità di $\mathcal{O}(2^n)$ per la generazione di tutti i sottoinsiemi. Si ricorda che questo è un limite superiore, per cui non verranno effettivamente generate e controllate tutti i sottoinsiemi, vi è infatti un meccanismo di puning che si occupa di ridurre le sequenze generate, evitando di proseguire con la costruzione di un insieme di elementi il cui peso sfora la capacità. Mentre la componente di complessità $\mathcal{O}(n)$ è data dal costo computazionale della funzione di processamento che stampa la sequenza.\\\\
+\textbf{Prima Elementare - Compito 01/02/12}\\
+Scrivere un algoritmo che stampa tutte le possibili stringhe composte da $n$ caratteri $R$ e da $m$ caratteri $G$, per un totale di $n+m$ caratteri.\\
+Scrivere un algoritmo che conta tutte queste possibili stringhe - ovviamente senza generarle tutte e poi contandole.\\
+Calcolare la complessità computazionale degli algoritmi proposti.
+\begin{lstlisting}[caption=Permutazioni dei caratteri G e R e conteggio]
+primaElementare(int n, int m)
+    int[] S = new int[1..n + m]
+    permutazioniRG(S, n, m, 1)
+        
+permutazioniRG(ITEM[] S, int n, int m, int i)
+    if n $==$ 0 and m $==$ 0 then
+        processPermutation(S, i)
+    else 
+        if n > 0 then
+            S[i] = R
+            permutazioniRG(S, n - 1, m, i + 1)
+        if m > 0 then
+            S[i] = G
+            permutazioniRG(S, n, m - 1, i + 1)
+                
+processPermutation(int[] S, int n) 
+    print "{"
+    for i = 1 to n do
+        print S[i]
+    print "}"
+    
+int countPrimaElementare(int n, int m)
+    return countPrimaElementareRec(n, m)
+        
+int countPrimaElementareRec(int n, int m)
+    if n $==$ 0 and m $==$ 0 then
+        return 1
+    else
+        return countPrimaElementareRec(n, m - 1) + countPrimaElementareRec(n - 1, m)
+
+int countPrimaElementareDP(int n, int m)
+    int[][] DP = new int[0...n][0...m]
+    for i = 1 to n do
+        DP[i][0] = 1
+    for j = 1 to m do
+        DP[0][j] = 1
+    for i = 2 to n do
+        for j = 2 to n do
+            DP[i][j] = DP[i][j-1] + DP[i-1][j]
+    return DP[n][m]
+\end{lstlisting}
+Il costo computazionale della soluzione proposta è $\mathcal{O}(k \cdot k!)$ (dove $k = n + m$) in quanto vengono generate le permutazioni di una stringa formata da $n + m$ caratteri, ed è necessario stampare ogni sequenza generata. \\
+Per il conteggio, la soluzione proposta ha costo $\mathcal{O}(2^{n + m})$. Mentre quella con programmazione dinamica ha costo computazionale pari a: $\mathcal{O}(nm)$ basata sulla seguente ricorrenza: \\
+Sia $DP[i][j$] il numero di sequenze ottenibili considerando $i$ caratteri $R$ e $j$ caratteri $G$, si distinguono i seguenti casi:
+\begin{equation*}
+    DP[i][j]=\begin{cases}
+        1 & \text{$i == 0 \lor j == 0$}\\
+        DP[i-1][j] + DP[i][j-1] & \text{altrimenti} 
+    \end{cases}
+\end{equation*}
+\textbf{Somma di Quadrati - Compito 26/01/2016}
+\begin{enumerate}
+	\item Ogni intero positivo $n$ può essere scritto come somma di quadrati di interi. Scrivere un algoritmo che, preso in input $n$, restituisce il numero minimo di quadrati la cui somma è pari ad $n$. Discuterne correttezza e complessità.
+	\item Scrivere un algoritmo che, dato $n$, stampatutti i modi possibili per esprimere $n$ come somma di quadrati, discutendo correttezza e complessità
+\end{enumerate}
+\begin{lstlisting}[caption=Somma di Quadrati - Conteggio]
+int sommaQuadrati(int n, int missing)
+    if missing $==$ 0 then
+        return 0
+    else if missing < 0 then
+        return $+\infty$
+    else
+        int minValue = $+\infty$
+        for i = 1 to n do 
+            int c = sommaQuadrati($\lfloor \sqrt{(n - i)} \rfloor$, missing - i$^2$) + 1
+            minValue = min(minValue, c)
+        return minValue
+
+int sommaQuadrati(int n)
+    int[] DP = new int[0...n]
+    DP[0] = 1
+    DP[1] = 1
+    for i = 2 to n do
+        DP[i] = $+\infty$
+        for j = $\lfloor \sqrt(i) \rfloor$ downto 1 do
+            DP[i] = min(DP[i], DP[i - j$^2$)] + 1)
+    return DP[n]
+\end{lstlisting}
+Il costo della soluzione proposta con backtrack è \emph{superpolinomiale}, mentre quella basata su programmazione dinamica è $\mathcal{O}(n^\frac{3}{2})$, in quanto per ogni cella sono necessarie al più $\mathcal{O}(\sqrt n)$ iterazioni. La soluzione è basata sulla seguente ricorrenza: \\
+Sia $DP[i]$ il numero minimo di quadrati necessari a rappresentare il numero $i$, si distinguono i seguenti casi:
+\begin{equation*}
+    DP[i]=\begin{cases}
+        0 & \text{$i = 0$}\\
+        1 & \text{$i = 1$}\\
+        min(DP[i - j^2] + 1)_{\forall j \mid 0 \leq j \leq \sqrt i} & \text{altrimenti} 
+    \end{cases}
+\end{equation*}
+\begin{lstlisting}[caption= Somma di Quadrati - Elenco Insiemi]
+sommaQuadrati(int n)
+	SET S = new SET()
+	sommaQuadratiRec(n, S)
+	
+sommaQuadratiRec(int n, SET S)
+	if n $==$ 0 then
+		print(S)
+	else if n > 0 then
+		for i = $\lfloor \sqrt n \rfloor$ downto 1 do
+			S.insert(i$^2$)
+			sommaQuadratiRec(n - i$^{2}$, S)
+			S.remove(i$^2$)	
+\end{lstlisting}
+Utilizzando l'algoritmo proposto di fatto si ha la possibilità di stampare tutte le sequenze possibili di somme di quadrati senza ripetizioni e in ordine decrescente: tutte le volte infatti verranno scartati i numeri che sono maggiori di $\lfloor \sqrt n \rfloor$. La complessità viene definita \emph{superpolinomiale}.\\\\
+\textbf{k-cammini - Compito 25/7/18}\\
+Scrivere un algoritmo che prende in input un grafo $G= (V, E)$, un nodo $s \in V$ e un intero $k$ e stampa tutti i cammini contenuti nel grafo tali che:
+\begin{itemize}
+	\item partano da $s$
+	\item abbiano lunghezza esattamente $k$
+	\item siano semplici (senza nodi ripetuti)
+\end{itemize}
+Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale.
+\begin{lstlisting}[caption=Percorsi grafo]
+percorsiGrafo(GRAPH G, NODE s, int k)
+    ITEM[] S = new ITEM[1...k]
+    boolean[] visited = new boolean[1...G.V]
+    foreach u $\in$ G.V() - {s} do
+        visited[u] = false
+    visited[s] = true
+    percorsiGrafoRec(G, S, visited, s, k, k)
+
+percorsiGrafoRec(GRAPH G, ITEM[] S, boolean[] visited, NODE s, int i, int k)
+    if i $==$ 0 then
+        processSolution(S, k)
+    else
+        foreach u $\in$ G.adj(s) do
+            if not visited[u] then
+	            visited[u] = true
+	            percorsiGrafoRec(G, visited, u, i - 1, k)
+	            visited[u] = false
+            
+processSolution(ITEM[] S, int n)
+    print "{"
+    for i = 1 to n do
+        print S[i]
+    print "}"
+\end{lstlisting}
+Il costo della soluzione è pari a $\mathcal{O}(k \cdot n^{k})$: per arrivare a tale complessità basta pensare al fatto che il numero di nodi che forma il k-cammino è pari a $k+1$ ma uno di questi è $s$ (invariante) e quindi i nodi variabili sono k. Supponendo di avere un grafo completo (i cui nodi hanno dunque $n-1$ archi ognuno) si ha che è possibile scegliere fra $n-1$ nodi come nodo adiacente a $s$, dopodichè $n-2$ per il nodo adiacente a $n-1$ e così via fino a $n-k$ nodi. La complessità dunque è data da $(n-1) \cdot (n-2) \cdot (n-3) \cdot ... \cdot (n-k) = n^{k}$. Il termine $k$ invece è ottenuto dal costo della stampa di $k$ termini.
+\newpage
+\end{document}
