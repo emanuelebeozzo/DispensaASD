@@ -218,7 +218,29 @@ int partitionRec(int[] V, int[] tot, int[][] DP int i, int t)
 \end{lstlisting}
 La tabella ha dimensione $n \times k$, ogni cella richiede tempo $\mathcal{O}(n)$ per essere riempita e il costo computazionale è quindi $\mathcal{O}(kn^{2})$.\\\\
 \textbf{Quadrato Binario - Compito 10/09/12}\\
-Sia $A$ una matrice $n \times n$ di valori booleani $0/1$. Scrivere un algoritmo che prenda in input la matrice $A$ e la sua dimensione $n$, e restituisca la dimensione del più grande quadrato composto da valori $1$ contenuto nella matrice.
-TODO
+Sia $A$ una matrice $n \times n$ di valori booleani $0/1$. Scrivere un algoritmo che prenda in input la matrice $A$ e la sua dimensione $n$, e restituisca la dimensione del più grande quadrato composto da valori $1$ contenuto nella matrice.\\
+La soluzione proposta consiste nel memorizzare innanzitutto in una matrice $DP$ la matrice iniziale in modo da poterci lavorare successivamente. L'algoritmo si basa sul controllo del valore contenuto nella cella a sinistra, in alto, in alto a sinistra e della cella stessa che si sta esaminando; viene poi selezionato il valore minimo fra questi quattro e viene sommato uno. Questa condizione stabilisce che si formerà un quadrato di celle più grandi solo e soltato se il valore delle quattro celle è uguale e quindi se di fatto tutte le celle precedenti contengono un quadrato di quella dimensione.
+\begin{lstlisting}[caption=Quadrato Binario]
+int maxSquare(boolean[][] A, int n)
+	int[][] DP = new int[1...n][1...n]
+	int maxValue = $-\infty$
+	for i = 1 to n do
+		for j = 1 to n do
+			DP[i][j] = A[i][j]
+	for i = 2 to n do
+		for j = 1 to n do
+			if DP[i][j] $\neq$ 0 then
+				DP[i][j] = min(DP[i][j], DP[i-1][j-1], DP[i-1][j], DP[i][j-1])+1
+				maxValue = max(DP[i][j], maxValue)
+return maxValue
+\end{lstlisting}
+La complessità dell'algoritmo proposto è pari a $\mathcal{O}(n^{2})$ ed è possibile scrivere la formula ricorsiva nel seguente modo:
+\begin{equation*}
+    DP[i][j]=\begin{cases}
+        0 & \text{$A[i][j] = 0$}\\
+        1 & \text{$A[i][j] = 1 \land (i = 1 \lor j = 1)$} \\
+        min\{DP[i-1][j], DP[i][j-1], DP[i-1][j-1]\} & \text{altrimenti}
+    \end{cases}
+\end{equation*}
 \newpage
 \end{document}
