@@ -1,0 +1,68 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+\subsection{Esercitazione 12 - 11/05/20}
+\textbf{Vito's family} \\
+The famous gangster Vito Deadstone is moving to New York. He has avery big family there, all of them living on Lamafia Avenue. Since he will visit all his relatives very often, he wants to find a house close to them. Indeed, Vito wants to minimize the total distance to all of his relatives and has blackmailed you to write a program that solves his problem.
+\begin{itemize}
+	\item \textbf{Input} For each test case you will be given the integer number of relatives $r(0 < r < 500)$ and the street numbers (also integers) $s_1, s_2, ..., s_i, ..., s_r$ where they live $(0< si<30000)$. Note that several relatives might live at the same street number.
+	\item \textbf{Output} For each test case, your program must write the minimal sum of distances from the optimal Vito's house to each one of his relatives. The distance between two street numbers $s_i$ and $s_j$ is $d_{i,j}= \mid si - sj \mid$.
+\end{itemize}
+Per la risoluzione del problema è necessario ricercare all'interno del vettore che identifica i numeri civici dei parenti di Vito, quello più vicino possibile a tutti gli altri. \\ 
+La soluzione per il problema mostrato è il calcolo della mediana, infatti per definizione è il valore che si trova nel mezzo della distribuzione. La correttezza può essere mostrata come segue: \\
+\textbf{Correttezza} \\
+Sia $m$ il valore mediano del vettore $S$ di numeri civici e come tale esso possiede una quantità $(n - 1)/2$ di valori sia alla sinistra che alla destra (ovviamente se il numero di valori è pari, si avrà una quantità maggiore di un unità da una parte rispetto all'altra, per semplicità assumiamo il numero di valori dispari). \\
+Consideriamo ora un valore $m'$ dove $m' \neq m$ una qualsiasi soluzione accettabile che non sia la mediana, e supponiamo che $m' > m$ (per simmetria le conclusioni che trarremo saranno valide anche nel caso $m' < m$). Dunque poniamo $d = m' - m$ la differenza tra i valori civici selezionati. \\
+Nella soluzione che vede la casa di Vito posizionata nel civico $m'$ avrà costo totale, per raggiungere i suoi parenti alla sinistra, pari al costo con $m$ sommato al valore $d$, contrariamente il costo totale per raggiungere i parenti di destra sarà pari a quello di $m$ meno il valore $d$. In quanto il numero di valori a sinistra di $m'$  sono maggiori rispetto a quelli di destra di $m'$, la soluzione $m'$ costerà di più di quella $m$. \\
+Possiamo dunque descrivere l'algoritmo per il calcolo della mediana deterministico in $\mathcal{O}(n)$.
+\begin{lstlisting}[caption=Mediana deterministica in $\mathcal{O}(n)$]
+int select(int[] S, int start, int end, int k)
+	% Se la dimensione risulta essere inferiore ad una soglia (10) 
+	% ordina il vettore e restituisci il k - esimo elemento di S[start..end]
+	if $end - start + 1 \leq 10$ then 
+		insertionSort(S, start, end)
+		return S[start + k - 1]
+	% Divide S in n/5 sottovettori di dimensione 5 e ne calcola la mediana
+	int[] M = new int[1..$\lceil n/5 \rceil$]
+	for i = 1 to $\lceil n/5 \rceil$ do
+		M[i] = median5(S, start + i (i - 1) $\cdot$ 5, end)
+	% Individua la mediana delle mediane e usala come perno
+	int m = select(M,1,$\lceil n/5 \rceil$, $\lceil \lceil n / 5 \rceil / 2 \rceil$)
+	int j = pivot(S, start, end, m)
+	% Calcola l'indice q di m in[start...end]
+	% Confronta q con l'indice cercato e ritorna il valore conseguente
+	int q = j - start + 1
+	if q $==$ k then
+		return m
+	else if q < k then
+		return select(S, start, q - 1, k)
+	else
+		return select(S, q + 1, end, k - q)
+
+int median5(int[] S, int start, int end)
+	int median = S[start]
+	if S[(start + 3) - 1] > S[(start +2) - 1] then
+		if S[(start + 2) - 1] < S[(start + 4) - 1] then
+			median = min(S[(start + 3) - 1], S[(start + 4) - 1]) 
+		else 
+			median = min(S[(start + 2) - 1], S[(start + 5) - 1])
+	else
+		if S[(start + 3) - 1] > S[(start + 4) - 1] 
+			median = min(S[(start + 3) - 1], S[(start + 5) - 1]) 
+		else 
+			median = min(a[2],a[4]) 
+	return median
+
+int VitosHouse(int[] S, int r)
+	return select(S, 1, r, r)
+\end{lstlisting}
+Tale algoritmo si basa sui seguenti passaggi: 
+\begin{itemize}
+	\item Suddividi i valori in gruppi di 5. Dove l’i-esimo gruppo è detto $S_i$, con $i \in [1, \lceil n/5 \rceil]$
+	\item Trova il mediano $M_i$ di ogni gruppo $S_i$
+	\item Tramite una chiamata ricorsiva, trova il mediano m delle mediane $[M_1,M_2, ... ,M_{\lceil n/5 \rceil}]$
+	\item Usa $m$ come pivot e richiama l’algoritmo ricorsivamente sull’array opportuno
+	\item Quando la dimensione scende sotto una certa soglia, possiamo utilizzare un algoritmo di ordinamento per trovare il mediano, in questo caso \emph{InsertionSort} che ha ottime prestazioni per insiemi di piccole dimensioni.
+\end{itemize}
+Dove $median5$ è una funzione che ritorna il valore mediano di 5 elementi e pivot è la funzione nota che trova il pivot di un vettore, già usata per l'algoritmo di ordinamento \emph{QuickSort}.
+\newpage
+\end{document}
