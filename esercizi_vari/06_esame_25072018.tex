@@ -1,0 +1,57 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esame 25/07/2018}
+\textbf{Numero di modi in cui è possibile suddividere la stringa per ottenere la somma k} \\
+Avete dato un’occhiata al compito precedente? No? Male! \\
+Volevo dare un problema simile a \emph{Somma Massimale}, e perfare un esempio ho copiato e incollato una lista di numeri da un altro sito. 
+Come a volte capita, gli spazi non stati copiati e questo è il risultato: \emph{"1151832175512"}.  \\
+Non trovavo più il sito originale, mi ricordavo solo che la somma era pari a \emph{141}. Nel compito precedente, volevo stampare tutti i modi possibili in cui era possibile suddividere la stringa in una somma di numeri. Questa volta, voglio \emph{contare} tutti i modi possibili in cui è possibile suddividere l’input in una somma di numeri, ottenendo esattamente il valore che mi ricordo. \\
+Scrivere un algoritmo che prenda una stringa di numeri di lunghezza $n$ (rappresentata da un vettore di interi compresi fra $1$ e $9 - "0"$ escluso) e un intero $k \leq 100n$, e restituisca il numero di modi in cui è possibile rappresentare la stringa come sommatoria di interi positivi il cui valore è pari a $k$. Supponete di avere a disposizione una funzione \emph{value(V, i, j)} che  restituisce  il  valore  intero  corrispondente  alle  cifre comprese  fra  le  posizioni $i$ e $j$ in $V$. Ad  esempio, \emph{value(”54321”,2,4)} restituisce $432$.  
+Questa funzione opera in tempo $\mathcal{O}(n)$; sarebbe possibile evitare questo costo, ma non importa. Discutere informalmenta la correttezza della soluzione proposta e calcolare la complessità computazionale. \\
+\textbf{Soluzione} \\
+Per risolvere questo problema pensiamo ad una soluzione basata su programmazione dinamica. \\ 
+Immaginiamo che $DP[i][j]$ sia il numero di modi con cui è possibile ottenere j dal prefisso $V(i)$ (i primi i caratteri della stringa numerica). \\ 
+Abbiamo dunque la seguente formula ricorsiva: 
+\begin{equation*}
+  	DP[i][j] =\begin{cases}
+    	1 & \text{$i = 0$ \textbf{and} $j = 0$}\\
+    	0 & \text{$i = 0$ \textbf{and} $j > 0$}\\
+    	0 & \text{$i > 0$ \textbf{and} $j \leq 0$}\\
+    	\sum_{s = 1}^{i} DP[s - 1][r - value(V, s, i)] & \text{altrimenti}
+  	\end{cases}
+\end{equation*}
+Possiamo dunque descrivere i seguenti casi: 
+\begin{itemize}
+		\item I modi possibili per ottenere il valore 0 dalle somme delle suddivisioni del prefisso della stringa numerica $V(i)$ nullo è 1, ovvero non prendere nulla
+		\item Non c'é modo per ottenere il valore j se questo è maggiore di 0 e sto considerando un prefisso nullo oppure il prefisso non è nullo ma il valore da ottenere risulta essere negativo, questo perché i valori numerici all'interno della stringa $V$ sono tutti interi positivi
+		\item Il caso ricorsivo è rappresentato dalla seguente condizione: supponiamo di conoscere già tutti i modi possibili per suddividere la stringa ed ottenere i diversi valori di j per tutti gli elementi $i' < i$ e $j' < j$. \\ Il numero di modi, per ottenere $j$ dati i primi $i$ elementi, è ottenuto dalla somma di tutti i possibili modi per ottenere $j$ aggregando più valori di $V$ precedenti ad esso, grazie alla funzione \emph{value} e considerando un elmento in meno: $\sum_{s = 1}^{i} DP[s - 1][r - value(V, s, i)]$
+\end{itemize}
+Il risultato che stiamo cercando si troverà nella posizione $DP[n][k]$. \\
+L'algoritmo proposto per la risoluzione del problema che sfrutta memoisation è il seguente:
+\newpage
+\begin{lstlisting}[ caption = Conta i modi per formare la somma k]
+int countSum(int[] V, int k)
+	int[][] DP = new int[1...n][1...k]
+	for i = 1 to n do
+		for j = 1 to k do
+			DP[i][j] = - 1
+	return countSumRec(V, n, k, DP)
+
+int countRec(int[] V, int i, int j, int[][] DP)
+	if $i == 0$ and $j == 0$ then
+		return 1
+	else if $i == 0$ and $j > 0$
+		return 0
+	else if $j \leq 0$
+		return 0
+	else 
+		if DP[i][j] < 0 then
+			DP[i][j] = 0
+			for s = 1 to i do
+				DP[i][j] = DP[i][j] + countRec(V, s - 1, value(V, s, i), DP)
+		return DP[i][j]
+\end{lstlisting}
+La tabella ha dimensione $n \cdot k$, dove $k = \mathcal{O}(n)$. \\ 
+Per riempire ogni cella della tabella, sono necessari $\mathcal{O}(n^2)$ passi. \\ Quindi il costo totale è $\mathcal{O}(n^4)$. 
+\end{document}
