@@ -1,0 +1,43 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esame 21/08/2018}
+\textbf{Esercizio B3}\\
+Sia $G$ un grafo \emph{non orientato} e \emph{connesso} contenente $n$ nodi. Una \emph{n-colorazione} con gap del grafo è un assegnamento dei numeri compresi fra 1 ed $n$ ai nodi del grafo che rispetta le seguenti regole:
+\begin{itemize}
+	\item Tutti i numeri in $\{1,...,n\}$ sono usati esattamente una volta
+	\item Dati due nodi adiacenti $u, v$ (i.e., $(u, v) \in E$) e detti $color[u]$, $color[v]$ i  loro  colori,  allora $\mid color[u] - color[v] \mid$ $\geq$ 2. In altre parole, non è possibile assegnare due colori uguali o consecutivi a due nodi adiacenti.
+\end{itemize}
+Scrivere un algoritmo che prenda in input un grafo $G$ e restituisca \textbf{true} se e solo se esiste una $n-colorazione$ con gap $G$. Discutere informalmente la correttezza   della soluzioneproposta e calcolare la complessità computazionale.\\
+\textbf{Soluzione:}\\
+Il problema descritto è $NP-completo$ dunque per risolvere è necessario utilizzare backtrack in modo da provare ogni possibile associazione di colori per ogni nodo. Essendo che il grafo è non orientato e conesso partendo da un qualsiasi nodo è possibile coprire sempre tutto il grafo quindi possiamo (tra molte virgolette) risparmarmiarci di lanciare l'algoritmo ogni volta su un nodo di partenza differente in quanto se esiste una sequenza che rispetta i vincoli precedenti questa potrà essere trovata partendo da un nodo qualsiasi.
+\begin{lstlisting}[caption=n-Colorazione (gapColoring)]
+bool gapColoring(GRAPH G)
+	SET C = Set()
+	int[] color = new int[1...G.n]
+	for i = 1 to G.n do
+		C.insert(i)
+		color[i] = -1
+	return gapColoringRec(G, C, color, 1)
+	
+bool gapColoringRec(GRAPH G, SET S, int[] color, int u)
+	foreach c $\in$ C do
+		boolean ok = true
+		foreach v $\in$ G.adj(u) do
+			if color[v] > 0 and $\mid$ color[v] - c $\mid$ $<$ 2 then
+				ok = false
+		if ok then
+			color[u] = c
+			C.remove(c)
+			if C.isEmpty() then
+				return true
+			foreach v $\in$ G.adj(u) do
+				if color[v] < 0 and gapColoringRec(G, C, color, v) then
+					return true
+			C.insert(c)
+			color[u] = -1
+	return false
+\end{lstlisting}
+L'idea generale è questa: si visita il grafo tramite un meccanismo di backtrack, avendo a disposizione un insieme $C$ di colori ancora non utilizzati, rispettando le regole di colorazione e restituendo \textbf{true} se si riescono ad utilizzare tutti i colori. La complessità è ovviamente \emph{superpolinomiale}; nel caso limite di un grafo completo,è necessario provare tutte le permutazioni dei nodi a partire da 1, che sono $\mathcal{O}(n!)$; ovviamente, il controllo sulla regole dei valori consecutivi causerà il pruning di tanti casi, ma la soluzione resta comunque superpolinomiale.
+\newpage
+\end{document}
