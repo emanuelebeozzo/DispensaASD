@@ -81,8 +81,7 @@ Algoritmo che fa uso come struttura dati di una coda a priorità basata su vetto
 	b[s] = true
 	PriorityQueue Q = PriorityQueue();	%Basata su un vettore (1)
 	Q.insert(s,0)
-	S.add(s)
-	while not S.isEmpty() do 
+	while not Q.isEmpty() do 
 		int u = Q.deleteMin()	%Deve scorrrere tutti gli elementi del vettore (2)
 		b[u] = false
 		foreach v $\in$ G.adj(u) do
@@ -131,8 +130,7 @@ Variante dell'algoritmo di Dijkstra che fa utilizzo di una coda a priorità  bas
 	b[s] = true
 	PriorityQueue Q = PriorityQueue();	%Basata su heap binario(1)
 	Q.insert(s,0)
-	S.add(s)
-	while not S.isEmpty() do 
+	while not Q.isEmpty() do 
 		int u = Q.deleteMin()	%Di costo logaritmico (2)
 		b[u] = false
 		foreach v $\in$ G.adj(u) do
@@ -181,8 +179,7 @@ Algoritmo ancora una volta basato su code a priorità, in questo caso però impl
 	b[s] = true
 	PriorityQueue Q = PriorityQueue();	%Basato su heap di Fibonacci (1)
 	Q.insert(s,0)
-	S.add(s)
-	while not S.isEmpty() do 
+	while not Q.isEmpty() do 
 		int u = Q.deleteMin()	%Di costo logaritmico (2)
 		b[u] = false
 		foreach v $\in$ G.adj(u) do

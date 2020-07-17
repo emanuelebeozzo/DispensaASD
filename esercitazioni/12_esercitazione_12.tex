@@ -39,17 +39,39 @@ int select(int[] S, int start, int end, int k)
 		return select(S, q + 1, end, k - q)
 
 int median5(int[] S, int start, int end)
-	int median = S[start]
-	if S[(start + 3) - 1] > S[(start +2) - 1] then
-		if S[(start + 2) - 1] < S[(start + 4) - 1] then
-			median = min(S[(start + 3) - 1], S[(start + 4) - 1]) 
+	int median
+	int tmp 
+	% Precomputing
+	% swap S[start] with S[start + 1] if S[start] < S[start + 1] 
+	if S[start] > S[start + 1] then
+		tmp = S[start]
+		S[start] = S[start +1]
+		S[start + 1] = tmp
+	% swap S[start + 3] with S[start + 4] if S[start + 3] < S[start + 4] 
+	if S[start + 3] > S[start + 4] then
+		tmp = S[start + 3]
+		S[start + 3] = S[start + 4]
+		S[start + 4] = tmp
+	% swap S[start + 3] with S[start] if S[start + 3] < S[start] 
+	if S[start + 3] < S[start] then
+		tmp = S[start]
+		S[start] = S[start + 3]
+	 	S[start + 3] = tmp
+	 	% swap S[start + 1] with S[start + 4]
+		tmp = S[start + 1]
+		S[start + 1] = S[start + 4]
+		S[start + 4] = tmp 
+	% Median finding
+	if S[start + 2] > S[start + 1] then
+		if S[start + 1] < S[start + 3] then
+			median = min(S[start + 2], S[start + 3]) 
 		else 
-			median = min(S[(start + 2) - 1], S[(start + 5) - 1])
+			median = min(S[start + 1], S[start + 4])
 	else
-		if S[(start + 3) - 1] > S[(start + 4) - 1] 
-			median = min(S[(start + 3) - 1], S[(start + 5) - 1]) 
+		if S[start + 2] > S[start + 3] 
+			median = min(S[start + 2], S[start + 4]) 
 		else 
-			median = min(a[2],a[4]) 
+			median = min(S[start + 1], S[start + 3]) 
 	return median
 
 int VitosHouse(int[] S, int r)
