@@ -6,9 +6,5 @@
 *.glg
 *.out
 *.synctex.gz
-esercitazioni/*.pdf
-esercizi_vari/*.pdf
-laboratori/*.pdf
-teoria/*.pdf
-tutorati/*.pdf
+*.pdf
 What you should have done but you didn't.txt
