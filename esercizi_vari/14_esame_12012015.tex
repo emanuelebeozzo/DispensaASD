@@ -1,0 +1,45 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esame 21/07/2014}
+\textbf{Esercizio B4}\\
+Un bambino scende una scala composta danscalini. Ad ogni passo, può decidere di fare $1,2,3,4$ scalini alla volta. Scrivere un algoritmo che determina in quanti modi diversi può scendere le scale. Ad esempio, se $n= 7$, alcuni dei modi possibili sono i seguenti (rappresentati dalla lunghezza dei passi in numero di scalini):
+\begin{itemize}
+	\item 1,1,1,1,1,1,1
+	\item 1,2,4
+	\item 4,2,1
+	\item 2,2,2,1
+	\item 1,2,2,1,1
+\end{itemize}
+Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale\\
+\textbf{Soluzione:}\\
+Il problema può essere risolto mediante programmazione dinamica utilizzando una vettore $DP[i]$ come nel caso del problema del \emph{Domino} presente nella sezione di \emph{Programmazione Dinamica} della dispensa. Ricordiamo che la combinazioni di passi per i casi base sono:
+\begin{itemize}
+	\item n = 0, 1 combinazione
+	\item n = 1, 1 combinazione 	[1]
+	\item n = 2, 2 combinazioni	[1,1] [2]
+	\item n = 3, 4 combinazioni	[1, 1, 1] [1, 2] [2, 1] [3]
+\end{itemize}
+Da n = 4 in poi è possibile utilizzare i casi base già presenti in quanto saranno pari alla somma dei precedenti 4 elementi del vettore. In generale dunque avremo che 
+\begin{equation*}
+  	DP[i]=\begin{cases}
+  		1 & \text{$i = 0$}\\
+  		0 & \text{$i < 0$}\\
+  		\sum_{k = 1}^{4}{DP[i-k]} & \text{$altrimenti$}
+  	\end{cases}
+\end{equation*}
+Questa può essere utilizzata per scrivere il seguente codice tramite programmazione dinamica
+\begin{lstlisting}[caption=modi per scendere le scale]
+int countStairs(int n)
+	int[] DP = new int[0...n]
+	DP[0] = 1
+	for i = 1 to n do
+		DP[i] = 0
+		 for j = 1 to 4 do
+		 	if i - j $\geq$ 0 then
+		 		DP[i] = DP[i] + DP[i-j]
+	return DP[n]
+\end{lstlisting}
+L'algoritmo proposto ha complessità $\mathcal{O}(n)$ in quanto il vettore verrà riempito completamente e ogni cella impiegherà al massimo un tempo costante per essere calcolata. Notare che $DP[n]$ è uguale al valore al valore del $(n+1)$-esimo Tetranacci Number.
+\newpage
+\end{document}
