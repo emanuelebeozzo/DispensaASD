@@ -28,7 +28,7 @@ Possiamo dunque descrivere i seguenti casi:
 		\item Il caso ricorsivo è rappresentato dalla seguente condizione: supponiamo di conoscere già tutti i modi possibili per suddividere la stringa ed ottenere i diversi valori di j per tutti gli elementi $i' < i$ e $j' < j$. \\ Il numero di modi, per ottenere $j$ dati i primi $i$ elementi, è ottenuto dalla somma di tutti i possibili modi per ottenere $j$ aggregando più valori di $V$ precedenti ad esso, grazie alla funzione \emph{value} e considerando un elmento in meno: $\sum_{s = 1}^{i} DP[s - 1][r - value(V, s, i)]$
 \end{itemize}
 Il risultato che stiamo cercando si troverà nella posizione $DP[n][k]$. \\
-L'algoritmo proposto per la risoluzione del problema che sfrutta memoisation è il seguente:
+L'algoritmo proposto per la risoluzione del problema che sfrutta memoization è il seguente:
 \newpage
 \begin{lstlisting}[ caption = Conta i modi per formare la somma k]
 int countSum(int[] V, int k)
@@ -41,9 +41,9 @@ int countSum(int[] V, int k)
 int countRec(int[] V, int i, int j, int[][] DP)
 	if $i == 0$ and $j == 0$ then
 		return 1
-	else if $i == 0$ and $j > 0$
+	else if $i == 0$ and $j > 0$ then
 		return 0
-	else if $j \leq 0$
+	else if $j \leq 0$ then
 		return 0
 	else 
 		if DP[i][j] < 0 then

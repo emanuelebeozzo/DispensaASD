@@ -1,0 +1,29 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esame 14/07/2015}
+\textbf{Alice, Bob e Car: Nodo più vicino ad A e B senza passare da C} \\
+Si supponga che Alice, Bob e Carl siano posizionati su tre nodi in un grafo orientato $G= (V, E)$, associato ad una funzione di peso $w$ con pesi interi non negativi. Alice e Bob vogliono incontrarsi in un altro nodo del grafo, senza che Carl lo venga a sapere. \\
+Scrivere un algoritmo efficiente che sia in grado di individuare il nodo di incontro ottimale tra Alice e Bob, in modo tale che la somma dei cammini percorsi da entrambi (dalla loro posizione iniziale al nodo di incontro) sia minimizzata. \\
+L'algoritmo deve restituire tale somma minima. I due percorsi non devono passare per il nodo di Carl. Il punto di incontro non deve essere il nodo in cui risiede Carl. \\
+Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale. \\
+\textbf{Soluzione} \\
+Si può subito inture che la soluzione al problema è data dal nodo la cui somma di pesi per raggiungerlo da Alice e Bob sia la minore possibile, a patto che tale nodo non sia raggiunto passando da Carl. \\
+In altre parole, sia $A$ il vettore delle distanze minime la cui sorgente sia Alice e sia $B$ il vettore delle distanze minime la cui sorgente sia Bob, allora sia $i$ il nodo di incontro, deve valere che $A[i] + B[i] \leq A[j] + B[j]$ $ \forall j \in V$, dove A e B contengono le distanze minime non passando per Carl. \\
+Usufruiamo dunque di un algoritmo già visto a lezione, ovvero l'algoritmo per il calcolo dei cammini minimi a sorgente singola e lo facciamo partire sia da Alice che da Bob, non scordandoci di invalidare i cammini passanti per Carl; questo è semplice in quanto è sufficiente fare in modo che gli archi entranti nel nodo di Carl abbiano un peso pari a $+\infty$ facendo in modo che l'algoritmo chiamato non vada mai a selezionare tali percorsi se esiste il nodo di incontro che rispetta le caratteristiche fornite, nel caso non esistesse allora siamo consapevoli che se $\forall i \in V$ vale $A[i] + B[j] = +\infty$ e quindi tale nodo non esiste. \\
+L'algoritmo proposto è il seguente: 
+\begin{lstlisting}[ caption = Nodo più vicino ad A e B senza passare da C]
+int secretPlace(GRAPH G, NODE Alice, NODE Bob, NODE Carl)
+	foreach $u \in G.V$ do
+		G.w(u, Carl) = $+\infty$
+	int[] A = camminiMinimi(G, Alice)
+	int[] B = camminiMinimi(G, Bob)
+	int min = $+ \infty$
+	foreach $u \in G.V()$ do
+		if A[u] + B[u] < min then
+			min = A[u] + B[u]
+	return min
+\end{lstlisting}
+La complessità di tale algoritmo dipende ovviamente dalla scelta della struttura dati di riferimento. Se siamo consapevoli di avere a disposizione un grafo molto denso utilizzeremo la procedura \emph{camminiMinimi} implementata grazie ad una coda a priorità basata su vettore (algoritmo di Dijkstra) e avremo una complessità pari a $\mathcal{O}(n^2)$. \\
+Se il grafo invece è sparso, o non denso, possiamo fare affidamento su una coda a priorità implementata tramite heap binario (algoritmo di Johnson) e dunque avere complessità pari a $\mathcal{O}(m \log n)$.
+\end{document}
