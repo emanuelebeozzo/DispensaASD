@@ -1,0 +1,50 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esame 06/06/2016}
+\textbf{Esercizio B4}\\
+Scrivere un algoritmo che preso in input $n$ e $k$, restituisca il numero totale di vettori $distinti$ di lunghezza $n$, contenenti valori interi compresi fra $1$ e $k$, ordinati dalla relazione $\leq$.Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale.
+\textbf{Soluzione:}\\
+Il problema può essere risolto mediante programmazione dinamica come generalmente accade nel caso in cui le soluzioni debbano essere contate e non effettivamente stampate: l'idea è quella di sfruttare le combinazioni precedenti per ottenere quelle del problema attuale come accade nel caso dell'algoritmo \emph{Domino} presente nella dispensa nella sezione di \emph{Programmazione Dinamica}. In questo caso abbiamo due incognite che sono la lunghezza delle sequenze $crescenti$ (relazione $\leq$) di numeri da $1$ a $k$. Possiamo per prima cosa iniziare definendo i casi base e quindi ad esempio quante combinazioni è possibile ottenere per $k$ = 1 e la risposta è tante quante la lunghezza $n$ del vettore, oppure quante combinazioni è possibile ottenere con un vettore $n = 1$ e la risposta è pari al numero $k$. Nel caso di $k = 0$ e il numero di combinazioni con un vettore nullo è una combinazione. Per dimostrare ora come è possibile ottenere la soluzione al problema per $k$ e $n$ generici facciamo un esempio con i seguenti valori di $n$ e $k$:
+\begin{itemize}
+	\item n = 0, k = 1, 1 combinazione
+	\item n = 1, k = 1, 1 combinazione 		[1]
+	\item n = 1, k = 2, 2 combinazioni 		[1] [2]
+	\item n = 1, k = 3, 3 combinazioni		[1] [2] [3]
+	\item n = 2, k = 1, 1 combinazione		[1,1]
+	\item n = 2, k = 2, 3 combinazioni		[1,1] [1,2] [2,2]
+	\item n = 2, k = 3, 6 combinazioni		[1,1] [1,2] [1,3] [2,2] [2,3] [3,3]
+	\item ...
+\end{itemize}
+Con un po' di numeri sottomano è facile accorgersi che oltre ai casi base di cui abbiamo discusso prima è possibile trovare una relazione derivante dal fatto che per ottenere le combinazioni con $n+1$ elementi e gli stessi $k$ numeri devo semplicemente sommare i casi da $1$ a $k$ per $n$ elementi, questo perchè sostanzialmente se il mio numero in posizione $n$ è pari a $k$ allora per $n+1$ ho solo una possibilità (inserire come numero $k$) e quindi dovrei controllare quante combinazioni ho per un vettore grande $n$ di usando un solo numero; invece se il numero in posizione n è pari a $k-1$ ho due possibilità e dunque dovrei controllare le combinazioni per $n$ e $2$ e via dicendo...\\
+Più in generale è possibile esprimere il problema mediante la seguente formula ricorsiva  
+\begin{equation*}
+  	DP[i][j]=\begin{cases}
+  		1 & \text{$i = 0$}\\
+  		\sum_{k = 1}^{j}DP[i-1][k] & \text{altrimenti}
+  	\end{cases}
+\end{equation*}
+La complessità di un algoritmo scritto mediante la seguente formula ricorsiva è $\mathcal{O}(n^{2} \cdot k)$ ma si può fare a meno ogni volta di calcolare la sommatoria per ogni elemento? La risposta è sì, basta accorgersi del fatto che esiste un altro modo per calcolare le combinazioni in un vettore lungo $n$ e con numeri da 1 a $k$ e consiste nel sommare tra di loro le combinazioni nel caso di un vettore di $n-1$ elementi con numeri da 1 a $k$ e quelle di un vettore lungo $n$ ma con numeri da 1 a $k-1$ (in quanto quest'ultimo è proprio il risultato della sommatoria dei numeri che servirebbero anche a noi). Possiamo dunque esprimere nuovamente il problema con questa nuova formula ricorsiva
+\begin{equation*}
+  	DP[i][j]=\begin{cases}
+  		1 & \text{$i = 0$}\\
+  		0 & \text{$j = 0$}\\
+  		DP[i-1][j] + DP[i][j-1] & \text{altrimenti}
+  	\end{cases}
+\end{equation*}
+Utilizzando dunque la precedente formula ricorsiva siamo in grado di definire il codice come segue usando programmazione dinamica.
+\begin{lstlisting}[caption=Conteggio Permutazioni Ordinate]
+int orderedPremutation(int n, int k)
+	int[][] DP = new int[0...n][0...k]
+	for i = 0 to n do
+		DP[i][0] = 0
+	for j = 1 to k do
+		DP[0][j] = 1
+	for i = 1 to n do
+		for j = 1 to k do
+			DP[i][j] = DP[i-1][j] + DP[i][j-1]
+	return DP[n][k]
+\end{lstlisting}
+L'algoritmo proposto per la soluzione ha complessità $\mathcal{O}(nk)$ in quanto si riempie mediante programmazione dinamica una matrice grande $n \times k$.
+\newpage
+\end{document}

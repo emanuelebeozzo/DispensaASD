@@ -1,0 +1,38 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esame 17/12/2015}
+\textbf{Esercizio B2}\\
+Si consideri una sequenza di interi $V$. La cancellazione da $V$ di un certo numero di elementi, mantenendo l'ordine, determina una sottosequenza. Una $k-sottosequenza$ di $V$ è una sottosequenza di $V$ in cui compaiono al più $k$ \emph{elementi consecutivi} di $V$. Il valore di una sottosequenza è dato dalla somma dei suoi elementi. Dato un vettore $V$ contenente $n$ interi ed un intero $k$, con $k \leq n$, scrivere un algoritmo che restituisca il valore della \emph{k-sottosequenza massimale}, ovvero quella che ha valore massimo fra tutte le $k-sottosequenze$.\\
+Ad esempio, per $V=\{1,7,8,9,1,10,6,8,8\}$ e $k = 2$, l'output è 44, ottenuto dalla 2-sottosequenza massimale $\{1,8,9,10,8,8\}$.\\
+Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale.\\
+\textbf{Soluzione:}\\
+Il problema può essere risolto mediante programmazione dinamica utilizzando una matrice $DP[i][j]$ usiamo le righe per considerare il numero $i$-esimo del vettore $V$ mentre sulle colonne memorizziamo quanti numeri consecutivi possiamo ancora prendere. Tutto questo può essere riassunto dalla seguente formula ricorsiva
+\begin{equation*}
+  	DP[i][j]=\begin{cases}
+  		0 & \text{$i = 0$}\\
+  		DP[i-1][k] & \text{$j = 0$}\\
+  		max\{DP[i-1][j-1] + V[i], DP[i-1][j]\} & \text{$j > 0$}
+  	\end{cases}
+\end{equation*}
+\begin{lstlisting}[caption=k-sottosequenza contigua]
+int kSubsequence(int[] V, int n, int k)
+	int[][] DP = new int[1...n][0...k]
+	for i = 1 to n do
+		for j = 0 to k do
+			DP[i][j] = -1
+	return kSubsequenceRec(V, DP, n, k, k)
+	
+int kSubsequenceRec(int[] V, int[][] DP, int i, int j, int k)
+	if i = 0 then 
+		return 0
+	if DP[i][j] < 0 then
+		if j = 0 then
+			DP[i][j] = DP[i-1][k]
+		else
+			DP[i][j] = max(DP[i-1][j-1] + V[i], DP[i-1][k])
+	return DP[i][j]
+\end{lstlisting}
+L'algoritmo proposto per la soluzione ha complessità $\mathcal{O}(nk)$ dunque visto che $k \leq n$ possiamo dire con certezza essere sicuramente pari a $\mathcal{O}(n^{2})$. Ogni volta viene esaminata la possibilità di prendere un numero dell'insieme aumentando la nostra somma massima e diminuire di conseguenza il numero di valori in successione che è possibile prendere, oppure non prendere un determinato valore semplicemente passando al successivo e ricominciare da con la possibilità di prendere $k$ valori consecutivi. Tra queste due opzioni viene scelta quella che porta il massimo del guadagno. Nel caso in cui si siano già presi $k$ valori consecutivi l'unica opzione è quella di saltare il valore corrente ma riprendere dal successivo con la possibilità di prendere $k$ valori consecutivi.
+\newpage
+\end{document}
