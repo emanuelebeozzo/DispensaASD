@@ -1,0 +1,65 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\subsection{Esame 08/06/2017}
+\textbf{Alberi binari strutturalmente diversi h-vincolati} \\
+Scrivere un algoritmo che data una coppia di interi $n, h$, restituisca il numero di alberi binari strutturalmente diversi contenenti $n$ nodi e di altezza al più $h$. 
+Due alberi binari si dicono “strutturalmente” diversi se disegnando correttamente i figli destri e sinistri, si ottengono figure diverse. 
+Ad esempio, un nodo radice con un figlio destro è diverso da un nodo radice con un figlio sinistro. Entrambi questi alberi hanno altezza $1$. \\
+Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale. \\
+\textbf{Soluzione} \\
+Questo problema riprende un concetto che non abbiamo avuto modo di affrontare durante il corso, ovvero la formula ricorsiva che restituisce, dato il numero di nodi, il numero di alberi binari strutturalmente diversi. \\
+Questa ricorrenza è riportata qui: 
+\begin{equation*}
+  	DP[i] =\begin{cases}
+    	\sum_{k = 0}^{n - 1} DP[k] \cdot DP[n - 1 - k] & \text{$n > 1$}\\
+    	1 & \text{$n \leq 1$}
+  	\end{cases}
+\end{equation*}
+Questa ricorrenza prevede i seguenti casi: 
+\begin{itemize}
+	\item Se vogliamo contare il numero di alberi binari strutturalmente differenti e consideriamo alberi con un numero di nodi $n$ che sia $n\leq 1$ abbiamo i seguenti casi
+	\begin{itemize}
+		\item $n = 0$, l'unico albero possibile con $0$ nodi è l'albero nullo
+		\item $n = 1$, l'unico albero possibile con $1$ nodo è l'albero formato solamente dalla radice
+	\end{itemize}
+	\item Nel caso in cui si abbiano più nodi, ipotizziamo di conoscere già il numero di alberi binari strutturalmente differenti che sono ottenibili con un numero di nodi pari a $i' < i$. Cerchiamo dunque di definire una formula ricorsiva per determinare il problema con $i$ nodi.  Un albero di $i$ nodi ha sicuramente una radice; i restanti $i-1$ nodi possono essere distribuiti nei sotto alberi destro e sinistro della radice. Ad esempio, un albero di $4$ nodi può avere $3$ nodi nel sottoalbero destro e $0$ nel sinistro; oppure $2$ nodi nel destro e $1$ nel sinistro; oppure $1$ nel destro e $2$ nel sinistro; oppure $0$ nel destro e $3$ nel sinistro. Questa considerazione può infatti essere riassunta dalla formula: $\sum_{k = 0}^{n - 1} DP[k] \cdot DP[n - 1 - k]$, dove i due termini rappresentano rispettivamente sottoalbero destro e sinistro.
+\end{itemize}
+Ora che abbiamo introdotto la formula ricorsiva per definire tali alberi è necessario porre un vincolo sull'altezza di quelli generati, per farlo aggiungiamo una dimensione alla nostra tabella delle soluzioni, la quale conterrà l'altezza dell'albero binario ottenuto. Definiamo la nuova formula ricorsiva come segue: \\
+Sia $DP[i][h]$ il numero di alberi binari strutturalmente differenti che si ottengono considerando un numero $i$ di nodi e che siano $h$ vincolati, cioé che la loro altezza sia al più $h$: 
+\begin{equation*}
+  	DP[i][h] =\begin{cases}
+    	\sum_{k = 0}^{n - 1} DP[k][h - 1] \cdot DP[n - 1 - k][h - 1] & \text{$n > 1$}\\
+    	1 & \text{$n \leq 0$ \textbf{and} $h \geq 0$} \\
+    	0 & \text{$h < 0$}
+  	\end{cases}
+\end{equation*}
+I casi previsti sono: 
+\begin{itemize}
+	\item In quanto $h$ rappresenta il vincolo sulla nostra altezza allora le chiamate ricorsive che oterranno un altezza negativa dalla differenza $h-1$ non sono validi, per cui ritorneremo $0$
+	\item Il caso base è rappresentato dal fatto che con altezza $0$ si possono considerare solamente alberi con $0$ oppure $1$ nodi.
+	\item Il caso ricorsivo è praticamente identico a quello precedente, tuttavia è stata aggiunta la $k$ limitazione, ovvero che il numero di alberi strutturalmente diversi con altezza $h$ è ottenuto da quelli con altezza $h - 1$.
+\end{itemize}
+Il codice risolutivo al problema proposto è stato proposto dal professore usando memoization. 
+\begin{lstlisting}[ caption = Alberi binari strutturalmente diversi h-vincolati]
+int countTree(int n, int h)
+	int[][] DP = new int[1...n][1...h]
+	for i = 1 to n do
+		for j = 1 to k do
+			DP[i][j] = - 1
+	return countSumRec(n, h, DP)
+
+int countTreeRec(int n, int h, int[][] DP)
+	if $h < 0$ then
+		return 0
+	else if $n \leq 0$ then
+		return 0
+	else 
+		if DP[n][h] < 0 then
+			DP[n][h] = 0
+			for k = 0 to n - 1 do
+				DP[n][h] = DP[n][h] + countTreeRec(k, h - 1, DP) * countTreeRec(n - 1 -k, h - 1, DP)
+		return DP[n][h]
+\end{lstlisting}
+La complessità della soluzione proposta è $\mathcal{O}(hn^2)$ dato il fatto che è necessaria al più una complessità $\mathcal{O}(n)$ per riempire una cella della tabella delle soluzioni di dimensione $n \times h$.
+\end{document}
