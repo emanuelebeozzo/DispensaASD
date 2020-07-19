@@ -1,0 +1,101 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Algoritmi di Ordinamento}
+\subsection{Problema dell'ordinamento}
+Finora abbiamo studiato i seguenti algoritmi di ordinamento\\\\
+\noindent\begin{minipage}{0.5\textwidth}
+\begin{itemize}
+	\item SelectionSort - $\Theta(n^{2})$
+	\item InsertionSort - $\Omega(n), \mathcal{O}(n^{2})$
+	\item ShellSort - $\Omega(n), \mathcal{O}(n^{3/2})$
+\end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}\raggedleft
+\begin{itemize}
+	\item MergeSort - $\Theta(n \log n)$
+	\item HeapSort - $\Theta(n \log n)$
+	\item QuickSort - $\Omega(n), \mathcal{O}(n^{2})$
+\end{itemize}
+\end{minipage} \\\\\\
+Il problema di fondo è che \textcolor{red}{tutti questi algoritmi sono basati su confronti}, cioè le decisioni sull'ordinamento vengono prese in base al confornto $(<, =, >)$ fra due valori e la diretta conseguenza è che gli algoritmi migliori hanno una complessità pari a \textcolor{red}{$\mathcal{O}(n \log n)$} (InsertionSort e ShellSort sono più performanti solo in casi particolari).\\
+E' possibile dimostrare che \textcolor{red}{qualunque algoritmo di ordinamento basato su confronti} ha una complessità \textcolor{red}{$\Omega(n \log n)$}:
+\begin{itemize}
+	\item Consideriamo un qualunque algoritmo di ordinamento $A$ basato su confronti
+	\item Assumiamo che tutti i valori siano distinti (non si perde di generalità con tale assunzione)
+	\item L'algoritmo $A$ può essere rappresentato tramite un \textcolor{red}{albero di decisione}, un albero binario che rappresenta i confronti tra gli elementi
+\end{itemize}
+\textbf{Albero di decisione - Proprietà}
+\begin{itemize}
+	\item \textcolor{red}{cammino radice-foglia in un albero di decisione}: sequenza di confronti che vengono eseguiti dall'algoritmo corrispondente
+	\item \textcolor{red}{Altezza dell'albero di decisione}: numero confronti che vengono eseguiti dall'algoritmo corrispondente nel caso pessimo
+\end{itemize}
+Si consideriano tutti gli alberi di decisione ottenibili da algoritmi di ordinamento basati su confronti\\\\
+\textbf{Lemma 1}: Un albero di decisione per l'ordinamento di $n$ elementi contiene almeno $n!$ foglie\\\\
+\textbf{Lemma 2}: Sia $T$ un albero binario in cui ogni nodo interno ha esattamente 2
+figli e sia $k$ il numero delle sue foglie. L’altezza dell’albero è almeno $\log k$ - ovvero $\Omega(\log k)$.\\\\
+\textbf{Teorema}: Il numero di confronti necessari per ordinare $n$ elementi nel caso
+peggiore è $\Omega(n \log n)$
+\subsection{Spaghetti Sort}
+\textbf{Algoritmo Spaghetti Sort - $\mathcal{O}(n)$}
+\begin{enumerate}
+	\item Prendi $n$ spaghetti
+	\item Taglia lo spaghetto $i$-esimo in modo proporzionale all'$i$-esimo valore da ordinare
+	\item Con la mano, afferra gli $n$ spaghetti e appoggiali verticalmente sul tavolo
+	\item Prendi il più lungo, misuralo e metti il valore corrispondente in fondo al vettore da ordinare
+	\item Ripeti (4) fino a quando non hai terminato gli spaghetti
+\end{enumerate}
+\subsection{Counting Sort}
+\textbf{Assunzione}\\
+I numeri da ordinare sono compresi in un intervallo $[1...k]$\\\\
+\textbf{Come funziona}\\
+Costruisce un array $B[1...k]$ che conta il numero di volte che un volre compreso in $[1...k]$ compare in $A$ e rialloca dunque i valori così ottenuti nel vettore da ordinare $A$.\\\\
+\textbf{Miglioramenti}\\
+L'intervallo non deve necessariamente iniziare in 1 e finire in $k$; qualunque intervallo di cui conosciamo gli estremi può essere utilizzato nel \emph{Counting Sort}
+\begin{lstlisting}[caption=Counting Sort]
+countingSort(int[] A, int n, int k)
+	int[] B = new int[1...k]
+	for i = 1 to k do
+		B[i] = 0
+	for j = 1 to n do
+		B[A[j]] = B[A[j]] + 1
+	int j = 1
+	for i = 1 to k do
+		while B[i] > 0 do
+			A[j] = i
+			j = j + 1
+			B[i] = B[i] - 1
+\end{lstlisting}
+La complessità del Counting Sort è dunque pari a $\mathcal{O}(n + k)$: se $k$ è $\mathcal{O}(n)$, allora la complessità del Counting Sort è $\mathcal{O}(n)$.\\
+\textbf{ATTENZIONE}: se $k$ è $\mathcal{O}(n^{3})$ questo algoritmo è il peggiore di tutti quelli visti fino ad ora!
+\subsection{Pigeonhole Sort}
+Cosa succede se i valori da ordinare non sono numeri interi ma ad esempio dei record associati ad una chiave che vanno ordinati? Non è possibile usare il counting ma si può invece utilizzare delle \emph{Liste Concatenate}
+\subsection{Bucket Sort}
+\textbf{Ipotesi sull'input}
+\begin{itemize}
+	\item Valori Reali uniformementi distribuiti nell'intervallo $[0, 1)$
+	\item Qualunque insieme di valori distribuiti uniformemente può essere normalizzato nell'intervallo $[0, 1)$ in tempo lineare
+\end{itemize}
+\textbf{Idea}
+\begin{itemize}
+	\item Dividere l'intervallo in $n$ sottointervalli di dimensione $1/n$, detti \textcolor{red}{bucket}, e poi distribuire gli $n$ numeri nei bucket
+	\item Per l'ipotesi di uniformità, il numero atteso di valori nei bucket è 1
+	\item Possono essere ordinati con Insertion Sort
+\end{itemize}
+\subsection{Proprietà degli algoritmi di Ordinamento}
+Un algoritmo di ordinamento viene detto \textcolor{red}{stabile} se preserva l'ordine iniziale tra due elementi con la stessa chiave. Esempi di algoritmi stabili sono Insertion Sort, Merge Sort e Pigeonhole Sort. Per rendere un qualunque algoritmo di ordinamento stabile è sufficiente usare come chiave di ordinamento la coppia (chiave, posizione iniziale).
+\subsection{Tabella Riassuntiva}
+\begin{itemize}
+	\item \textbf{Insertion Sort}: $\Omega(n), \mathcal{O}(n^{2})$, stabile, sul posto, iterativo. Adatto per piccoli valori, sequenze quasi ordinate.
+	\item \textbf{Merge Sort}: $\Theta(n \log n)$, stabile, richiede $\mathcal{O}(n)$ spazio aggiuntivo, ricorsivo (richiede $\mathcal{O}(\log n)$ spazio sullo stack). Buona performance in cache, buona parallelizzazione.
+	\item \textbf{Heap Sort}: $\Theta(n \log n)$, non stabile, sul posto, iterativo. Cattiva performance in cache, cattiva parallelizzazione. Preferito in sistemi embedded.
+	\item \textbf{Quick Sort}: $\mathcal{O}(n \log n)$ in media, $\mathcal{O}(n^{2})$ nel caso peggiore, non stabile, ricorsivo (richiede $\mathcal{O}(\log n)$ spazio sullo stack). Buona performance in cache, buona parallelizzazione, buoni fattori moltiplicativi.
+	\item \textbf{Counting Sort}: $\Theta(n + k)$, richiede $\mathcal{O}(k)$ memoria aggiuntiva, iterativo. Molto veloce quando $k = \mathcal{O}(n)$.
+	\item \textbf{Pigeonhole Sort}: $\Theta(n + k)$, stabile, richiede $\mathcal{O}(n + k)$ memoria aggiuntiva, iterativo. Molto veloce quando $k = \mathcal{O}(n)$.
+	\item \textbf{Bucket Sort}: $\mathcal{O}(n)$ nel caso i valori siano distribuiti uniformemente, stabile, richiede $\mathcal{O}(n)$ spazio aggiuntivo.
+	\item \textbf{Shell Sort}: $\mathcal{O}(n \sqrt{n})$, stabile, adatto per piccoli valori, sequenze quasi ordinate.
+	\item \textbf{Tim Sort}:  $\Omega(n), \mathcal{O}(n \log n)$, algoritmo ibrido basato su Merge Sort e Insertion Sort che cerca sequenze consecutive (run) già ordinate.
+\end{itemize}
+\newpage
+\end{document}
