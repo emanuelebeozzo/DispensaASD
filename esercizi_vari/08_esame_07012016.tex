@@ -74,7 +74,7 @@ Dove:
 	\item fine rappresenta la fine dell'ultimo intervallo inserito
 	\item tmp rappresenta la fine di un intervallo passato, serve per determinare se un intervallo che inizialmente sembra ottimo, ovvero compreso nella soluzione ottimale in quanto ricopre una distanza maggiore considerando gli $intervalli - 1$ elementi precedenti, deve essere scartato per fare posto ad un nuovo intervallo la cui copertura sia maggiore e che si interseca perfettamente con gli $intervalli - 1$ elementi precedenti.
 \end{itemize}
-La dimostrazione della correttezza di questo algoritmo può essere fatta similmente a come scritta dal professore, solamente che in questo caso non si ha \emph{backtrack iterativo}. \newpage
+La dimostrazione della correttezza di questo algoritmo può essere fatta similmente a come scritta dal professore, solamente che in questo caso non si ha \emph{backtrack iterativo}.\\\\
 \textbf{Costo minimo del taglio sulla stringa} \\
 In un certo linguaggio di programmazione che siete obbligati ad utilizzare, l'unica operazione disponibile sulle stringhe è il "taglio": data una stringa $S$ di $L$ caratteri ed una posizione $k$, con $1 \leq k < L$, l'operazione di divisione taglia la stringa in due stringhe di $k$ e $L - k$ caratteri. Ad esempio, dividere $"alberto"$ in posizione $2$ restituisce \emph{"al"} e \emph{"berto"}. 
 Il costo di questa operazione è pari a $L$, in quanto richiede di copiare la stringa originale in due diverse zone di memoria. \\
@@ -96,10 +96,13 @@ La formulazione ricorsiva è la seguente:
     	min_{i < k < j}\{DP[i][k] + DP[k][j]\} + (V[j] - V[i]) & \text{$j > i + 1$}
   	\end{cases}
 \end{equation*}
-\textbf{Funzionamento} \\
+\begin{flushleft}
+\textbf{Funzionamento}
+\end{flushleft}
 Si considerano i tagli a partire da $0$ e $n + 1$, dove il costo primario necessario da pagare è sempre $L$. Dopodiché si considera il problema diminuendo la dimensione della stringa: \\
 Quando $j = i + 1$ non c'è nessun taglio intermedio da fare; quindi il costo è pari a zero. Altrimenti si considerano tutti i possibili tagli intermedi (fra $i$ e $j$) e si ottengono due sottostringhe le quali vengono trattate separatamente e sommate, considerando il valore minimo fra tutti i tagli intermedi. In questo modo infatti si combinano tutti i modi possibili per tagliare la stringa a seconda dei valori indicati nel vettore $V$ che identifica le posizioni dove è necessario tagliare, selezionando sempre il valore minore. \\
 Utilizzando memoization, si ottiene un algoritmo di costo $\mathcal{O}(n^3)$
+\newpage
 \begin{lstlisting}[ caption = Ordine di tagli di costo minimo]
 int cutString(int[] V, int n, int L)
 	int[][] DP = new int[0...n+1][0...n+1]

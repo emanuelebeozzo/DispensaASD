@@ -168,7 +168,6 @@ int nArchiMinimi(GRAPH G)
   	else
     	return n_cc(G) - 1
 \end{lstlisting}
-
 É infatti semplice vedere come il numero di archi necessari per connettere un grafo sconnesso è pari al numero di componenti connesse presenti meno 1. La correttezza è infatti immediata dato che per connettere 2 componenti connesse tra loro è necessario un arco, dunque per connettere n componenti connesse tra loro sono necessari $n-1$ archi. La complessità di tale algoritmo è pari a $\Theta(n + m)$ data dalla visita in dfs. Soluzione al problema del collegamento delle componenti connesse.
 \begin{lstlisting}[ caption=Connetti il grafo]
 connettiGrafo(GRAPH G)

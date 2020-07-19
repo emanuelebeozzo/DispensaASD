@@ -26,6 +26,7 @@ L'algoritmo conta le occorrenze di 0 fino a quando non incontra un 1, a quel pun
 \textbf{Aggiornamento del flusso massimo}\\
 Sia $G= (V, E, s, t, c)$ una rete di flusso con valori interi. Si supponga di conoscere un flusso massimo in $G$, e si supponga che la capacità di un singolo arco $(u, v) \in E$ sia aumentata di una unità. Progettare un algoritmo per aggiornare il flusso massimo in tempo $\mathcal{O}(n+m)$ oppure $\mathcal{O}(n^{2})$.\\
 La soluzione al problema consiste nel modificare la versione dell'algoritmo maxFlow (\emph{Ford-Fulkerson}) presentato nella sezione di \emph{Ricerca Locale} della dispensa. Essendo che tra i vari dati vi è anche il flusso massimo attuale e la funzione di capacità è possibile ricavarsi la capacità residua tramite differenza e il cammino aumentante implementato tramite una visita bfs e una memorizzazione tramite liste di adiacenza.
+\newpage
 \begin{lstlisting}[caption=Aggiornamento Flusso Massimo]
 int mirrored(int[] V, int n)
 	% Rete Residua
@@ -80,7 +81,10 @@ Una scuola vuole organizzare un ballo di fine anno. Ci sono $n$ maschi e $m$ fem
 \centering
 \includegraphics[width=0.5\textwidth]{../img/Locale_4.jpg}
 \end{figure}
-\textbf{Piscina}\\
+\newpage
+\begin{flushleft}
+\textbf{Piscina}
+\end{flushleft}
 Siete responsabile dei corsi di nuoto organizzati da una piscina pubblica. I corsi vengono gestiti settimanalmente. Ogni corso dura un’ora. Ogni corso può avere al massimo 6 bambini. Ogni corso ha un orario di inizio che può andare dalle 9 alle 18 (per un totale di dieci corsi al giorno). Ogni bambino sceglie a quanti corsi partecipare alla settimana, ma questo numero non può essere superiore a 5 e non si può fare lezione più di due volte lo stesso giorno. Poiché i poveri bambini moderni sono stressati da mille altri corsi (calcio, musica, etc), ogni bambino può dare un certo numero di preferenze (ore in cui può partecipare ad un corso). Ogni corso deve essere insegnato da un insegnante. Ogni insegnante può dare un certo numero di disponibilità (ore in cui può insegnare un corso). Infine, ogni bambino che segue un corso paga 10 euro. \textbf{Descrivere} un algoritmo che di assegnamento bambini-corsi-insegnanti che massimizzi il guadagno, descrivendo per bene input, output. Discutere la complessità.\\
 \textbf{Soluzione:} Il seguente problema può essere risolto mediante la costruzione di una Rete di Flusso $G = (V, E, s, p, c)$
 \begin{itemize}

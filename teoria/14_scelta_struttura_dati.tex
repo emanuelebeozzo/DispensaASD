@@ -65,7 +65,9 @@ In seguito verrà mostrato un pattern generico per la risoluzione del problema d
 				d[v] = d[u] + G.w(u, v)
 	return(T, d)
 \end{lstlisting}
-\textbf{Algoritmo di Dijkstra, 1959} \\
+\newpage
+\begin{flushleft}
+\textbf{Algoritmo di Dijkstra, 1959}\\
 Algoritmo che fa uso come struttura dati di una coda a priorità basata su vettore, esso funziona bene solamente con i pesi positivi ed ha un costo computazionale di $\mathcal{O}(n^2)$ per via del metodo $deleteMin()$ che ha una compessità di $\mathcal{O}(n)$, richiamato per ogni nodo del grafo.
 \begin{lstlisting}[caption=Algoritmo di Edsger W. Dijkstra: cammini minimi a sorgente singola]
 (int[],int[]) shortestPath (Graph G, Node s)
@@ -82,28 +84,32 @@ Algoritmo che fa uso come struttura dati di una coda a priorità basata su vetto
 	PriorityQueue Q = PriorityQueue();	%Basata su un vettore (1)
 	Q.insert(s,0)
 	while not Q.isEmpty() do 
-		int u = Q.deleteMin()	%Deve scorrrere tutti gli elementi del vettore (2)
+		%Deve scorrrere tutti gli elementi del vettore (2)
+		int u = Q.deleteMin()
 		b[u] = false
 		foreach v $\in$ G.adj(u) do
 			if d[u] + G.w(u, v) < d[v] then 
 				if not b[v] then
-					Q.insert(v, d[u] + G.w(u, v)) %Semplice modifica del valore con costo costante (3)
+					%Semplice modifica del valore con costo costante (3)
+					Q.insert(v, d[u] + G.w(u, v)) 
 					b[v] = true
 				else
-					Q.decrease(v, d[u] + G.w(u, v)) %Semplice modifica del valore con costo costante (4)
+					%Semplice modifica del valore con costo costante (4)
+					Q.decrease(v, d[u] + G.w(u, v))
 				T[v] = u 
 				d[v] = d[u] + G.w(u, v)
 	return(T, d)
 \end{lstlisting}
+\end{flushleft}
 Importante è osservare che:
 \begin{itemize}
 	\item Ogni nodo viene estratto una e una sola volta;
 	\item Al momento dell’estrazione la sua distanza è minima.
 \end{itemize}
-Queste due proprietà, che sono dimostrabili per induzione, consentono di verificare la correttezza dell'algoritmo di Dijkstra. \\
-Un altra proprietà degna di nota è di essere ottimale per il calcolo di cammini minimi a sorgente singola per grafi densi, ovvero grafi il cui numero di archi $m$ sia $\Omega(n^2)$, in quanto la complessità di questo non dipende dal numero di archi.
+Queste due proprietà, che sono dimostrabili per induzione, consentono di verificare la correttezza dell'algoritmo di Dijkstra. Un altra proprietà degna di nota è di essere ottimale per il calcolo di cammini minimi a sorgente singola per grafi densi, ovvero grafi il cui numero di archi $m$ sia $\Omega(n^2)$, in quanto la complessità di questo non dipende dal numero di archi.
 Un analisi più dettagliata sulla complessità:
 \\\\
+\noindent\begin{minipage}{0.5\textwidth}
 \begin{tabular}{@{}lllll@{}}
 \toprule
 Riga & Costo & Ripetizioni &  &  \\ \midrule
@@ -111,9 +117,12 @@ Riga & Costo & Ripetizioni &  &  \\ \midrule
 (2)    & $\mathcal{O}(n)$     & $\mathcal{O}(n)$           &  &  \\
 (3)    & $\mathcal{O}(1)$     & $\mathcal{O}(n)$           &  &  \\
 (4)    & $\mathcal{O}(1)$     & $\mathcal{O}(n)$           &  &  \\ \bottomrule
-\end{tabular}
-\\\\
-Costo totale: $\mathcal{O}(n^2)$ \\\\
+\end{tabular}\\
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+Costo totale: $\mathcal{O}(n^2)$
+\end{minipage}
 \textbf{Algoritmo di Johnson, 1977} \\
 Variante dell'algoritmo di Dijkstra che fa utilizzo di una coda a priorità  basata su heap binario e non più su vettore.
 \begin{lstlisting}[caption=Algoritmo di Johnson: cammini minimi a sorgente singola]
@@ -162,8 +171,11 @@ Riga & Costo & Ripetizioni &  &  \\ \midrule
 (4)    & $\mathcal{O}(\log n)$     & $\mathcal{O}(m)$           &  &  \\ \bottomrule
 \end{tabular}
 \\\\
-Dal quale risulta un costo totale di $\mathcal{O}(m \log n)$ \\\\
-\textbf{Algoritmo di Fredman-Tarjan, 1987} \\
+Dal quale risulta un costo totale di $\mathcal{O}(m \log n)$
+\newpage
+\begin{flushleft}
+\textbf{Algoritmo di Fredman-Tarjan, 1987}
+\end{flushleft}
 Algoritmo ancora una volta basato su code a priorità, in questo caso però implementate con heap di Fibonacci, una struttura dati complessa che permette di ammortizzare il costo dell'operazione di decrease, ottenendo dunque un costo computazionale differente rispetto ai precedenti due algoritmi.
 \begin{lstlisting}[caption=Algoritmo di Fredman-Tarjan: cammini minimi a sorgente singola]
 (int[],int[]) shortestPath (Graph G, Node s)
@@ -205,8 +217,11 @@ Riga & Costo & Ripetizioni &  &  \\ \midrule
 (4)    & $\mathcal{O}(1)^{(*)}$     & $\mathcal{O}(m)$           &  &  \\ \bottomrule
 \end{tabular}
 \\\\
-Dal quale risulta un costo totale di $\mathcal{O}(m + n \log n)$, dove $^{(*)}$ indica che il costo è derivato da un analisi ammortizzata. \\\\
-\textbf{Algoritmo di Bellman-Ford-Moore, 1958} \\
+Dal quale risulta un costo totale di $\mathcal{O}(m + n \log n)$, dove $^{(*)}$ indica che il costo è derivato da un analisi ammortizzata.
+\newpage
+\begin{flushleft}
+\textbf{Algoritmo di Bellman-Ford-Moore, 1958}
+\end{flushleft}
 Algoritmo basato su una coda, senza priorità, computazionalmente più pesante rispetto all'algoritmo di Dijkstra, che permette però di gestire i grafi con archi di peso negativo.
 \begin{lstlisting}[caption=Algoritmo di Bellman-Ford-Moore: cammini minimi a sorgente singola]
 (int[],int[]) shortestPath (Graph G, Node s)
@@ -343,4 +358,5 @@ Ciò che abbiamo definito fino ad ora può essere riassunto dalla seguente ricor
 \end{lstlisting}
 La prima parte dell'algoritmo si occupa della trasformazione del nostro grafo, che abbiamo sempre assunto essere espresso mediante liste di adiacenza, in un grafo rappresentato da una matrice di adiacenza. Una volta fatto questo, si fissa il parametro k (che rapprensenta il vincolo del cammino preso in analisi), e per ogni coppia di nodi si verificano i percorsi migliori facendo le opportune modifiche sul costo. \\
 La complessità totale dell'algoritmo è $\mathcal{O}(n^3)$ dovuta alla presenza di tre cicli for annidati che iterano sui nodi del grafo.
+\newpage
 \end{document}

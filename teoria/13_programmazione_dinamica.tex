@@ -74,8 +74,11 @@ Il costo per le varie versioni è il seguente:
 \subsubsection{Hateville}
 \textbf{Problema:} Hateville è un villaggio particolare, composto da n case, numerate da 1 a n lungo una singola strada. Ad Hateville ognuno odia i propri vicini della porta accanto, da entrambi i lati. Quindi, il vicino i odia i vicini i-1 e i+1 (se esistenti).
 Hateville vuole organizzare una sagra e vi ha affidato il compito di
-raccogliere i fondi. Ogni abitante i ha intenzione di donare una quantità D[i], ma non intende partecipare ad una raccolta fondi a cui partecipano uno o entrambi i propri vicini. Scrivere un algoritmo che restituisca il sottoinsieme di indici S  $\subseteq$ $\{$1, ..., n $\}$ tale per cui la donazione totale T = $\sum\limits_{i \in S} {D[i]}$ è massimale. \\\\
+raccogliere i fondi. Ogni abitante i ha intenzione di donare una quantità D[i], ma non intende partecipare ad una raccolta fondi a cui partecipano uno o entrambi i propri vicini. Scrivere un algoritmo che restituisca il sottoinsieme di indici S  $\subseteq$ $\{$1, ..., n $\}$ tale per cui la donazione totale T = $\sum\limits_{i \in S} {D[i]}$ è massimale. 
+\newpage
+\begin{flushleft}
 \textbf{Soluzione:} Definiamo il problema in questi termini: 
+\end{flushleft}
 \begin{itemize}
 	\item Sia HV(i) uno dei possibili insiemi di indici da selezionare per ottenere una donazione ottimale dalle prime i case di Hateville,
 numerate 1...n
@@ -141,8 +144,7 @@ int hateville(int[] D, int n)
 \begin{itemize}
 	\item Complessità solution(): $\Theta(n)$
 	\item Complessità hateville() (sia per tempo che per spazio): $\Theta(n)$
-\end{itemize} \
-
+\end{itemize}
 \subsubsection{Zaino (Knapsack)}
 \textbf{Problema:} Dato un insieme di oggetti, ognuno caratterizzato da un peso e un
 profitto, e uno "zaino" con un limite di capacità, individuare un
@@ -200,9 +202,8 @@ La versione ricorsiva che non fa uso della ricorsione costa $\mathcal{O}$($2^{n}
 	\item Creare la tabella DP e inizializzarla con un valore speciale (+/- infinito, -1, null) per indicare che un certo sottoproblema non è stato ancora risolto 
 	\item Ogni volta che si deve risolvere un sottoproblema, si controlla nella tabella se è già stato risolto precedentemente: in caso affermativo si usa il risultato della tabella, altrimenti si calcola il risultato e lo si memorizza
 	\item Ogni sottoproblema viene calcolato una sola volta e memorizzato come nella versione bottom-up
-\end{itemize} \ 
-
-
+\end{itemize}
+\newpage
 \subsubsection{Zaino (Knapsack)}
 \textbf{Problema:} Il problema è lo stesso visto per la programmazione dinamica. \\
 \textbf{Implementazione:}
@@ -293,14 +294,12 @@ int knapsackRec(int[] w, int[] p, int n, int c, int[] DP)
 Qual è la complessità della funzione knapsack()?\\
 La funzione knapsack deve generare un vettore grande $C$ e, nel caso peggiore, dovrà riempire tutti i suoi elementi. Riempire un singolo elemento ha costo $\mathcal{O}(n)$ e quindi il costo complessivo della funzione è  $\mathcal{O}(Cn)$.\\\\
 Se utilizziamo questo tipo di approccio lo spazio occupato in memoria è pari a $\Theta(C)$ ma ricostruire la soluzione diventa più complesso in quanto è necessario l'utilizzo di un altro vettore che ci dica da dove venga il massimo.
-
 \begin{equation*}
   	DP[i][c] =\begin{cases}
     	0 & \text{$c = 0$}\\
     	max_{w[i] \leq c}\{DP[c-w[i]]+p[i]\} & \text{$c>0$}
   	\end{cases}
 \end{equation*}
-\newpage
 \begin{lstlisting}[caption= Knapsack Ricostruzione Soluzione]
 LIST knapsack(int[] w, int[] p, int n, int C)
 	int[] DP = new int[0...C]
@@ -333,8 +332,7 @@ LIST solution(int[] w, int c, int[] pos)
 		return L
 \end{lstlisting}
 Quello che viene restituito dalla funzione solution() è una lista di indici dove i suoi elementi possono comparire più di una volta (multinsieme). Notiamo che se $c=0$ allora lo zaino è stato riempito perfettamente mentre per $pos[c]<0$ allora lo zaino non può essere riempito interamente (rimarrà della capacità residua ma nessun oggetto in grado di riempirlo perfettamente).
-\\
-
+\newpage
 \subsection{Altri esempi di programmazione dinamica} 
 \subsubsection{Sottosequenza comune massimale}
 \textbf{Definizione: Sottosequenza}\\
@@ -515,8 +513,8 @@ Definizione ricorsiva:
     	0 & \text{$i = j$}\\
     	min_{i \leq k \leq j}(DP[i][k]+DP[k+1][j]+c_{i-1} \cdot c_{k} \cdot c_{j})  & \text{$i < j$}  
   	\end{cases}
-\end{equation*}\\\\
-\textbf{Implementazione:}
+\end{equation*}
+\newpage
 \begin{lstlisting}[caption= Calcolo prodotto di matrici e stampa parentesizzazione ottima usando matrice last]
 %ricostruzione della soluzione (stampa prodotto)
 printPar(int[][] last , int i, int j)
@@ -536,7 +534,6 @@ int[][] multiply(matrix[] A, int[][] last, int i, int j)
 		%matrix-multiplication calcola il prodotto tra le  matrici X e Y
 		return matrix-multiplication(X,Y)
 \end{lstlisting}
-\newpage
 \noindent
 L'implementazione usa le matrici DP e last di dimensione n $\cdot$ n tali che:
 \begin{itemize}
@@ -566,7 +563,8 @@ computePar(int[] c, int n)
 					last [i][j] = k
 	return DP[1][n]
 \end{lstlisting}
-\textbf{Costo computazionale:} Il costo di computePar è pari a $\mathcal{O}(n^{3})$.\\
+\textbf{Costo computazionale:} Il costo di computePar è pari a $\mathcal{O}(n^{3})$.
+\newpage
 \subsubsection{Insieme indipendente di intervalli pesati}
 \textbf{Definizioni e input:} Siano dati n intervalli distinti [a1,b1[, ..., [an,bn[ della retta reale, aperti a destra, dove all'intervallo i è associato un profitto w$_{i}$, 1$\leq$i$\leq$n.
 Due intervalli i e j sono disgiunti se bi $leq$ ai oppure bi $\leq$ aj.\\\\ 
@@ -618,7 +616,7 @@ int[] computePredecessor(int[] a, int[] b, int n)
 	return pred
 \end{lstlisting}
 \textbf{Costo computazionale:} Il costo per calcolare i predecessori mostrato nel codice è pari a $\mathcal{O}(n^{2})$, ma si può fare meglio di così ed arrivare ad un costo $\mathcal{O}$(n  log n).
-In totale il costo di maxinterval è pari a $\mathcal{O}$(n log n) in quanto il calcolo dei predecessori vale $\mathcal{O}$(n log n), l'ordinamento vale $\mathcal{O}$(n log n), il riempimento di DP vale $\mathcal{O}(n)$  e la ricostruzione della soluzione costa $\mathcal{O}(n)$.\\
+In totale il costo di maxinterval è pari a $\mathcal{O}$(n log n) in quanto il calcolo dei predecessori vale $\mathcal{O}$(n log n), l'ordinamento vale $\mathcal{O}$(n log n), il riempimento di DP vale $\mathcal{O}(n)$  e la ricostruzione della soluzione costa $\mathcal{O}(n)$.
 \subsection{Schema risoluzione problema}
 \textbf{Fasi risoluzione problema con programmazione dinamica/memoization:}\
 \begin{itemize}
@@ -628,4 +626,5 @@ In totale il costo di maxinterval è pari a $\mathcal{O}$(n log n) in quanto il 
 	\item Calcolare il valore di una soluzione ottima "bottom-up" (programmazione dinamica) / "top-down" (memoization)
 	\item Ricostruzione di una soluzione ottima
 \end{itemize}
+\newpage
 \end{document}

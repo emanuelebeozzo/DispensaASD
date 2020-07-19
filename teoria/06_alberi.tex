@@ -27,8 +27,9 @@ deleteLeft()
 deleteRight()
 \end{lstlisting}
 \newpage
-
-\textbf{Memorizzazione}: Ogni nodo dell'albero è memorizzato come sottoalbero. Per ogni nodo è necessario memorizzare 3 campi: parent, che è una reference al nodo padre, left che è una reference al nodo figlio sinistro e right che è una reference al figlio destro.\
+\begin{flushleft}
+\textbf{Memorizzazione}: Ogni nodo dell'albero è memorizzato come sottoalbero. Per ogni nodo è necessario memorizzare 3 campi: parent, che è una reference al nodo padre, left che è una reference al nodo figlio sinistro e right che è una reference al figlio destro.
+\end{flushleft}
 \textbf{Implementazione}: Implementazione delle operazioni sugli alberi di ricerca, usando la specifica definita sopra. 
 \begin{lstlisting}[caption= Implentazione alberi binari]
 TREE
@@ -73,7 +74,8 @@ deleteRight()
 \textbf{Soluzione}: Esistono principalmente due metodologie per visitare un albero:\
 \begin{itemize}
 	\item DFS (Depth-First search - visita in profondità): per visitare un albero si visita ricorsivamente ognuno dei suoi sottoalberi. Tre varianti: pre/post/in order. Richiede uno stack.
-\begin{lstlisting}[caption= Visita DFS albero binario]
+\end{itemize}
+\begin{lstlisting}[caption= Visita DFS albero bin]
 preorder_dfs(TREE albero)
 	if albero $\neq$ nil then
 		print albero.read()
@@ -92,7 +94,9 @@ postorder_dfs(TREE albero)
 		postorder_dfs(albero.right())
 		print albero.read()
 \end{lstlisting}
+\begin{itemize}
  	\item BFS(Breadth-First search - visita in ampiezza): ogni livello dell'albero viene visitato, uno dopo l'altro partendo dalla radice. Richiede una coda. 
+\end{itemize}
 \begin{lstlisting}[ caption= Visita BFS albero binario]
 bfs(TREE albero)
 	QUEUE q = new QUEUE
@@ -105,7 +109,6 @@ bfs(TREE albero)
 	if tmp.right() $\neq$ nil then
 		q.enqueue(tmp.right())
 \end{lstlisting}
-\end{itemize}
 \newpage
 
 \subsubsection{Esempi visite alberi binari con DFS}
@@ -158,9 +161,10 @@ boolean alberoBinNatale(TREE T)
 	return true
 \end{lstlisting}
 \newpage
+\begin{flushleft}
 La soluzione proposta conosce il numero di nodi che fanno parte di un livello, in quanto, nel momento in cui un livello termina, in coda sono presenti tutti i nodi del livello successivo. \\
 Il primo livello ovviamente ha dimensione 1, in quanto è un albero binario radicato. Ovviamente partendo da questo è semplice sommare la brillantezza dei livelli sapendo che, al termine dello stesso, gli elementi del prossimo livello sono dati dagli n elmenti in coda a tal momento, dove $n = q.size()$, dove q è l'instanza della coda.
-
+\end{flushleft}
 \subsection{Alberi generici}
 Un albero generico è un albero con un numero di figli non fissato.\\
 \textbf{Specifica}: Tutte le operazioni possibili sugli alberi generici sono le seguenti. 
@@ -186,7 +190,6 @@ deleteChild()
 % Distruggi l'albero radicato identificato dal prossimo fratello
 deleteSibling()
 \end{lstlisting}
-
 \textbf{Memorizzazione}: Esistono 3 diverse modalità per memorizzare un albero generico: vettore dei figli, primo figlio - prossimo fratello, vettore dei padri.\
 \newpage
 

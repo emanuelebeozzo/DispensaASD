@@ -33,6 +33,7 @@ La complessità della funzione presentata è dell'ordine di $\mathcal{O}(n \cdot
 Scrivere un algoritmo che stampa tutte le possibili stringhe composte da $n$ caratteri $R$ e da $m$ caratteri $G$, per un totale di $n+m$ caratteri.\\
 Scrivere un algoritmo che conta tutte queste possibili stringhe - ovviamente senza generarle tutte e poi contandole.\\
 Calcolare la complessità computazionale degli algoritmi proposti.
+\newpage
 \begin{lstlisting}[caption=Permutazioni dei caratteri G e R e conteggio]
 primaElementare(int n, int m)
     int[] S = new int[1..n + m]
@@ -84,7 +85,10 @@ Sia $DP[i][j$] il numero di sequenze ottenibili considerando $i$ caratteri $R$ e
         DP[i-1][j] + DP[i][j-1] & \text{altrimenti} 
     \end{cases}
 \end{equation*}
+\newpage
+\begin{flushleft}
 \textbf{Somma di Quadrati - Compito 26/01/2016}
+\end{flushleft}
 \begin{enumerate}
 	\item Ogni intero positivo $n$ può essere scritto come somma di quadrati di interi. Scrivere un algoritmo che, preso in input $n$, restituisce il numero minimo di quadrati la cui somma è pari ad $n$. Discuterne correttezza e complessità.
 	\item Scrivere un algoritmo che, dato $n$, stampatutti i modi possibili per esprimere $n$ come somma di quadrati, discutendo correttezza e complessità

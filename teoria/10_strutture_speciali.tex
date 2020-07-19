@@ -166,14 +166,14 @@ merge(int x, int y)
 \textbf{\\Realizzazione}: Esistono 2 possibili tecniche per memorizzare gli insiemi disgiunti usando due strutture dati differenti.\\
 
 \subsubsection{Realizzazione basata su insieme di liste}
-\textbf{Descrizione}: Ogni insieme viene rappresentato da una lista concatenata. Il primo oggetto di una lista è il rappresentante dell'insieme e ogni elemento delle lista contiene: un intero/oggetto, un puntatore all'elemento successivo e un puntatore al rappresentante.
+\textbf{Descrizione}: Ogni insieme viene rappresentato da una lista concatenata. Il primo oggetto di una lista è il rappresentante dell'insieme e ogni elemento delle lista contiene: un intero/oggetto, un puntatore all'elemento successivo e un puntatore al rappresentante.\\
 \textbf{Operazioni}:
 \begin{itemize}
 	\item Operazione find(x): viene restituito il rappresentante dell'insieme x. L'operazione di find(x) richiede tempo O(1).
 	\item Operazione di merge(x,y): si "appende" la lista che contiene y alla lista che contiene x, modificando i puntatori ai rappresentanti nella lista "appesa" (per ogni elemento di y devo modificare il rappresentante). Nel caso pessimo, il costo di n operazione è O($n^{2}$) e quindi il coso ammortizzato di una operazione vale O(n). 
 \end{itemize}
 \subsubsection{Realizzazione basata su insieme di alberi (foresta)}
-\textbf{Descrizione}: Ogni insieme viene rappresentato da un albero. La radice è il rappresentante dell'insieme e ha un puntatore a sé stessa (per indicare che è il quel nodo il rappresentante). Ogni nodo dell'albero contiene: un intero/oggetto, un puntatore al padre.
+\textbf{Descrizione}: Ogni insieme viene rappresentato da un albero. La radice è il rappresentante dell'insieme e ha un puntatore a sé stessa (per indicare che è il quel nodo il rappresentante). Ogni nodo dell'albero contiene: un intero/oggetto, un puntatore al padre.\\
 \textbf{Operazioni}:
 \begin{itemize}
 	\item Operazione find(x): risale la lista dei padri di x fino a trovare la radice e restituisce la radice stessa come rappresentante. Il costo è O(n) nel caso pessimo di albero lineare (in pratica una lista)

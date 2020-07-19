@@ -38,7 +38,9 @@ Dunque: $\alpha > \beta$ allora $T(n) = \Theta(n^\alpha) = \Theta(n)$
 \textbf{Good vs bad guys}\\
 Fra ogni coppia di wrestler professionisti può esserci una rivalità oppureno. Per ragioni di marketing, è una buona idea dividere i wrestler professionisti in due gruppi, "buoni" e "cattivi", e farli combattere fra di loro. Supponete di avere in input un insieme di rivalità, rappresentate comeun vettore di coppie \textit{(x, y)}, dove \textit{x} e \textit{y} sono identificatori di wrestler compresi fra \textit{1} ed \textit{n}. Scrivere un algoritmo che restituisca \textit{true} se è possibile suddividere i wrestler professionisti in due sottoinsiemi non vuoti ("buoni" e"cattivi"), non necessariamente della stessa dimensione, in modo tale che non ci siano rivalità all’intero dei due gruppi; \textit{false} altrimenti.
 \newpage
+\begin{flushleft}
 Soluzione proposta:
+\end{flushleft}
 \begin{lstlisting}[ caption=2 colorazione di Grafo con i wrestler]
 GRAPH rivalitaWrestler(int[] x, int[] y, int n)
 	GRAPH G = new GRAPH
@@ -70,7 +72,6 @@ boolean 2wrestlercolorabile_rec(GRAPH G, NODE u, int colors[], int color)
         		return false
   	return true
 \end{lstlisting}
-
 Il problema proposto è un problema di grafo 2-colorabile, infatti è necessario, dopo la costruzione del grafo a partire dai vettori di rivalità, effetuare una visita in dfs con la colorazione del grafo. \\
 La spiegazione della colorazione del grafo la si può trovare nel'esercitazione 3 sotto la voce "Grafi bipartiti".
 \newpage
@@ -118,7 +119,6 @@ boolean universalSink(NODE[][] G, int n)
   	int coltot = $\sum_{j \in {1..n}}A[j][i]$
   	return rowtot = 0 and coltot == n - 1
 \end{lstlisting}
-
 La logica che sta dietro alla soluzione è la seguente: \\
 In quanto in input abbiamo una matrice di adiacenza, allora un pozzo universale è dato dall'indice della riga composta da tutti 0, la cui colonna (sempre allo stesso indice) è composta da tutti 1, fatta eccezione per la cella alla sua riga. \\ Osserviamo inoltre che non è possibile che ci siano più pozzi universali, in quanto se ne esistesse un altro allora dovrebbe avere $n-1$ come in-degree per definizione, ma questo è impossibile dato che esiste un altro pozzo universale che ha out-degree pari a 0.\\
  L'obiettivo è quello di trovare un possibile candidato attraverso una visita il più possibile lineare, per farlo scorriamo la prima riga: nel momento in cui troviamo uno 0, significa che la riga corrente è un potenziale pozzo universale, mentre la colonna di tale 0 non è sicuramente un pozzo universale dato che non può avere in-degree pari a $n-1$. \\

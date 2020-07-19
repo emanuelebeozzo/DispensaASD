@@ -22,6 +22,7 @@ Durante il corso abbiamo visto due possibili modalità per implementare la tecni
 	\item Una soluzione viene rappresentata come un vettore di scelte $S[1...n]$ (ovviamente in base al problema da risolvere è possibile utilizzare una struttura dati differente)
 	\item Il contenuto degli elementi $S[i]$ è preso da un insieme di scelte $C$ dipendente dal problema
 \end{itemize}
+\newpage
 \subsection{Enumerazione}
 Lo schema parziale per la risoluzione di problemi di enumerazione potrebbe essere il seguente: 
  \begin{lstlisting}[ caption= Schema generale risoluzione problema di enumerazione]
@@ -214,9 +215,12 @@ Ad ogni passo ricorsivo si decide se inserire o meno l'elemento i-esimo all'inte
 Ogni volta che una scelta viene effettuata viene registrata all'interno del vettore $S$ e si passa all'analisi del prossimo valore. \\
 Viene contato il numero di elementi compresi nella soluzione attraverso la funzione \emph{count}: se abbiamo terminato di analizzare l'intero insieme e la dimensione è pari a $k$ allora processiamo la soluzione, altrimenti se abbiamo terminato l'analisi e la cardinalità di $S$ è superiore a $k$ la scartiamo, se invece abbiamo ancora elementi da scansionare proseguiamo con le scelte. \\
 Possiamo, invece che contare ogni volta il numero di elementi inseriti, utilizzare una variabile missing, la quale sarà inizializzata a $k$ ed identifica il numero di elmenti che sono necessari per completare la soluzione corrente. \\ 
-Come nella soluzione precedente, se terminata l'analisi dell'insieme $missing$ è pari a $0$ allora processiamo la soluzione (abbiamo inserito esattamente $k$ elementi) altrimenti la scartiamo, se mancano dei numeri da scandire allora effettueremo la scelta decrementando $missing$ di $1$, se abbiamo deciso che l'elemento i-esimo è compreso in $S$, oppure lasciandolo invariato, se si è deciso di non comprenderlo nella soluzione. \\
+Come nella soluzione precedente, se terminata l'analisi dell'insieme $missing$ è pari a $0$ allora processiamo la soluzione (abbiamo inserito esattamente $k$ elementi) altrimenti la scartiamo, se mancano dei numeri da scandire allora effettueremo la scelta decrementando $missing$ di $1$, se abbiamo deciso che l'elemento i-esimo è compreso in $S$, oppure lasciandolo invariato, se si è deciso di non comprenderlo nella soluzione. 
+\newpage
+\begin{flushleft}
 Una maniera più intelligente per implementare la procedura \emph{kssRec} è la seguente:
- \begin{lstlisting}[ caption= K-subsets migliore]
+\end{flushleft}
+\begin{lstlisting}[ caption= K-subsets migliore]
 kSubsets(int n, int k)
 	int[] S = new int[1 ... n]
 	return kssRec(n, k, S, 1)
@@ -252,6 +256,7 @@ kssRec(int n, int missing, int[] S, int i)
 \end{lstlisting}
 È 	possibile ottenere un \emph{pruning} totale facendo un ulteriore accorgimento nel caso in cui il $missing > 0$. \\
 Se abbiamo altri valori da analizzare e con gli elementi rimasti non siamo in grado, nemmeno scegliendoli tutti, di riempire $S$ con esattamente $k$ elementi allora è possibile scartare la soluzione corrente ($n - (i - 1) < missing$).  
+\newpage
  \begin{lstlisting}[ caption= K-subsets pruning totale]
 kSubsets(int n, int k)
 	int[] S = new int[1 ... n]
@@ -297,7 +302,7 @@ boolean enumeration($\langle$dati del problema$\rangle$, ITEM[] S, int i, $\lang
 			% Chiamata ricorsiva
 			if enumeration($\langle$dati problema$\rangle$, S, i + 1, $\langle$dati parziali$\rangle$) then
 				return true
-			return false
+		return false
 \end{lstlisting}
 \subsection{Subset sum backtracking}
 Il problema è il seguente: Dati un vettore $A$ contenente $n$ interi positivi ed un intero positivo $k$, esiste un sotto insieme $S \subseteq \{1. . . n\}$ tale che $\sum_{i \in S} a[i] = k$? \\
@@ -366,6 +371,7 @@ Il problema delle $n$ regine è molto costoso, anche se abbiamo lavorato parecch
 La \emph{Minimum-conflicts heuristic} per il problema delle $n$ è così definita: \\
 Si parte da una soluzione iniziale “ragionevolmente buona”, e si muove il pezzo con il più grande numero di conflitti nella casella della stessa colonna che genera il numero minimo di conflitti. Si ripete fino a quando non ci sono più pezzi da muovere. \\
 Questo algoritmo può essere eseguito in tempo lineare, ma come accennato poc'anzi, non garantisce che il risultato sia corretto.
+\newpage
 \subsection{Sudoku}
 Il problema del Sudoku non ha bisogno di presentazioni. \\
 Come è intuibile (è nella sezione di backtracking) esiste una soluzione basata su backtrack per completare il gioco. \\

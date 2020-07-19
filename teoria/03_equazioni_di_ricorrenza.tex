@@ -13,7 +13,6 @@ Srotoliamo la ricorrenza in un albero i cui nodi rappresentano i costi ai vari l
   		\end{cases}
 	\end{equation*}
 \end{center}
-
 T(n) = n + 4T(n/2) = n + 4(4T(n/4) + n) = n + 4n/2 + 16T($n/2^{2}$) = n + 2n + 16n/4 + 64T(n/8)\\
 = ...\\
 = n + 2n + 4n + ... + $2^{k-1}$ + $4^{k}T(n/2^{k})$ \textcolor{red}{se poniamo $2^{k} = n \implies k = \log{n}$}\\
@@ -58,8 +57,11 @@ Proviamo a visualizzare l'albero delle chiamate:
 Dunque sappiamo che al livello $\log{n}$ il costo sarà pari a $4^{\log{n}}$, duqnue ci basta fare la sommatoria fino a $\log{n-1}$ e poi aggiungere il restante:\\
 T(n) =  $\sum\limits_{i=0}^{\log{n-1}} {4^{i} \cdot n^{3}/2^{3i}} + 4^{\log{n}}$\\\\
 \textcolor{red}{possiamo portare fuori i termini costanti dalla sommatoria}\\\\
-= \textcolor{red}{$n^{3}$} $\sum\limits_{i=0}^{\log{n-1}} {\frac{4^{i}}{2^{3i}}} + 4^{\log{n}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\frac{\textcolor{red}{2^{2i}}}{2^{3i}}} + \textcolor{red}{2^{2\log{n}}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\textcolor{red}{(\frac{1}{2})^{i}}} + \textcolor{red}{n^{2}}$\\\\\\
-\textcolor{red}{estendiamo la sommatoria fino a $\infty$}\\\\
+= \textcolor{red}{$n^{3}$} $\sum\limits_{i=0}^{\log{n-1}} {\frac{4^{i}}{2^{3i}}} + 4^{\log{n}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\frac{\textcolor{red}{2^{2i}}}{2^{3i}}} + \textcolor{red}{2^{2\log{n}}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\textcolor{red}{(\frac{1}{2})^{i}}} + \textcolor{red}{n^{2}}$
+\newpage
+\begin{flushleft}
+\textcolor{red}{estendiamo la sommatoria fino a $\infty$}
+\end{flushleft}
 \textcolor{red}{$\leq$} $n^{3}$ $\sum\limits_{i=0}^{\textcolor{red}{\infty}} {(\frac{1}{2})^{i}} + n^{2}$ = 
 $n^{3}$ $\cdot$ \textcolor{red}{$\frac{1}{1-\frac{1}{2}}$} + $n^{2}$ = $2n^{3} + n^2$\\\\
 Abbiamo dimostrato che T(n) = $\mathcal{O}$($n^{3}$): non possiamo affermare che sia $\Theta(n) = n^{3}$ perchè abbiamo dimostrato solo un limite superiore.\\
@@ -164,8 +166,7 @@ Siano $a$ e $b$ due costanti intere tali che $a$ $\geq$ 1 e $b$ $\geq$ 2 e, $c, 
 	\end{equation*}
 \end{center}
 
-Posto $\alpha$ = $\log{a}/\log{b}$ = $\log_{b}{a}$, allora:\\
-
+Posto $\alpha$ = $\log{a}/\log{b}$ = $\log_{b}{a}$, allora:
 \begin{center}
 	\begin{equation*}
   		T(n)=\begin{cases}
@@ -175,7 +176,6 @@ Posto $\alpha$ = $\log{a}/\log{b}$ = $\log_{b}{a}$, allora:\\
   		\end{cases}
 	\end{equation*}
 \end{center}
-
 \textbf{Esempio}:\\
 $T(n) = 4T(n/16) + n^{2}$ $\implies$ $a = 4$, $b = 16$\\
 $\beta = 2$\\
@@ -208,7 +208,6 @@ Siano dati 3 casi:
 		\hline
 	\end{tabular}
 \end{center}
-
 \textbf{Esempio 1}\\
 $T(n) = 9T(n/3) + n \implies a = 9, b = 3, \log_{b}{a} = 2$\\
 $f(n) = n = \mathcal{O}(n^{\log_{b}{a} - \epsilon}) =  \mathcal{O}(n^{2 - \epsilon})$, con $\epsilon$ $<$ 1\\

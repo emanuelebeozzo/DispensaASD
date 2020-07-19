@@ -75,7 +75,8 @@ Se \textcolor{red}{esiste} un intero $b$, con $2 \leq b < n$ tale che \textcolor
 \end{itemize}
 allora n è composto (quindi non primo). \\
 Rabin ha dimostrato che se il numero $n$ è composto, allora ci sono almeno $3/4 (n - 1)$ testimoni in [2, ..., n - 1]. Un \emph{testimone} è un valore che attesta la non primalità di un numero, ossia che rende vera almeno una delle due affermazioni della contrapposizione. Il test per verificare se il valore è composto ha probabilità inferiore a $1/4$ di rispondere erroneamente. L'algoritmo sarà ancora non deterministico data la presenza di \emph{strong liar}, dei valori validano la contrapposizione nonostante il numero analizzato non sia primo. \\
-L'implementazione di questo algoritmo è la seguente: 
+L'implementazione di questo algoritmo è la seguente:
+\newpage
  \begin{lstlisting}[ caption= Numero primo Miller-Rabin (Montecarlo)]
  boolean isPrimeMillerRabin(int n, int k)
  	int m, v = { si prende la rappresentazione di n - 1 in binario, esso sara' composto da un valore m (in binario) seguito da un numero v di zeri}
@@ -218,7 +219,9 @@ ITEM select(ITEM[] A, int start, int end, int k)
 		return select(A, start, q - 1, k)
 	else
 		return select(A, q + 1, end, k - q)
-
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption=median5]
 ITEM median5(ITEM[] A, int start, int end)
 	ITEM median
 	ITEM tmp 
@@ -266,4 +269,5 @@ L'algoritmo \emph{select()} esegue nel caso pessimo $\mathcal{O}(n)$ confronti:
     T(n) = T(n/5) + T(7n/10) + 11/5 n
 \end{equation*}
 Quest'ultimo algoritmo è deterministico, dunque esegue in tempo lineare su qualsiasi input, tuttavia molto spesso gli viene preferito quello \emph{Las Vegas} in quanto possiede fattori moltiplicativi più bassi e ha comunque un tempo \emph{atteso} $\mathcal{O}(n)$, con caso peggiore $\mathcal{O}(n^2)$.
+\newpage
 \end{document}
