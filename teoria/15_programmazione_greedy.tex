@@ -24,8 +24,11 @@ Aggiungiamo due intervalli fittizzi:\\
 	\item  Intervallo 0: $b_0 = - \infty$ 
 	\item  Intervallo $n+1$: $a_{n+1} = + \infty$ 
 \end{itemize}
-Il problema iniziale corrisponde al problema $S[0,n+1]$ (ricordiamo che $S$ definisce gli intervalli che cominciano dopo $i$ - cioè dopo $- \infty$ e prima di $j$ - cioè prima di $+ \infty$).\\\\
-\textbf{Teorema}\\
+Il problema iniziale corrisponde al problema $S[0,n+1]$ (ricordiamo che $S$ definisce gli intervalli che cominciano dopo $i$ - cioè dopo $- \infty$ e prima di $j$ - cioè prima di $+ \infty$).
+\newpage
+\begin{flushleft}
+\textbf{Teorema}
+\end{flushleft}
 Supponiamo che $A[i...j]$ sia una soluzione ottimale di $S[i...j]$ e sia $k$ un intervallo che appartiene a $A[i...j]$; allora
 \begin{itemize}
 	\item  \textcolor{red}{Il problema $S[i...j]$ viene suddiviso in due sottoproblemi}
@@ -62,7 +65,10 @@ Sia $S[i...j]$ un sottoproblema non vuoto e $m$ l’intervallo di $S[i ...j]$ co
 	\item il sottoproblema $S[i...m]$ è vuoto
 	\item $m$ è compreso in qualche soluzione ottima di $S[i ...j]$
 \end{itemize}
-\textbf{Dimostrazione 1}\\
+\newpage
+\begin{flushleft}
+\textbf{Dimostrazione 1}
+\end{flushleft}
 Sappiamo che:
 \begin{itemize}
 	\item  \textcolor{red}{$a_m < b_m$} (Definizione di intervallo)
@@ -144,6 +150,7 @@ Possiamo fare meglio di così? Non se utilizziamo programmazione dinamica: provi
 \begin{center}
 Selezioniamo la moneta $j$ più grande tale per cui $t[j] \leq R$, e poi risolviamo il problema $S(R - t[j])$.
 \end{center}
+\newpage
 \begin{lstlisting}[caption=Resto (Greedy)]
 int[] resto(int[] t, int n, int R)
 	int[] x = new int[1...n]
@@ -295,12 +302,229 @@ Dato un grafo $G = (V, E)$ non orientato e connesso, un \textcolor{red}{albero d
 \begin{itemize}
 	\item $T$ è un albero
 	\item $E_{T} \subseteq E$
-	\item $T$ contiene tutti i vertici di $G$ \\
+	\item $T$ contiene tutti i vertici di $G$
 \end{itemize}
-\textbf{Albero di Copertura di peso Vs Albero dei cammini minimi}
+\textbf{Albero di copertura di peso minimo Vs Albero dei cammini minimi}
 \begin{enumerate}
 	\item Trovare l'albero di copertura il cui \textcolor{red}{peso totale} sia minimo rispetto a ogni altro albero di copertura, cioè per cui $w(T) = \sum_{[u, v] \in E_{T}}w(u, v)$ è minimo rispetto a tutti gli altri alberi di copertura
 	\item Trovare l'albero di copertura con radice $v$ il cui \textcolor{red}{cammino da $v$ ad ogni altro vertice $u$} sia minimo
 \end{enumerate}
+In questa sezione ci occuperemo degli \textcolor{red}{Alberi di Copertura di Peso Minimo}, progettiamo dunque un algoritmo generico di tipo greedy per la risoluzione del problema e poi mostriamo le due istanze di tale algoritmo: \textcolor{red}{Kruskal} e \textcolor{red}{Prim}.\\
+L'idea è quella di accrescere un sottoinsieme $A$ di archi in modo tale che venga sempre rispettata la sequente invariante:
+\begin{itemize}
+	\item $A$ è un sottoinsieme di qualche albero di connessione minimo
+\end{itemize}
+\textbf{Arco Sicuro}: Un arco $[u, v]$ è detto \textcolor{red}{sicuro per A} se $A \cup \{[u,v]\}$ è ancora un sottoinsieme di qualche albero di connessione minimo.
+\begin{lstlisting}[caption=Algoritmo Generico MST]
+SET mst-generico(GRAPH G, int[] w)
+	SET A = $\emptyset$
+	while A non forma un albero di copertura do
+		trova un arco sicuro $[u, v]$
+		A = A $\cup \{[u, v]\}$
+	return A
+\end{lstlisting}
+\newpage
+\begin{flushleft}
+\textbf{Definizioni}
+\end{flushleft}
+\begin{itemize}
+	\item Un \textcolor{red}{taglio} $(S, V - S)$ di un grafo non orientato $G = (V, E)$ è una partizione di $V$ in due sottoinsiemi disgiunti
+	\item Un arco $[u, v]$ \textcolor{red}{attraversa} il taglio se $u \in S$ e $v \in V - S$
+	\item Un taglio \textcolor{red}{rispetta} un insieme di archi $A$ se nessun arco di $A$ attraversa il taglio
+	\item Un arco che attraversa un taglio è \textcolor{red}{leggero} nel taglio se il suo peso è minimo fra i pesi degli archi che attraversano un taglio
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../img/Greedy_4.jpg}
+	\caption{Albero di copertura di peso minimo - Taglio}
+\end{figure}
+\textbf{Arco Sicuro: Teorema}
+\begin{itemize}
+	\item Sia $G = (V, E)$ un grafo non $orientato$ e $connesso$
+	\item Sia $w$: $V \times V \rightarrow \mathbb{R}$
+	\item Sia $A \subseteq E$ un sottoinsieme contenuto in qualche albero di copertura minimo per $G$
+	\item Sia $(S, V - E)$ un qualunque taglio che rispetta $A$
+	\item Sia $[u, v]$ un arco leggero che attraverso il taglio
+\end{itemize}
+Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A\\\\
+\textbf{Dimostrazione}\\
+Sia $T$ un albero di copertura minimo che contiene $A$. Due casi:
+\begin{itemize}
+	\item $(u, v) \in T$: allora $(u, v)$ è sicuro per $A$
+	\item $(u, v) \notin T$: trasformiamo $T$ in un albero $T'$ contenente $(u, v)$ e dimostriamo che $T'$ è un albero di copertura minimo
+\end{itemize}
+\newpage
+\begin{flushleft}
+\emph{Consideriamo la seguente situazione}:
+\end{flushleft}
+\noindent\begin{minipage}{0.3\textwidth}
+\includegraphics[width=\linewidth]{../img/Greedy_5.jpg}
+\end{minipage}
+\hfill
+\begin{minipage}{0.6\textwidth}\raggedleft
+\begin{itemize}
+	\item $u, v$ sono connessi da un \textcolor{red}{cammino} $C \subseteq T$ (per definizione di albero)
+	\item $u, v$ stanno in lati opposti del taglio (l'arco $(u, v)$ attraversa il taglio)
+	\item $\exists (x, y) \in C$ che attraversa il taglio
+\end{itemize}
+\end{minipage}
+\noindent\begin{minipage}{0.3\textwidth}
+\includegraphics[width=\linewidth]{../img/Greedy_6.jpg}
+\end{minipage}
+\hfill
+\begin{minipage}{0.6\textwidth}\raggedleft
+\begin{itemize}
+	\item $T' = T - \{(x, y)\} \cup \{(u, v)\}$
+	\item $T'$ è un \emph{albero di copertura}
+	\item $w(T') \leq w(T)$ (perchè $w(u, v) \leq w(x, y)$)
+	\item $w(T) \leq w(T')$ (perchè $T$ minimo)
+\end{itemize}
+\end{minipage} \\\\
+\textbf{Corollario}
+\begin{itemize}
+	\item Sia $G = (V, E)$ un grafo non $orientato$ e $connesso$
+	\item Sia $w$: $V \times V \rightarrow \mathbb{R}$
+	\item Sia $A \subseteq E$ un sottoinsieme contenuto in qualche albero di copertura minimo per $G$
+	\item Sia $C$ una componente connessa (un albero) nella foresta $G_{A} = (V, A)$
+	\item Sia $[u, v]$ un arco leggero che connette $C$ a qualche altra componente in $G_{A}$
+\end{itemize}
+Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A
+\newpage
+\subsubsection{Algoritmo di Kruskal}
+\textbf{Idea}
+\begin{itemize}
+	\item Ingrandire sottoinsiemi disgiunti di un albero di copertura minimo connettendoli fra di loro fino ad avere l’albero complessivo
+	\item Si individua un arco sicuro scegliendo un arco $[u, v]$ di peso minimo tra tutti gli archi che connettono due distinti alberi (componenti connesse) della foresta
+	\item L’algoritmo è greedy perché ad ogni passo si aggiunge alla foresta un arco con il peso minore
+\end{itemize}
+Per implementare l'algoritmo viene utilizzata la struttura dati \emph{Merge-Find Set} discussa nella sezione \emph{Strutture Dati Speciali} della dispensa
+\begin{lstlisting}[caption=Albero di Copertura di Peso Minimo - Kruskal]
+SET kruskal(EDGE[] A, int n, int m)
+	SET T = Set()
+	MFSET M = Mfset(n)
+	$\{$ordina $A[1...m]$ in modo che $A[1].weight \leq ... \leq A[m].weight\}$
+	% Archi totali
+	int count = 0
+	% Arco che sto considerando
+	int i = 1
+	% Temina qunado l'albero ha n - 1 archi o non ci sono altri archi
+	while count < n-1 and i $\leq$ m do
+		% Controllo se i nodi dell'arco non appartengono allo stesso insieme
+		if M.find(A[i].u) $\neq$  M.find(A[i].v) then
+			% in quel caso li metto nello stesso insieme
+			M.merge(A[i].u, A[i].v)
+			% e aggiungo l'arco all'insieme degli archi del mst
+			T.insert(A[i])
+			count = count + 1
+		i = i + 1
+	return T
+\end{lstlisting}
+\textbf{Analisi della complessità algoritmo di Kruskal}\\
+Il tempo di esecuzione per l'algoritmo di kruskal dipende dalla realizzazione della struttura dati per Merge-Find Set: se utilizziamo la versione con \textcolor{red}{euristica sul rango + compressione}, (*) le cui operazioni hanno costo ammortizzato costante otteniamo
+\begin{center}
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{ |c|c|c| } 
+		\hline
+			\textbf{Fase} & \textbf{Volte} & \textbf{Costo}\\ 
+		\hline
+			Inizializzazione & 1 &  $\mathcal{O}(n)$\\ 
+		\hline
+			Ordinamento & 1 &  $\mathcal{O}(m \log m)$ \\
+		\hline
+			Operazioni \textbf{find}(), \textbf{merge}() & $\mathcal{O}(m)$ & $\mathcal{O}(1)^{(*)}$\\
+		\hline
+	\end{tabular}
+\end{center}
+Complessivamente dunque il costo dell'algoritmo sarà dato da $\mathcal{O}(n + m \log m + m) = \mathcal{O}(m \log m)$\\
+Sappiamo però che $m$, il numero totale degli archi che compongono il nostro grafo, può essere al massimo pari a $n-1$ per ogni nodo nel caso di un grafo completo: questo significa un totale di $n^{2}$ archi. La complessità può essere sostanzialmente riscritta come $\mathcal{O}(m \log n^{2})$.\\
+Per le proprietà degli logaritmi possiamo però a questo punto portare all'esterno il 2 all'esponente che, diventando una costante, può essere tranquillamente ignorato e la complessità finale risulta dunque essere \textcolor{red}{$\mathcal{O}(m \log n)$}.
+\newpage
+\begin{flushleft}
+\textbf{Evoluzione algoritmo di Kruskal - Esempio}
+\end{flushleft}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../img/Greedy_7.jpg}
+	\caption{Evoluzione algoritmo di Kruskal - 1..4}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{../img/Greedy_8.jpg}
+	\caption{Evoluzione algoritmo di Kruskal - Completo}
+\end{figure}
+Come si può osservare alcuni gli archi 6, 7 e 8 archi nell'immagine completa sono colorati in grigio in quanto sono stati estratti prima dell'arco 9 poichè di peso minore, tuttavia sono stati scartati in quanto l'operazione di find del Merge-Find Set ha restituito il medesimo rappresentante in quanto i due nodi facevano già parte dell'albero di copertura di peso minimo creato nel corso dell'algoritmo. Gli archi 10, 11 e 14 non sono stati analizzati invece poichè sono stati raggiunti gli $n-1$ archi che costruiscono l'albero.
+\newpage
+\subsubsection{Algoritmo di Prim}
+\textbf{Idea}
+\begin{itemize}
+	\item L'algoritmo di Prim procede mantenendo in $A$ un singolo albero
+	\item L'albero parte da un vertice arbitrario $r$ (la radice) e cresce fino a quando non ricopre tutti i vertici
+	\item Ad ogni passo viene aggiunto un \emph{arco leggero} che collega un vertice in $V_{A}$ con un vertice in $V - V_{A}$, dove $V_{A}$ è l'insieme di nodi raggiunti da archi in $A$
+\end{itemize}
+Per definizione $(V_{A}, V - V_{A})$ è un taglio che rispetta $A$ (infatti $V_{A}$ contiene i nodi raggiunti da $A$ mentre $V-V_{A}$ quelli che ancora devono essere raggiunti dunque nessun arco di $A$ può attraversare il taglio) e per il corollario esposto precedentemente gli archi leggeri che attraversano il taglio sono sicuri.\\\\
+\textbf{Implementazione}\\
+La struttura dati che si utilizza in questo caso è una \emph{Min Priority Queue} la cui descrizione e implementazione si può trovare nella sezione \emph{Strutture Dati Speciali} della dispensa. Durante l'esecuzione, i vertici non ancora nell'albero si trovano in una coda con min-priorità $Q$ ordinata in base alla seguente definizione di priorità: la priorità del nodo $v$ è il peso minimo di un arco che collega $v$ ad un vertice nell'albero, o +$\infty$ se tale arco non esiste.\\
+L'implementazione dell'albero avviene invece tramite \emph{vettore dei padri} di conseguenza
+\begin{itemize}
+	\item Ogni nodo $v$ mantiene un puntatore al padre $p[v]$
+	\item $A$ è mantenuto implicitamente: $A = \{[v, p[v]] \mid v \in V - Q - \{r\}\}$ ($r$ non può essere selezionato come nodo in quanto è il nodo radice dell'albero e non può avere un padre)
+\end{itemize}
+\begin{lstlisting}[caption=Albero di Copertura di Peso Minimo - Kruskal]
+prim(GRAPH G, NODE r, int[] p)
+	PRIORITYQUEUE Q = MinPriorityQueue()
+	% Creiamo i Priority Item per accedere ad un elemento piu' in fretta
+	PRIORITYITEM[] pos = new PRIORITYITEM[1...G.n]
+	% Inserisco tutti gli archi con priorita' +infinito tranne r
+	foreach u $\in$ G.V() - $\{$r$\}$ do
+		pos[u] = Q.insert(u, +$\infty$)
+	% Inseriamo la radice con priorita' 0
+	pos[r] = Q.insert(r, 0)
+	% Impostiamo il suo padre a 0
+	p[r] = 0
+	while not Q.isEmpty() do
+		% preleviamo il nodo con minore priorita' (caso base = r)
+		NODE u = Q.deleteMin()
+		% impostiamo l'elemento a nil nei priority item
+		pos[u] = nil
+		% controlliamo gli archi v adiacenti a u
+		foreach v $\in$ G.adj(u) do
+			% se non ho gia' estratto il nodo e se un arco ha peso minore della priorita' 
+			if pos[v] $\neq$ nil and w(u, v) $<$ pos[v].priority then
+				% la sua priorita' diventa il peso dell'arco
+				Q.decrease(pos[v], w(u, v))
+				% imposto suo padre ad u
+				p[v] = u
+\end{lstlisting}
+\textbf{Analisi della complessità algoritmo di Prim}\\
+L'efficienza dell'algoritmo di Prim dipende dall'implementazione della coda con priorità, se si utilizza un \emph{Heap Binario}
+\begin{center}
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{ |c|c|c| } 
+		\hline
+			\textbf{Fase} & \textbf{Volte} & \textbf{Costo}\\ 
+		\hline
+			Inizializzazione & 1 &  $\mathcal{O}(n \log n)$\\ 
+		\hline
+			\textbf{deleteMin}() & $\mathcal{O}(n)$ &  $\mathcal{O}(\log n)$ \\
+		\hline
+			\textbf{decreasePriority}() & $\mathcal{O}(m)$ & $\mathcal{O}(\log n)$\\
+		\hline
+	\end{tabular}
+\end{center}
+Il tempo totale è dunque $\mathcal{O}(n + n \log n + m \log n) = \textcolor{red}{\mathcal{O}(m \log m)}$ e quindi è asintoticamente uguale a quello di Kruskal.\\
+Se la coda con priorità fosse invece implementata tramite \emph{vettore non ordinato} il costo diventerebbe $\mathcal{O}(n^{2})$.\\
+La scelta del tipo di struttura da utilizzare dipende dal tipo di grafo in questione se \emph{sparso} oppure \emph{fortemente connesso}.\\\\
+\textbf{Evoluzione algoritmo di Prim - Esempio}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../img/Greedy_9.jpg}
+	\caption{Evoluzione algoritmo di Prim - 1..4}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{../img/Greedy_10.jpg}
+	\caption{Evoluzione algoritmo di Prim - Completo}
+\end{figure} \\
+Nel caso dell'algoritmo di Prim gli archi che si vanno a considerare seguono come logica quello dell'ultimo arco aggiunto. Gli archi colorati di grigio (non tratteggiati) indicano quelli che sono stati analizzati dall'algoritmo e la cui priorità è stata modificata ma non è detto che saranno quelli che verranno usati per formare l'albero di copertura di peso minimo.
 \newpage
 \end{document}
