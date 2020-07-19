@@ -140,7 +140,7 @@ int[] resto(int[] t, int n, int R)
 			if i > t[j] and DP[i] > DP[i-t[j]] + 1 then
 				DP[i] = DP[i - t[j]] + 1
 				coin[i] = j
-	int[] x = new int[1...n] = \{0\} % Vettore di output
+	int[] x = new int[1...n] = $\{0\}$ % Vettore di output
 	while R > 0 do
 		x[coin[R]] = x[coin[R]] + 1
 		R = R - x[coin[R]]
@@ -210,7 +210,7 @@ La complessità di questo algoritmo è $\mathcal{O}(n)$ nel caso in cui l'input 
 \textbf{Correttezza (informale)}
 Assumiamo che gli oggetti siano ordinati per profitto specifico decrescente e che $x$ sia la soluzione ottimale. Supponiamo ora che del primo oggetto sia stata prelevata una quantità $x[1] < min(C/w[i], 1) < 1$, dunque è possibile costruire una nuova soluzione $x'$ dove $x'[1] = min(C/w[i], 1)$ di conseguenza la quantità prelevata di uno o più oggetti si è ridotta. Otteniamo dunque che il profitto di $x'$ è maggiore o uguale a quello d $x$ ma può essere solo pari a quest'ultimo in quanto avevamo presupposto che $x$ fosse soluzione ottimale.
 \subsection{Compressione di Huffman}
-Si vuole rappresentare i dati in modo efficiente impegando il numero minore di bit per la rappresentazione in modo da risparmiare spazio su disco. Una tecnica possibile è la \textcolor{red}{codifica dei caratteri} che avviene tramite una \textcolor{red}{funzione di codifica} $f : f(c) = x$
+Si vuole rappresentare i dati in modo efficiente impiegando il numero minore di bit per la rappresentazione in modo da risparmiare spazio su disco. Una tecnica possibile è la \textcolor{red}{codifica dei caratteri} che avviene tramite una \textcolor{red}{funzione di codifica} $f : f(c) = x$
 \begin{itemize}
 	\item $c$ è un possibile carattere preso da un alfabeto
 	\item $x$ è una rappresentazione binaria
@@ -223,7 +223,7 @@ Si vuole rappresentare i dati in modo efficiente impegando il numero minore di b
 \caption{Possibili codifiche dei caratteri}
 \end{figure} \\
 Nella seguente immagine viengono mostrate codifiche differenti: ASCII, una basata sui caratteri effettivamente presenti all'interno del testo mentre l'ultima basata sulla frequenza con cui compaiono i caratteri. L'ultimo caso è il più interessante poichè utilizza meno bit per memorizzare il carattere che compare più di frequente: questo viene definito \textcolor{red}{codice a prefissi}.\\
-In un codice a prefisso, \textcolor{red}{nessun codice è un profisso di un altro codice}. Ad esempio non è possibile mappare $a = 0$, $b = 1$, $c = 11$ poichè come interpreto poi 111111?
+In un codice a prefisso, \textcolor{red}{nessun codice è un prefisso di un altro codice}. Ad esempio non è possibile mappare $a = 0$, $b = 1$, $c = 11$ poichè come interpreto poi 111111?
 \newpage
 \begin{flushleft}
 \textbf{Rappresentazione ad albero per la decodifica}
@@ -250,7 +250,7 @@ L'immagine precedente rappresenta un albero binario di decodifica che tuttavia h
 \textbf{Definizione Formale del problema}
 \end{flushleft}
 Dato in input un file $F$ composto da caratteri nell'alfabeto $\mathcal{A}$, \textcolor{red}{quanti bit sono richiesti per codificare il file}?\\
-Sia $T$ un albero che rappresenta la codifica e per ogni $c \in \mathcal{A}$ (carattere dell'alfabeto) sia $d_{T}(c)$ la profondità della foglia che rappresenta $c$. Dagli schemi precenti sappiamo che il codice per rappresentare $c$ richiederà allora $d_{T}(c)$ bit. Se $f[c]$ è il numero di occorrenze di $c$ in $F$, allora la dimenisone della codifica è
+Sia $T$ un albero che rappresenta la codifica e per ogni $c \in \mathcal{A}$ (carattere dell'alfabeto) sia $d_{T}(c)$ la profondità della foglia che rappresenta $c$. Dagli schemi precenti sappiamo che il codice per rappresentare $c$ richiederà allora $d_{T}(c)$ bit. Se $f[c]$ è il numero di occorrenze di $c$ in $F$, allora la dimensione della codifica è
 \begin{center}
 	$C[F, T] = \sum_{c \in \mathcal{A}} f[c] \cdot d_{T}(c)$
 \end{center}
@@ -272,6 +272,7 @@ Il principio del \textbf{Codice di Huffman} è quello di minimizzare la lunghezz
 \end{enumerate}
 \begin{lstlisting}[caption=creazione albero binario di decodifica]
 TREE huffman(int[] c, int f, int n)
+	PRIORITYQUEUE Q = MinPriorityQueue()
 	for i = 1 to n do
 		% Creo i nodi dell'albero contenenti i caratteri
 		Q.insert(f[i], Tree(f[i], c[i])
@@ -320,7 +321,7 @@ SET mst-generico(GRAPH G, int[] w)
 	SET A = $\emptyset$
 	while A non forma un albero di copertura do
 		trova un arco sicuro $[u, v]$
-		A = A $\cup \{[u, v]\}$
+		A = A $\cup$ $\{[u, v]\}$
 	return A
 \end{lstlisting}
 \newpage
