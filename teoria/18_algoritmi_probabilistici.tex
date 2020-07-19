@@ -1,0 +1,269 @@
+\documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+\begin{document}
+
+\section{Algoritmi probabilistici}
+\subsection{Introduzione}
+Gli algoritmi probabilistici, prendono tale nome perché la casualità è un fattore determinante nella loro esecuzione. \\
+Esistono algoritmi probabilistici di due diverse tipologie:
+\begin{itemize}
+	\item Algoritmi la cui correttezza è probabilistica (\textcolor{red}{Montecarlo})
+	\item Algoritmi corretti, il cui tempo di funzionamento è probabilistico (\textcolor{red}{Las Vegas})
+\end{itemize}
+\subsection{Test di primalità}
+Ci chiediamo quale potrebbe essere un algoritmo per determinare se un numero $n$ in input risulta primo oppure no. 
+Un approccio basilare al problema potrebbe essere quello di considerare tutti i valori $i$ da 2 a $\lfloor \sqrt{n} \rfloor$, se uno di questi valori divide perfettamente $n$, ovvero il modulo della divisione $n/i$ da resto $0$, allora il numero $n$ non può essere primo. \\
+Se non siamo in grado di trovare un divisore esatto di n durante questa analisi allora il numero considerato è sicuramente primo. 
+ \begin{lstlisting}[ caption= Numero primo corretto ma inefficiente]
+ boolean isPrimeNaif(int n)
+ 	for i = 2 to $\lfloor \sqrt{n} \rfloor$ do
+ 		if (n mod i) == 0 then
+ 			return false
+ 	return true
+\end{lstlisting}
+Approcciamo ora il problema in un modo differente, come alcuni di voi ricorderanno dal corso di \emph{Fondamenti matematici}, \emph{Il piccolo teorema di Fermat} consente di definire un interessante relazione per un numero primo $n$ qualsiasi: \\
+\textbf{Il piccolo teorema di Fermat} \\
+Se $n$ è un numero primo allora:
+\begin{equation*}
+    \forall b, 2 \leq b < n : \text{$b^{n-1}$ mod $n = 1$}
+\end{equation*}
+Sfruttiamo dunque tale reazione per controllare la primalità di un numero $n$ generico.
+ \begin{lstlisting}[ caption= Numero primo non deterministico con 1 tentativo]
+ boolean isPrime1(int n)
+ 	b = random(2, n - 1)
+ 	if ($b^{n-1}$ mod n) $\neq$ 1 then
+ 		return false
+ 	return true
+\end{lstlisting}
+Si noti che questo algoritmo non è corretto, in quanto la condizione dettata da tale enunciato va interpretata nel modo in cui è scritto. \\
+In altre parole, se vale la conclusione per un singolo elemento non possiamo ricondurci al preambolo, esistono infatti dei numeri detti \textcolor{red}{pseudo-primi} che si comportano, rispetto ad alcune proprietà, in maniera analoga ai numeri primi tali per cui: 
+\begin{align*}
+    \exists b, 2 \leq b < n - 1: & \text{$b^{n-1}$ mod $n = 1$}
+\end{align*}
+Ad esempio:
+\begin{align*} 
+	 n = 341 = 11 \times 13 \\
+    2^(340) \text{ mod } 341 = 1
+\end{align*}
+Possiamo quindi implementare l'algoritmo in modo tale che sia \emph{più corretto} ma comunque ancora non deterministico. Prendiamo dunque l'algoritmo precedente e lo estendiamo per $k$ valori, dove $k$ è un valore fissato. \\
+Ancora una volta non si può avere la certezza della veridicità della soluzione, ma in quanto è provata per più valori \emph{potrebbe} avere maggiori occasioni per riconoscere un valore non primo.
+ \begin{lstlisting}[ caption= Numero primo non deterministico con k tentativi]
+ boolean isPrime2(int n, int k)
+ 	for i = 1 to k do
+ 		b = random(2, n - 1)
+ 		if ($b^{n-1}$ mod n) $\neq$ 1 then
+ 			return false
+ 	return true
+\end{lstlisting}
+Si ha infatti che se il risultato di tale esecuzione è \textbf{false} allora il numero $n$ è sicuramente composto, quindi non primo (non soddisfa la conclusione del piccolo teorema di Fermat), mentre invece se il valore di ritorno è \textbf{true} allora \textcolor{red}{potrebbe} essere primo. \\
+\textbf{Il test di primalità di Miller-Rabin} \\
+Un altro modo per testare la primalità è quello proposto dall'algoritmo di \emph{Miller-Rabin}, il quale è basato sul seguente teorema. \\
+\textbf{Teorema}:
+\begin{itemize}
+	\item Se $n$ è primo, allora \textcolor{red}{per ogni} intero $b$, con $2 \leq b < n$ valgono \textcolor{red}{entrambe} le seguenti condizioni:
+	\begin{itemize}
+		\item $mcd(n, b) = 1$
+		\item $b^m$ mod $n= 1 \lor \exists i, 0 \leq i < v : b^{m \cdot 2^i}$ mod $n = n - 1$
+	\end{itemize}
+	con $n - 1 = m \cdot 2^{v}$, $m$ dispari
+\end{itemize}
+Da cui è possibile ricavare la seguente contrapposizione. \\
+\textbf{Contrapposizione}: \\
+Se \textcolor{red}{esiste} un intero $b$, con $2 \leq b < n$ tale che \textcolor{red}{almeno una} delle seguenti condizioni è vera:
+\begin{itemize}
+	\item $mcd(n,b) \neq 1$
+	\item $b^{m}$ mod  $n \neq 1 \land \forall i, 0 \leq i < v : b^{m \cdot 2^i}$ mod $n \neq n - 1$  
+\end{itemize}
+allora n è composto (quindi non primo). \\
+Rabin ha dimostrato che se il numero $n$ è composto, allora ci sono almeno $3/4 (n - 1)$ testimoni in [2, ..., n - 1]. Un \emph{testimone} è un valore che attesta la non primalità di un numero, ossia che rende vera almeno una delle due affermazioni della contrapposizione. Il test per verificare se il valore è composto ha probabilità inferiore a $1/4$ di rispondere erroneamente. L'algoritmo sarà ancora non deterministico data la presenza di \emph{strong liar}, dei valori validano la contrapposizione nonostante il numero analizzato non sia primo. \\
+L'implementazione di questo algoritmo è la seguente: 
+ \begin{lstlisting}[ caption= Numero primo Miller-Rabin (Montecarlo)]
+ boolean isPrimeMillerRabin(int n, int k)
+ 	int m, v = { si prende la rappresentazione di n - 1 in binario, esso sara' composto da un valore m (in binario) seguito da un numero v di zeri}
+ 	% Ad esempio per n - 1 = 228 = (110111 00) 
+ 	% si ha m = (110111)  = 57 e v = |00| = 2
+ 	for i = 1 to k do
+ 		b = random(2, n - 1)
+ 		if isComposite(n, b, m, v) then
+ 			return false
+ 	return true
+ 
+ % Controlla se e' valida almeno una affermazione della contrapposizione
+ boolean isComposite(int n, int b, int m, int v)
+ 	if mcd(n, b) $\neq$ 1 then
+ 		return true
+ 	if ($b^m$ mod n) $\neq$ 1 then
+ 		for i = 0 to v do
+ 			if ($b^{m \cdot 2^{i}}$ mod n) $==$ $n - 1$ then	
+ 				return false
+ 	return true
+ 	
+ % Massimo comune divisore euclideo
+ int mcd(a, b)
+    if b $==$ 0
+        return a
+    else
+        return mcd(b, a mod b)
+\end{lstlisting}
+Tale algoritmo ha una complessità computaizonale particolare che non discuteremo: \\
+ $\mathcal{O}(k \log^2 n \log \log n \log \log \log n)$. \\
+ Esso ha una probabilità di errore del $(1/4)^k$ dove $k$ è il numero di tentativi con cui viene ricercato il testimone. \\
+ Nonostante non sia deterministico è comunque utilizzato dato il costo computazionale relativamente basso. \\
+Come si può intuire tutti gli algoritmi proposti fino ad ora, fatta eccezione per la prima soluzione deterministica, sono algoritmi della categoria \emph{Montecarlo} in quanto la loro correttezza è probabilistica, ovvero siamo sempre sicuri di non essere in presenza di numeri primi se viene ritornato \textbf{false}, non possiamo dire di esserlo se viene restituito \textbf{true}.
+\subsection{Algoritmi probabilistici: statistica}
+I casi analizzati sono i più semplici, cioè quelli che ci permettono di trovare alcune caratteristiche che sono statisticamente rilevanti da un vettore numerico. \\
+Alcuni esempi sono:
+\begin{itemize}
+	\item Media: $\mu = \frac{1}{n} \sum_{i = 1}^{n} A[i]$
+	\item Varianza: $\sigma^2 = \frac{1}{n} \sum_{i = 1}^{n} (A[i] - \mu)^2$
+	\item Moda: il valore (o i valori) più frequenti
+\end{itemize} 
+\subsection{Il calcolo della mediana}
+Il problema della mediana è quello di calcolare, dato un vettore $A$ contenene $n$ valori, l'elemento/i che occuperebbe/ro la posizione centrale se il vettore $A$ fosse ordinato. \\
+Ovviamente è possibile riordinare il vettore mediante un algoritmo di ordinamento basato su confronti di costo computazionale pari a $\mathcal{O}(n \log n)$ e prelevare l'elemento a metà. \\
+Ci chiediamo ora se è possibile fare meglio di così, estendendo il problema del calcolo della mediana a quello della selezione, dato che la mediana è un suo sottoproblema: \\
+Dato un array $A$ contenente $n$ valori e un valore $1 \leq k \leq n$, trovare l'elemento che occuperebbe la posizione $k$ se il vettore fosse ordinato. \\
+Per valori di $k$ piccoli è possibile utilizzare uno \emph{heap binario}, costruendolo ed eliminando i valori fino all'elemento $k$.
+ \begin{lstlisting}[ caption= Selezione per piccoli valori di k]
+ int heapSelect(ITEM[] A, int n, int k)
+	buildHeap(A)
+	for i = 1 to k - 1 do
+		deleteMin(A, n)
+	return deleteMin(A, n) 	
+\end{lstlisting}
+La complessità è pari a $\mathcal{O}(n + k \log n)$, dove se $k = \mathcal{O}(n / \log n)$, il costo è $\mathcal{O}(n)$ mentre se $k \geq n/2$ abbiamo ottenuto un algoritmo peggiore rispetto a quello che effettua l'ordinamento degli elementi. \\
+Proviamo ad ideare un algoritmo basato su un approccio \emph{divide et impera}, molto simile a quanto fatto per il \emph{Quicksort}. \\
+Dato che è molto simile ad un problema di ricerca possiamo intuire che non è necessario cercare il valore k-esimo in entrambe le metà in cui il vettore è stato diviso, ma solamente in una di esse stando però attenti agli indici.
+ \begin{lstlisting}[ caption= Algoritmo di selezione]
+ ITEM selection(ITEM[] A, int start, int end, int k) 	
+ 	if start $==$ end then
+ 		return A[start]
+ 	else 
+ 		int j = pivot(A, start, end)
+ 		int q = j - start + 1
+ 		if k $==$ q then
+ 			return A[j]
+ 		else if k < q then
+ 			return selection(A, start, j - 1, k)
+ 		else
+ 			return selection(A, j + 1, end, k - q)
+\end{lstlisting}
+Questo algoritmo infatti, sfrutta il calcolo del \emph{pivot}, visto quando abbiamo introdotto il quickSort, e in base a tale valore decide che parte del vettore andare ad analizzare. \\
+La complessità di questo algoritmo di selezione è rappresentata qui sotto divisa per i tre casi di studio: \\
+\textbf{Caso pessimo}: 
+\begin{equation*}
+    T(n)=\begin{cases}
+        1 & \text{$n \leq 1$}\\
+        T(n - 1) + n & \text{$n > 1$}
+    \end{cases}
+\end{equation*}
+Il cui costo computazionale è $\mathcal{O}(n^2)$ \\
+\textbf{Caso ottimo}: 
+\begin{equation*}
+    T(n)=\begin{cases}
+        1 & \text{$n \leq 1$}\\
+        T(n/2) + n & \text{$n > 1$}
+    \end{cases}
+\end{equation*}
+Il cui costo computazionale è $\mathcal{O}(n)$. \\
+La complessità computazionale nel \textbf{caso medio} invece, sotto l'assunzione che la procedura \emph{pivot} restituisca con la stessa probabilità una qualunque posizione $j$ del vettore A:
+\begin{align*}
+	 T(n) &= n + \frac{1}{n} \sum_{q = 1}^{n} T(max\{q - 1, n - q\}) &\text{Media su n casi} \\
+	& \leq n + \frac{1}{n} \sum_{q = \lfloor n/2 \rfloor}^{n-1} 2T(q)  &\text{per $n > 1$} 
+\end{align*}
+Procediamo dunque al calcolo della complessità:
+\begin{align*}
+	 T(n) & \leq n + \frac{1}{n} \sum_{q = \lfloor n/2 \rfloor}^{n-1} 2  \cdot cq \leq n + \frac{2c}{n} \sum_{q = \lfloor n/2 \rfloor}^{n-1} q & \text{Sostituzione, raccolgo il fattore 2} \\
+	& \leq n + \frac{2c}{n} \sum_{q = n/2 - 1}^{n-1} q & \text{Estensione della sommatoria} \\
+	& = n + \frac{2c}{n} \left( \sum_{q = 1}^{n-1} q -  \sum_{q = 1}^{n/2 - 2} q \right) & \text{Sottrazione della prima parte} \\
+	& = n + \frac{2c}{n} \left( \frac{n (n - 1}{2} - \frac{(n/2 - 1)(n/2 - 2)}{2}\right) &\\
+	& = n + \frac{c}{n} \left(n^2 - n - (1/4 n^2 - 3/2n + 2) \right) & \\
+	& = n + \frac{c}{n} \left(3/4n^2 + 1/2 n - 2 \right) & \\
+	& \leq n + \frac{c}{n} \left(3/4n^2 + 1/2 n \right) & \\
+	& = n + 3cn/4 +1/2 \leq cn & \text{Vera per $c \geq 6$ e $n \leq 1$} \\
+\end{align*}
+Siamo partiti dall’assunzione che $j$ assume equiprobabilisticamente tutti i valori compresi fra $1$ e $n$, se così non fosse possiamo forzarlo noi scambiando qualche valore: \\
+$A[random(start,end)] \leftrightarrow A[start]$ (vale anche per QuickSort)\\
+La complessità nel caso medio è dunque: $\mathcal{O}(n)$ nel caso della Selezione, mentre $O(n \log n)$ nel caso dell’Ordinamento. \\
+Questo algoritmo, basato sul calcolo del $pivot$ è un algoritmo di tipo \emph{Las Vegas} in quanto corretto, ma il tempo di esecuzione è probabilistico, a seconda della distribuzione di valori ritornati dalla funzione $pivot$. \\
+\textbf{Selezione deterministica}: \\
+L'idea è la seguente:
+\begin{itemize}
+	\item Suddividiamo il vettore in gruppi di 5.
+	\item Chiameremo l’i-esimogruppo $S_i$, con $i \in [1, \lceil n/5 \rceil]$. 
+	\item Troviamo il mediano $M_i$ di ogni gruppo $S_i$. 
+	\item Tramite una chiamata ricorsiva, si trova il mediano $m$ delle mediane $[M_1,M_2,...,M_{\lceil n/5 \rceil}]$. 
+	\item Usiamo $m$ come pivot e richiamiamo l'algoritmo ricorsivamente sulla pozione di vettore opportuna, come nella \emph{selection()}.
+	\item Quando la grandezza del vettore analizzato scende sotto una certa dimensione (nel nostro caso inferiore o uguale a 10 elementi), possiamo utilizzare un algoritmo di ordinamento per trovare il mediano (si usa insertionSort in quanto adatto per vettori di dimensione molto ridotta).
+\end{itemize}
+\begin{lstlisting}[caption=Mediana deterministica in $\mathcal{O}(n)$]
+ITEM select(ITEM[] A, int start, int end, int k)
+	% Se la dimensione risulta essere inferiore ad una soglia (10) 
+	% ordina il vettore e restituisci il k - esimo elemento di A[start..end]
+	if $end - start + 1 \leq 10$ then 
+		insertionSort(A, start, end)
+		return A[start + k - 1]
+	% Divide A in n/5 sottovettori di dimensione 5 e ne calcola la mediana
+	ITEM[] M = new ITEM[1..$\lceil n/5 \rceil$]
+	for i = 1 to $\lceil n/5 \rceil$ do
+		M[i] = median5(S, start + i (i - 1) $\cdot$ 5, end)
+	% Individua la mediana delle mediane e usala come perno
+	ITEM m = select(M,1,$\lceil n/5 \rceil$, $\lceil \lceil n / 5 \rceil / 2 \rceil$)
+	int j = pivot(S, start, end, m)
+	% Calcola l'indice q di m in[start...end]
+	% Confronta q con l'indice cercato e ritorna il valore conseguente
+	int q = j - start + 1
+	if q $==$ k then
+		return m
+	else if q < k then
+		return select(A, start, q - 1, k)
+	else
+		return select(A, q + 1, end, k - q)
+
+ITEM median5(ITEM[] A, int start, int end)
+	ITEM median
+	ITEM tmp 
+	% Precomputing
+	% swap S[start] with S[start + 1] if S[start] < S[start + 1] 
+	if S[start] > S[start + 1] then
+		tmp = S[start]
+		S[start] = S[start +1]
+		S[start + 1] = tmp
+	% swap S[start + 3] with S[start + 4] if S[start + 3] < S[start + 4] 
+	if S[start + 3] > S[start + 4] then
+		tmp = S[start + 3]
+		S[start + 3] = S[start + 4]
+		S[start + 4] = tmp
+	% swap S[start + 3] with S[start] if S[start + 3] < S[start] 
+	if S[start + 3] < S[start] then
+		tmp = S[start]
+		S[start] = S[start + 3]
+	 	S[start + 3] = tmp
+	 	% swap S[start + 1] with S[start + 4]
+		tmp = S[start + 1]
+		S[start + 1] = S[start + 4]
+		S[start + 4] = tmp 
+	% Median finding
+	if S[start + 2] > S[start + 1] then
+		if S[start + 1] < S[start + 3] then
+			median = min(S[start + 2], S[start + 3]) 
+		else 
+			median = min(S[start + 1], S[start + 4])
+	else
+		if S[start + 2] > S[start + 3] 
+			median = min(S[start + 2], S[start + 4]) 
+		else 
+			median = min(S[start + 1], S[start + 3]) 
+	return median
+\end{lstlisting}
+Considerazioni:
+\begin{itemize}
+	\item Il calcolo dei mediani $M[ ]$ richiede al più $6 \lceil n/5 \rceil$ confronti. 
+	\item La prima chiamata ricorsiva dell'algoritmo \emph{select()} viene effettuata su  $\lceil n/5 \rceil$ elementi.
+	\item La seconda chiamata ricorsiva dell’algoritmo \emph{select()} viene effettuata al massimo su $7n/10$ elementi (esattamente $n - 3 \lceil \lceil n/5 \rceil /2 \rceil$).  
+\end{itemize}
+L'algoritmo \emph{select()} esegue nel caso pessimo $\mathcal{O}(n)$ confronti:
+\begin{equation*}
+    T(n) = T(n/5) + T(7n/10) + 11/5 n
+\end{equation*}
+Quest'ultimo algoritmo è deterministico, dunque esegue in tempo lineare su qualsiasi input, tuttavia molto spesso gli viene preferito quello \emph{Las Vegas} in quanto possiede fattori moltiplicativi più bassi e ha comunque un tempo \emph{atteso} $\mathcal{O}(n)$, con caso peggiore $\mathcal{O}(n^2)$.
+\end{document}
