@@ -7,7 +7,7 @@
 
 \subsubsection{Domino}
 \textbf{Problema:} Il gioco del domino è basato su tessere di dimensione $2\times1$. Scrivere un algoritmo efficiente che prenda in input un intero n e restituisca il numero di possibili disposizioni di n tessere in un rettangolo $2\times n$. \\\\
-\textbf{Soluzione:} Iniziamo a considerare alcuni casi per definire una soluzione. Con n=0 abbiamo solo una disposizione possibile (nessuna tessera), con n=1 abbiamo solo una disposizione possibile (tessera messa in verticale). L'ultima tessera può essere disposta in due modi: se la posiziono in verticale devo risolvere il problema con dimensione n-1, mentre se la metto in orizzontale devo per forza mettere 2 tessere e risolvere il problema di dimensione n-2. In generale la soluzione ha la seguente forma: 
+\textbf{Soluzione:} Iniziamo a considerare alcuni casi per definire una soluzione. Con $n=0$ abbiamo solo una disposizione possibile (nessuna tessera), con $n=1$ abbiamo solo una disposizione possibile (tessera messa in verticale). L'ultima tessera può essere disposta in due modi: se la posiziono in verticale devo risolvere il problema con dimensione $n-1$, mentre se la metto in orizzontale devo per forza mettere 2 tessere e risolvere il problema di dimensione $n-2$. In generale la soluzione ha la seguente forma: 
 
 \begin{equation*}
   	DP[n] =\begin{cases}
@@ -15,11 +15,11 @@
     	DP[n-2] + DP[n-1] & \text{$n > 1$}
   	\end{cases}
 \end{equation*}\\\\
-Notiamo che il risultato è la sequenza di Fibonacci: 1, 1, 2, 3, 5, 8, ... \
+Notiamo che il risultato è la sequenza di Fibonacci: 1, 1, 2, 3, 5, 8, ... \\
 Proponiamo 3 soluzioni al problema:
 \begin{itemize}
 	\item domino1(): soluzione ricorsiva che non fa uso della programmazione dinamica e risolve più volte gli stessi sottoproblemi
-	\item domino2(): soluzione con programmazione dinamica che memorizza il risultato in una tabella DP. L'approccio è bottom-up cioè si parte risolvendo i casi base e risalendo si risolvono problemi sempre più grandi. La tabella DP in questo caso memorizza il risultato per ogni sottoproblema con dimensione tra 0 e n.
+	\item domino2(): soluzione con programmazione dinamica che memorizza il risultato in una tabella DP. L'approccio è bottom-up cioè si parte risolvendo i casi base e risalendo si risolvono problemi sempre più grandi. La tabella $DP$ in questo caso memorizza il risultato per ogni sottoproblema con dimensione tra 0 e $n$.
 	\item domino3(): la soluzione proposta è uguale alla precedente con la differenza che l'uso di memoria è ridotto salvando solo la soluzione degli ultimi 3 sottoproblemi. 
 \end{itemize}
 \newpage
@@ -72,20 +72,19 @@ Il costo per le varie versioni è il seguente:
 
 
 \subsubsection{Hateville}
-\textbf{Problema:} Hateville è un villaggio particolare, composto da n case, numerate da 1 a n lungo una singola strada. Ad Hateville ognuno odia i propri vicini della porta accanto, da entrambi i lati. Quindi, il vicino i odia i vicini i-1 e i+1 (se esistenti).
+\textbf{Problema:} Hateville è un villaggio particolare, composto da $n$ case, numerate da 1 a $n$ lungo una singola strada. Ad Hateville ognuno odia i propri vicini della porta accanto, da entrambi i lati. Quindi, il vicino i odia i vicini $i-1$ e $i+1$ (se esistenti).
 Hateville vuole organizzare una sagra e vi ha affidato il compito di
-raccogliere i fondi. Ogni abitante i ha intenzione di donare una quantità D[i], ma non intende partecipare ad una raccolta fondi a cui partecipano uno o entrambi i propri vicini. Scrivere un algoritmo che restituisca il sottoinsieme di indici S  $\subseteq$ $\{$1, ..., n $\}$ tale per cui la donazione totale T = $\sum\limits_{i \in S} {D[i]}$ è massimale. 
+raccogliere i fondi. Ogni abitante i ha intenzione di donare una quantità $D[i]$, ma non intende partecipare ad una raccolta fondi a cui partecipano uno o entrambi i propri vicini. Scrivere un algoritmo che restituisca il sottoinsieme di indici S  $\subseteq$ $\{$1, ..., n $\}$ tale per cui la donazione totale T = $\sum\limits_{i \in S} {D[i]}$ è massimale. 
 \newpage
 \begin{flushleft}
 \textbf{Soluzione:} Definiamo il problema in questi termini: 
 \end{flushleft}
 \begin{itemize}
-	\item Sia HV(i) uno dei possibili insiemi di indici da selezionare per ottenere una donazione ottimale dalle prime i case di Hateville,
-numerate 1...n
-	\item HV(n) è la soluzione del problema originale
-	\item Se non accetto la donazione i-esima: HV(i) = HV(i-1)
-	\item Se accetto la donazione i-esima: HV(i) = {i} $\cup$ HV(i-2)
-	\item Per decidere se accettare una donazione i: HV(i) = highest(HV(i -1),  $\{$i$\}$ $\cup$ HV(i-2))
+	\item Sia $HV(i)$ uno dei possibili insiemi di indici da selezionare per ottenere una donazione ottimale dalle prime i case di Hateville, numerate $[1...n]$
+	\item $HV(n)$ è la soluzione del problema originale
+	\item Se non accetto la donazione $i$-esima: $HV(i) = HV(i-1)$
+	\item Se accetto la donazione i-esima: $HV(i) = i \cup HV(i-2)$
+	\item Per decidere se accettare una donazione $i$: $HV(i) = highest(HV(i -1),  \{i\} \cup HV(i-2))$
 	\item Casi base: HV(0) = $\emptyset$ e HV(1) = $\{$1$\}$ \\
 \end{itemize} 
 Mettendo tutto insieme otteniamo:
@@ -110,19 +109,19 @@ Per riuscire a calcolare l'insieme delle soluzioni dobbiamo prima calcolare il v
 int hateville(int[] D, int n)
 	int[] DP = new int[0...n]
 	DP[0] = 0
-	DP[1] = D[1+
+	DP[1] = D[1]
 	for i = 2 to n do
 		DP[i] = max(DP[i - 1], DP[i - 2] + D[i])
 	return DP[n]
 \end{lstlisting}
 
 \begin{lstlisting}[ caption= Soluzione di Hateville versione $\mathcal{O}(n)$]
-SET solution(int[] DP, nit[] D, int i)
+SET solution(int[] DP, int[] D, int i)
 	if i == 0 then
 		return $\emptyset$
-	else if i == 1 then
+	else if i $==$ 1 then
 		return {1}
-	else if DP[i] == DP[ i - 1]  then
+	else if DP[i] $==$ DP[ i - 1]  then
 		return solution(DP, D, i  - 1)
 	else
 		SET sol = solution(DP, D, i - 2)
@@ -134,7 +133,7 @@ SET solution(int[] DP, nit[] D, int i)
 int hateville(int[] D, int n)
 	int[] DP = new int[0...n]
 	DP[0] = 0
-	DP[1] = D[1+
+	DP[1] = D[1]
 	for i = 2 to n do
 		DP[i] = max(DP[i - 1], DP[i - 2] + D[i])
 	print DP[n]
@@ -152,28 +151,28 @@ sottoinsieme di oggetti:
 \begin{itemize}
 	\item il cui peso sia inferiore alla capacità dello zaino;
 	\item il valore totale degli oggetti sia massimale, i.e. più alto o uguale al valore di qualunque altro sottoinsieme di oggetti
-\end{itemize} \
+\end{itemize} 
 Siano dati in input: 
 \begin{itemize}
-	\item Vettore w, dove w[i] è il peso (weight) dell’oggetto i-esimo
-	\item Vettore p, dove p[i] è il profitto (profit) dell’oggetto i-esimo
-	\item La capacità C dello zaino
-\end{itemize} \
-L'output deve essere un insieme S  $\subseteq$ $\{$1, ..., n $\}$ tale che:
+	\item Vettore $w$, dove $w[i]$ è il peso (weight) dell’oggetto $i$-esimo
+	\item Vettore $p$, dove $p[i]$ è il profitto (profit) dell’oggetto $i$-esimo
+	\item La capacità $C$ dello zaino
+\end{itemize} 
+L'output deve essere un insieme $S  \subseteq \{1, ..., n \}$ tale che:
 \begin{itemize}
 	\item Il volume totale deve essere minore o uguale alla capacità 
 	\item Il profitto totale deve essere massimizzato\\
 \end{itemize} 
-\textbf{Soluzione:} Dato uno zaino di capacità C e n oggetti caratterizzati da peso w e profitto p, definiamo DP[i][c] come il massimo profitto che puòessere ottenuto dai primi i $\leq$ n oggetti contenuti in uno zaino di
-capacità c $\leq$ C. Il massimo profitto ottenibile per il problema originale è rappresentato da DP[n][C]. \ Considerando i vari casi (prendere o meno l'ultimo elemento e i vari casi base) otteniamo la seguente formula ricorsiva: 
-
+\textbf{Soluzione:} Dato uno zaino di capacità $C$ e $n$ oggetti caratterizzati da peso $w$ e profitto $p$, definiamo $DP[i][c]$ come il massimo profitto che può essere ottenuto dai primi $i \leq n$ oggetti contenuti in uno zaino di
+capacità $c \leq C$. Il massimo profitto ottenibile per il problema originale è rappresentato da $DP[n][C]$.\\
+Considerando i vari casi (prendere o meno l'ultimo elemento e i vari casi base) otteniamo la seguente formula ricorsiva: 
 \begin{equation*}
   	DP[i][c] =\begin{cases}
     	0 & \text{$i = 0$  or  $c = 0$}\\
     	-\infty & \text{$c < 0$}\\
     	max(DP[i -1][c-w[i]]+p[i], DP[i-1][c]) & \text{$altrimenti$}
   	\end{cases}
-\end{equation*} \\\\
+\end{equation*}
 \newpage
 \noindent
 \textbf{Implementazione:}
@@ -192,14 +191,14 @@ int knapsack(int[] w, int[] p, int n, int C)
 					DP[i][c] = DP[i - 1][c]
 	return DP[n][C]
 \end{lstlisting}
-\textbf{Complessità:} La complessità dell'algoritmo è $\mathcal{O}$(nC), ma se consideriamo che sono necessari k = log C bit per rappresentare C, la complessità diventa pseudo-polinomiale e vale T(n) = $\mathcal{O}$(n$2^{k}$).
-La versione ricorsiva che non fa uso della ricorsione costa $\mathcal{O}$($2^{n}$). Questo è un problema NP completo. 
-\\
-
+\textbf{Complessità:} La complessità dell'algoritmo è $\mathcal{O}(nC)$, ma se consideriamo che sono necessari $k = \log C$ bit per rappresentare $C$, la complessità diventa \textcolor{red}{$pseudo-polinomiale$} e vale $T(n) = \mathcal{O}(n2^{k})$.
+La versione ricorsiva che non fa uso della memorizzazione costa $\mathcal{O}(2^{n})$. Questo è un problema \emph{NP completo}.
 \subsection{Memoization}
-\textbf{Introduzione} Non tutte le soluzioni dei sottoproblemi possibili sono utili alla soluzione del problema originale e quindi non vanno calcolate e memorizzate. Questa tecnica fonde l'approccio di memorizzazione della programmazione dinamica con l'approccio top-down di divide et impera. Passi per utilizzare la memoization:
+\textbf{Introduzione}\\
+Non tutte le soluzioni dei sottoproblemi possibili sono utili alla soluzione del problema originale e quindi non vanno calcolate e memorizzate. Questa tecnica fonde l'approccio di memorizzazione della programmazione dinamica con l'approccio top-down di divide et impera.\\
+Passi per utilizzare la memoization:
 \begin{itemize}
-	\item Creare la tabella DP e inizializzarla con un valore speciale (+/- infinito, -1, null) per indicare che un certo sottoproblema non è stato ancora risolto 
+	\item Creare la tabella $DP$ e inizializzarla con un valore speciale ($+/- \infty, -1, null$) per indicare che un certo sottoproblema non è stato ancora risolto 
 	\item Ogni volta che si deve risolvere un sottoproblema, si controlla nella tabella se è già stato risolto precedentemente: in caso affermativo si usa il risultato della tabella, altrimenti si calcola il risultato e lo si memorizza
 	\item Ogni sottoproblema viene calcolato una sola volta e memorizzato come nella versione bottom-up
 \end{itemize}
@@ -215,21 +214,18 @@ int knapsack(int[] w, int[] p, int n, int C)
 			DP[i][c] = -1
 	return knapsackRec(w, p, n, C, DP )
 	
-	
 int knapsackRec(int[] w, int[] p, int i, int c, int[][] DP)
 	if c < 0 then
 		return -$\infty$
-	else if i == 0 or c == 0 then
+	else if i $==$ 0 or c $==$ 0 then
 		return 0
 	else 
 		if DP[i][c] < 0 then 
-			int not_taken = knapsackRec(w, p, i - 1, c, DP)
-			int taken = knapsackRec(w, p, i - 1, c - w[i], DP) + p[i]
-			DP[i][c] = max(not_taken, taken)
+			int $not\_taken$ = knapsackRec(w, p, i - 1, c, DP)
+			int $taken$ = knapsackRec(w, p, i - 1, c - w[i], DP) + p[i]
+			DP[i][c] = max($not\_taken, taken$)
 	return DP[i][c]
 \end{lstlisting}
-
-
 \begin{lstlisting}[ caption= Knapsack versione con memoization e dizionario]
 int knapsack(int[] w, int[] p, int n, int C)
 	DP = new Hash
@@ -238,18 +234,17 @@ int knapsack(int[] w, int[] p, int n, int C)
 int knapsackRec(int[] w, int[] p, int i, int c, Hash DP)
 	if c < 0 then
 		return -$\infty$
-	else if i == 0 or c == 0 then
+	else if i $==$ 0 or c $==$ 0 then
 		return 0
 	else 
 		if (i, c) $\in$ DP.keys() then 
-			int not_taken = knapsackRec(w, p, i - 1, c, DP)
-			int taken = knapsackRec(w, p, i - 1, c - w[i], DP) + p[i]
-			DP.insert((i, c), max(not_taken, taken))
+			int $not\_taken$ = knapsackRec(w, p, i - 1, c, DP)
+			int $taken$ = knapsackRec(w, p, i - 1, c - w[i], DP) + p[i]
+			DP.insert((i, c), max($not\_taken, taken$))
 	return DP.lookup((i, c))
 \end{lstlisting}
-\textbf{Complessità:} La complessità dell'algoritmo è $\mathcal{O}$(nC), quindi non sembrerebbe esserci nessun vantaggio se non la semplicità di convertire codice ricorsivo in memoization. Utilizzando l'hash al posto di una matrice per DP non è necessario fare l'inizializzazione e il costo di esecuzione diventa $\mathcal{O}$( min ( $2^{n}$ , nC)).\
-
-
+\textbf{Complessità:} La complessità dell'algoritmo è $\mathcal{O}(nC)$, quindi non sembrerebbe esserci nessun vantaggio se non la semplicità di convertire codice ricorsivo in memoization. Utilizzando l'hash al posto di una matrice per DP non è necessario fare l'inizializzazione e il costo di esecuzione diventa $\mathcal{O}( min (2^{n}, nC))$.
+\newpage
 \subsubsection{Zaino (Knapsack) senza limiti}
 \textbf{Problema:} Il problema è lo stesso visto nei casi precedenti con la modifica che non si pone limite al numero di volte che un oggetto può essere selezionato. Come modificare dunque la formula ricorsiva in questo caso? Potrebbe venirci in mente una soluzione basata sulla programmazione greedy ma per come è espresso il problema siamo certi del fatto che esista una soluzione basata su programmazione dinamica.
 
@@ -266,7 +261,7 @@ Dato dunque uno zaino senza limiti di scelta di capacità $C$ e $n$ oggetti cara
 Se pensiamo al fatto che possiamo prendere un numero arbitrario di volte un qualsiasi oggetto, pur rimanendo vincolati dalla capacità residua dello zaino, questo significa che con capacità restante $c$, ci converrà prendere l'oggetto con profitto massimo ($max(p[i])$) con $w[i] \leq c$.
 
 \begin{equation*}
-  	DP[i][c] =\begin{cases}
+  	DP[c] =\begin{cases}
     	0 & \text{$c = 0$}\\
     	max_{w[i] \leq c}\{DP[c-w[i]]+p[i]\} & \text{$c>0$}
   	\end{cases}
@@ -281,7 +276,7 @@ int knapsack(int[] w, int[] p, int n, int C)
 	return DP[C]
 	
 int knapsackRec(int[] w, int[] p, int n, int c, int[] DP)
-	if c == 0 then
+	if c $==$ 0 then
 	  return 0
 	if DP[c] < 0 then
 	  DP[c] = 0
@@ -291,11 +286,11 @@ int knapsackRec(int[] w, int[] p, int n, int c, int[] DP)
 	   	   DP[c] = max(DP[c], val)
 	return DP[c]
 \end{lstlisting}
-Qual è la complessità della funzione knapsack()?\\
-La funzione knapsack deve generare un vettore grande $C$ e, nel caso peggiore, dovrà riempire tutti i suoi elementi. Riempire un singolo elemento ha costo $\mathcal{O}(n)$ e quindi il costo complessivo della funzione è  $\mathcal{O}(Cn)$.\\\\
+Qual è la complessità della funzione $knapsack()$?\\
+La funzione knapsack deve generare un vettore grande $C$ e, nel caso peggiore, dovrà riempire tutti i suoi elementi. Riempire un singolo elemento ha costo $\mathcal{O}(n)$ e quindi il costo complessivo della funzione è  $\mathcal{O}(nC)$.\\\\
 Se utilizziamo questo tipo di approccio lo spazio occupato in memoria è pari a $\Theta(C)$ ma ricostruire la soluzione diventa più complesso in quanto è necessario l'utilizzo di un altro vettore che ci dica da dove venga il massimo.
 \begin{equation*}
-  	DP[i][c] =\begin{cases}
+  	DP[c] =\begin{cases}
     	0 & \text{$c = 0$}\\
     	max_{w[i] \leq c}\{DP[c-w[i]]+p[i]\} & \text{$c>0$}
   	\end{cases}
@@ -311,7 +306,7 @@ LIST knapsack(int[] w, int[] p, int n, int C)
 	return solution(w, C, pos)
 	
 int knapsackRec(int[] w, int[] p, int n, int c, int[] DP)
-	if c == 0 then
+	if c $==$ 0 then
 	  return 0
 	if DP[c] < 0 then
 	  DP[c] = 0
@@ -324,14 +319,14 @@ int knapsackRec(int[] w, int[] p, int n, int c, int[] DP)
 	return DP[c]
 	
 LIST solution(int[] w, int c, int[] pos)
-	if c==0 or pos[c] < 0 then
+	if c $==$ 0 or pos[c] < 0 then
 		return List()
 	else
 		LIST L = solution(w, c - w[pos[c]], pos)
 		L.insert(L.head(), pos[c])
 		return L
 \end{lstlisting}
-Quello che viene restituito dalla funzione solution() è una lista di indici dove i suoi elementi possono comparire più di una volta (multinsieme). Notiamo che se $c=0$ allora lo zaino è stato riempito perfettamente mentre per $pos[c]<0$ allora lo zaino non può essere riempito interamente (rimarrà della capacità residua ma nessun oggetto in grado di riempirlo perfettamente).
+Quello che viene restituito dalla funzione $solution()$ è una lista di indici dove i suoi elementi possono comparire più di una volta (multinsieme). Notiamo che se $c=0$ allora lo zaino è stato riempito perfettamente mentre per $pos[c]<0$ allora lo zaino non può essere riempito interamente (rimarrà della capacità residua ma nessun oggetto in grado di riempirlo perfettamente).
 \newpage
 \subsection{Altri esempi di programmazione dinamica} 
 \subsubsection{Sottosequenza comune massimale}
@@ -340,7 +335,7 @@ Una sequenza $P$ è una \textcolor{red}{sottosequenza} di $T$ se $P$ è ottenuto
 \textbf{Definizione: Sottosequenza comune}\\
 Una sequenza $X$ è una \textcolor{red}{sottosequenza comune} di due sequenze $T, U$ se è sottosequenza sia di $T$ che di $U$.\\
 Scriveremo $X \in \mathcal{CS}(T, U)$\\\\
-\textbf{Definizione: Sottosequenza comune}\\
+\textbf{Definizione: Sottosequenza comune massimale}\\
 Una sequenza $X \in \mathcal{CS}(T, U)$ è una \textcolor{red}{sottosequenza comune massimale} di due sequenze $T, U$ se non esiste un'altra sottosequenza $Y \in \mathcal{CS}(T, U)$ tale che $Y$ sia più lunga di $X$  ($|Y| > |X|$).\\
 Scriveremo $X \in \mathcal{LCS}(T, U)$\\\\
 \textbf{Problema: $\mathcal{LCS}$}\\
@@ -374,7 +369,7 @@ La più lunga sottosequenza tra $T(i)$ e $U(j)$ quando uno dei due è vuoto è $
     	longest(LCS(T(i-1), U(j)), LCS(T(i), U(j-1))) & \text{$i>0$ and $j>0$ and $t_{i} \neq u_{j}$}
     	
   	\end{cases}
-\end{equation*}\\\\
+\end{equation*}
 \textbf{Lunghezza della LCS}\\
 Date due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scrivere una formula ricorsiva $DP[i][j]$ che restituisca la \textcolor{red}{lunghezza} della LCS dei prefissi $T(i)$ e $U(j)$.
 
@@ -425,22 +420,25 @@ int lcs(int[] T, int[] U, int n, int m)
 				DP[i][j] = 0
 	for i = 1 to n do
 		for j = 1 to m do
-			if T[i] == U[j] then
+			if T[i] $==$ U[j] then
 				DP[i][j] = DP[i-1][j-1] + 1
 			else
 				DP[i][j] = max(DP[i-1][j], DP[i][j-1])
 	return DP[n][m]
 \end{lstlisting}
+\newpage
+\begin{flushleft}
 Nel caso in cui si voglia invece restituire la sottosequenza comune è invece necessario usare un algoritmo di questo tipo:
+\end{flushleft}
 \begin{lstlisting}[caption=Ricostruire LCS]
 LIST lcs(int[] T, int[] U, int n, int m)
 	...
 	return subsequence(DP, T, U, n, m)
 	
 LIST subsequence(int[][] DP, ITEM[] T, ITEM[] U, int i, int j)
-	if i== 0 or j==0 then
+	if i $==$ 0 or j $==$ 0 then
 		return List()
-	if T[i]==U[j] then
+	if T[i] $==$ U[j] then
 		S = subsequence(DP, T, U, i-1, j-1)
 		S.insert(S.head(), T[i])
 		return S
@@ -453,19 +451,20 @@ LIST subsequence(int[][] DP, ITEM[] T, ITEM[] U, int i, int j)
 La complessità computazionale di subsequence è al massimo $T(n) = \mathcal{O}(m+n)$ che  corrisponde al numero massimo di controlli che verranno eseguiti per ricostituire la soluzione, mentre il costo per creare e riempire la matrice è pari a $T(n) = \mathcal{O}(mn)$. In totale il costo di LCS è pari a $T(n) = \mathcal{O}(mn)$.
 
 \subsubsection{String matching approssimato}
-\textbf{Definizione:} Un'occorrenza k-approssimata di P in T, dove: 
+\textbf{Definizione:} Un'occorrenza \textcolor{red}{$k-approssimata$} di $P$ in $T$, dove: 
 \begin{itemize}
-	\item P = p1...pm è una stringa detta pattern
-	\item T = t1...tn è una stringa detta testo, con m $\leq$ n,
+	\item $P = p_{1}...p_{m}$ è una stringa detta pattern
+	\item $T = t_{1}...t_{n}$ è una stringa detta testo, con $m \leq n$,
 \end{itemize}
-è una copia di P in T in cui sono ammessi k "errori" (o differenze) tra caratteri di P e caratteri di T, del seguente tipo:
+è una copia di $P$ in $T$ in cui sono ammessi $k$ "errori" (o differenze) tra caratteri di $P$ e caratteri di $T$, del seguente tipo:
 \begin{itemize}
-	\item i corrispondenti caratteri in P, T sono diversi (sostituzione) 
-	\item un carattere in P non è incluso in T (inserimento)
-	\item un carattere in T non è incluso in P (cancellazione)\\
+	\item i corrispondenti caratteri in $P$, $T$ sono diversi (sostituzione) 
+	\item un carattere in $P$ non è incluso in $T$ (inserimento)
+	\item un carattere in $T$ non è incluso in $P$ (cancellazione)
 \end{itemize}
-\textbf{Problema:} Trovare un'occorrenza k-approssimata di P in T con K minimo (0 $\leq$ k $\leq$ m).\\\\
-\textbf{Sottostruttura ottima e formula ricorsiva:} Sia DP[0...m][0...n] una tabella di programmazione dinamica tale che DP[i][j] sia il minimo valore k per cui esiste un’occorrenza k-approssimata di P(i) in T(j) che termina nella posizione j. \\
+\textbf{Problema:} Trovare un'occorrenza \emph{k-approssimata} di $P$ in $T$ con $k$ minimo (0 $\leq$ k $\leq$ m).\\\\
+\textbf{Sottostruttura ottima e formula ricorsiva}
+Sia $DP[0...m][0...n]$ una tabella di programmazione dinamica tale che $DP[i][j]$ sia il minimo valore $k$ per cui esiste un’occorrenza k-approssimata di $P(i)$ in $T(j)$ che termina nella posizione $j$.
 \begin{equation*}
   	DP[i][j] =\begin{cases}
     	0 & \text{$i = 0$}\\
@@ -473,8 +472,13 @@ La complessità computazionale di subsequence è al massimo $T(n) = \mathcal{O}(
     	min(DP[i-1][j-1] + d , DP[i-1][j] + 1, DP[i][j-1] + 1)  & \text{$altrimenti$}   	
   	\end{cases}
 \end{equation*}
-dove d = iif(P[i] = T[j], 0 , 1).\\\\
-La formula tratta i vari casi: se P[i]=T[j] avanza su entrambi i caratteri, se P[i]$\neq$T[j] avanza aggiungi 1 e trova la soluzione minima tra avanzare sul pattern (inserimento), avanzare sul testo (cancellazione) e avanzare su entrambi i caratteri (sostituzione).\\\\
+\begin{center}
+dove $d = iif(P[i] == T[j]$, 0 , 1).
+\end{center}
+\newpage
+\begin{flushleft}
+La formula tratta i vari casi: se $P[i]=T[j]$ avanza su entrambi i caratteri, se $P[i] \neq T[j]$ avanza aggiungi 1 e trova la soluzione minima tra avanzare sul pattern (inserimento), avanzare sul testo (cancellazione) e avanzare su entrambi i caratteri (sostituzione).
+\end{flushleft}
 \textbf{Implementazione:}
 \begin{lstlisting}[caption=String matching approssimato]
 int stringMatching(ITEM[] P, ITEM[] T, int m, int n)
@@ -483,7 +487,7 @@ int stringMatching(ITEM[] P, ITEM[] T, int m, int n)
 	for i = 1 to m do DP[i][0] = i  % Caso base: j = 0
 	for i = 1 to m do        	% Caso generale 
 		for j = 1 to n do
-			DP[i][j] = min( DP[i-1][j-1] + iif(P[i] == T[j], 0, 1),	
+			DP[i][j] = min( DP[i-1][j-1] + iif(P[i] $==$ T[j], 0, 1),	
 					DP[i-1][j] + 1,
 					DP[i][j-1] + 1)
 	% Calcola minimo ultima riga
