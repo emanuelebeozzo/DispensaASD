@@ -137,13 +137,14 @@ int[] resto(int[] t, int n, int R)
 	for i = 1 to R do
 		DP[i] = $+\infty$
 		for j = 1 to n do
-			if i > t[j] and DP[i] > DP[i-t[j]] + 1 then
+			if i > t[j] and DP[i-t[j]] + 1 $<$ DP[i] then
 				DP[i] = DP[i - t[j]] + 1
 				coin[i] = j
 	int[] x = new int[1...n] = $\{0\}$ % Vettore di output
 	while R > 0 do
 		x[coin[R]] = x[coin[R]] + 1
 		R = R - x[coin[R]]
+	return x
 \end{lstlisting}
 In questo caso dunque la complessità della soluzione è pari a $\mathcal{O}(nR)$.\\
 Possiamo fare meglio di così? Non se utilizziamo programmazione dinamica: proviamo a pensare ad un approccio greedy.
@@ -195,7 +196,7 @@ Riedizione di Knapsack dove si ha
 	\end{itemize}
 \end{itemize}
 In questa versione è possibile prendere frazioni di oggetti.\\
-A differenza dei casi precedenti, questa versione di Knapsack di presta alla risoluzione mediante l'utilizzo di un algoritmo greedy, tuttavia bisogna stare molto attenti al tipo di approccio che si vuole adottare: prendere l'oggetto dal guadagno maggiore non sempre è la scelta migliore, infatti se per assurdo avessi un oggetto con un profitto pari a $p$ ma di peso $C$ (pari alla capacità) e 2 oggetti con ciascuno un profitto pari a $\frac{2}{3} p$ ma peso $C/2$ mi converrebbe prendere gli altri due oggetti ($p < \frac{4}{3}p$). Si potrebbe dunque pensare di ovviare a questa problematica prendendo gli oggetti per peso crescente ma anche questa non è la soluzione corretta: potrei letteralmente finire col riempire il mio zaino con dei sassolini senza portare a casa alcun profitto.\\
+A differenza dei casi precedenti, questa versione di Knapsack si presta alla risoluzione mediante l'utilizzo di un algoritmo greedy, tuttavia bisogna stare molto attenti al tipo di approccio che si vuole adottare: prendere l'oggetto dal guadagno maggiore non sempre è la scelta migliore, infatti se per assurdo avessi un oggetto con un profitto pari a $p$ ma di peso $C$ (pari alla capacità) e 2 oggetti con ciascuno un profitto pari a $\frac{2}{3} p$ ma peso $C/2$ mi converrebbe prendere gli altri due oggetti ($p < \frac{4}{3}p$). Si potrebbe dunque pensare di ovviare a questa problematica prendendo gli oggetti per peso crescente ma anche questa non è la soluzione corretta: potrei letteralmente finire col riempire il mio zaino con dei sassolini senza portare a casa alcun profitto.\\
 La soluzione corretta risulta dunque combinare questi due approcci e quindi di ordinare il mio insieme di oggetti per \textcolor{red}{profitto specifico $p_{i}/w_{i}$ decrescente}: in questo modo verranno privilegiati per primi gli oggetti con rapporto profitto/peso alto.
 \begin{lstlisting}[caption=Zaino Frazionario]
 float[] zaino(float[] p, float[] v, float C, int n)
@@ -203,12 +204,12 @@ float[] zaino(float[] p, float[] v, float C, int n)
 	$\{$Ordiniamo $p$ e $v$ in modo che $p[1]/w[1] \geq ... \geq p[n]/w[n]\}$
 	for i = 1 to n do
 		x[i] = min(C/w[i], 1)
-		C = w[i] $\cdot$ x[i]
+		C = C - w[i] $\cdot$ x[i]
 	return x
 \end{lstlisting}
 La complessità di questo algoritmo è $\mathcal{O}(n)$ nel caso in cui l'input sia già stato ordinato, altrimenti $\mathcal{O}(n \log{n})$. Nel vettore $x$, $x[i]$ rappresenta quanto deve essere prelevato dell'elemento $i$-esimo per raggiungere il profitto massimo.\\\\
 \textbf{Correttezza (informale)}
-Assumiamo che gli oggetti siano ordinati per profitto specifico decrescente e che $x$ sia la soluzione ottimale. Supponiamo ora che del primo oggetto sia stata prelevata una quantità $x[1] < min(C/w[i], 1) < 1$, dunque è possibile costruire una nuova soluzione $x'$ dove $x'[1] = min(C/w[i], 1)$ di conseguenza la quantità prelevata di uno o più oggetti si è ridotta. Otteniamo dunque che il profitto di $x'$ è maggiore o uguale a quello d $x$ ma può essere solo pari a quest'ultimo in quanto avevamo presupposto che $x$ fosse soluzione ottimale.
+Assumiamo che gli oggetti siano ordinati per profitto specifico decrescente e che $x$ sia la soluzione ottimale. Supponiamo ora che del primo oggetto sia stata prelevata una quantità $x[1] < min(C/w[i], 1) < 1$, dunque è possibile costruire una nuova soluzione $x'$ dove $x'[1] = min(C/w[i], 1)$ di conseguenza la quantità prelevata di uno o più oggetti si è ridotta. Otteniamo dunque che il profitto di $x'$ è maggiore o uguale a quello di $x$, tuttavia può solo che essere uguale in quanto avevamo presupposto che $x$ fosse soluzione ottimale.
 \subsection{Compressione di Huffman}
 Si vuole rappresentare i dati in modo efficiente impiegando il numero minore di bit per la rappresentazione in modo da risparmiare spazio su disco. Una tecnica possibile è la \textcolor{red}{codifica dei caratteri} che avviene tramite una \textcolor{red}{funzione di codifica} $f : f(c) = x$
 \begin{itemize}
@@ -222,7 +223,7 @@ Si vuole rappresentare i dati in modo efficiente impiegando il numero minore di 
 \includegraphics[width=0.8\textwidth]{../img/Greedy_1.jpg}
 \caption{Possibili codifiche dei caratteri}
 \end{figure} \\
-Nella seguente immagine viengono mostrate codifiche differenti: ASCII, una basata sui caratteri effettivamente presenti all'interno del testo mentre l'ultima basata sulla frequenza con cui compaiono i caratteri. L'ultimo caso è il più interessante poichè utilizza meno bit per memorizzare il carattere che compare più di frequente: questo viene definito \textcolor{red}{codice a prefissi}.\\
+Nella seguente immagine viengono mostrate codifiche differenti: la codifica ASCII estesa, una basata sui caratteri effettivamente presenti all'interno del testo mentre l'ultima basata sulla frequenza con cui compaiono i caratteri. L'ultimo caso è il più interessante poichè utilizza meno bit per memorizzare il carattere che compare più di frequente: questo viene definito \textcolor{red}{codice a prefissi}.\\
 In un codice a prefisso, \textcolor{red}{nessun codice è un prefisso di un altro codice}. Ad esempio non è possibile mappare $a = 0$, $b = 1$, $c = 11$ poichè come interpreto poi 111111?
 \newpage
 \begin{flushleft}
@@ -250,7 +251,7 @@ L'immagine precedente rappresenta un albero binario di decodifica che tuttavia h
 \textbf{Definizione Formale del problema}
 \end{flushleft}
 Dato in input un file $F$ composto da caratteri nell'alfabeto $\mathcal{A}$, \textcolor{red}{quanti bit sono richiesti per codificare il file}?\\
-Sia $T$ un albero che rappresenta la codifica e per ogni $c \in \mathcal{A}$ (carattere dell'alfabeto) sia $d_{T}(c)$ la profondità della foglia che rappresenta $c$. Dagli schemi precenti sappiamo che il codice per rappresentare $c$ richiederà allora $d_{T}(c)$ bit. Se $f[c]$ è il numero di occorrenze di $c$ in $F$, allora la dimensione della codifica è
+Sia $T$ un albero che rappresenta la codifica e, per ogni $c \in \mathcal{A}$ (carattere dell'alfabeto), sia $d_{T}(c)$ la profondità della foglia che rappresenta $c$. Dagli schemi precenti sappiamo che il codice per rappresentare $c$ richiederà allora $d_{T}(c)$ bit. Se $f[c]$ è il numero di occorrenze di $c$ in $F$, allora la dimensione della codifica è
 \begin{center}
 	$C[F, T] = \sum_{c \in \mathcal{A}} f[c] \cdot d_{T}(c)$
 \end{center}
@@ -268,7 +269,8 @@ Il principio del \textbf{Codice di Huffman} è quello di minimizzare la lunghezz
 	\item Crea un nodo padre con etichetta - e frequenza $f_{x} + f_{y}$
 	\item Collega i due nuovi rimossi con il nuovo nodo
 	\item Aggiungi il nodo creato alla lista 
-	\item Se la lista ha un solo elemento termina altrimenti ripeti da 2
+	\item Se la lista ha un solo elemento prosegui altrimenti ripeti da 2
+	\item Etichetta gli archi dell'albero con bit 0, 1
 \end{enumerate}
 \begin{lstlisting}[caption=creazione albero binario di decodifica]
 TREE huffman(int[] c, int f, int n)
@@ -315,7 +317,7 @@ L'idea è quella di accrescere un sottoinsieme $A$ di archi in modo tale che ven
 \begin{itemize}
 	\item $A$ è un sottoinsieme di qualche albero di connessione minimo
 \end{itemize}
-\textbf{Arco Sicuro}: Un arco $[u, v]$ è detto \textcolor{red}{sicuro per A} se $A \cup \{[u,v]\}$ è ancora un sottoinsieme di qualche albero di connessione minimo.
+\textbf{Arco Sicuro}: Un arco $[u, v]$ è detto \textcolor{red}{sicuro per $A$} se $A \cup \{[u,v]\}$ è ancora un sottoinsieme di qualche albero di connessione minimo.
 \begin{lstlisting}[caption=Algoritmo Generico MST]
 SET mst-generico(GRAPH G, int[] w)
 	SET A = $\emptyset$
@@ -341,15 +343,15 @@ SET mst-generico(GRAPH G, int[] w)
 \end{figure}
 \textbf{Arco Sicuro: Teorema}
 \begin{itemize}
-	\item Sia $G = (V, E)$ un grafo non $orientato$ e $connesso$
+	\item Sia $G = (V, E)$ un grafo \emph{non orientato} e $connesso$
 	\item Sia $w$: $V \times V \rightarrow \mathbb{R}$
 	\item Sia $A \subseteq E$ un sottoinsieme contenuto in qualche albero di copertura minimo per $G$
-	\item Sia $(S, V - E)$ un qualunque taglio che rispetta $A$
-	\item Sia $[u, v]$ un arco leggero che attraverso il taglio
+	\item Sia $(S, V - S)$ un qualunque taglio che rispetta $A$
+	\item Sia $[u, v]$ un arco leggero che attraversa il taglio
 \end{itemize}
 Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A\\\\
 \textbf{Dimostrazione}\\
-Sia $T$ un albero di copertura minimo che contiene $A$. Due casi:
+Sia $T$ un albero di copertura minimo che contiene $A$ e $(u, v)$ un arco leggero che attraversa il taglio (ha peso minimo tra tutti quelli che attraversano il taglio). Due casi:
 \begin{itemize}
 	\item $(u, v) \in T$: allora $(u, v)$ è sicuro per $A$
 	\item $(u, v) \notin T$: trasformiamo $T$ in un albero $T'$ contenente $(u, v)$ e dimostriamo che $T'$ è un albero di copertura minimo
@@ -381,21 +383,23 @@ Sia $T$ un albero di copertura minimo che contiene $A$. Due casi:
 	\item $w(T) \leq w(T')$ (perchè $T$ minimo)
 \end{itemize}
 \end{minipage} \\\\
+Dunque vale che $w(T') = w(T)$ e di conseguenza anche $T'$ è un albero di copertura di peso minimo.\\\\
 \textbf{Corollario}
 \begin{itemize}
-	\item Sia $G = (V, E)$ un grafo non $orientato$ e $connesso$
+	\item Sia $G = (V, E)$ un grafo \emph{non orientato} e $connesso$
 	\item Sia $w$: $V \times V \rightarrow \mathbb{R}$
 	\item Sia $A \subseteq E$ un sottoinsieme contenuto in qualche albero di copertura minimo per $G$
 	\item Sia $C$ una componente connessa (un albero) nella foresta $G_{A} = (V, A)$
 	\item Sia $[u, v]$ un arco leggero che connette $C$ a qualche altra componente in $G_{A}$
 \end{itemize}
-Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A
+Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A.\\\\
+L'idea generale è di prendere una componente connessa $C$ nella foresta $G_{A}$ e un qualunque arco leggero $[u, v]$ che connette $C$ a qualche altra componente connessa di $G_{A}$ (di fatto anch'essa è un albero di peso minimo in quanto i suoi archi appartengono a un sottoinsieme contenuto in qualche albero di copertura di peso minimo). $[u, v]$ non può essere altro se un arco sicuro per $A$.
 \newpage
 \subsubsection{Algoritmo di Kruskal}
 \textbf{Idea}
 \begin{itemize}
 	\item Ingrandire sottoinsiemi disgiunti di un albero di copertura minimo connettendoli fra di loro fino ad avere l’albero complessivo
-	\item Si individua un arco sicuro scegliendo un arco $[u, v]$ di peso minimo tra tutti gli archi che connettono due distinti alberi (componenti connesse) della foresta
+	\item Si individua un arco sicuro scegliendo un arco $[u, v]$ di peso minimo tra tutti gli archi che connettono due alberi distinti (componenti connesse) della foresta
 	\item L’algoritmo è greedy perché ad ogni passo si aggiunge alla foresta un arco con il peso minore
 \end{itemize}
 Per implementare l'algoritmo viene utilizzata la struttura dati \emph{Merge-Find Set} discussa nella sezione \emph{Strutture Dati Speciali} della dispensa
@@ -462,7 +466,7 @@ Come si può osservare alcuni gli archi 6, 7 e 8 archi nell'immagine completa so
 	\item L'albero parte da un vertice arbitrario $r$ (la radice) e cresce fino a quando non ricopre tutti i vertici
 	\item Ad ogni passo viene aggiunto un \emph{arco leggero} che collega un vertice in $V_{A}$ con un vertice in $V - V_{A}$, dove $V_{A}$ è l'insieme di nodi raggiunti da archi in $A$
 \end{itemize}
-Per definizione $(V_{A}, V - V_{A})$ è un taglio che rispetta $A$ (infatti $V_{A}$ contiene i nodi raggiunti da $A$ mentre $V-V_{A}$ quelli che ancora devono essere raggiunti dunque nessun arco di $A$ può attraversare il taglio) e per il corollario esposto precedentemente gli archi leggeri che attraversano il taglio sono sicuri.\\\\
+Per definizione $(V_{A}, V - V_{A})$ è un taglio che rispetta $A$ (infatti $V_{A}$ contiene i nodi connessi da archi apparenenti ad $A$ mentre $V-V_{A}$ quelli che ancora devono essere raggiunti dunque nessun arco di $A$ può attraversare il taglio) e per il corollario esposto precedentemente gli archi leggeri che attraversano il taglio sono sicuri.\\\\
 \textbf{Implementazione}\\
 La struttura dati che si utilizza in questo caso è una \emph{Min Priority Queue} la cui descrizione e implementazione si può trovare nella sezione \emph{Strutture Dati Speciali} della dispensa. Durante l'esecuzione, i vertici non ancora nell'albero si trovano in una coda con min-priorità $Q$ ordinata in base alla seguente definizione di priorità: la priorità del nodo $v$ è il peso minimo di un arco che collega $v$ ad un vertice nell'albero, o +$\infty$ se tale arco non esiste.\\
 L'implementazione dell'albero avviene invece tramite \emph{vettore dei padri} di conseguenza
@@ -512,7 +516,7 @@ L'efficienza dell'algoritmo di Prim dipende dall'implementazione della coda con 
 		\hline
 	\end{tabular}
 \end{center}
-Il tempo totale è dunque $\mathcal{O}(n + n \log n + m \log n) = \textcolor{red}{\mathcal{O}(m \log m)}$ e quindi è asintoticamente uguale a quello di Kruskal.\\
+Il tempo totale è dunque $\mathcal{O}(n + n \log n + m \log n) = \textcolor{red}{\mathcal{O}(m \log n)}$ e quindi è asintoticamente uguale a quello di Kruskal.\\
 Se la coda con priorità fosse invece implementata tramite \emph{vettore non ordinato} il costo diventerebbe $\mathcal{O}(n^{2})$.\\
 La scelta del tipo di struttura da utilizzare dipende dal tipo di grafo in questione se \emph{sparso} oppure \emph{fortemente connesso}.\\\\
 \textbf{Evoluzione algoritmo di Prim - Esempio}

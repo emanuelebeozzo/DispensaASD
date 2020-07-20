@@ -3,14 +3,14 @@
 
 \section{Strutture dati speciali}
 \subsection{Heap}
-\textbf{Descrizione}: Struttura dati che associa i vantaggi dell'albero a quelli di un array. Gli alberi binari max-heap (rispettivamente min-heap) sono alberi binari completi tali per cui il valore memorizzato in ogni nodo è maggiore (rispettivamente minore) dei valori memorizzati nei suoi figli. Un albero binario si dice completo se:
+\textbf{Descrizione}: Struttura dati che associa i vantaggi dell'albero a quelli di un array. Gli alberi binari \emph{max-heap} (rispettivamente \emph{min-heap}) sono \textbf{alberi binari completi} tali per cui il valore memorizzato in ogni nodo è maggiore (rispettivamente minore) dei valori memorizzati nei suoi figli. Un albero binario si dice completo se:
 \begin{itemize}
- 	\item Tutte le foglie hanno profondità h o h-1 
- 	\item Tutti i nodi a livello h sono accatastati a sinistra (non può mancare il figlio sinistro ed esserci il destro)
+ 	\item Tutte le foglie hanno profondità $h$ o $h-1$ 
+ 	\item Tutti i nodi a livello $h$ sono accatastati a sinistra (non può mancare il figlio sinistro ed esserci il destro)
  	\item Tutti i nodi interni (non foglia) hanno grado 2, eccetto al più uno
- 	\item Se il numero di nodi è n, l'altezza è h = $\lfloor$log \textit{n}$\rfloor$
+ 	\item Se il numero di nodi è n, l'altezza è $h$ = $\lfloor$log \textit{n}$\rfloor$
 \end{itemize}
-Gli alberi binari heap non impongono un ordinamento totale, ma parziale. \
+Gli alberi binari heap non impongono un ordinamento totale, ma parziale.
 \begin{lstlisting}[caption= Memorizzazione Heap con Vettore]
 % Vettore di memorizzazione
 A[1 ... n]
@@ -23,9 +23,9 @@ l(i) = 2i
 % Figlio destro nodo i
 r(i) = 2i + 1
 \end{lstlisting}
-\textbf{Algoritmi sulla struttura}: L'algoritmo più famoso sulla struttura Heap è l'algoritmo di ordinamento heapsort(). \\
-\textbf{Codice heapSort}: È costituito da due parti: heapBuild() che si occupa di costruire un max-heap a partire da un vettore non ordinato e da maxHeapRestore() che si occupa di ripristinare le proprietà del max-heap ordinando nel mentre l'array.  \\
-MaxHeapRestore() ha come parametri un vettore A, un indice i tale per cui gli alberi binari con radici l(i) e r(i) sono max-heap e la dimensione dim del vettore A. 
+\textbf{Algoritmi sulla struttura}: L'algoritmo più famoso sulla struttura Heap è l'algoritmo di ordinamento \emph{heapsort()}. \\
+\textbf{Codice heapSort}: È costituito da due parti: \emph{heapBuild()} che si occupa di costruire un max-heap a partire da un vettore non ordinato e da \emph{maxHeapRestore()} che si occupa di ripristinare le proprietà del max-heap ordinando nel mentre l'array.  \\
+MaxHeapRestore() ha come parametri un vettore $A$, un indice $i$ tale per cui gli alberi binari con radici $l(i)$ e $r(i)$ sono max-heap e la dimensione $dim$ del vettore $A$. 
 \begin{lstlisting}[ caption= maxHeapRestore]
 maxHeapRestore(ITEM[] A, int i, int dim)
 	int max = i
@@ -37,21 +37,21 @@ maxHeapRestore(ITEM[] A, int i, int dim)
 		A[i] $\leftrightarrow$ A[max]
 		maxHeapRestore(A, max, dim)
 \end{lstlisting}
-HeapBuild() ha come parametri un vettore A e la sua dimensione n. 
+HeapBuild() ha come parametri un vettore $A$ e la sua dimensione $n$. 
 \begin{lstlisting}[ caption= heapBuild]
 heapBuild(ITEM[] A, int n)
 	for i = floor(n/2) downto 1 do
 		maxHeapRestore(A, i, n)
 \end{lstlisting}
-Usando gli algoritmi sopra definiti possiamo costruire una nuova funzione heapSort() che permette di ordinare un array A di dimensione n. 
+Usando gli algoritmi sopra definiti possiamo costruire una nuova funzione heapSort() che permette di ordinare un array $A$ di dimensione $n$. 
 \begin{lstlisting}[ caption= heapSort]
 heapSort(ITEM[] A, int n)
-heapBuild(A, n)
+	heapBuild(A, n)
 	for i = n downto 2 do
 		A[1] $\leftrightarrow$ A[i]
 		maxHeapRestore(A, 1, i-1)
 \end{lstlisting}
-\textbf{Complessità computazionale}: La chiamata di heapBuild() costa $\Theta$(\textit{n}), mentre la chiamata maxHeapRestore() costa $\Theta$(\textit{log i}) con i elementi nel heap. La maxHeapRestore() viene eseguita per un numero di volte che va da 2 a n e quindi il costo totale è $\Theta$(\textit{n log n}).
+\textbf{Complessità computazionale}: La chiamata di heapBuild() costa $\Theta$(\textit{n}), mentre la chiamata maxHeapRestore() costa $\Theta$(\textit{log i}) con $i$ elementi nell'heap. La maxHeapRestore() viene eseguita per un numero di volte che va da 2 a $n$ e quindi il costo totale è $\Theta$(\textit{n log n}).
 
 \subsection{Code a priorità}
 \textbf{Descrizione}: Le code a priorità sono usa struttura dati astratta simile ad una coda in cui ogni elemento inserito possiede una priorità. Possono esistere min-priority queue in cui l'estrazione avviene per valori crescenti di priorità, mentre nelle max-priority queue l'estrazione avviene per priorità decrescente.\\
@@ -138,22 +138,20 @@ decrease(PriorityItem x, int p)
 		swap(H, i, p(i))
 		i = p(i)	
 \end{lstlisting}
-
 \textbf{Costo computazionale}: le operazioni di insert(), deleteMin(), decrease() che modificano  l'heap e lo sistemano hanno un costo di O(\textit{log n}), mentre min() ha un costo pari a $\Theta$(\textit{1}).\\\\
-
 \subsection{Insiemi disgiunti - Merge Find Set}
-\textbf{Motivazione e operazioni fondamentali}: Siamo interessati a gestire una collezione $S = {S1, S2, ...Sk}$ di insiemi dinamici disgiunti tali che: 
+\textbf{Motivazione e operazioni fondamentali}: Siamo interessati a gestire una collezione $S = {S_1, S_2, ...S_k}$ di insiemi dinamici disgiunti tali che: 
 \begin{itemize}
-	\item $\forall i,j : i \neq j \Rightarrow Si \cap Sj = \emptyset$ 
-	\item $\bigcup\limits_{i=1}^{k} Si = Sj$, dove $k =|S|$
+	\item $\forall i,j : i \neq j \Rightarrow S_i \cap S_j = \emptyset$ 
+	\item $\bigcup\limits_{i=1}^{k} S_i = \mathcal{S}$, dove $k =\mid \mathcal{S} \mid$
 \end{itemize}
 Le operazioni fondamentali possibili su questa struttura sono:
 \begin{itemize}
-	\item Creare n insiemi disgiunti, ognuno composto da un unico elemento
-	\item merge(): unire più insiemi
-	\item find(): identificare l'insieme a cui appartiene un elemento\\
+	\item Creare $n$ insiemi disgiunti, ognuno composto da un unico elemento
+	\item \emph{merge()}: unire più insiemi
+	\item \emph{find()}: identificare l'insieme a cui appartiene un elemento\\
 \end{itemize}
-\textbf{Rappresentante}: Ogni insieme è identificato da un rappresentante univoco. Il rappresentante dell'insieme $Si$ è un qualunque membro di $Si$. Più operazioni di ricerca del rappresentante svolte su uno stesso insieme devono restituire sempre lo stesso oggetto. Solo in caso di unione con altro insieme, il rappresentante degli insiemi può cambiare.\\\\
+\textbf{Rappresentante}: Ogni insieme è identificato da un rappresentante univoco. Il rappresentante dell'insieme $S_i$ è un qualunque membro di $S_i$. Più operazioni di ricerca del rappresentante svolte su uno stesso insieme devono restituire sempre lo stesso oggetto. Solo in caso di unione con altro insieme, il rappresentante degli insiemi può cambiare.\\\\
 \textbf{Specifica MFSET}:
 \begin{lstlisting}[ caption=Specifica MFSET]
 %Crea n componenti {1}, ... ,{n}
@@ -163,32 +161,30 @@ int find(int x)
 %Unisce le componenti che contengono x e y
 merge(int x, int y)
 \end{lstlisting}
-\textbf{\\Realizzazione}: Esistono 2 possibili tecniche per memorizzare gli insiemi disgiunti usando due strutture dati differenti.\\
-
+\textbf{Realizzazione}: Esistono 2 possibili tecniche per memorizzare gli insiemi disgiunti usando due strutture dati differenti.
 \subsubsection{Realizzazione basata su insieme di liste}
-\textbf{Descrizione}: Ogni insieme viene rappresentato da una lista concatenata. Il primo oggetto di una lista è il rappresentante dell'insieme e ogni elemento delle lista contiene: un intero/oggetto, un puntatore all'elemento successivo e un puntatore al rappresentante.\\
+\textbf{Descrizione}: Ogni insieme viene rappresentato da una lista concatenata. Il primo oggetto di una lista è il rappresentante dell'insieme e ogni elemento delle lista contiene: un intero/oggetto, un puntatore all'elemento successivo e un puntatore al rappresentante.\\\\
 \textbf{Operazioni}:
 \begin{itemize}
-	\item Operazione find(x): viene restituito il rappresentante dell'insieme x. L'operazione di find(x) richiede tempo O(1).
-	\item Operazione di merge(x,y): si "appende" la lista che contiene y alla lista che contiene x, modificando i puntatori ai rappresentanti nella lista "appesa" (per ogni elemento di y devo modificare il rappresentante). Nel caso pessimo, il costo di n operazione è O($n^{2}$) e quindi il coso ammortizzato di una operazione vale O(n). 
+	\item Operazione \emph{find(x)}: viene restituito il rappresentante dell'insieme $x$. L'operazione di find(x) richiede tempo $\mathcal{O}(1)$.
+	\item Operazione di \emph{merge(x,y)}: si "appende" la lista che contiene $y$ alla lista che contiene $x$, modificando i puntatori ai rappresentanti nella lista "appesa" (per ogni elemento di $y$ devo modificare il rappresentante). Nel caso pessimo, il costo per $n$ operazioni è $\mathcal{O}(n^{2})$ quindi il costo ammortizzato di una operazione vale $\mathcal{O}(n)$. 
 \end{itemize}
 \subsubsection{Realizzazione basata su insieme di alberi (foresta)}
 \textbf{Descrizione}: Ogni insieme viene rappresentato da un albero. La radice è il rappresentante dell'insieme e ha un puntatore a sé stessa (per indicare che è il quel nodo il rappresentante). Ogni nodo dell'albero contiene: un intero/oggetto, un puntatore al padre.\\
 \textbf{Operazioni}:
 \begin{itemize}
-	\item Operazione find(x): risale la lista dei padri di x fino a trovare la radice e restituisce la radice stessa come rappresentante. Il costo è O(n) nel caso pessimo di albero lineare (in pratica una lista)
-	\item Operazione di merge(x,y): si aggancia l'albero radicato in y all'albero alla radice dell'albero x modificando il puntatore al padre della radice di y. Il costo è O(1) (non consideriamo il costo del find per cercare la radice).  
+	\item Operazione \emph{find(x)}: risale la lista dei padri di $x$ fino a trovare la radice e restituisce la radice stessa come rappresentante. Il costo è $\mathcal{O}(n)$ nel caso pessimo di albero lineare (in pratica una lista)
+	\item Operazione di \emph{merge(x,y)}: si aggancia l'albero radicato in $y$ alla radice dell'albero $x$ modificando il puntatore al padre della radice di $y$. Il costo è $\mathcal{O}(1)$ (non consideriamo il costo del find per cercare la radice).  
 \end{itemize}
-
 \subsubsection{Euristiche per migliorare la realizzazione}
-\textbf{Definizione algoritmo euristico}: particolare tipo di algoritmo progettato per risolvere il problema più velocemente, qualora i metodi classici siano troppo lenti o per trovare una soluzione approssimata qualora i metodi classi siano troppo lenti. Applicheremo delle euristiche ai metodi find e merge visti finito ad ora per migliorare la complessità delle due realizzazioni. \\\\
+\textbf{Definizione algoritmo euristico}: particolare tipo di algoritmo progettato per risolvere il problema più velocemente, qualora i metodi classici siano troppo lenti o per trovare una soluzione approssimata qualora i metodi classici falliscano nel restituire una soluzione esatta. Applicheremo delle euristiche ai metodi find e merge visti finito ad ora per migliorare la complessità delle due realizzazioni. \\\\
 \textbf{Euristiche per MFSET}:
 \begin{itemize}
-	\item Euristica del peso (applicata alle liste): è una strategia per diminuire il costo dell'operazione merge. Consiste nel memorizzare nelle liste l'informazione sulla loro lunghezza e nel momento del merge agganciare la lista più corta a quella più lunga in modo da modificare meno rifermenti al rappresentante. La lunghezza della lista può essere salvata e acceduta in tempo costante. Tramite analisi ammortizzata il costo di n-1 operazioni di merge è $\mathcal{O}(n log n)$ e il costo delle singole operazioni è $\mathcal{O}(log n)$
-	\item Euristica del rango (applicata agli alberi): ogni nodo mantiene informazioni sul proprio rango, cioè rank[x] del nodo x è il numero di archi del cammino più lungo tra x e una delle foglie che discendono da x (rango = altezza del sottoalbero associato al nodo). Il nostro scopo è usare il rango mantenere bassa l'altezza degli alberi. Se i due alberi hanno rango uguale si aggancia indifferentemente un albero alla radice dell'altro e il rango dell'albero finale cresce di 1. Se gli alberi hanno rango diverso si aggancia l'albero con rango più basso all'albero con rango più alto e l'altezza rimane inalterata. Possiamo dimostrare che (vedi slide) un albero MFSET con n nodi ha altezza inferiore a log n, quindi l'operazione find(x) ha costo   $\mathcal{O}(log n)$
-	\item Euristica della compressione dei cammini (applicata agli alberi): ogni volta che viene eseguita la find su un particolare albero, l'albero viene "appiattivo" in modo che le successive find sullo stesso albero siano svolte in O(1) (l'appiattimento viene eseguito solo in caso di modifica dell'albero con la merge). Questo è possibile costruendo un albero in cui tutti i nodi siano abbiano come padre direttamente il rappresentante e l'albero abbia altezza 1.  
+	\item Euristica del peso (applicata alle liste): è una strategia per diminuire il costo dell'operazione merge. Consiste nel memorizzare nelle liste l'informazione sulla loro lunghezza e nel momento del merge agganciare la lista più corta a quella più lunga in modo da modificare meno rifermenti al rappresentante. La lunghezza della lista può essere salvata in modo da potervi accedere in tempo costante. Tramite analisi ammortizzata il costo di $n-1$ operazioni di merge è $\mathcal{O}(n \log n)$ e il costo delle singole operazioni è $\mathcal{O}(\log n)$
+	\item Euristica del rango (applicata agli alberi): ogni nodo mantiene informazioni sul proprio rango, cioè $rank[x]$ del nodo $x$ è il numero di archi del cammino più lungo tra $x$ e una sua foglia discendente (rango $\equiv$ altezza del sottoalbero associato al nodo). Il nostro scopo è usare il rango mantenere bassa l'altezza degli alberi. Se i due alberi hanno rango uguale si aggancia indifferentemente un albero alla radice dell'altro e il rango dell'albero finale cresce di 1. Se gli alberi hanno rango diverso si aggancia l'albero con rango più basso all'albero con rango più alto e l'altezza rimane inalterata. Possiamo dimostrare che (vedi slide) un albero MFSET con $n$ nodi ha altezza inferiore a $\log n$, quindi l'operazione find(x) ha costo $\mathcal{O}(\log n)$
+	\item Euristica della compressione dei cammini (applicata agli alberi): ogni volta che viene eseguita la find su un particolare albero, l'albero viene "appiattivo" in modo che le successive find sullo stesso albero siano svolte in $\mathcal{O}(1)$ (l'appiattimento viene eseguito solo in caso di modifica dell'albero con la merge). Questo è possibile costruendo un albero in cui tutti i nodi siano abbiano come padre direttamente il rappresentante e l'albero abbia altezza 1.  
 \end{itemize}
-Applicando entrambe le euristiche sugli alberi il rango non è più l'altezza reale, ma un limite superiore all'altezza del nodo (il rango corretto sarebbe troppo costoso da mantenere). Il costo di m operazioni di find in un insieme di m elementi usando gli alberi con le varie euristiche è  $\mathcal{O}(m \cdot \alpha(n))$, con $\alpha(n)$ funzione inversa di Ackermann che cresce molto lentamente. Il costo ammortizzato di una singola operazione è quindi O(1). \\\\
+Applicando entrambe le euristiche sugli alberi il rango non è più l'altezza reale, ma un limite superiore all'altezza del nodo (il rango corretto sarebbe troppo costoso da mantenere). Il costo di $m$ operazioni di merge-find in un insieme di $n$ elementi usando gli alberi con le varie euristiche è  $\mathcal{O}(m \cdot \alpha(n))$, con $\alpha(n)$ funzione inversa di Ackermann che cresce molto lentamente. Il costo ammortizzato di una singola operazione è quindi $\mathcal{O}(1)$. \\\\
 \textbf{Implementazione}: Implementazione della struttura MFSET usando gli alberi e le varie euristiche presentante sopra.\
 \begin{lstlisting}[ caption=Implementazione MFSET]
 MFSET
@@ -207,7 +203,7 @@ MFSET Mfset(int n)
 merge(int x, int y)
 	rx = find(x)
 	ry = find(y)
-	if rx != ry then
+	if rx $\neq$ ry then
 		if rank[rx] > rank[ry] then
 			parent[ry] = rx
 		else if rank[ry] > rank[rx] then
@@ -230,11 +226,11 @@ int find(int x)
 		\hline
 			Liste & $\mathcal{O}$(1) &  $\mathcal{O}$($n$)\\ 
 		\hline
-			Alberi &  $\mathcal{O}$($n$) &  $\mathcal{O}$($n^{2}$) \\
+			Alberi &  $\mathcal{O}$($n$) &  $\mathcal{O}$(1) \\
 		\hline
-			Liste + Euristica sul peso & $\mathcal{O}$(1) &  $\mathcal{O}$($log n$)*\\
+			Liste + Euristica sul peso & $\mathcal{O}$(1) &  $\mathcal{O}$($\log n$)*\\
 		\hline
-			Alberi + Euristica sul rango & $\mathcal{O}$($log n$) &  $\mathcal{O}$(1)\\
+			Alberi + Euristica sul rango & $\mathcal{O}$($\log n$) &  $\mathcal{O}$(1)\\
 		\hline
 			Alberi + Euristica sul rango + Compressione cammini & $\mathcal{O}$(1)* &  $\mathcal{O}$(1)\\
 		\hline
@@ -253,9 +249,8 @@ MFSET cc(Graph G)
 			M.merge(u,v)
 	return M
 \end{lstlisting} 
-\textbf{\\Funzionamento}: si inizia con componenti connesse costituite da un unico vertice del grafo. Per ogni arco (u,v) $\in$ E, si esegue merge(u,v) per creare un unico insieme che contiene entrambi i lati dell'arco (visto che appartengono alla stessa componente connessa). Alla fine ogni insieme disgiunto rappresenta una componente connessa. Nodi appartenenti a componente connesse non saranno nello stesso insieme in quanto non ci sono archi che collegano i vari nodi su cui eseguire la merge.\\\\
-\textbf{Complessità}: O(n) + m operazioni di merge(), che si solito ha costo O(1) costante e la complessità risultante sarebbe (On+m). Questo algoritmo è preferibile rispetto a quello visto fino ad ora quando il grafo che dobbiamo gestire è dinamico (possiamo aggiungere anche su quel grafo) in quando con questa versione basterebbe eseguire una merge() sull'arco aggiunto, mentre con la versione classica bisognerebbe eseguire da capo l'algoritmo. \\\\
-
+\textbf{\\Funzionamento}: si inizia con componenti connesse costituite da un unico vertice del grafo. Per ogni arco $(u,v) \in E$, si esegue merge(u,v) per creare un unico insieme che contiene entrambi i lati dell'arco (visto che appartengono alla stessa componente connessa). Alla fine ogni insieme disgiunto rappresenta una componente connessa. Nodi appartenenti a componente connesse non saranno nello stesso insieme in quanto non ci sono archi che collegano i vari nodi su cui eseguire la merge.\\\\
+\textbf{Complessità}: $\mathcal{O}(n) + m$ operazioni di merge(), che si solito ha costo $\mathcal{O}(1)$ costante e la complessità risultante sarebbe $\mathcal{O}(n+m)$. Questo algoritmo è preferibile rispetto a quello visto fino ad ora quando il grafo che dobbiamo gestire è dinamico (possiamo aggiungere anche su quel grafo) in quando con questa versione basterebbe eseguire una merge() sull'arco aggiunto, mentre con la versione classica bisognerebbe eseguire da capo l'algoritmo. \\\\
 \newpage
 \section{Divide-et-impera}
 \subsection{QuickSort}

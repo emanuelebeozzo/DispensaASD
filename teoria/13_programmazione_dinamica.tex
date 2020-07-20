@@ -498,19 +498,22 @@ int stringMatching(ITEM[] P, ITEM[] T, int m, int n)
 	return pos
 \end{lstlisting}
 \subsubsection{Prodotto di catena di matrici}
-\textbf{Problema:} Data una sequenza di n matrici A1, A2, A3... An,compatibili due a due al prodotto, vogliamo calcolare il loro prodotto. \\Il prodotto di matrici: non è commutativo, è associativo: (A1 $\cdot$ A2) $\cdot$ A3 = A1 $\cdot$ (A2 $\cdot$ A3) e si basa sulla moltiplicazione scalare come operazione elementare. Vogliamo calcolare il prodotto delle n matrici impiegando il più basso numero possibile di moltiplicazioni scalari.\\\\
-\textbf{Definizioni:} Una parentesizzazione Pi,j del prodotto Ai $\cdot$ Ai+1 $\cdot$ ... $\cdot$ Aj consiste:
+\textbf{Problema:} Data una sequenza di n matrici $A_1, A_2, A_3, ..., A_n$, compatibili due a due al prodotto, vogliamo calcolare il loro prodotto.\\
+Il prodotto di matrici: non è commutativo, è \textcolor{red}{associativo}: ($A_1 \cdot A_2) \cdot A_3 = A_1 \cdot (A_2 \cdot A_3$) e si basa sulla moltiplicazione scalare come operazione elementare. Vogliamo calcolare il prodotto delle $n$ matrici impiegando il più basso numero possibile di moltiplicazioni scalari.\\\\
+\textbf{Definizioni:} Una \emph{parentesizzazione} $P_{i,j}$ del prodotto $A_i \cdot A_{i+1}\cdot ... \cdot A_j$ consiste:
 \begin{itemize}
-	\item nella matrice Ai, se i = j;
-	\item nel prodotto di due parentesizzazioni (Pi,k $\cdot$ Pk+1,j), altrimenti.
+	\item nella matrice $A_i$, se $i = j$;
+	\item nel prodotto di due parentesizzazioni ($P_{i,k} \cdot P_{k+1,j}$), altrimenti.
 \end{itemize}
-La parentesizzazione che richiede il minor numero di moltiplicazioni scalari per essere completata, fra tutte le parentesizzazioni possibili.\\In ogni parentesizzazione ottima esiste un ultimo prodotto cioè  esiste un indice k tale che P[i...j] = P[i...k] $\cdot$ P[k+1...j] dove P[i...j] rappresenta una parentesizzazione per il prodotto Ai $\cdot$ Ai+1 $\cdot$ ... $\cdot$ Aj.\\Definiamo inoltre c$_{i-1}$ il numero di righe della matrice Ai e c$_{i}$  il numero di colonne della matrice Ai.\\\\
-\textbf{Sottostruttura ottima e formula ricorsiva:} Se P[ij] = P[i...k]P[k+1...j] è una parentesizzazione ottima del prodotto A[i...j], allora:
+Una \textbf{Parentesizzazione ottima} è la parentesizzazione che richiede il minor numero di moltiplicazioni scalari per essere completata, fra tutte le parentesizzazioni possibili.\\
+In ogni parentesizzazione ottima esiste un ultimo prodotto cioè esiste un indice k tale che $P[i...j] = P[i...k] \cdot P[k+1...j]$ dove $P[i...j]$ rappresenta una parentesizzazione per il prodotto $A_i \cdot A_{i+1} \cdot ... \cdot A_j$.\\
+Definiamo inoltre $c_{i-1}$ il numero di righe della matrice $A_i$ e $c_{i}$  il numero di colonne della matrice $A_i$.\\\\
+\textbf{Sottostruttura ottima e formula ricorsiva:} Se $P[i...j] = P[i...k]P[k+1...j]$ è una parentesizzazione ottima del prodotto $A[i...j]$, allora:
 \begin{itemize}
-	\item P[i...k] è parentesizzazione ottima del prodotto A[i...k]
-	\item P[k+1...j] è parentesizzazione ottima del prodotto A[k+1...j]
+	\item $P[i...k]$ è parentesizzazione ottima del prodotto $A[i...k]$
+	\item $P[k+1...j]$ è parentesizzazione ottima del prodotto $A[k+1...j]$
 \end{itemize}
-Non conosciamo quanto vale k, ma possiamo provare per tutti i valori possibili fra i e j-1.
+Non conosciamo quanto vale $k$, ma possiamo provare per tutti i valori possibili fra $i$ e $j-1$.
 Definizione ricorsiva:
 \begin{equation*}
   	DP[i][j] =\begin{cases}
@@ -522,27 +525,30 @@ Definizione ricorsiva:
 \begin{lstlisting}[caption= Calcolo prodotto di matrici e stampa parentesizzazione ottima usando matrice last]
 %ricostruzione della soluzione (stampa prodotto)
 printPar(int[][] last , int i, int j)
-	if i == j then
+	if i $==$ j then
 		print "A["; print i; print "]"
 	else
-		print "("; stampaPar(last,i,last[i][j]); print "$\cdot$";
-		printPar(last,last[i][j]+1,j); print ")"
+		print "(";
+		stampaPar(last, i, last[i][j]);
+		print "$\cdot$";
+		printPar(last, last[i][j] +1, j);
+		print ")"
 
 %calcolo prodotto matrici usando last 
 int[][] multiply(matrix[] A, int[][] last, int i, int j)
-	if i == j then
+	if i $==$ j then
 		return A[i]
 	else
 		int[][] X = multiply(A, last, i, last[i][j])
-		int[][] Y = multiply(A, last, last[i][j]+ 1, j)
+		int[][] Y = multiply(A, last, last[i][j] + 1, j)
 		%matrix-multiplication calcola il prodotto tra le  matrici X e Y
 		return matrix-multiplication(X,Y)
 \end{lstlisting}
 \noindent
-L'implementazione usa le matrici DP e last di dimensione n $\cdot$ n tali che:
+L'implementazione usa le matrici $DP$ e $last$ di dimensione $n \times n$ tali che:
 \begin{itemize}
-	\item DP[i][j] contiene il numero di moltiplicazioni scalari necessarie per moltiplicare le matrici A[i...j] 
-	\item last [i][j] contiene il valore k dell'ultimo prodotto che minimizza il costo per il sottoproblema
+	\item $DP[i][j]$ contiene il numero di moltiplicazioni scalari necessarie per moltiplicare le matrici $A[i...j]$ 
+	\item $last [i][j]$ contiene il valore $k$ dell'ultimo prodotto che minimizza il costo per il sottoproblema
 \end{itemize}
 \begin{lstlisting}[caption= Calcolo parentesizzazione ottima]
 %calcolo della soluzione ottima
@@ -561,23 +567,23 @@ computePar(int[] c, int n)
 			DP[i][j] = +1
 			% k: last product
 			for k = i to j - 1 do 
-				int temp = DP[i][k]+DP[k+1][j]+c[i-1]$\cdot$c[k]$\cdot$c[j]
+				int temp = DP[i][k] + DP[k+1][j] + 
+				           c[i-1]$ \cdot$ c[k] $\cdot$ c[j]
 				if temp < DP[i][j] then
 					DP[i][j] = temp
 					last [i][j] = k
 	return DP[1][n]
 \end{lstlisting}
-\textbf{Costo computazionale:} Il costo di computePar è pari a $\mathcal{O}(n^{3})$.
+\textbf{Costo computazionale:} Il costo di $computePar()$ è pari a $\mathcal{O}(n^{3})$.
 \newpage
 \subsubsection{Insieme indipendente di intervalli pesati}
-\textbf{Definizioni e input:} Siano dati n intervalli distinti [a1,b1[, ..., [an,bn[ della retta reale, aperti a destra, dove all'intervallo i è associato un profitto w$_{i}$, 1$\leq$i$\leq$n.
-Due intervalli i e j sono disgiunti se bi $leq$ ai oppure bi $\leq$ aj.\\\\ 
-\textbf{Problema:} Trovare un insieme indipendente di peso massimo, ovvero un sottoinsieme di intervalli disgiunti tra loro tale che la somma dei loro profitti sia la più grande possibile.\\\\
-\textbf{Soluzione:} Per usare la programmazione dinamica, è necessario effettuare una pre-elaborazione: ordinare gli intervalli per estremi finali crescenti cioè b1 $\leq$ b2 $\leq$ ... $\leq$ bn. \\
-Una seconda possibile pre-elaborazione consiste nel pre-calcolare il predecessore pred$_{i}$ = j di i, dove: 
+\textbf{Definizioni e input:} Siano dati n intervalli distinti $[a_1, b_1[, ..., [a_n,b_n[$ della retta reale, aperti a destra, dove all'intervallo $i$ è associato un profitto $w_{i}$, $1\leq i \leq n$. Due intervalli $i$ e $j$ sono \emph{disgiunti} se $b_j \leq a_i$ oppure $b_i \leq a_j.$\\\\
+\textbf{Problema:} Trovare un \textcolor{red}{insieme indipendente di peso massimo}, ovvero un sottoinsieme di intervalli disgiunti tra loro tale che la somma dei loro profitti sia la più grande possibile.\\\\
+\textbf{Soluzione:} Per usare la programmazione dinamica, è necessario effettuare una pre-elaborazione: ordinare gli intervalli per estremi finali crescenti cioè $b_1 \leq b_2 \leq ... \leq b_n$. \\
+Una seconda possibile pre-elaborazione consiste nel pre-calcolare il predecessore $pred_{i} = j$ di $i$, dove: 
 \begin{itemize}
-	\item j $<$ i è il massimo indice tale che bj $\leq$ ai
-	\item se non esiste tale indice, pred$_{i}$ = 0.
+	\item $j < i$ è il massimo indice tale che $b_j \leq a_i$
+	\item se non esiste tale indice, $pred_{i} = 0$.
 \end{itemize}
 Definiamo la ricorrenza:
 \begin{equation*}
@@ -586,7 +592,7 @@ Definiamo la ricorrenza:
     	max(DP[i-1], DP[pred_{i}] + w_{i})  & \text{$i > 0$}   	
   	\end{cases}
 \end{equation*}
-dove DP[i] contiene il profitto massimo ottenibile con i primi i intervalli.\\\\
+dove $DP[i]$ contiene il profitto massimo ottenibile con i primi i intervalli.\\\\
 \newpage
 \noindent
 \textbf{Implementazione:}
@@ -619,8 +625,8 @@ int[] computePredecessor(int[] a, int[] b, int n)
 		pred[i] = j
 	return pred
 \end{lstlisting}
-\textbf{Costo computazionale:} Il costo per calcolare i predecessori mostrato nel codice è pari a $\mathcal{O}(n^{2})$, ma si può fare meglio di così ed arrivare ad un costo $\mathcal{O}$(n  log n).
-In totale il costo di maxinterval è pari a $\mathcal{O}$(n log n) in quanto il calcolo dei predecessori vale $\mathcal{O}$(n log n), l'ordinamento vale $\mathcal{O}$(n log n), il riempimento di DP vale $\mathcal{O}(n)$  e la ricostruzione della soluzione costa $\mathcal{O}(n)$.
+\textbf{Costo computazionale:} Il costo per calcolare i predecessori mostrato nel codice è pari a $\mathcal{O}(n^{2})$, ma si può fare meglio di così ed arrivare ad un costo $\mathcal{O}(n \log n)$.
+In totale il costo di $maxinterval()$ è pari a $\mathcal{O}(n \log n)$ in quanto il calcolo dei predecessori vale $\mathcal{O}(n \log n)$, l'ordinamento vale $\mathcal{O}(n \log n)$, il riempimento di DP vale $\mathcal{O}(n)$  e la ricostruzione della soluzione costa $\mathcal{O}(n)$.
 \subsection{Schema risoluzione problema}
 \textbf{Fasi risoluzione problema con programmazione dinamica/memoization:}\
 \begin{itemize}

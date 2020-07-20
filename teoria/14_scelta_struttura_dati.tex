@@ -8,7 +8,7 @@ Il problema dei cammini minimi che andremo ad affrontare prevede un pattern comu
 \textbf{Introduzione al problema} \\
 In input verrà ricevuto: 
 \begin{itemize}
-	\item  Grafo orientato $G = (V, E)$
+	\item Grafo orientato $G = (V, E)$
 	\item Un nodo sorgente $s$
 	\item Una funzione di peso $w \mid E \rightarrow R$
 \end{itemize} 
@@ -16,19 +16,16 @@ Dato un cammino $p = (v_1, v_2, .. , v_k)$ con $k > 1$, il costo del cammino è 
 \begin{equation*}
 	w(p) = \sum_{i = 2}^{k} w(v_{i-1}, v_i)
 \end{equation*}
-Ci è richiesto di trovare un cammino da $s$ ad $u$, per ogni nodo $u \in V$, il cui costo sia minimo, ovvero più piccolo o uguale del costo di qualunque altro cammino da $s$ ad $u$.
-\\\\
+Ci è richiesto di trovare un cammino da $s$ ad $u$, per ogni nodo $u \in V$, il cui costo sia minimo, ovvero più piccolo o uguale del costo di qualunque altro cammino da $s$ ad $u$.\\\\
 \textbf{Nota sui pesi degli archi} \\
 Algoritmi differenti possono funzionare o meno in presenza di alcune categorie speciali di pesi:
 \begin{itemize}
 \item Positivi / positivi + negativi
 \item Reali / Interi
 \end{itemize}
-Si noti inoltre che il problema per come è stato posto precedentemente accetta pesi negativi, ma tuttavia non è possibile avere dei cicli la cui somma sia negativa, in quanto non esisterebbe un cammino minimo, dato che per diminuire il costo del cammino è sufficiente ripercorrere tali archi.
-\\\\
-\textbf{Soluzione ammissibile} \\
-Una soluzione ammissibile può essere descritta da un albero di copertura $T$ radicato in $s$ e da un vettore di distanze $d$, i cui valori $d[u]$ rappresentano il costo del cammino da $s$ a $u$ in $T$
-\\\\
+Si noti inoltre che il problema per come è stato posto precedentemente accetta pesi negativi, ma tuttavia non è possibile avere dei cicli la cui somma sia negativa, in quanto non esisterebbe un cammino minimo, dato che per diminuire il costo del cammino è sufficiente ripercorrere tali archi.\\\\
+\textbf{Soluzione ammissibile}\\
+Una soluzione ammissibile può essere descritta da un albero di copertura $T$ radicato in $s$ e da un vettore di distanze $d$, i cui valori $d[u]$ rappresentano il costo del cammino da $s$ a $u$ in $T$.\\\\
 \textbf{Il teorema di Bellman} \\
 Una soluzione ammissibile $T$ è ottima se e solo se:
 \begin{itemize}
@@ -250,7 +247,8 @@ Algoritmo basato su una coda, senza priorità, computazionalmente più pesante r
 				d[v] = d[u] + G.w(u, v)
 	return(T, d)
 \end{lstlisting}
-A differenza degli algoritmi precedenti questo algoritmo funziona per grafi con archi che possiedono un peso negativo, a discapito però di una maggiore complessità. \\ Per studiare la complessità dell'algoritmo di Bellman-Ford-Moore è necessario parlare di passate; sostanzialmente in questo algoritmo un nodo può essere inserito nuovamente in coda, dopo essere stato già rimosso, a differenza degli algoritmi precedenti i cui nodi venivano estratti una singola volta per poi non essere più accodati; ad ogni estrazione infatti, che chiamiamo passata, vengono estratti i nodi il cui costo descrive i cammini minimi di lunghezza pari al numero di passata (dove la passata zeresima consiste con l'estrazione della sorgente) . Le passate si ripeteranno per un massimo di (n-1), nelle quali vegono ogni volta analizzati dei percorsi migliori che descrivono cammini di lughezza al più n - 1. \\\\
+A differenza degli algoritmi precedenti questo algoritmo funziona per grafi con archi che possiedono un peso negativo, a discapito però di una maggiore complessità. \\
+Per studiare la complessità dell'algoritmo di Bellman-Ford-Moore è necessario parlare di passate; sostanzialmente in questo algoritmo un nodo può essere inserito nuovamente in coda, dopo essere stato già rimosso, a differenza degli algoritmi precedenti i cui nodi venivano estratti una singola volta per poi non essere più accodati; ad ogni estrazione infatti, che chiamiamo passata, vengono estratti i nodi il cui costo descrive i cammini minimi di lunghezza pari al numero di passata (dove la passata zeresima consiste con l'estrazione della sorgente) . Le passate si ripeteranno per un massimo di ($n-1$), nelle quali vegono ogni volta analizzati dei percorsi migliori che descrivono cammini di lughezza al più $n - 1$. \\\\
 Il costo computazionale è dunque:
 \\\\
 \begin{tabular}{@{}lllll@{}}
@@ -261,7 +259,7 @@ Riga & Costo & Ripetizioni &  &  \\ \midrule
 (3)    & $\mathcal{O}(1)$     & $\mathcal{O}(nm)$           &  &  \\ \bottomrule
 \end{tabular}
 \\\\
-Dal quale risulta un costo totale di $\mathcal{O}(mn)$, dato dal fatto che ogni nodo può essere inserito ed estratto al massimo n-1 volte. \\\\
+Dal quale risulta un costo totale di $\mathcal{O}(mn)$, dato dal fatto che ogni nodo può essere inserito ed estratto al massimo $n-1$ volte. \\\\
 \textbf{Cammini minimi su DAG} \\
 Algoritmo basato su uno stack che contiene i nodi che fanno parte dell'ordinamento topologico a partire dalla sorgente. Si basa sul fatto che, se sappiamo che il grafo in questione non possiede cicli, non c’è modo di tornare su un nodo già visitato e abbassare il suo costo.
 \begin{lstlisting}[caption=Algoritmo per i DAG: cammini minimi a sorgente singola]
@@ -317,7 +315,7 @@ Si definiscono dei termini utili per la comprensione dell'algoritmo: \\\\
 Assumiamo che esista un ordinamento fra i nodi del grafo $v_1 , v_2 , ... , v_n$. \\\\
 \textbf{I cammini minimi k-vincolati} \\
 Sia k un valore in ${0, ...,  n}$. Diciamo che un cammino $p^{k}_{xy}$ è un
-cammino minimo k-vincolato fra $x$ e $y$ se esso ha il costo minimo fra tutti i cammini fra $x$ e $y$ che non passano per nessun vertice in $v_{k+1} , . . . , v_n$ ($x$ e $y$ sono esclusi dal vincolo). \\\\
+\emph{cammino minimo k-vincolato} fra $x$ e $y$ se esso ha il costo minimo fra tutti i cammini fra $x$ e $y$ che non passano per nessun vertice in $v_{k+1} , . . . , v_n$ ($x$ e $y$ sono esclusi dal vincolo). \\\\
 \textbf{Distanza k-vincolata} \\
 Denotiamo con $d^{k}[x][y]$ il costo totale del cammino minimo k-vincolato fra $x$ e $y$, se esiste.
 \[
@@ -327,7 +325,7 @@ Denotiamo con $d^{k}[x][y]$ il costo totale del cammino minimo k-vincolato fra $
             \end{cases}
 \]
 \textbf{Matrice dei padri} \\
-Oltre a definire la matrice $d$, calcoliamo una matrice T dove $T[x][y]$ rappresenta il predecessore di y nel cammino più breve da $x$ a $y$. \\\\
+Oltre a definire la matrice $d$, calcoliamo una matrice $T$ dove $T[x][y]$ rappresenta il predecessore di $y$ nel cammino più breve da $x$ a $y$. \\\\
 \textbf{Principio di funzionamento} \\
 L'algoritmo di Floyd-Warshall è basato sulla definizione di cammino minimo k-vincolato, sostanzialmente per ogni coppia di veritici si osserva il comportamento in seguito all'aggiunta di un nuovo nodo dal quale i cammini possono passare, l'aggiunta di tale vertice può o meno diminuire la distanza tra i nodi in questione. Si parte infatti con i cammini minimi 0 vincolati, i quali rappresentano tutti i possibili cammini che non passano per alcun vertice, ad eccezione dei nodi adiacenti, ovvero gli archi diretti. Mano a mano che si considerano nuovi nodi i costi possono modificarsi; la soluzione finale si troverà  una volta analizzati i cammini n-vincolati, in quanto sono i cammini di costo minimo che possono passare per qualunque vertice del grafo. \\
 Ciò che abbiamo definito fino ad ora può essere riassunto dalla seguente ricorrenza: \\
@@ -356,7 +354,7 @@ Ciò che abbiamo definito fino ad ora può essere riassunto dalla seguente ricor
 					T[u][v] = T[k][v]
 	return (T,d)
 \end{lstlisting}
-La prima parte dell'algoritmo si occupa della trasformazione del nostro grafo, che abbiamo sempre assunto essere espresso mediante liste di adiacenza, in un grafo rappresentato da una matrice di adiacenza. Una volta fatto questo, si fissa il parametro k (che rapprensenta il vincolo del cammino preso in analisi), e per ogni coppia di nodi si verificano i percorsi migliori facendo le opportune modifiche sul costo. \\
+La prima parte dell'algoritmo si occupa della trasformazione del nostro grafo, che abbiamo sempre assunto essere espresso mediante liste di adiacenza, in un grafo rappresentato da una matrice di adiacenza. Una volta fatto questo, si fissa il parametro $k$ (che rapprensenta il vincolo del cammino preso in analisi), e per ogni coppia di nodi si verificano i percorsi migliori facendo le opportune modifiche sul costo. \\
 La complessità totale dell'algoritmo è $\mathcal{O}(n^3)$ dovuta alla presenza di tre cicli for annidati che iterano sui nodi del grafo.
 \newpage
 \end{document}
