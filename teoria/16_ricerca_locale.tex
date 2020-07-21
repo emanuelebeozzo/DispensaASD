@@ -138,10 +138,10 @@ Se le capacità sono intere, l'algoritmo di Edmonds e Karp ha complessità $\mat
 	\item $\mathcal{O}(VE(V + E)) = \mathcal{O}(VE^2)$
 \end{itemize}
 \textbf{Che complessità scegliere?}\\
-Qualora impiegassimo una visita in ampiezza per individuare il cammino aumentante nella rete residua facciamo uso sia dell'algoritmo di Ford-Fulkerson che di quello di Edmonds e Karp. \\
+Qualora impiegassimo una visita in ampiezza (BFS) per individuare il cammino aumentante nella rete residua facciamo uso sia dell'algoritmo di Ford-Fulkerson che di quello di Edmonds e Karp. \\
 In questo caso dunque si presentano due limiti superiori per lo stesso algoritmo, da una parte abbiamo $\mathcal{O}((V + E)|f^{*}|)$ (liste di adiacenza) o $\mathcal{O}(V^2 |f^*|)$ (matrice di adiacenza), mentre dall'altra  $\mathcal{O}(VE^2)$.\\
 Entrambi sono limiti superiori validi, dunque per determinare la complessità dell'algoritmo è sufficiente scegliere il più basso. \\
-Dunque, utilizzando l'algoritmo della ricerca del flusso massimo di Edmonds e Karp (versione di Ford-Fulkerson) la complessità è data da $\mathcal{O}(min((V + E)|f^{*}|, VE^2))$ (liste di adiacenza),\\ $\mathcal{O}(min(V^2|f^{*}|, VE^2))$ (matrice di adiacenza).
+Dunque, utilizzando una visita in ampiezza la complessità è data da $\mathcal{O}(min((V + E)|f^{*}|, VE^2))$ (liste di adiacenza),\\ $\mathcal{O}(min(V^2|f^{*}|, VE^2))$ (matrice di adiacenza).
 \subsection{Teoremi e lemmi utili}
 In questa sottosezione sono mostrati alcuni Lemmi e Teoremi utili per la dimostrazione della complessità e della correttezza dell'algoritmo di Edmonds e Karp, che non verranno dimostrate per brevità.\\\\
 \textbf{Lemma - Monotonia} \\

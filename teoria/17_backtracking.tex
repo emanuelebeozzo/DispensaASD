@@ -6,7 +6,7 @@
 In alcuni problemi è richiesto oppure è necessario analizzare l'intero spazio delle soluzioni ammissibili, in particolare possiamo usufruire della tecnica di backtracking ogni volta in cui ci è richiesto di:
 \begin{itemize}
 	\item elencare \textcolor{red}{tutte} le soluzioni \textcolor{red}{\emph{ammissibili}} (problemi di enumerazione)
-	\item trovare  \textcolor{red}{una} soluzione \textcolor{red}{\emph{ammissibili}} in uno spazio di soluzioni molto grandi, dove una volta trovata è possibile uscire dalla procedura (problemi di ricerca)
+	\item trovare  \textcolor{red}{una} soluzione \textcolor{red}{\emph{ammissibile}} in uno spazio di soluzioni molto grandi, dove una volta trovata è possibile uscire dalla procedura (problemi di ricerca)
 	\item contare  \textcolor{red}{tutte} le soluzioni \textcolor{red}{\emph{ammissibili}} (problemi di conteggio), questo infatti viene effettuato per tutti i problemi in cui non si conosce o non è possibile avere una formula che stabilisce la dimensione dell'insieme delle soluzioni in maniera analitica.
 	\item trovare \textcolor{red}{una} delle soluzioni \textcolor{red}{\emph{ammissibili}} migliori rispetto ad un certo criterio di valutazione (problemi di ottimizzazione)
 \end{itemize}
@@ -27,7 +27,7 @@ Durante il corso abbiamo visto due possibili modalità per implementare la tecni
 Lo schema parziale per la risoluzione di problemi di enumerazione potrebbe essere il seguente: 
  \begin{lstlisting}[ caption= Schema generale risoluzione problema di enumerazione]
 enumeration($\langle$dati del problema$\rangle$, ITEM[] S, int i, $\langle$dati parziali$\rangle$)
-	% Verifica se S[i...i - 1] contiene una soluzone ammissibile
+	% Verifica se S[i...i - 1] contiene una soluzione ammissibile
 	if accept($\langle$dati del problema$\rangle$, S, i, $\langle$dati parziali$\rangle$) then
 		% "Processa" la soluzione (stampa, conta, etc.)
 		processSolution($\langle$dati problema$\rangle$, S, i, $\langle$dati parziali$\rangle$)
@@ -96,7 +96,7 @@ processSolution(int[] S, int n)
 	print "}"
 \end{lstlisting}
 In questo problema, come viene di fatto richiesto è stato esplorato tutto lo spazio possibile delle soluzioni. La complessità risulta essere dunque $\Theta(n \cdot 2^n)$, dato che vengono generati $2^n$ sottoinsiemi, e per ogniuno di essi è necessario effettuare l'operazione di stampa di costo $\mathcal{O}(n)$. \\
-La soluzione è memorizzata all'interno di un vettore $S[1 ... n]$ il quale salverà nella cella i-esima le scelte $0$ (elemento i-esimo non compreso) oppure $1$ (elemento i-esimo compreso). L'insieme di possibili scelte che possono essere effettuate nel passo ricorsivo non cambia a seconda della soluzione e sono rappresentate dal SET C che contiene, come era intuibile, i valori $\{0, 1\}$. \\
+La soluzione è memorizzata all'interno di un vettore $S[1 ... n]$ il quale salverà nella cella $i$-esima le scelte $0$ (elemento $i$-esimo non compreso) oppure $1$ (elemento i-esimo compreso). L'insieme di possibili scelte che possono essere effettuate nel passo ricorsivo non cambia a seconda della soluzione e sono rappresentate dal SET C che contiene, come era intuibile, i valori $\{0, 1\}$. \\
 Una volta effettuata una scelta (tutte le scelte alla fine dovranno essere prese) la si salva nela cella dedicata all'elemento corrente della soluzione $S[i]$ e si prosegue con le chiamate ricorsive.
 Si osserva che la ricorsione termina quando $i > n$, ovvero sono stati analizzati tutti gli elementi dell'insieme $\{1...n\}$, dove la soluzione verrà processata. \\
 È possibile risolvere questo problema anche in maniera iterativa, la soluzione proposta è la seguente:
@@ -131,8 +131,8 @@ permRec(SET A, ITEM[] S, int i)
 			permRec(A, S, i + 1)
 			A.insert(c)
 \end{lstlisting}
-In quanto parliamo di permutazioni non possiamo usare lo schema precedente, è necessario infatti conoscere quale scelta è stata precedentemente fatta. Questo viene fatto grazie ad un SET A passato per parametro. \\
-Ad ogni scelta viene copiato tale insieme per poter effettuare tutte le possibili scelte, ad ogni decisione è necessario notificare agli elementi successivi che tale elemento non è più disponibile, rimuovendo l'elemento scelto dal SET A, passando A alla chiamata successiva (il prossimo passo non avrà tale scelta tra quelle possibili), ad una decisione nuova invece viene reso tale valore nuovamente disponibile reinserendolo nel set. \\
+In quanto parliamo di permutazioni non possiamo usare lo schema precedente, è necessario infatti conoscere quale scelta è stata precedentemente fatta. Questo viene fatto grazie ad un SET $A$ passato per parametro. \\
+Ad ogni scelta viene copiato tale insieme per poter effettuare tutte le possibili scelte, ad ogni decisione è necessario notificare agli elementi successivi che tale elemento non è più disponibile, rimuovendo l'elemento scelto dal SET $A$, passando $A$ alla chiamata successiva (il prossimo passo non avrà tale scelta tra quelle possibili), ad una decisione nuova invece viene reso tale valore nuovamente disponibile reinserendolo nel set. \\
 La complessità per il calcolo delle permutazioni può essere calcolato sviluppando l'albero delle decisioni, in particolare possiamo ricavare che:
 \begin{itemize}
 	\item Costo della stampa: $\Theta(n)$
@@ -169,7 +169,7 @@ In questo caso si ha:
 Lo schema conclusivo per tutti i problemi di enumerazione, da adattare al caso specifico, è il seguente:
  \begin{lstlisting}[ caption= Schema generale enumerazione completo]
 enumeration($\langle$dati del problema$\rangle$, ITEM[] S, int i, $\langle$dati parziali$\rangle$)
-	% Verifica se S[i...i - 1] contiene una soluzone ammissibile
+	% Verifica se S[i...i - 1] contiene una soluzione ammissibile
 	if accept($\langle$dati del problema$\rangle$, S, i, $\langle$dati parziali$\rangle$) then
 		% "Processa" la soluzione (stampa, conta, etc.)
 		processSolution($\langle$dati problema$\rangle$, S, i, $\langle$dati parziali$\rangle$)
@@ -215,7 +215,7 @@ Ad ogni passo ricorsivo si decide se inserire o meno l'elemento i-esimo all'inte
 Ogni volta che una scelta viene effettuata viene registrata all'interno del vettore $S$ e si passa all'analisi del prossimo valore. \\
 Viene contato il numero di elementi compresi nella soluzione attraverso la funzione \emph{count}: se abbiamo terminato di analizzare l'intero insieme e la dimensione è pari a $k$ allora processiamo la soluzione, altrimenti se abbiamo terminato l'analisi e la cardinalità di $S$ è superiore a $k$ la scartiamo, se invece abbiamo ancora elementi da scansionare proseguiamo con le scelte. \\
 Possiamo, invece che contare ogni volta il numero di elementi inseriti, utilizzare una variabile missing, la quale sarà inizializzata a $k$ ed identifica il numero di elmenti che sono necessari per completare la soluzione corrente. \\ 
-Come nella soluzione precedente, se terminata l'analisi dell'insieme $missing$ è pari a $0$ allora processiamo la soluzione (abbiamo inserito esattamente $k$ elementi) altrimenti la scartiamo, se mancano dei numeri da scandire allora effettueremo la scelta decrementando $missing$ di $1$, se abbiamo deciso che l'elemento i-esimo è compreso in $S$, oppure lasciandolo invariato, se si è deciso di non comprenderlo nella soluzione. 
+Come nella soluzione precedente, se terminata l'analisi dell'insieme $missing$ è pari a $0$ allora processiamo la soluzione (abbiamo inserito esattamente $k$ elementi) altrimenti la scartiamo, se mancano dei numeri da scandire allora effettueremo la scelta decrementando $missing$ di $1$, se abbiamo deciso che l'elemento $i$-esimo è compreso in $S$, oppure lasciandolo invariato, se si è deciso di non comprenderlo nella soluzione. 
 \newpage
 \begin{flushleft}
 Una maniera più intelligente per implementare la procedura \emph{kssRec} è la seguente:
@@ -306,7 +306,7 @@ boolean enumeration($\langle$dati del problema$\rangle$, ITEM[] S, int i, $\lang
 \end{lstlisting}
 \subsection{Subset sum backtracking}
 Il problema è il seguente: Dati un vettore $A$ contenente $n$ interi positivi ed un intero positivo $k$, esiste un sotto insieme $S \subseteq \{1. . . n\}$ tale che $\sum_{i \in S} a[i] = k$? \\
-Un modo per risolvere il problema, senza usare programmazione dinamica è quello di usare una tecnica di backtracking che risolve il problema con complessità $\mathcal{O}(2^n)$. Tuttavia non siamo interessati a tutte le possibili soluzioni, ma solamente ad una, è quindi sufficiente utilizzare lo schema di risoluzione visto precedentemente in modo da fermare l'esecuzione quando si trova la prima soluzione valida:
+Un modo per risolvere il problema, senza usare programmazione dinamica, è quello di usare una tecnica di backtracking che risolve il problema con complessità $\mathcal{O}(2^n)$. Tuttavia non siamo interessati a tutte le possibili soluzioni, ma solamente ad una, è quindi sufficiente utilizzare lo schema di risoluzione visto precedentemente in modo da fermare l'esecuzione quando si trova la prima soluzione valida:
  \begin{lstlisting}[ caption= Subset sum]
 subsetSum(int[] A, int n, int k)
 	int[] S = new int[1 ... n]
@@ -334,26 +334,26 @@ Dobbiamo posizionare $n$ regine in una scacchiera $n \times n$, in modo tale che
 I passi che ci hanno portato alla soluzione finale sono stati i seguenti:
 \begin{itemize}
 	\item Il primo approccio (inefficiente) è stato quello di cercare di posizionare $n$ regine su $n^2$ caselle, controllando la soluzione quando abbiamo analizzato l'ultima cella. Lo spazio della soluzione è comunque troppo grande, il costo è di $\mathcal{O}((n^2)^n)$.
-	\item Il secondo approccio, come miglioramento del primo è quello di non mettere regine in caselle precedenti quelle già scelte, in questo caso riduciamo di molto lo spazi delle soluzioni con un costo pari a  $\mathcal{O}\cfrac{(n^2)^n}{n!}$, ma comunque ancora troppo elevato.
-	\item Un migloramento rispetto alla precedente si è ottenuto quando abbiamo ridotto il problema a posizionare una regina su ogni riga, in quanto le $n$ regine dovranno necessariamente trovarsi su righe differenti della scacchiera: la complessità in questo caso è $\mathcal{O}(n^n)$.
-	\item Il miglioramento finale è stato quello di vincolare la scelta di colonne differenti, in quanto le $r$ regine devono trovarsi necessariamente in colonne distinte. La complessità è stata dunque ridotta a: $\mathcal{O}(n!)$
+	\item Il secondo miglioramento lo si ha avuto imponendo come vincolo il fatto di non posizionare le regine in caselle precedenti a quelle già scelte: lo spazio delle soluzioni si è ridotto di molto con un costo pari a  $\mathcal{O}\cfrac{(n^2)^n}{n!}$ (comunque ancora troppo elevato).
+	\item Posizionare una regina su ogni riga ha consensito un altro avanzamento in quanto, anche a livello intuitivo, le $n$ regine dovranno necessariamente trovarsi su righe differenti della scacchiera: la complessità in questo caso è $\mathcal{O}(n^n)$.
+	\item Il miglioramento finale è stato quello di vincolare la scelta di colonne differenti, in quanto le $n$ regine devono trovarsi necessariamente in colonne distinte. La complessità è stata dunque ridotta a: $\mathcal{O}(n!)$
 \end{itemize}
-Per evitare di essere troppo prolissi ci concentreremo solamente sulla sull'ultima soluzione proposta, ovvero quella dell'ultimo punto discusso. \\
+Per evitare di essere troppo prolissi ci concentreremo solamente sulla soluzione discussa nell'ultimo punto (di fatto la più efficiente). \\
 Le caratteristiche di questa soluzione sono le seguenti: 
 \begin{itemize}
-	\item La soluzione del problema è memorizzata in $S[1 ... n]$, dove sono salvate le colonne mentre l'indice rappresenta la riga dove le regine risiedono, ovvero in $S$ sarà presente una permutazione dei valori $\{1 ... n\}$, rispettando già nella scelta il vincolo che sulla riga e sulla colonna di una qualsiasi regina non può risidervi un'altra.
+	\item La soluzione del problema è memorizzata in $S[1 ... n]$, dove sono salvate le colonne, mentre l'indice rappresenta la riga dove le regine risiedono, ovvero in $S$ sarà presente una permutazione dei valori $\{1 ... n\}$, rispettando già nella scelta il vincolo che sulla stessa riga e sulla stessa colonna di una qualsiasi regina non può risiedervi un'altra.
 	\item La soluzione sarà controllata nel momento in cui si arriva all'ultimo elemento considerato, dunque se $i = n$
-	\item Vi sarà la funzione \emph{choices(S, n, i)} che ritorna le scelte possibili, nel nostro caso dovrà ritornare $\{1 ... n\}$. È necessario che questa funzione controlli ogni scelta possibile generata a partire dalla soluzione parziale, ritornando solamente le colonne $c$ che non generano conflitti, ovvero che non siano già state occupate e se assegnata alla regina $i-esima$ la posizione (i, c) non risieda sulla diagonale di un altra regina.
-	\item È possibile effettuare del pruning, in questo caso lo si fa eliminando le diagonali, in quanto non possono esserci delle regine che stanno sulla stessa diagonale.
+	\item La funzione \emph{choices(S, n, i)} si occuperà di restituire le scelte possibili: nel nostro caso dovrà ritornare $\{1 ... n\}$. È necessario che questa funzione controlli ogni scelta possibile generata a partire dalla soluzione parziale, ritornando solamente le colonne $c$ che non generano conflitti, ovvero che non siano già state occupate e, se assegnata alla regina $i-esima$, la posizione (i, c) non si trovi sulla diagonale di un'altra regina.
+	\item È possibile effettuare del pruning eliminando le diagonali in quanto non possono esserci delle regine che stanno sulla stessa diagonale.
 \end{itemize}
 L'algoritmo proposto dal docente è il seguente: \\
-Esso non fa uso della funzione \emph{choices(S, n, i)} discussa in precedenza, tuttavia per ogni scelta possibile effettua del puning, ovvero se la scelta della colonna $j$ per la regina $i$ non porta ad una soluzione parzialmente corretta, questa viene scartata. \\
-In particolare in questo caso per ogni possibile colonna si controlla se essa è già stata presa da una qualsiasi delle regine precedenti, e se la scelta di tale valore da parte della i-esima regina non generi un conflitto dovuto alla presenza di un'altra regina sulla diagonale. \\
-Se non ci fossero scelte valid allora si ritorna indietro, analizzando una scelta diversa da quella effettuata in precedenza.
+Esso non fa uso della funzione \emph{choices(S, n, i)} discussa in precedenza, tuttavia per ogni scelta possibile effettua del puning: se la scelta della colonna $j$ per la regina $i$ non porta ad una soluzione parzialmente corretta, questa viene scartata. \\
+In particolare in questo caso per ogni possibile colonna si controlla se essa è già stata presa da una qualsiasi delle regine precedenti e se la scelta di tale valore da parte della i-esima regina non generi un conflitto (dovuto alla presenza di un'altra regina sulla diagonale). \\
+Se non ci fossero scelte valide allora si ritorna indietro, analizzando una scelta diversa da quella effettuata in precedenza.
  \begin{lstlisting}[ caption= Problema delle regine]
 queen(int n, int[] S, int i)
 	if i > n then
-		print S % Il controllo della soluzione avviene infatti quando i = n
+		print S % Il controllo della soluzione avviene quando i = n
 	else 
 		for i = 1 to n do % Proviamo a piazzare la regina nella colonna j
 			boolean legal = true
@@ -365,8 +365,8 @@ queen(int n, int[] S, int i)
 				S[i] = j	% La scelta e' legale
 				queens(n, S, i + 1) % Analizzo la prossima riga
 \end{lstlisting}
-Grazie al pruning nella scelta, è possibile affermare che se riusciamo a posizionare l'ennesima regina allora la soluzione trovata è ammissibile. \\
-\textbf{Minimum-conflicrs heuristic} \\
+Grazie al pruning nella scelta, è possibile affermare che se riusciamo a posizionare l'ennesima regina allora la soluzione trovata è ammissibile. \\\\
+\textbf{Minimum-conflicts heuristic} \\
 Il problema delle $n$ regine è molto costoso, anche se abbiamo lavorato parecchio per ridurne il costo computazionale. Molto spesso infatti è impensabile lanciare un algoritmo di tale pesantezza su input molto elevati, è possibile quindi adottare alcune euristiche che non garantiscono di trovare un risultato corretto (è possibile risolvere questo problema lanciando sull'output ritornato, un algoritmo che verifichi se sia o meno una soluzione accettabile, se non lo fosse si riesegue l'algoritmo e si ripete la procedura) ma eseguono in tempi molto minori rispetto ad una soluzione deterministica basata su backtracking. \\
 La \emph{Minimum-conflicts heuristic} per il problema delle $n$ è così definita: \\
 Si parte da una soluzione iniziale “ragionevolmente buona”, e si muove il pezzo con il più grande numero di conflitti nella casella della stessa colonna che genera il numero minimo di conflitti. Si ripete fino a quando non ci sono più pezzi da muovere. \\
@@ -395,7 +395,7 @@ boolean sudoku(int[][] S, int i)
 SET moves(int[][] S, int x, int y)
 	SET C = new Set()
 	if S[x][y] $\neq$ 0 then
-		% NUmero pre-inserito
+		% Numero pre-inserito
 		C.insert(S[x][y])
 	else
 		% Verifica conflitti
@@ -422,8 +422,8 @@ boolean check(int[][] S, int x, int y, int c)
 				return false
 	return true 
 \end{lstlisting}
-Questo algoritmo termina quando si sono posizionati tutti i valori $i == 81$ (il Sudoku è una tabella $9 \times 9$). 
-Per ogni decisione viene lanciata la procedura \emph{moves} che ritorna le sole mosse che non generano conflitti, quindi che tale valore non sia già presente su una riga o una colonna della griglia. \\ Se non sono più disponibili mosse che non generino conflitti si setta la vecchia mossa e si torna alla scelta precedente scegliendo un nuovo valore.
+Questo algoritmo termina quando si sono posizionati tutti i valori $i == 81$ (il Sudoku è una tabella formata da 9 tabelle $3 \times 3$). 
+Per ogni decisione viene lanciata la procedura \emph{moves} che ritorna le sole mosse che non generano conflitti, cioè quelle per cui tale valore non sia già presente su una riga, su una colonna della griglia oppure all'interno della stessa tabella. \\ Se non sono più disponibili mosse che non generino conflitti si setta la vecchia mossa e si torna alla scelta precedente scegliendo un nuovo valore.
 \subsection{Knight tour}
 Si consideri ancora una scacchiera $n \times n$; lo scopo è trovare un "giro di cavallo", ovvero un percorso di mosse valide del cavallo in modo che ogni casella venga visitata al più una volta.
 \begin{center}
@@ -433,28 +433,28 @@ La soluzione, come di fatto è intuibile, è quella di utilizzare backtrack con 
 Nella matrice $n \times n$ vi saranno:
 \begin{itemize}
 	\item 0, se la cella non è mai stata visitata
-	\item i, se la cella è stata visitata al passo i-esimo
+	\item $i$, se la cella è stata visitata al passo i-esimo
 \end{itemize}
  \begin{lstlisting}[ caption= Knight Tour]
 boolean knightTour(int[][] S, int i, int x, int y)
-	% Sei= 64, ho fatto 63 mosse e ho completato un tour (aperto)
+	% Se i = 64, ho fatto 63 mosse e ho completato un tour (aperto)
 	if i $==$ 64 then
 		processSolution(S)
 		return true
 	SET C = moves(S, x, y)
-	int[] mx = {-1, +1, +2, +2, +1, -1, -2, -2}
-	int[] my = {-2, -2, -1, +1, +2, +2, +1, -1}
+	int[] $m_x$ = {-1, +1, +2, +2, +1, -1, -2, -2}
+	int[] $m_y$ = {-2, -2, -1, +1, +2, +2, +1, -1}
 	foreach $c \in C$ do
 		S[x][y] = i
-		if knightTour(S, i + 1, x + $m_x$[c], y + $m_y$[c] then
+		if knightTour(S, i + 1, x + $m_x$[c], y + $m_y$[c]) then
 			return true
 		S[x][y] = 0
 	return false
 	
 SET moves(int[][] S, int x, int y)
 	SET C = new Set()
-	int[] mx = {-1, +1, +2, +2, +1, -1, -2, -2}
-	int[] my = {-2, -2, -1, +1, +2, +2, +1, -1}
+	int[] $m_x$ = {-1, +1, +2, +2, +1, -1, -2, -2}
+	int[] $m_y$ = {-2, -2, -1, +1, +2, +2, +1, -1}
 	for i = 1 to 8 do
 		$n_x$ = x + $m_x$[i]
 		$n_y$ = y + $m_y$[i]
@@ -464,11 +464,11 @@ SET moves(int[][] S, int x, int y)
 \end{lstlisting}
 Le mosse sono generate a partire dal movimento del cavallo negli scacchi. \\
 La procedura \emph{moves} controlla se la mossa vada a finire in una cella della matrice non visitata, se così non fosse non viene inserita all'interno del set. \\
-Ad ogni passo si calcola il set di mosse che possono essere scelte, e per tutte queste si prova a completare il giro di cavallo, se si trova una soluzione la si processa, se non la si trovasse si torna indietro settando la cella non visitata e riprovando con una nuova mossa disponibile. \\
-Se non rimane alcuna scelta valida si ritorna sui propri passi effettuando una scelta differente da quella effettuata in precedenza. \\
+Ad ogni passo si calcola il set di mosse che possono essere scelte, e per tutte queste si prova a completare il giro di cavallo: se si trova una soluzione la si processa in caso contrario si torna indietro settando la cella non visitata e riprovando con una nuova mossa tra quelle disponibili. \\
+Se non rimane alcuna scelta valida si ritorna sui propri passi effettuando una scelta differente da quella effettuata in precedenza. \\\\
 \textbf{Considerazioni sul problema}
 \begin{itemize}
-	\item Ad ogni passo ho al massimo $8$ caselle possibili, quindi ne visito al più $8^63 \approx 7.8455$
+	\item Ad ogni passo ho al massimo $8$ caselle possibili, quindi ne visito al più $8^{63} \approx 7.8455$
 	\item Grazie al pruning ne visito molto meno, ma resta comunque un problema non affrontabile per valori grandi di $n$
 	\item È un esempio del più generale "problema del cammino hamiltoniano", per il quale non esistono soluzioni polinomiali
 	\item Per questo particolare problema, tuttavia, esistono degli algoritmi di costo lineare nel numero di caselle, basati su divide-impera
@@ -479,15 +479,15 @@ Se non rimane alcuna scelta valida si ritorna sui propri passi effettuando una s
 	\item \textbf{Poligono convesso}: un poligono nel piano è \textcolor{red}{convesso} se ogni segmento di retta che congiunge due punti del poligono sta interamente nel poligono stesso (bordo incluso).
 	\item \textbf{Inviluppo convesso}: dati $n$ punti $p_1, . . . , p_n$ nel piano, con $n \geq 3$, l'\textcolor{red}{inviluppo convesso} (\textcolor{red}{convex hull}) è, fra tutti i poligoni convessi che li contengono tutti, quello di superficie minima.
 \end{itemize}
-Ci chiediamo ora come è possibile determinare, dati $n$ punti con $n \geq 3$, i punti che costituiscono l'inviluppo convesso, ovvero i punti che costituiscono il poligono convesso che contenga tutti i punti e che abbia superficie minima. \\
+Ci chiediamo ora come è possibile determinare, dati $n$ punti ($n \geq 3$), quali tra questi costituiscano l'inviluppo convesso, ovvero quali debbano essere selezionati per costruire i bordi del poligono convesso di superficie minima contenente tutti gli $n$ punti. \\\\
 \textbf{Soluzione} \\
-Un primo approccio per risolvere il problema è quello di considerare retta che passa per una coppia di punti $p_i, p_j$, che divide il piano in due semipiani chiusi ($\mathcal{O}(n^2)$ coppie); infatti se tutti i punti rimanenti (n - 2) stanno "dalla stessa parte", allora lo spigolo $S_{ij}$ fa parte dell'inviluppo convesso. Il costo di questa procedura sarà di $\mathcal{O}(n^3)$. Semplicemente lanciando per tutte le coppie di possibili di punti la procedura per determinare se tutti i punti rimanenti appartengono allo stesso semipiano, se si, allora tale coppia di vertici appartiene all'inviluppo convesso.
+Un primo approccio per risolvere il problema è quello di considerare retta che passa per una coppia di punti $p_i, p_j$, che divide il piano in due semipiani chiusi ($\mathcal{O}(n^2)$ coppie); infatti se tutti i punti rimanenti $(n - 2)$ stanno "dalla stessa parte", allora lo spigolo $S_{ij}$ fa parte dell'inviluppo convesso. Il costo di questa procedura sarà di $\mathcal{O}(n^3)$. Semplicemente lanciando per tutte le coppie di possibili di punti la procedura per determinare se tutti i punti rimanenti appartengono allo stesso semipiano, se si, allora tale coppia di vertici appartiene all'inviluppo convesso.
 \begin{center}
 	\includegraphics{ ../img/backtracking_inviluppo_convesso}
 \end{center}
 È necessario ora definire che significa stare dalla \emph{"stessa parte"}, ovvero tradurre in codice che vuol dire che i punti $p$ e $q$ stanno nello stesso semipiano definito dalla retta passante per i punti $p_1$ e $p_2$. \\
 Possiamo fare questo utilizzando il seguente algoritmo:
- \begin{lstlisting}[ caption= Knight Tour]
+ \begin{lstlisting}[ caption= Same Side (Inviluppo Convesso)]
 boolean sameSide(POINT $p_1$, POINT $p_2$, POINT $p$, POINT $q$)
 	float $d_x$ = $p_2$.x - $p_1$.x
 	float $d_y$ = $p_2$.y - $p_1$.y
@@ -516,7 +516,7 @@ Descriviamo il comportamento di questo algoritmo nelle tre macro aree che lo com
 	\end{itemize}
 \item Terminazione dell'algoritmo
 	\begin{itemize}
-		\item La procedura termiina, quando il punto con angolo minore rispetto al punto $p_{i-1}$ e la retta $r$ è il punto $p_0$ di partenza.
+		\item La procedura termina, quando il punto con angolo minore rispetto al punto $p_{i-1}$ e la retta $r$ è il punto $p_0$ di partenza.
 		\item L'algoritmo ha dunque costo $O(nh)$, dove $h$ è il numero di spigoli (numero di punti che fanno parte dell'inviluppo convesso)
 	\end{itemize}
 \end{itemize} 
@@ -526,7 +526,7 @@ Schema riassuntivo del funzionamento dell'algoritmo di Jarvis:
 \end{center}
 \subsection{Algoritmo di Graham}
 Un altro algoritmo per il calcolo dell'inviluppo convesso è l'algoritmo di Graham, il quale fa utilizzo di backtracking iterativo.
-Il primo passo consiste nell'ordinamento dei punti seguendo le seguenti direttive:
+Il primo passo consiste nell'ordinare i punti seguendo le seguenti direttive:
 \begin{itemize}
 	\item Il punto con ordinata minima fa parte dell'inviluppo convesso (deve essere compreso dal poligono convesso)
 	\item Si ordinano i punti in base all'angolo formato dalla retta passante per il punto con ordinata minima e la retta orizzontale
@@ -546,14 +546,14 @@ STACK graham(POINT[] p, int n)
 	{ riordina $p[2 ,..., n]$ in base all'angolo formato rispetto all'asse orizzontale quando sono connessi con $p[1]$}
 	{ elimina eventuali punti allineati tranne i piu' lontani da $p_1$,aggiornando $n$}
 \end{lstlisting}
-Infatti, una volta inserito il primo vertice all'interno dell'inviluppo convesso, si procede come segue: ogni volta che viene selezionato un vertice, si controlla se, considerata la retta passante per gli ultimi due vertici inseriti, il punto $p_i$ considerato non è nello stesso piano del punto $p_1$ di riferimento (il primo inserito, quello che dovrà sempre fare parte dell'inviluppo) allora il punto $p_j$ non può appartenere all'inviluppo (altrimenti avrebbe determinato $p_1$ e $p_i$ dallo stesso piano sezionato dalla retta passante $p_{j-1}$ $p_j$) e quindi lo rimuoviamo dall'inviluppo corrente. Continuiamo questo controllo fino a quando $p_i$ e $p_1$ fanno parte dello stesso piano inserendo $p_i$ nell'inviluppo. \\
+Infatti, una volta inserito il primo vertice all'interno dell'inviluppo convesso, si procede come segue: ogni volta che viene selezionato un vertice, si controlla se, considerata la retta passante per gli ultimi due vertici inseriti, il punto $p_i$ considerato non è nello stesso piano del punto $p_1$ di riferimento (il primo inserito, quello che dovrà sempre fare parte dell'inviluppo) allora il punto $p_j$ non può appartenere all'inviluppo (altrimenti avrebbe determinato $p_1$ e $p_i$ dallo stesso piano sezionato dalla retta passante per $p_{j-1}$ e $p_j$) e quindi lo rimuoviamo dall'inviluppo corrente. Continuiamo questo controllo fino a quando $p_i$ e $p_1$ fanno parte dello stesso piano inserendo $p_i$ nell'inviluppo. \\
 In altre parole:
 \begin{itemize}
 	\item Inseriamo $p_1$, $p_2$ nell'inviluppo corrente
 	\item Per tutti i punti $p_i = 3, . . . , n$:
 	\begin{itemize}
 		\item Siano $p_{j - 1}$ e $p_j$ il penultimo e ultimo vertice dell'inviluppo corrente
-		\item Se \emph{sameSide($p_{j - 1}$, $p_j$, $p_1$, $p_i$)} = \textbf{false}, ovvero $p_1$ e $p_i$ non si trovano dalla stessa parte rispetto alla retta passante per $p_{j - 1}$e$p_j$, allora elimina $p_j$ dall'inviluppo corrente
+		\item Se \emph{sameSide($p_{j - 1}$, $p_j$, $p_1$, $p_i$)} = \textbf{false}, ovvero $p_1$ e $p_i$ non si trovano dalla stessa parte rispetto alla retta passante per $p_{j - 1}$ e $p_j$, allora elimina $p_j$ dall'inviluppo corrente
 		\item Termina tale "scansione" se $p_j$ non deve essere eliminato
 		\item Aggiungi $p_j$, all'inviluppo "corrente"
 	\end{itemize}
