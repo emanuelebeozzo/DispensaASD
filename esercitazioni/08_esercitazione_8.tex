@@ -197,7 +197,7 @@ int k_partition(int[] V, int n, int k)
 	tot[1] = V[1]
 	for i = 2 to n do
 		tot[i] = V[i] + tot[i-1]
-	int[][] DP = new int[1...n][1...n]
+	int[][] DP = new int[1...n][1...k]
 	for i = 1 to n do
 		for j = 1 to n do
 			DP[i][j] = -1
