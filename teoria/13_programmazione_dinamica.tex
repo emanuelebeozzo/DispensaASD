@@ -518,7 +518,7 @@ Definizione ricorsiva:
 \begin{equation*}
   	DP[i][j] =\begin{cases}
     	0 & \text{$i = j$}\\
-    	min_{i \leq k \leq j}(DP[i][k]+DP[k+1][j]+c_{i-1} \cdot c_{k} \cdot c_{j})  & \text{$i < j$}  
+    	min_{i \leq k \< j}(DP[i][k]+DP[k+1][j]+c_{i-1} \cdot c_{k} \cdot c_{j})  & \text{$i < j$}  
   	\end{cases}
 \end{equation*}
 \newpage
