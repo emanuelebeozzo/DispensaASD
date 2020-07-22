@@ -9,7 +9,7 @@ Il problema può essere risolto mediante programmazione dinamica utilizzando una
 \begin{equation*}
   	DP[i][j]=\begin{cases}
   		j - i + 1 & \text{$j - i + 1 \leq 1$}\\
-  		j - i + 1 & \text{$s[i] = s[j] \land DP[i+1][j-1] = j - i - 1$}\\
+  		j - i + 1 & \text{$s[i] = s[j] \land DP[i+1][j-1] = j - i + 1$}\\
   		max\{DP[i][j-1], DP[i+1][j]\} & \text{$altrimenti$}
   	\end{cases}
 \end{equation*}

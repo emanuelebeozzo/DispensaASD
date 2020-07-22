@@ -355,7 +355,7 @@ queen(int n, int[] S, int i)
 	if i > n then
 		print S % Il controllo della soluzione avviene infatti quando i = n
 	else 
-		for i = 1 to n do % Proviamo a piazzare la regina nella colonna j
+		for j = 1 to n do % Proviamo a piazzare la regina nella colonna j
 			boolean legal = true
 			for k = 1 to i - 1 do % Verifichiamo le regine precedenti (pruning)
 				% Se le regine precedenti sono sulla stessa colonna o sulle diagonali della regina i-esima non proseguo, segnando la mossa come invalida
