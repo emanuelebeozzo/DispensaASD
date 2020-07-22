@@ -203,7 +203,7 @@ int k_partition(int[] V, int n, int k)
 			DP[i][j] = -1
 	return partitionRec(V, tot, DP, n, k)
 	
-int partitionRec(int[] V, int[] tot, int[][] DP int i, int t)
+int partitionRec(int[] V, int[] tot, int[][] DP, int i, int t)
 	if t > i then
 		return +$\infty$
 	else if t $==$ 1
@@ -213,7 +213,7 @@ int partitionRec(int[] V, int[] tot, int[][] DP int i, int t)
 			DP[i][j] = +$\infty$
 			int cost = 0
 			for j = 1 to i - 1 do
-				cost = max(DP[j][t-1], tot[i] - tot[j])
+				cost = max(partitionRec(V, tot, DP, j, t - 1), tot[i] - tot[j])
 				DP[i][t] = min(DP[i][t], cost)
 		return DP[i][j]
 \end{lstlisting}
