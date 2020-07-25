@@ -12,11 +12,11 @@ Esistono algoritmi probabilistici di due diverse tipologie:
 \subsection{Test di primalità}
 Ci chiediamo quale potrebbe essere un algoritmo per determinare se un numero $n$ in input risulta primo oppure no. 
 Un approccio basilare al problema potrebbe essere quello di considerare tutti i valori $i$ da 2 a $\lfloor \sqrt{n} \rfloor$, se uno di questi valori divide perfettamente $n$, ovvero il modulo della divisione $n/i$ da resto $0$, allora il numero $n$ non può essere primo. \\
-Se non siamo in grado di trovare un divisore esatto di n durante questa analisi allora il numero considerato è sicuramente primo. 
+Se non siamo in grado di trovare un divisore esatto di $n$ durante questa analisi allora il numero considerato è sicuramente primo. 
  \begin{lstlisting}[ caption= Numero primo corretto ma inefficiente]
  boolean isPrimeNaif(int n)
  	for i = 2 to $\lfloor \sqrt{n} \rfloor$ do
- 		if (n mod i) == 0 then
+ 		if (n mod i) $==$ 0 then
  			return false
  	return true
 \end{lstlisting}
@@ -37,12 +37,12 @@ Sfruttiamo dunque tale reazione per controllare la primalità di un numero $n$ g
 Si noti che questo algoritmo non è corretto, in quanto la condizione dettata da tale enunciato va interpretata nel modo in cui è scritto. \\
 In altre parole, se vale la conclusione per un singolo elemento non possiamo ricondurci al preambolo, esistono infatti dei numeri detti \textcolor{red}{pseudo-primi} che si comportano, rispetto ad alcune proprietà, in maniera analoga ai numeri primi tali per cui: 
 \begin{align*}
-    \exists b, 2 \leq b < n - 1: & \text{$b^{n-1}$ mod $n = 1$}
+    \exists b, 2 \leq b < n - 1\text{ : } & \text{$b^{n-1}$ mod $n = 1$}
 \end{align*}
 Ad esempio:
 \begin{align*} 
 	 n = 341 = 11 \times 13 \\
-    2^(340) \text{ mod } 341 = 1
+    2^{(340)} \text{ mod } 341 = 1
 \end{align*}
 Possiamo quindi implementare l'algoritmo in modo tale che sia \emph{più corretto} ma comunque ancora non deterministico. Prendiamo dunque l'algoritmo precedente e lo estendiamo per $k$ valori, dove $k$ è un valore fissato. \\
 Ancora una volta non si può avere la certezza della veridicità della soluzione, ma in quanto è provata per più valori \emph{potrebbe} avere maggiori occasioni per riconoscere un valore non primo.
@@ -54,7 +54,7 @@ Ancora una volta non si può avere la certezza della veridicità della soluzione
  			return false
  	return true
 \end{lstlisting}
-Si ha infatti che se il risultato di tale esecuzione è \textbf{false} allora il numero $n$ è sicuramente composto, quindi non primo (non soddisfa la conclusione del piccolo teorema di Fermat), mentre invece se il valore di ritorno è \textbf{true} allora \textcolor{red}{potrebbe} essere primo. \\
+Si ha infatti che se il risultato di tale esecuzione è \textbf{false} allora il numero $n$ è sicuramente composto, quindi non primo (non soddisfa la conclusione del piccolo teorema di Fermat), mentre invece se il valore di ritorno è \textbf{true} allora \textcolor{red}{potrebbe} essere primo. Tuttavia è necessario tenere conto anche che esistono dei numeri \emph{composti} particolari chiamati \textcolor{red}{Numeri di Carmichael} tali che $\forall b, 2 \leq b < n$ : $b^{n-1}$ mod $n = 1$  \\
 \textbf{Il test di primalità di Miller-Rabin} \\
 Un altro modo per testare la primalità è quello proposto dall'algoritmo di \emph{Miller-Rabin}, il quale è basato sul seguente teorema. \\
 \textbf{Teorema}:
@@ -74,7 +74,7 @@ Se \textcolor{red}{esiste} un intero $b$, con $2 \leq b < n$ tale che \textcolor
 	\item $b^{m}$ mod  $n \neq 1 \land \forall i, 0 \leq i < v : b^{m \cdot 2^i}$ mod $n \neq n - 1$  
 \end{itemize}
 allora n è composto (quindi non primo). \\
-Rabin ha dimostrato che se il numero $n$ è composto, allora ci sono almeno $3/4 (n - 1)$ testimoni in [2, ..., n - 1]. Un \emph{testimone} è un valore che attesta la non primalità di un numero, ossia che rende vera almeno una delle due affermazioni della contrapposizione. Il test per verificare se il valore è composto ha probabilità inferiore a $1/4$ di rispondere erroneamente. L'algoritmo sarà ancora non deterministico data la presenza di \emph{strong liar}, dei valori validano la contrapposizione nonostante il numero analizzato non sia primo. \\
+Rabin ha dimostrato che se il numero $n$ è composto, allora ci sono almeno $3/4 (n - 1)$ testimoni in $[2, ..., n - 1]$. Un \emph{testimone} è un valore che attesta la non primalità di un numero, ossia che rende vera almeno una delle due affermazioni della contrapposizione. Il test per verificare se il valore è composto ha probabilità inferiore a $1/4$ di rispondere erroneamente. L'algoritmo sarà ancora non deterministico data la presenza di \emph{strong liar}, dei valori validano la contrapposizione nonostante il numero analizzato non sia primo. \\
 L'implementazione di questo algoritmo è la seguente:
 \newpage
  \begin{lstlisting}[ caption= Numero primo Miller-Rabin (Montecarlo)]
@@ -105,7 +105,7 @@ L'implementazione di questo algoritmo è la seguente:
     else
         return mcd(b, a mod b)
 \end{lstlisting}
-Tale algoritmo ha una complessità computaizonale particolare che non discuteremo: \\
+Tale algoritmo ha una complessità computazionale particolare che non discuteremo: \\
  $\mathcal{O}(k \log^2 n \log \log n \log \log \log n)$. \\
  Esso ha una probabilità di errore del $(1/4)^k$ dove $k$ è il numero di tentativi con cui viene ricercato il testimone. \\
  Nonostante non sia deterministico è comunque utilizzato dato il costo computazionale relativamente basso. \\
@@ -173,10 +173,10 @@ La complessità computazionale nel \textbf{caso medio} invece, sotto l'assunzion
 \end{align*}
 Procediamo dunque al calcolo della complessità:
 \begin{align*}
-	 T(n) & \leq n + \frac{1}{n} \sum_{q = \lfloor n/2 \rfloor}^{n-1} 2  \cdot cq \leq n + \frac{2c}{n} \sum_{q = \lfloor n/2 \rfloor}^{n-1} q & \text{Sostituzione, raccolgo il fattore 2} \\
+	 T(n) & \leq n + \frac{1}{n} \sum_{q = \lfloor n/2 \rfloor}^{n-1} 2  \cdot cq \leq n + \frac{2c}{n} \sum_{q = \lfloor n/2 \rfloor}^{n-1} q & \text{Sostituzione, raccolgo il fattore $2c$} \\
 	& \leq n + \frac{2c}{n} \sum_{q = n/2 - 1}^{n-1} q & \text{Estensione della sommatoria} \\
 	& = n + \frac{2c}{n} \left( \sum_{q = 1}^{n-1} q -  \sum_{q = 1}^{n/2 - 2} q \right) & \text{Sottrazione della prima parte} \\
-	& = n + \frac{2c}{n} \left( \frac{n (n - 1}{2} - \frac{(n/2 - 1)(n/2 - 2)}{2}\right) &\\
+	& = n + \frac{2c}{n} \left( \frac{n (n - 1)}{2} - \frac{(n/2 - 1)(n/2 - 2)}{2}\right) &\\
 	& = n + \frac{c}{n} \left(n^2 - n - (1/4 n^2 - 3/2n + 2) \right) & \\
 	& = n + \frac{c}{n} \left(3/4n^2 + 1/2 n - 2 \right) & \\
 	& \leq n + \frac{c}{n} \left(3/4n^2 + 1/2 n \right) & \\
@@ -193,7 +193,7 @@ L'idea è la seguente:
 	\item Chiameremo l’i-esimogruppo $S_i$, con $i \in [1, \lceil n/5 \rceil]$. 
 	\item Troviamo il mediano $M_i$ di ogni gruppo $S_i$. 
 	\item Tramite una chiamata ricorsiva, si trova il mediano $m$ delle mediane $[M_1,M_2,...,M_{\lceil n/5 \rceil}]$. 
-	\item Usiamo $m$ come pivot e richiamiamo l'algoritmo ricorsivamente sulla pozione di vettore opportuna, come nella \emph{selection()}.
+	\item Usiamo $m$ come pivot e richiamiamo l'algoritmo ricorsivamente sulla porzione di vettore opportuna, come nella \emph{selection()}.
 	\item Quando la grandezza del vettore analizzato scende sotto una certa dimensione (nel nostro caso inferiore o uguale a 10 elementi), possiamo utilizzare un algoritmo di ordinamento per trovare il mediano (si usa insertionSort in quanto adatto per vettori di dimensione molto ridotta).
 \end{itemize}
 \begin{lstlisting}[caption=Mediana deterministica in $\mathcal{O}(n)$]
@@ -260,7 +260,7 @@ ITEM median5(ITEM[] A, int start, int end)
 \end{lstlisting}
 Considerazioni:
 \begin{itemize}
-	\item Il calcolo dei mediani $M[ ]$ richiede al più $6 \lceil n/5 \rceil$ confronti. 
+	\item Il calcolo dei mediani $M[$ $]$ richiede al più $6 \lceil n/5 \rceil$ confronti. 
 	\item La prima chiamata ricorsiva dell'algoritmo \emph{select()} viene effettuata su  $\lceil n/5 \rceil$ elementi.
 	\item La seconda chiamata ricorsiva dell’algoritmo \emph{select()} viene effettuata al massimo su $7n/10$ elementi (esattamente $n - 3 \lceil \lceil n/5 \rceil /2 \rceil$).  
 \end{itemize}
