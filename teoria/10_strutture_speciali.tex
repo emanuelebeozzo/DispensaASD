@@ -3,6 +3,7 @@
 
 \section{Strutture dati speciali}
 \subsection{Heap}
+\label{sec:heap}
 \textbf{Descrizione}: Struttura dati che associa i vantaggi dell'albero a quelli di un array. Gli alberi binari \emph{max-heap} (rispettivamente \emph{min-heap}) sono \textbf{alberi binari completi} tali per cui il valore memorizzato in ogni nodo è maggiore (rispettivamente minore) dei valori memorizzati nei suoi figli. Un albero binario si dice completo se:
 \begin{itemize}
  	\item Tutte le foglie hanno profondità $h$ o $h-1$ 
@@ -254,6 +255,7 @@ MFSET cc(Graph G)
 \newpage
 \section{Divide-et-impera}
 \subsection{QuickSort}
+\label{sec:quicksort}
 \textbf{Problema}: Dato un vettore di ITEM A[1...n] e una coppia di indici start e end tali che 1  $\leq$ start  $\leq$ end  $\leq$ n, ordina il vettore A[i...n] in modo crescente. ITEM è un tipo di dato in cui è definito il confronto tra elementi.\\
 \textbf{Soluzione}: l'algoritmo utilizza la tecnica divide-et-impera e si compone di due funzioni: la funzione pivot() si occupa, dato un sotto vettore, di definire un perno e di spostare a sinistra del perno tutti gli elementi più piccoli del perno stesso e  destra  gli elementi più grandi, mentre la funzione QuickSort() si occupa di richiamare la funzione in modo ricorsivo su sotto array di dimensione minore.\
 \begin{lstlisting}[ caption=Quicksort]
