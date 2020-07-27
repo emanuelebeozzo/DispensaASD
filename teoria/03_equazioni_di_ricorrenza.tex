@@ -13,10 +13,10 @@ Srotoliamo la ricorrenza in un albero i cui nodi rappresentano i costi ai vari l
   		\end{cases}
 	\end{equation*}
 \end{center}
-T(n) = n + 4T(n/2) = n + 4(4T(n/4) + n) = n + 4n/2 + 16T($n/2^{2}$) = n + 2n + 16n/4 + 64T(n/8)\\
+$T(n) = n + 4T(n/2) = n + 4(4T(n/4) + n) = n + 4n/2 + 16T(n/2^{2}) = n + 2n + 16n/4 + 64T(n/8)$\\
 = ...\\
-= n + 2n + 4n + ... + $2^{k-1}$ + $4^{k}T(n/2^{k})$ \textcolor{red}{se poniamo $2^{k} = n \implies k = \log{n}$}\\
-= n + 2n + 4n + ... + $2^{\log{n-1}}n$ + $4^{\log{n}}T(1)$ = n $\sum\limits_{j=0}^{\log{n-1}} {2^{j}} + 4^{\log{n}}$\\
+= $n + 2n + 4n + ... + 2^{k-1} + 4^{k}T(n/2^{k})$ \textcolor{red}{se poniamo $2^{k} = n \implies k = \log{n}$}\\
+= $n + 2n + 4n + ... + 2^{\log{n-1}}n + 4^{\log{n}}T(1) = n \sum\limits_{j=0}^{\log{n-1}} {2^{j}} + 4^{\log{n}}$\\
 = n \textcolor{red}{$\frac{2^{\log{n}-1}}{2-1}$} + $ 4^{\log{n}}$ = $n(n-1) + n^{2} = 2n^{2} - n$ = \textcolor{red}{$\Theta(n^{2})$}\\\\
 \textbf{Secondo Esempio}
 \begin{center}
@@ -46,7 +46,7 @@ Proviamo a visualizzare l'albero delle chiamate:
 		\hline
 			i & $n/2^{i}$ & $(n/2^{i})^{3}$ & $4^{i}$ & $4^{i}(n/2^{i})^{3}$\\
 		\hline
-			... & .	.. & ... & ... & ...\\
+			... & ... & ... & ... & ...\\
 		\hline
 			$l-1$ & $n/2^{l-1}$ & $(n/2^{l-1})^{3}$ & $4^{l-1}$ & $4^{l-1}(n/2^{l-1})^{3}$\\
 		\hline
@@ -55,7 +55,7 @@ Proviamo a visualizzare l'albero delle chiamate:
 	\end{tabular}
 \end{center}
 Dunque sappiamo che al livello $\log{n}$ il costo sarà pari a $4^{\log{n}}$, duqnue ci basta fare la sommatoria fino a $\log{n-1}$ e poi aggiungere il restante:\\
-T(n) =  $\sum\limits_{i=0}^{\log{n-1}} {4^{i} \cdot n^{3}/2^{3i}} + 4^{\log{n}}$\\\\
+$T(n)$ =  $\sum\limits_{i=0}^{\log{n-1}} {4^{i} \cdot n^{3}/2^{3i}} + 4^{\log{n}}$\\\\
 \textcolor{red}{possiamo portare fuori i termini costanti dalla sommatoria}\\\\
 = \textcolor{red}{$n^{3}$} $\sum\limits_{i=0}^{\log{n-1}} {\frac{4^{i}}{2^{3i}}} + 4^{\log{n}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\frac{\textcolor{red}{2^{2i}}}{2^{3i}}} + \textcolor{red}{2^{2\log{n}}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\textcolor{red}{(\frac{1}{2})^{i}}} + \textcolor{red}{n^{2}}$
 \newpage
@@ -65,7 +65,7 @@ T(n) =  $\sum\limits_{i=0}^{\log{n-1}} {4^{i} \cdot n^{3}/2^{3i}} + 4^{\log{n}}$
 \textcolor{red}{$\leq$} $n^{3}$ $\sum\limits_{i=0}^{\textcolor{red}{\infty}} {(\frac{1}{2})^{i}} + n^{2}$ = 
 $n^{3}$ $\cdot$ \textcolor{red}{$\frac{1}{1-\frac{1}{2}}$} + $n^{2}$ = $2n^{3} + n^2$\\\\
 Abbiamo dimostrato che T(n) = $\mathcal{O}$($n^{3}$): non possiamo affermare che sia $\Theta(n) = n^{3}$ perchè abbiamo dimostrato solo un limite superiore.\\
-Tuttavia basta notare che l'equazione originale possiede un termine del tipo $an^{3}$ (con a $\in$ $\mathbb{N}$) $\implies$ T(n) = $\Omega(n^{3})$\\  
+Tuttavia basta notare che l'equazione originale possiede un termine del tipo $an^{3}$ (con $a \in \mathbb{N}$) $\implies$ $T(n) = \Omega(n^{3})$\\  
 Visto che abbiamo dimostrato anche il limite inferiore $\implies$ T(n) = $\Theta(n^{3})$ 
 \subsection{Metodo di Sostituzione, o per Tentativi}
 Metodo in cui si cerca di indovinare una soluzione, in base alla propria esperienza, e si dimostra la correttezza di questa soluzione tramite \textcolor{red}{induzione}\\\\
@@ -81,8 +81,8 @@ Metodo in cui si cerca di indovinare una soluzione, in base alla propria esperie
 \hfill\\
 \textbf{Limite Superiore}\\
 \textcolor{red}{Tentativo: T(n) = $\mathcal{O}$(n)}\\
-$\exists c$ $>$ 0, $\exists m$ $\geq$ 0 : T(n) $\leq$ cn, $\forall n$ $\geq$ m\\\\
-\textbf{Caso Base}: Dimostriamo la disequazione per T(1)\\
+$\exists c > 0, \exists m \geq 0$ : $T(n) \leq cn, \forall n \geq m$\\\\
+\textbf{Caso Base}: Dimostriamo la disequazione per $T(1)$\\
 T(1) = 1 $\stackrel{?}{\leq}$ 1 $\cdot$ c $\iff$ c $\geq$ 1\\\\
 \textbf{Ipotesi Induttiva}: $\forall k$ $<$ n : T(k) $\leq$ ck\\
 \textbf{Passo di Induzione}: Dimostriamo la disequazione per T(n)\\
