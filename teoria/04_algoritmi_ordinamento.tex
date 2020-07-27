@@ -2,38 +2,38 @@
 \begin{document}
 
 \section{Algoritmi di Ordinamento}
-\textbf{Problema}: Data una sequenza A = a1, a2 , ... an di n valori, restituire una sequenza B = b1 , b2 , ... bn che sia una permutazione di A e tale per cui b1 $\leq$ b2 $\leq$ ... $\leq$ bn.\
+\textbf{Problema}: Data una sequenza $A = a_1, a_2 , ..., a_n$ di $n$ valori, restituire una sequenza $B = b_1 , b_2 , ..., b_n$ che sia una permutazione di $A$ e tale per cui $b_1 \leq b_2 \leq ... \leq b_n$.
 \subsection{Selection Sort}
 \begin{lstlisting}[ caption= Selection Sort]
 SelectionSort(ITEM[] A, int n)
 	for i = 1 to n - 1 do
-    	int min_temp = min_from_to(A, i, n)
-    	A[min_temp] $\leftrightarrow$ A[i]
+		int min_temp = min_from_to(A, i, n)
+		A[min_temp] $\leftrightarrow$ A[i]
 
 int min_from_to(ITEM[] A, int inizio, int fine)
 	int i_min = inizio
   	for indice = inizio + 1 to fine do
-    	if S[i_min] > S[indice] then
-      	i_min = indice
-  	return i_min
+		if S[i_min] > S[indice] then
+			i_min = indice
+	return i_min
 \end{lstlisting}
-\textbf{Costo computazionale}: La complessità nel caso medio, pessimo ed ottimo è uguale e vale $\mathcal{O}(n^{2})$\
-
+\textbf{Costo computazionale}: La complessità nel caso medio, pessimo ed ottimo è uguale e vale $\mathcal{O}(n^{2})$.
 \subsection{Insertion Sort}
 \begin{lstlisting}[ caption= Insertion Sort]
 insertionSort(ITEM[] A, int n)
 	for i = 2 to n do
-    	% Salvo l'elemento che dovro' shiftare
-    	ITEM temp = A[i]
-    	% Mi salvo la sua posizione
-    	int j = i
-    	% Scorro il mazzo a ritroso trovando la sua posizione
-    	while j > 1 and temp < A[j-1] do
-      		A[j] = A[j-1]
-      		j = j - 1
-    	A[j] = temp
+		% Salvo l'elemento che dovro' shiftare
+		ITEM temp = A[i]
+		% Mi salvo la sua posizione
+		int j = i
+		% Scorro il mazzo a ritroso trovando la sua posizione
+		while j > 1 and temp < A[j-1] do
+			A[j] = A[j-1]
+			j = j - 1
+		A[j] = temp
 \end{lstlisting}
-\textbf{Costo computazionale}: La complessità nel caso medio e pessimo  e vale $\mathcal{O}(n^{2})$, mentre per il caso ottimo la complessità è invece $\mathcal{O}(n)$ \
+\textbf{Costo computazionale}: La complessità nel caso medio e pessimo  e vale $\mathcal{O}(n^{2})$, mentre per il caso ottimo la complessità è invece $\mathcal{O}(n)$. \\
+Questo tipo di algoritmo è indicato per quando si vogliono riordinare piccoli insiemi di elementi.
 \newpage
 \subsection{Merge Sort}
 \begin{lstlisting}[ caption= Merge Sort]
@@ -42,10 +42,10 @@ mergeSort(ITEM[] A, int n)
 
 mergeSort_rec(ITEM[] A, int first, int last)
   	if first $\leq$ last do
-    	int mid = (first + last)/2
-    	mergeSort_rec(A, first, mid)
-    	mergeSort_rec(A, mid + 1, last)
-    	merge(A, first, mid, last)
+		int mid = (first + last)/2
+		mergeSort_rec(A, first, mid)
+		mergeSort_rec(A, mid + 1, last)
+		merge(A, first, mid, last)
 
 merge(ITEM[] A, int first, int mid, int last)
   	int i, j, k, h
@@ -56,21 +56,20 @@ merge(ITEM[] A, int first, int mid, int last)
   	k = first
   	% riempimento vettore di appoggio in maniera ordinata
   	while i $\leq$ mid and j $\leq$ last do
-    	if A[i] < A[j] then
-     		B[k] = A[i]
-      		i = i + 1
-    	else  
-      		B[k] = A[j]
-      		j = j + 1
-    	k = k + 1
-  	j = last
+		if A[i] < A[j] then
+			B[k] = A[i]
+			i = i + 1
+		else  
+			B[k] = A[j]
+			j = j + 1
+		k = k + 1
+	j = last
   	for h = mid downto i do
   		A[j] = A[h]
   		j = j - 1
   	for j = first to k - 1 do
   		A[j] = B[j]
 \end{lstlisting}
-
 \textbf{Costo computazionale}: La complessità di merge è di $\mathcal{O}(n)$, mentre la complessità di merge sort vale in tutti i casi $\mathcal{O}(n\log{}n)$.\
 
 \subsection{Heap Sort}
