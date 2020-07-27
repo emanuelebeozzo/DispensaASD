@@ -2,7 +2,7 @@
 \begin{document}
 
 \section{Sottovettore di Somma Massima: Algoritmo di Kadane}
-\textbf{Problema}: Dato un vettore di interi A[1...n], restituire il sottovettore A[i...j] (con i, j $<$ n e i $\leq$ j) di somma massimale, ovvero la cui somma degli elementi $\sum\limits_{k=i}^j A[k]$ è più grande o uguale alla somma degli elementi di qualunque altro sottovettore.\\
+\textbf{Problema}: Dato un vettore di interi $A[1...n]$, restituire il sottovettore $A[i...j]$ (con i, j $<$ n e i $\leq$ j) di somma massimale, ovvero la cui somma degli elementi $\sum_{k=i}^j A[k]$ è più grande o uguale alla somma degli elementi di qualunque altro sottovettore.\\
 \textbf{Soluzione} (con Programmazione Dinamica): \textbf{Algoritmo di Kadane}
 \begin{lstlisting}[caption=Kadane Algorithm]
 int maxSumKadane(int[] A, int n)
@@ -15,7 +15,7 @@ int maxSumKadane(int[] A, int n)
 \end{lstlisting}
 
 \section{Valutazione Algoritmi} \subsection{Calcolo del Minimo}
-\textbf{Problema}: Dato un vettore di interi S[1...n] trovare il minimo\\
+\textbf{Problema}: Dato un vettore di interi $S[1...n]$ trovare il minimo\\
 \textbf{Soluzione}:
 \begin{lstlisting}[ caption=Ricerca Minimo]
 int min(int[] S, int n)
@@ -25,7 +25,7 @@ int min(int[] S, int n)
 			min = S[i]
 	return min
 \end{lstlisting}
-Nella versione seguente viene ritornata una coppia <int, int> che contiene minimo e la sua posizione:
+Nella versione seguente viene ritornata una coppia $<$$int$, $int$$>$ che contiene il minimo e la sua posizione:
 \begin{lstlisting}[caption=Ricerca Minimo ritornando gli indici]
 (int, int) min(int[] S, int n)
 	int min = S[1]
@@ -39,12 +39,12 @@ Nella versione seguente viene ritornata una coppia <int, int> che contiene minim
 \newpage
 
 \subsection{Ricerca Binaria}
-\textbf{Problema}: Dato un vettore ordinato di interi S[1...n] e un intero v, controllare se nel vettore è presente un elemento A[i] = v (con 0$\leq$i$\leq$n) e in quel caso restituirne l'indice.\\
-\textbf{Soluzione} (Ricerca Binaria): Analizzo l'elemento centrale del sottovettore (indice m)
+\textbf{Problema}: Dato un vettore ordinato di interi $S[1...n]$ e un intero $v$, controllare se nel vettore è presente un elemento $A[i] = v$ (con $0 \leq i \leq n$) e in quel caso restituirne l'indice.\\
+\textbf{Soluzione} (Ricerca Binaria): Analizzo l'elemento centrale del sottovettore (indice $m$)
 \begin{itemize}
-	\item S[m]=v allora ho trovato il valore cercato;
-	\item S[m]$<$v allora vuol dire che dovrò cercare il valore nella metà di destra;
-	\item S[m]$>$v allora vuol dire che dovrò cercare il valore nella metà di sinistra
+	\item $S[m]=v$ allora ho trovato il valore cercato;
+	\item $S[m]<v$ allora vuol dire che dovrò cercare il valore nella metà di destra;
+	\item $S[m]>v$ allora vuol dire che dovrò cercare il valore nella metà di sinistra
 \end{itemize}
 \begin{lstlisting}[ caption=Ricerca Binaria]
 int binarySearch(int[] S, int v, int start, int end)
@@ -76,51 +76,51 @@ int min(int[] S, int n)			% Costo # Volte
 			min = S[i]	% c4 	 n-1
 	return min			% c5	 1
 \end{lstlisting}
-T(n) = c1 + c2n + c3(n-1) + c4(n-1) + c5 = (c2 + c3 + c4)n + (c1 + c5 - c3 - c4) = \textcolor{red}{an + b}
+$T(n) = c1 + c2n + c3(n-1) + c4(n-1) + c5 = (c2 + c3 + c4)n + (c1 + c5 - c3 - c4) = \textcolor{red}{an + b}$
 
 \newpage
 
 \subsection{Complessità Algoritmi vs Complessità Problemi: Moltiplicazione di Gauss}
 \textbf{Problema: Moltiplicazione numeri complessi}
 \begin{itemize}
-	\item (a + bi)(c + di) = [ac - bd] + [ad + bc]i
-	\item Input: a, b, c, d
-	\item Output: ac - bd, ad + bc
+	\item $(a + bi)(c + di) = [ac - bd] + [ad + bc]i$
+	\item Input: $a, b, c, d$
+	\item Output: $ac - bd, ad + bc$
 \end{itemize}
 Se consideriamo un modello di calcolo dove la moltiplicazione costa 1 mentre le addizioni e le sottrazioni costano 0.01 otteniamo che il costo dell'algoritmo risulta essere 2*(2 + 0.01) = 4.02\\
 Usiamo la tecnica della \textbf{moltiplicazione di Gauss}:
 \begin{itemize}
-	\item A1 = a*c
-	\item A2 = b*d
-	\item m = (a + b)*(c + d)
-	\item A3 = m - A1 - A2 = (a + b)*(c + d) - (a*c) - (b*d) = \cancel{ac} + ad + bc + \cancel{bd} - \cancel{ac} -\cancel{bd} = ad + bc
-	\item A4 = A1 - A2 = ac - bd
+	\item $A_1 = a \cdot c$
+	\item $A_2 = b \cdot d$
+	\item $m = (a + b) \cdot (c + d)$
+	\item $A_3 = m - A_1 - A_2 = (a + b) \cdot (c + d) - (a \cdot c) - (b \cdot d) = \cancel{ac} + ad + bc + \cancel{bd} - \cancel{ac} -\cancel{bd} = ad + bc$
+	\item $A_4 = A_1 - A_2 = ac - bd$
 \end{itemize}
-Notiamo che A3 e A4 sono esattamente i termini che ci aspettiamo vengano restituiti dalla moltiplicazione dei numeri complessi e che, in questo caso, il costo delle operazioni all'interno del nostro sistema risulta essere 3.05.
+Notiamo che $A_3$ e $A_4$ sono esattamente i termini che ci aspettiamo vengano restituiti dalla moltiplicazione dei numeri complessi e che, in questo caso, il costo delle operazioni all'interno del nostro sistema risulta essere 3.05.
 
 \subsection{Notazione Asintotica e Proprietà}
 Definzione \textcolor{red}{$\mathcal{O}(g(n))$}:\\
 Sia g(n) una funzione di costo; indichiamo con $\mathcal{O}(g(n))$ un insieme di funzioni f(n) tali per cui:
 \begin{center}
-$\exists$c $>$ 0, $\exists$m $\geq$ 0 : \textcolor{red}{f(n) $\leq$ cg(n)} , $\forall$n $\geq$ m
+$\exists c > 0, \exists m \geq 0$ : $\textcolor{red}{f(n) \leq cg(n)} , \forall n \geq m$
 \end{center}
 Definizione \textcolor{red}{$\Omega(g(n))$}:\\
 Sia g(n) una funzione di costo; indichiamo con $\Omega(g(n))$ un insieme di funzioni f(n) tali per cui:
 \begin{center}
-$\exists$c $>$ 0, $\exists$m $\geq$ 0 : \textcolor{red}{f(n) $\geq$ cg(n)} , $\forall$n $\geq$ m
+$\exists c > 0, \exists m \geq 0$ : $\textcolor{red}{f(n) \geq cg(n)} , \forall n \geq m$
 \end{center}
 \textbf{Regola Generale:}
 \begin{itemize}
 	\item \textbf{Espressioni Polinomiali}\\
-		\textcolor{red}{a$\textsubscript{k}$$n^k$ + a$\textsubscript{k-1}$$n^{k-1}$ + ... + a$\textsubscript{1}$n + a$\textsubscript{0}$, a$\textsubscript{k}$ $>$ 0 $\implies$ f(n) = $\Theta$($n^k$)}
+		$\textcolor{red}{a_{k} n^k + a_{k-1} n^{k-1} + ... + a_{1}n + a_{0}, a_{k} > 0 \implies f(n) = \Theta(n^k)}$
 	\item \textbf{Casi Particolari}\\
-		La complessità di \textcolor{red}{f(n) = 5} e di \textcolor{red}{f(n) = 5 + $\sin$(n)} è \textcolor{red}{ $\Theta$(1)}\\
+		La complessità di \textcolor{red}{$f(n) = 5$} e di \textcolor{red}{$f(n) = 5 + \sin(n)$} è \textcolor{red}{ $\Theta$(1)}\\
 		(P.S. la stessa cosa vale se vi è una limitazione al numero di dati che è necessario fornire in input)
 	\item ... altri casi trattati nella parte di teoria
 \end{itemize}
 
 \subsection{Complessità}
-$\forall$r $<$ s, h $<$ k, a $<$ b\\
+$\forall r < s, h < k, a < b$\\
 \textcolor{red}{$\mathcal{O}(1)$ $\subset$ $\mathcal{O}$($\log$$^{r}n$) $\subset$ $\mathcal{O}$($\log$$^{s}n$) $\subset$ $\mathcal{O}$($n^{h}$) $\subset$ $\mathcal{O}$($n^{h}$$\log$$^{r}n$)  $\subset$ $\mathcal{O}$($n^{h}$$\log$$^{s}n$) $\subset$ $\mathcal{O}$($n^{k}$) $\subset$ $\mathcal{O}$($a^{n}$) $\subset$ $\mathcal{O}$($b^{n}$)}
 
 \end{document}
