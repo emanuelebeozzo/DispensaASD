@@ -46,12 +46,12 @@ Tree(Item v)
 	return t
 	
 insertLeft(TREE T)
-	if left == nil then
+	if left $==$ nil then
 		T.parent = this
 		left = T
 		
 insertRight(TREE T)
-	if right == nil then
+	if right $==$ nil then
 		T.parent = this
 		right = T
 		
@@ -70,8 +70,8 @@ deleteRight()
 \newpage
 
 \subsubsection{Visite alberi binari}
-\textbf{Problema}: Dato un albero T, visitare tutti i nodi della struttura.\
-\textbf{Soluzione}: Esistono principalmente due metodologie per visitare un albero:\
+\textbf{Problema}: Dato un albero T, visitare tutti i nodi della struttura.\\
+\textbf{Soluzione}: Esistono principalmente due metodologie per visitare un albero:
 \begin{itemize}
 	\item DFS (Depth-First search - visita in profondità): per visitare un albero si visita ricorsivamente ognuno dei suoi sottoalberi. Tre varianti: pre/post/in order. Richiede uno stack.
 \end{itemize}
@@ -102,12 +102,12 @@ bfs(TREE albero)
 	QUEUE q = new QUEUE
 	q.enqueue(albero)
 	while not q.empty() do
-	TREE tmp = q.dequeue()
-	print tmp.read()
-	if tmp.left() $\neq$ nil then
-		q.enqueue(tmp.left())
-	if tmp.right() $\neq$ nil then
-		q.enqueue(tmp.right())
+		TREE tmp = q.dequeue()
+		print tmp.read()
+		if tmp.left() $\neq$ nil then
+			q.enqueue(tmp.left())
+		if tmp.right() $\neq$ nil then
+			q.enqueue(tmp.right())
 \end{lstlisting}
 \newpage
 
@@ -115,15 +115,15 @@ bfs(TREE albero)
 \textbf{Esempi}: Due algoritmi sugli alberi binari che fanno uno delle BFS.
 \begin{lstlisting}[caption= Esempi DFS alberi binari]
 % conta i nodi di un albero binario
-count_nodi(TREE albero)
-	if albero == nil then
+countNodi(TREE albero)
+	if albero $==$ nil then
 		return 0
 	else 
-		return 1 + count_nodi(albero.left())+count_nodi(albero.right())
+		return 1 + countNodi(albero.left()) + countNodi(albero.right())
 
 % stampa delle espressioni memorizzate in una struttura ad albero binario
 stampa_exp(TREE albero)
-	if albero.left() == nil and albero.right() == nil then
+	if albero.left() $==$ nil and albero.right() $==$ nil then
 		print albero.read()
 	else 
 		print "("
@@ -137,23 +137,23 @@ stampa_exp(TREE albero)
 Un albero binario di Natale è un albero binario tale per cui vale la seguente regola: tutti i livelli hanno la stessa brillantezza.  \\La brillantezza di un livello è pari alla somma della brillantezza dei nodi appartenenti a tale livello.  Un albero binario nil è un albero binario di Natale, ma triste.
 \begin{lstlisting}[caption=Esempi BFS alberi binari]
 boolean alberoBinNatale(TREE T)
-	if T == nil then
+	if T $==$ nil then
 		return true
 	else
 		QUEUE q = new QUEUE
 		q.enqueue(T)
-		int brillantezzaAlbero = T.brillace
+		int brillantezzaAlbero = T.brillance
 		int currentBrillance = 0
 		int nodilivello = 1
 		while not q.isEmpty() do
 			TREE u = q.dequeue()
-			currentBrillance = currentBrillance + u.brillace
+			currentBrillance = currentBrillance + u.brillance
 			nodilivello = nodilivello - 1
 			if u.left() $\neq$ nil then
 				q.enqueue(u.left())
 			if u.right() $\neq$ nil then
 				q.enqueue(u.right())
-			if nodilivello == 0 then
+			if nodilivello $==$ 0 then
 				if currentBrillance $\neq$ brillantezzaAlbero then
 					return false
 				currentBrillance = 0
@@ -163,7 +163,7 @@ boolean alberoBinNatale(TREE T)
 \newpage
 \begin{flushleft}
 La soluzione proposta conosce il numero di nodi che fanno parte di un livello, in quanto, nel momento in cui un livello termina, in coda sono presenti tutti i nodi del livello successivo. \\
-Il primo livello ovviamente ha dimensione 1, in quanto è un albero binario radicato. Ovviamente partendo da questo è semplice sommare la brillantezza dei livelli sapendo che, al termine dello stesso, gli elementi del prossimo livello sono dati dagli n elmenti in coda a tal momento, dove $n = q.size()$, dove q è l'instanza della coda.
+Il primo livello ovviamente ha dimensione 1, in quanto è un albero binario radicato. Ovviamente partendo da questo è semplice sommare la brillantezza dei livelli sapendo che, al termine dello stesso, gli elementi del prossimo livello sono dati dagli n elmenti in coda a tal momento, dove $n = q.size()$, dove $q$ è l'instanza della coda.
 \end{flushleft}
 \subsection{Alberi generici}
 Un albero generico è un albero con un numero di figli non fissato.\\
@@ -198,6 +198,7 @@ deleteSibling()
 \textbf{Soluzione}: Esistono principalmente due metodologie per visitare un albero:
 \begin{itemize}
 	\item DFS
+\end{itemize}
 \begin{lstlisting}[ caption= Visita DFS albero generico]
 preorder_generic_dfs(TREE albero)
 	if albero $\neq$ nil then
@@ -215,7 +216,9 @@ postorder_generic_dfs(TREE albero)
 			tmp = tmp.rightSibling()
 		print albero.read()
 \end{lstlisting}
+\begin{itemize}
  	\item BFS
+\end{itemize}
 \begin{lstlisting}[ caption= Visita BFS albero generico]
 generic_bfs(TREE albero)
 	QUEUE q = new QUEUE
@@ -228,11 +231,10 @@ generic_bfs(TREE albero)
 			q.enqueue(tmp)
 			tmp = tmp.rightSibling()
 \end{lstlisting}
-\end{itemize}
 \newpage
 
 \subsection{Alberi Binari di Ricerca (ABR)}
-\textbf{Descrizione}: Un albero T è un albero binario che rispetta le seguenti proprietà: le chiavi contenute nei nodi del sottoalbero sinistro di un nodo generico u sono minori di u.key, mentre le chiavi contenute nei nodi del sottoalbero destro sono maggiori di u.key.L'idea degli ABR è quella di portare la ricerca binaria negli alberi. Un ABR è un dizionario in cui ogni nodo u contiene delle associazioni chiave-valore salvate attraverso una coppia (u.key, u.value).\\
+\textbf{Descrizione}: Un albero $T$ è un albero binario che rispetta le seguenti proprietà: le chiavi contenute nei nodi del \emph{sottoalbero sinistro} di un nodo generico $u$ sono minori di $u.key$, mentre le chiavi contenute nei nodi del \emph{sottoalbero destro} sono maggiori di $u.key$. L'idea degli ABR è quella di portare la ricerca binaria negli alberi. Un ABR è un dizionario in cui ogni nodo $u$ contiene delle associazioni chiave-valore salvate attraverso una coppia \emph{(u.key, u.value)}.\\
 \textbf{Specifica}: La struttura di un ARB e tutte le operazioni possibili sono le seguenti. 
 \begin{lstlisting}[ caption= Specifica ABR]
 TREE
@@ -254,7 +256,7 @@ TREE max()
 \begin{lstlisting}[ caption= Specifica ABR: lookup]
 % lookup versione ricorsiva
 TREE lookupNode(TREE T, ITEM k)
-	if T == nil or T.key == k then
+	if T $==$ nil or T.key $==$ k then
 		return T
 	else
 		return lookupNode(iif(k < T.key, T.left, T.right), k)
@@ -264,16 +266,16 @@ TREE lookupNode(TREE T, ITEM k)
 	TREE u = T
 	while u $\neq$ nil and u.key $\neq$ k do
 		if k < u.key then
-			u = u.left			 % Sotto-albero di sinistra
+			u = u.left			% Sotto-albero sinistro
 		else
-			u = u.right			% Sotto-albero di destra
+			u = u.right			% Sotto-albero destro
 	return u
 \end{lstlisting}
 \newpage
 \begin{lstlisting}[ caption= Specifica ABR: min e max]
 TREE min(TREE albero)
 	TREE u = albero
-	if u == nil then 
+	if u $==$ nil then 
 		retun u
 	while u.left $\neq$ nil do
 		u = u.left
@@ -281,7 +283,7 @@ TREE min(TREE albero)
 
 TREE max(TREE albero)
 	TREE u = albero
-	if u == nil then 
+	if u $==$ nil then 
 		retun u
 	while u.right $\neq$ nil do
 		u = u.right
@@ -289,7 +291,7 @@ TREE max(TREE albero)
 \end{lstlisting}
 \begin{lstlisting}[ caption= Specifica ABR: successore e predecessore]
 TREE successore(TREE albero)
-	if albero == nil then
+	if albero $==$ nil then
 		return albero
 	if albero.right $\neq$ nil then
 		return min(albero.right)
@@ -302,7 +304,7 @@ TREE successore(TREE albero)
 	return parent
   
 TREE predecessore(TREE albero)
-	if albero == nil then
+	if albero $==$ nil then
 		return albero
 	if albero.left $\neq$ nil then
 		return max(albero.left)
@@ -317,7 +319,7 @@ TREE predecessore(TREE albero)
 \newpage
 \begin{lstlisting}[ caption= Specifica ABR: insert e link]
 TREE insert(TREE albero, ITEM key, ITEM value)
-	if albero == nil then
+	if albero $==$ nil then
 		albero = new TREE(key, value)
 	% trovo la posizione del nodo da inserire
 	TREE parent = albero
@@ -360,24 +362,24 @@ TREE cancellazione(TREE albero, ITEM key)
 		else
 			u = u.right
 	% controllo se il nodo da rimuovere ha veri e propri figli
-	if u.left == u.right == nil then
+	if u.left $==$ u.right $==$ nil then
 		% caso albero formato da un unico nodo da rimuovere
-		if u == albero then
+		if u $==$ albero then
 			return nil
 		else
 			link(u.parent, nil, u.key)
 			delete u
 	% caso invece un solo figlio
-	if u.left == nil then 
-		if u == albero then 
+	if u.left $==$ nil then 
+		if u $==$ albero then 
 			u = u.left
 			u.parent = nil
 			return u
 		else
 			u = u.left
 			u.parent = (u.parent).parent
-	else if u.right == nil then 
-		if u == albero then 
+	else if u.right $==$ nil then 
+		if u $==$ albero then 
 			u = u.right
 			u.parent = nil
 			return u
@@ -428,7 +430,7 @@ TREE rotateLeft(TREE x)
 	% y diventa figlio di p
 	y.parent = p
 	if p $\neq$ nil then
-		if p.left == x then
+		if p.left $==$ x then
 			p.left = y
 		else
 			p.right = y
