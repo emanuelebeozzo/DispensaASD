@@ -48,7 +48,7 @@ Nella versione seguente viene ritornata una coppia $<$$int$, $int$$>$ che contie
 \end{itemize}
 \begin{lstlisting}[ caption=Ricerca Binaria]
 int binarySearch(int[] S, int v, int start, int end)
-	if start < end then
+	if start > end then
 		return 0
 	else
 		int m = $\lfloor$(start+end)/2$\rfloor$

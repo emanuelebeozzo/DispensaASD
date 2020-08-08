@@ -67,7 +67,7 @@ L'esporazione dello spazio delle soluzioni, ammissibili e non, da origine a quel
 	\item  \textcolor{red}{Foglie in un albero di decisione} $\equiv$ Soluzioni ammissibili
 \end{itemize}
 \begin{center}
-	\includegraphics{ ../img/backtracking_albero_delle_decisioni}
+	\includegraphics{../img/backtracking_albero_delle_decisioni}
 \end{center}
 Grazie ad alcuni accorgimenti è possibile evitare di attraversare i rami dell'albero delle decisioni che sicuramente porteranno a soluzioni non ammissibili, questa tecnica è detta \emph{potatura} o \emph{pruning}.
 \subsection{Sottoinsiemi}
@@ -427,7 +427,7 @@ Per ogni decisione viene lanciata la procedura \emph{moves} che ritorna le sole 
 \subsection{Knight tour}
 Si consideri ancora una scacchiera $n \times n$; lo scopo è trovare un "giro di cavallo", ovvero un percorso di mosse valide del cavallo in modo che ogni casella venga visitata al più una volta.
 \begin{center}
-	\includegraphics{ ../img/backtracking_knight_tour}
+	\includegraphics{../img/backtracking_knight_tour}
 \end{center}
 La soluzione, come di fatto è intuibile, è quella di utilizzare backtrack con un meccanismo che consente di determinare se una cella è stata o meno visitata come segue: \\
 Nella matrice $n \times n$ vi saranno:
@@ -483,7 +483,7 @@ Ci chiediamo ora come è possibile determinare, dati $n$ punti ($n \geq 3$), qua
 \textbf{Soluzione} \\
 Un primo approccio per risolvere il problema è quello di considerare retta che passa per una coppia di punti $p_i, p_j$, che divide il piano in due semipiani chiusi ($\mathcal{O}(n^2)$ coppie); infatti se tutti i punti rimanenti $(n - 2)$ stanno "dalla stessa parte", allora lo spigolo $S_{ij}$ fa parte dell'inviluppo convesso. Il costo di questa procedura sarà di $\mathcal{O}(n^3)$. Semplicemente lanciando per tutte le coppie di possibili di punti la procedura per determinare se tutti i punti rimanenti appartengono allo stesso semipiano, se si, allora tale coppia di vertici appartiene all'inviluppo convesso.
 \begin{center}
-	\includegraphics{ ../img/backtracking_inviluppo_convesso}
+	\includegraphics{../img/backtracking_inviluppo_convesso}
 \end{center}
 È necessario ora definire che significa stare dalla \emph{"stessa parte"}, ovvero tradurre in codice che vuol dire che i punti $p$ e $q$ stanno nello stesso semipiano definito dalla retta passante per i punti $p_1$ e $p_2$. \\
 Possiamo fare questo utilizzando il seguente algoritmo:
@@ -522,7 +522,7 @@ Descriviamo il comportamento di questo algoritmo nelle tre macro aree che lo com
 \end{itemize} 
 Schema riassuntivo del funzionamento dell'algoritmo di Jarvis:
 \begin{center}
-	\includegraphics{ ../img/backtracking_inviluppo_convesso_jarvis}
+	\includegraphics{../img/backtracking_inviluppo_convesso_jarvis}
 \end{center}
 \subsection{Algoritmo di Graham}
 Un altro algoritmo per il calcolo dell'inviluppo convesso è l'algoritmo di Graham, il quale fa utilizzo di backtracking iterativo.
@@ -533,7 +533,7 @@ Il primo passo consiste nell'ordinare i punti seguendo le seguenti direttive:
 \end{itemize}
 L'ordinamento per i vertici definito da Graham è rappresentato come segue:
 \begin{center}
-	\includegraphics{ ../img/backtracking_inviluppo_convesso_graham_1}
+	\includegraphics{../img/backtracking_inviluppo_convesso_graham_1}
 \end{center}
 Possiamo dunque inziare la stesura dell'algoritmo di Graham aggiungendo questa prima parte, con alcune considerazioni sui prossimi punti da prendere. 
  \begin{lstlisting}[ caption= Graham algorithm prima bozza]
@@ -575,7 +575,7 @@ STACK graham(POINT[] p, int n)
 	return S
 \end{lstlisting}
 \begin{center}
-	\includegraphics{ ../img/backtracking_inviluppo_convesso_graham_2}
+	\includegraphics{../img/backtracking_inviluppo_convesso_graham_2}
 \end{center}
 La complessità è $\mathcal{O}(n \log n)$ dato da:
 \begin{itemize}

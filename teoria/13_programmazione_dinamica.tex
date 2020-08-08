@@ -529,7 +529,7 @@ printPar(int[][] last , int i, int j)
 		print "A["; print i; print "]"
 	else
 		print "(";
-		stampaPar(last, i, last[i][j]);
+		printPar(last, i, last[i][j]);
 		print "$\cdot$";
 		printPar(last, last[i][j] +1, j);
 		print ")"
