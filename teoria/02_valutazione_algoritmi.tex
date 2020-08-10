@@ -2,7 +2,7 @@
 \begin{document}
 
 \section{Sottovettore di Somma Massima: Algoritmo di Kadane}
-\textbf{Problema}: Dato un vettore di interi $A[1...n]$, restituire il sottovettore $A[i...j]$ (con i, j $<$ n e i $\leq$ j) di somma massimale, ovvero la cui somma degli elementi $\sum_{k=i}^j A[k]$ è più grande o uguale alla somma degli elementi di qualunque altro sottovettore.\\
+\textbf{Problema}: Dato un vettore di interi $A[1...n]$, restituire il sottovettore $A[i...j]$ (con $i, j < n$ e $i \leq j$) di somma massimale, ovvero la cui somma degli elementi $\sum_{k=i}^j A[k]$ è più grande o uguale alla somma degli elementi di qualunque altro sottovettore.\\
 \textbf{Soluzione} (con Programmazione Dinamica): \textbf{Algoritmo di Kadane}
 \begin{lstlisting}[caption=Kadane Algorithm]
 int maxSumKadane(int[] A, int n)
@@ -51,8 +51,8 @@ int binarySearch(int[] S, int v, int start, int end)
 	if start > end then
 		return 0
 	else
-		int m = $\lfloor$(start+end)/2$\rfloor$
-		if S[m] == v then
+		int m = $\lfloor$(start + end)/2$\rfloor$
+		if S[m] $==$ v then
 			return m
 		else if S[m] < v then
 			return binarySearch(S, v, m+1, end)
@@ -146,5 +146,5 @@ $\exists c_1 > 0, \exists c_2 > 0, \exists m \geq 0$ : $\textcolor{red}{c_1g(n) 
 \subsection{Complessità}
 $\forall r < s, h < k, a < b$\\
 \textcolor{red}{$\mathcal{O}(1)$ $\subset$ $\mathcal{O}$($\log$$^{r}n$) $\subset$ $\mathcal{O}$($\log$$^{s}n$) $\subset$ $\mathcal{O}$($n^{h}$) $\subset$ $\mathcal{O}$($n^{h}$$\log$$^{r}n$)  $\subset$ $\mathcal{O}$($n^{h}$$\log$$^{s}n$) $\subset$ $\mathcal{O}$($n^{k}$) $\subset$ $\mathcal{O}$($a^{n}$) $\subset$ $\mathcal{O}$($b^{n}$)}
-
+\newpage
 \end{document}

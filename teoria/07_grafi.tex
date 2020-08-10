@@ -108,7 +108,6 @@ erdos(GRAPH G, NODE r, int[] erdos, NODE[] parent)
 				parent[v] = u
 				Q.enqueue(v)
 \end{lstlisting}
-
 \textbf{Estensione}: Dopo aver calcolato Erdos aver inizializzato il vettore dei parent è possibile stampare l'albero di copertura usando tale vettore.\
 \begin{lstlisting}[ caption= Albero di copertura BFS]
 printPath(NODE r, NODE s, NODE[] parent)
@@ -120,9 +119,8 @@ printPath(NODE r, NODE s, NODE[] parent)
 		printPath(r, parent[s], parent)
 		print s
 \end{lstlisting}
-
 \subsection{Componenti connesse: DFS}
-\textbf{Problema}: Dato un grafo G non orientato verificare se è connesso (cioè  ogni suo nodo è raggiungibile da ogni altro nodo) e identificare le sue componenti connesse (cioè sottografi massimali e connessi).\
+\textbf{Problema}: Dato un grafo G non orientato verificare se è connesso (cioè  ogni suo nodo è raggiungibile da ogni altro nodo) e identificare le sue componenti connesse (cioè sottografi massimali e connessi).\\
 \textbf{Soluzione}: Un grafo è connesso se, al termine della DFS tutti i nodi sono stati marcati come visitati. Altrimenti la visita deve ricominciare da capo da un nodo non marcato, identificando una nuova componente del grafo. Strutture necessarie: un vettore \textit{id} che contiene gli identificatori delle componenti, in cui \textit{id}[u] è il numero che identifica la componente connessa a cui appartiene il nodo u. Se l'id di un nodo è uguale a 0, vuol dire che quel nodo deve essere ancora visitato.\
 \newpage
 \begin{lstlisting}[ caption= Componenti connesse (cc) con ricorsione]
@@ -147,7 +145,7 @@ ccdfs(GRAPH G, int counter, Node u, int[] id)
 
 
 \subsection{Grafo non orientato aciclico: DFS}
-\textbf{Problema}: Dato un grafo G non orientato verificare se è aciclico, cioè se non contiene cicli (con lunghezza maggiore di 2). Restituire true se G contiene un cicli, false altrimenti.\
+\textbf{Problema}: Dato un grafo G non orientato verificare se è aciclico, cioè se non contiene cicli (con lunghezza maggiore di 2). Restituire true se G contiene un cicli, false altrimenti.\\
 \textbf{Soluzione}: La soluzione si basa sempre su una DFS. \
 \begin{lstlisting}[caption= Grafo non orientato aciclico (hasCycle)]
 boolean hasCycle(GRAPH G)
@@ -293,7 +291,6 @@ ccdfs(GRAPH G, int counter,NODE u, int[] id)
 		if id[v] == 0 then
 			ccdfs(G, counter, v, id)
 \end{lstlisting}
-
 \textbf{Realtà}: Nella realtà viene usato l'algoritmo di Tarjan che richiede solo una visita e non due e non richiede la trasposizione del grafo.
 
 \newpage
