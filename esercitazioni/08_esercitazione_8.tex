@@ -3,18 +3,18 @@
 
 \subsection{Esercitazione 8 - 16/03/20}
 \textbf{Massima Copertura - Compito 05/06/2014}\\
-Si considerinonsegmenti sulla retta delle ascisse, dove l'i-esimosegmento inizia nella coordinata $a[i]$ (inclusa) e termina nella coordinata $b[i]$ (esclusa). Scrivere un algoritmo che prenda in input i vettori $a$, $b$ e la dimensione $n$, e restituisca il sottoinsieme di segmenti indipendenti (che non si intersecano) di copertura massimale, ovvero che copre la maggior partedella retta delle ascisse. Valutare il costo computazionale dell'algoritmo proposto
+Si considerino n segmenti sulla retta delle ascisse, dove l'i-esimo segmento inizia nella coordinata $a[i]$ (inclusa) e termina nella coordinata $b[i]$ (esclusa). Scrivere un algoritmo che prenda in input i vettori $a$, $b$ e la dimensione $n$, e restituisca il sottoinsieme di segmenti indipendenti (che non si intersecano) di copertura massimale, ovvero che copre la maggior parte della retta delle ascisse. Valutare il costo computazionale dell'algoritmo proposto
 \begin{lstlisting}[caption=Massima copertura]
 int massimaCopertura(int[] a, int[] b, int n)
     int[] w = new int[1...n]
     for i = 1 to n do
-        w[i] = 1
+        w[i] = b[i] - a[i]
     return maxInterval(a, b, w, n)
 \end{lstlisting}
 La complessità computazionale è $\mathcal{O}(n \log n)$, dovuta alla funzione maxInterval. \\
-È possibile osservare infatti che il problema proposto può essere trattato come il problema dell'insieme indipendente di intervalli di peso massimo, il cui peso è unitario perché cerchiamo il sottoinsieme di intervalli disguinti più grande posssibile. Per l'algoritmo maxInterval è sufficiente consultare la sezione \emph{Insieme indipendente di intervalli pesati} nel capitolo \emph{Programmazione dinamica}.\\\\
+È possibile osservare infatti che il problema proposto può essere trattato come il problema dell'insieme indipendente di intervalli di peso massimo, il cui peso è dato dalla grandezza dell'intervallo perché cerchiamo il sottoinsieme di intervalli disgiunti più grande possibile. Per l'algoritmo maxInterval è sufficiente consultare la sezione \emph{Insieme indipendente di intervalli pesati} nel capitolo \emph{Programmazione dinamica}.\\\\
 \textbf{I Promessi Sposi}\\
-Scrivere un algoritmo che prenda in input una stringa testo $T$ di $n$ caratteri e una stringa pattern $P$ di $m$ caratteri e restituisca il numero di volte distinte che la stringa $P$ appare come sottosequenza di $T$. Discutere correttezza e complessità dell’algoritmo.
+Scrivere un algoritmo che prenda in input una stringa testo $T$ di $n$ caratteri e una stringa pattern $P$ di $m$ caratteri e restituisca il numero di volte distinte che la stringa $P$ appare come sotto-sequenza di $T$. Discutere correttezza e complessità dell'algoritmo.
 \begin{lstlisting}[caption=Sottosequenze di un pattern in un testo (Promessi Sposi)]
 int promessiSposi(string[] T, int n, string[] P, int m)
 	int[][] DP = new int[0...n][0...m]
@@ -45,7 +45,7 @@ La complessità dell'algoritmo è $\mathcal{O}(nm)$ mentre è possibile scrivere
     	DP[i-1][j] & \text{$altrimenti$}
   	\end{cases}
 \end{equation*}
-$DP[i][j]$ rappresenta il numero di sottosequenze del prefisso del pattern $P_{j}$ (cioè nel pattern in $P[1...j]$) contenute nel prefisso del testo $T_{i}$, dunque avremo in $DP[n][m]$ le occorrenze totali di P nel testo T. I casi base sono rappresentati da:
+$DP[i][j]$ rappresenta il numero di sotto-sequenze del prefisso del pattern $P_{j}$ (cioè nel pattern in $P[1...j]$) contenute nel prefisso del testo $T_{i}$, dunque avremo in $DP[n][m]$ le occorrenze totali di P nel testo T. I casi base sono rappresentati da:
 \begin{itemize}
 	\item $i = 0$, cioè è stato analizzato tutto il testo ma non il pattern e non è stata trovata dunque un occorrenza completa. Il valore di ritorno è 0.
 	\item $j = 0$, cioè è stato analizzato tutto il pattern ed è quindi stata trovata un occorrenza completa. Il valore di ritorno è 1.
@@ -158,7 +158,7 @@ int 2partition(int[] V, int n)
 	return indexMin
 \end{lstlisting}
 La complessità di questa soluzione è ovviamente $\mathcal{O}(n)$.\\
-Nella soluzione con $k=3$ è sempre possibile creare un vettore $DP$: a differenza del caso precedente è necessario usare due cicli per fissare gli inidici a cui verrà spezzato il vettore e applicare un ragionamento simile a quello fatto in precedenza
+Nella soluzione con $k=3$ è sempre possibile creare un vettore $DP$: a differenza del caso precedente è necessario usare due cicli per fissare gli indici a cui verrà spezzato il vettore e applicare un ragionamento simile a quello fatto in precedenza
 \newpage
 \begin{lstlisting}[caption=3-partizioni]
 int 3partition(int[] V, int n)
@@ -183,14 +183,6 @@ int 3partition(int[] V, int n)
 \end{lstlisting}
 La complessità di questa soluzione è $\mathcal{O}(n^{2})$.\\
 Nonostante sembrerebbe la soluzione migliore, nel caso di $k$ partizioni non è affatto consigliato utilizzare $k-1$ cicli per suddividere il vettore. In questo caso la risoluzione più efficiente consiste nell'utilizzare l'algoritmo per quello che è definito \emph{Painter Partition Problem}. Per evitare incomprensioni con le soluzioni precedenti è necessario sottolineare che il vettore DP usato in precedenza verrà rinominato in $tot[1...n]$ e che $DP$ in questo caso farà riferimento ad una matrice.\\
-Sia $DP[i][t]$ il minimo costo associato al sottoproblema di trovare lamigliore t-partizione nel vettore $V[1...i]$. Il problema iniziale corrisponde a $DP[n][k]$ – ovvero trovare la migliore k-partizione in $V[1...i]$.
-\begin{equation*}
-    DP[i][t]=\begin{cases}
-        +\infty & \text{$t > i$}\\
-        tot[i] & \text{$t == 1$} \\
-        min_{1 \leq j < i}max(DP[j][t-1], tot[i] - tot[j]) & \text{altrimenti}
-    \end{cases}
-\end{equation*}
 \begin{lstlisting}[caption=k-partizioni]
 int k_partition(int[] V, int n, int k)
 	int[] tot = new int[1...n]
@@ -217,10 +209,20 @@ int partitionRec(int[] V, int[] tot, int[][] DP, int i, int t)
 				DP[i][t] = min(DP[i][t], cost)
 		return DP[i][j]
 \end{lstlisting}
-La tabella ha dimensione $n \times k$, ogni cella richiede tempo $\mathcal{O}(n)$ per essere riempita e il costo computazionale è quindi $\mathcal{O}(kn^{2})$.\\\\
+\newpage
+\noindent
+Sia $DP[i][t]$ il minimo costo associato al sotto-problema di trovare la migliore t-partizione nel vettore $V[1...i]$. Il problema iniziale corrisponde a $DP[n][k]$ – ovvero trovare la migliore k-partizione in $V[1...i]$.
+\begin{equation*}
+    DP[i][t]=\begin{cases}
+        +\infty & \text{$t > i$}\\
+        tot[i] & \text{$t == 1$} \\
+        min_{1 \leq j < i}max(DP[j][t-1], tot[i] - tot[j]) & \text{altrimenti}
+    \end{cases}
+\end{equation*}
+\\La tabella ha dimensione $n \times k$, ogni cella richiede tempo $\mathcal{O}(n)$ per essere riempita e il costo computazionale è quindi $\mathcal{O}(kn^{2})$.\\\\
 \textbf{Quadrato Binario - Compito 10/09/12}\\
 Sia $A$ una matrice $n \times n$ di valori booleani $0/1$. Scrivere un algoritmo che prenda in input la matrice $A$ e la sua dimensione $n$, e restituisca la dimensione del più grande quadrato composto da valori $1$ contenuto nella matrice.\\
-La soluzione proposta consiste nel memorizzare innanzitutto in una matrice $DP$ la matrice iniziale in modo da poterci lavorare successivamente. L'algoritmo si basa sul controllo del valore contenuto nella cella a sinistra, in alto, in alto a sinistra e della cella stessa che si sta esaminando; viene poi selezionato il valore minimo fra questi quattro e viene sommato uno. Questa condizione stabilisce che si formerà un quadrato di celle più grandi solo e soltato se il valore delle quattro celle è uguale e quindi se di fatto tutte le celle precedenti contengono un quadrato di quella dimensione.
+La soluzione proposta consiste nel memorizzare innanzitutto in una matrice $DP$ la matrice iniziale in modo da poterci lavorare successivamente. L'algoritmo si basa sul controllo del valore contenuto nella cella a sinistra, in alto, in alto a sinistra e della cella stessa che si sta esaminando; viene poi selezionato il valore minimo fra questi quattro e viene sommato uno. Questa condizione stabilisce che si formerà un quadrato di celle più grandi solo e soltanto se il valore delle quattro celle è uguale e quindi se di fatto tutte le celle precedenti contengono un quadrato di quella dimensione.
 \begin{lstlisting}[caption=Quadrato Binario]
 int maxSquare(boolean[][] A, int n)
 	int[][] DP = new int[1...n][1...n]

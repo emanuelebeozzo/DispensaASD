@@ -3,7 +3,7 @@
 
 \subsection{Esercitazione 9 - 30/03/20}
 \textbf{Sciatori}\\
-Siano datinsciatori di altezza $p_{1}, ..., p_{n}$ ed $n$ paia di sci di lunghezza $s_{1}, ..., s_{n}$. Il problema è assegnare ad ogni sciatore un paio di sci, in modo da minimizzare la differenza totale fra le altezza degli sciatori e la lunghezza degli sci; ovvero, se allo sciatore $i$ è assegnato il paio di sci $h(i)$, minimizzare la seguente quantità:\\
+Siano dati n sciatori di altezza $p_{1}, ..., p_{n}$ ed $n$ paia di sci di lunghezza $s_{1}, ..., s_{n}$. Il problema è assegnare ad ogni sciatore un paio di sci, in modo da minimizzare la differenza totale fra le altezza degli sciatori e la lunghezza degli sci; ovvero, se allo sciatore $i$ è assegnato il paio di sci $h(i)$, minimizzare la seguente quantità:\\
 \begin{equation}
 	\sum_{i = 1}^{n}\mid{p_{i} - s_{h(i)}}\mid
 \end{equation}
@@ -11,7 +11,7 @@ Si consideri il seguente algoritmo greedy. Si individui la coppia (sciatore, sci
 \textbf{Soluzione:} L'algoritmo proposto non è una soluzione corretta al problema proposto, è necessario pensare ad esempio al caso in cui $p = [8, 13]$ e $s = [10, 5]$. In questo caso la differenza minima è data associando $p = 8$ con $s = 10$ e di conseguenza $p = 13$ verrà associato con $s = 5$ per un totale di 10. Se invece avessimo associato $p = 8$ a $s = 5$ e $p = 13$ a $s = 10$ avremmo ottenuto come risultato 6.\\
 Questa osservazione ci fornisce anche un'ottima base per la soluzione greedy dell'algoritmo per cui è necessario \textbf{ordinare entrambi i vettori} di sciatori e sci in modo da \textbf{associare sempre lo sciatore di altezza maggiore con il paio di sci di lunghezza maggiore}.\\\\  
 \textbf{Sfilatino alla Nutella - Compito 31/05/13}\\
-Nella sagra di Hateville, è stato realizzato lo sfilatino alla Nutella più lungo del mondo, lungo $L$ centimetri. Ora si tratta di realizzare un altro record: il maggior numero di persone servite con lo stesso sfilatino. Alla sagra sono presenti $n$ persone, dove la persona $i$-esima chiede un segmento di sfilatino lungo $V[i]$ centimetri; secondo il regolamento, ogni richiesta va servita esattamente, ovvero se la persona $i$ verrà servita, riceverà il segmento richiesto. Tutte le lunghezze sono intere. Scrivere un algoritmo che restituisca il numero massimo di persone che possono essere servite con lo sfilatino. Non è necessario utilizzare tutto lo sfilatino. Oltre a calcolare la complessità dell’algoritmo proposto, discutere anche la correttezza, menzionando la tecnica scelta e specificando bene perché tale tecnica può essere applicata in questo caso.
+Nella sagra di Hateville, è stato realizzato lo sfilatino alla Nutella più lungo del mondo, lungo $L$ centimetri. Ora si tratta di realizzare un altro record: il maggior numero di persone servite con lo stesso sfilatino. Alla sagra sono presenti $n$ persone, dove la persona $i$-esima chiede un segmento di sfilatino lungo $V[i]$ centimetri; secondo il regolamento, ogni richiesta va servita esattamente, ovvero se la persona $i$ verrà servita, riceverà il segmento richiesto. Tutte le lunghezze sono intere. Scrivere un algoritmo che restituisca il numero massimo di persone che possono essere servite con lo sfilatino. Non è necessario utilizzare tutto lo sfilatino. Oltre a calcolare la complessità dell'algoritmo proposto, discutere anche la correttezza, menzionando la tecnica scelta e specificando bene perché tale tecnica può essere applicata in questo caso.
 \begin{lstlisting}[caption=Sfilatino alla Nutella]
 int maxSquare(int[] V, int n, int L)
 	% Ordino le richieste per dimensione
@@ -26,12 +26,12 @@ Supponiamo sia $S[i...n]$ il set di richieste soddisfatte in maniera ottimale e 
 \begin{itemize}
 	\item $j$ si trova in prima posizione in $S[i...n]$, dunque la soluzione è comunque ottimale.
 	\item $j$ non si trova in prima posizione (ma sempre all'interno di $S[i...n]$), dunque è possibile trovare una soluzione equivalente $S'[j...n]$ dove $j$ si trova in prima posizione in quanto scambiato con $S[i]$.
-	\item $j$ non si trova all'interno dell'insieme considerato, ma quindi è possibile selezionare lo sfilatino con dimensione minore all'interno di $S[i...n]$ e sostituirlo con $j$ ottenendo quindi due insiemi dove $\sum_{k \in S} V[k] \geq \sum_{k \in S'} V[k]$ dove magari in $S'$ sarebbe possibile aggiungere una nuova richiesta ed aumentarne la cardinalità ma ciò è impossibile perchè $S$ ha la cardinalità maggiore possibile.
+	\item $j$ non si trova all'interno dell'insieme considerato, ma quindi è possibile selezionare lo sfilatino con dimensione minore all'interno di $S[i...n]$ e sostituirlo con $j$ ottenendo quindi due insiemi dove $\sum_{k \in S} V[k] \geq \sum_{k \in S'} V[k]$ dove magari in $S'$ sarebbe possibile aggiungere una nuova richiesta ed aumentarne la cardinalità ma ciò è impossibile perché $S$ ha la cardinalità maggiore possibile.
 \end{itemize}
 \textbf{High Line - Compito 29/06/17}\\
 Funzionamento: \\
 Ordiamo gli intervalli per limite inferiore di copertura, consideriamo il primo e salviamo dunque il valore minimo e il valore massimo coperto da tale intervallo nelle variabili inf e sup rispettivamente. Il primo elemento per definizione è incluso in quanto quello che parte dal punto più basso (ovviamente può essere sostituito da un intervallo che parte nello stesso punto e termina successivamente)\\
-Sono gesiti i seguenti casi: 
+Sono gestiti i seguenti casi: 
 \begin{itemize}
     \item Se l'estremo inferiore non include 0 allora non siamo riusciti a coprire una parte del tracciato, l'algoritmo deve dunque restituire -1
     \item $\forall i \mid 2 \leq i \leq n \land sup < L$ (irrigatore) si controlla:
@@ -39,7 +39,7 @@ Sono gesiti i seguenti casi:
         \item $D[i] + R[i] > sup$, l'intervallo considerato supera l'ultimo conteggiato, abbiamo dunque 3 casi:
         \begin{itemize}
             \item $inf == D[i] - R[i]$, l'intervallo considerato inizia nello stesso punto di quello conteggiato, è possibile dunque considerare $sup = D[i] + R[i]$.
-            \item $sup < D[i] - R[i]$, l'intervallo considerato inzia dopo del termine di quello conteggiato, non si riesce a coprire l'intervallo ($sup, D[i] - R[i]$), l'algoritmo deve restituire -1
+            \item $sup < D[i] - R[i]$, l'intervallo considerato inizia dopo del termine di quello conteggiato, non si riesce a coprire l'intervallo ($sup, D[i] - R[i]$), l'algoritmo deve restituire -1
             \item Altrimenti, ovvero nel caso in cui $D[i] + R[i] > sup$ e $sup > D[i] - R[i]$; sono dunque costretto a considerare un ulteriore irrigatore aggiornando il conteggio e gli estremi di inizio e fine.
         \end{itemize}
     \end{itemize}
@@ -72,7 +72,7 @@ int HighLine(int[] D, int[] R, int n, int L)
 La complessità computazionale dell'algoritmo proposto è $\mathcal{O}(n\log n)$, dovuta all'ordinamento per copertura iniziale in maniera crescente. È infatti sufficiente uno scorrimento di costo $\mathcal{O}(n)$ per il calcolo della soluzione.
 La correttezza può essere dimostrata nel seguente modo: \\
 \textbf{Sottostruttura ottima} \\
-Sia $S = \{i, ... n\}$ una soluzione ottima, $i \in S$ un elemento di $S$. Si ha che $S - \{i\}$ è una soluzione ottima per il sottoproblema $[0, L] - [D[i] - R[i], D[i] + R[i]]$. Se così non fosse allora esisterebbe una soluzione $S' = \{i', ... n'\}$ tale per cui la cardinalità $\mid S' \mid$ $<$ $\mid S - \{i\} \mid$, ma questo è impossibile in quanto $\mid S' \cup \{i\} \mid$ $<$ $\mid S \mid$ rendendo di fatto tale insieme una soluzione ottima per il problema originale violando l'assunzione che S sia ottimale.\\
+Sia $S = \{i, ... n\}$ una soluzione ottima, $i \in S$ un elemento di $S$. Si ha che $S - \{i\}$ è una soluzione ottima per il sotto-problema $[0, L] - [D[i] - R[i], D[i] + R[i]]$. Se così non fosse allora esisterebbe una soluzione $S' = \{i', ... n'\}$ tale per cui la cardinalità $\mid S' \mid$ $<$ $\mid S - \{i\} \mid$, ma questo è impossibile in quanto $\mid S' \cup \{i\} \mid$ $<$ $\mid S \mid$ rendendo di fatto tale insieme una soluzione ottima per il problema originale violando l'assunzione che S sia ottimale.\\
 \textbf{Proprietà greedy} \\
 Sia $S = \{i, ... n\}$ l'insieme composto dal minor numero di irrigatori tali da coprire lo spazio da 0 a $L$ metri. Sia dunque $j$ l'intervallo con limite inferiore di copertura più basso e, a parità di copertura iniziale, sia quello con maggior lunghezza di copertura finale. Si possono verificare i seguenti casi:
 \begin{itemize}

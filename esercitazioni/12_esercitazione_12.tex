@@ -79,10 +79,10 @@ int VitosHouse(int[] S, int r)
 \end{lstlisting}
 Tale algoritmo si basa sui seguenti passaggi: 
 \begin{itemize}
-	\item Suddividi i valori in gruppi di 5. Dove l’i-esimo gruppo è detto $S_i$, con $i \in [1, \lceil n/5 \rceil]$
+	\item Suddividi i valori in gruppi di 5. Dove l'i-esimo gruppo è detto $S_i$, con $i \in [1, \lceil n/5 \rceil]$
 	\item Trova il mediano $M_i$ di ogni gruppo $S_i$
 	\item Tramite una chiamata ricorsiva, trova il mediano m delle mediane $[M_1,M_2, ... ,M_{\lceil n/5 \rceil}]$
-	\item Usa $m$ come pivot e richiama l’algoritmo ricorsivamente sull’array opportuno
+	\item Usa $m$ come pivot e richiama l'algoritmo ricorsivamente sull'array opportuno
 	\item Quando la dimensione scende sotto una certa soglia, possiamo utilizzare un algoritmo di ordinamento per trovare il mediano, in questo caso \emph{InsertionSort} che ha ottime prestazioni per insiemi di piccole dimensioni.
 \end{itemize}
 Dove $median5$ è una funzione che ritorna il valore mediano di 5 elementi e pivot è la funzione nota che trova il pivot di un vettore, già usata per l'algoritmo di ordinamento \emph{QuickSort}.

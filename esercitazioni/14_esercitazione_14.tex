@@ -3,8 +3,8 @@
 
 \subsection{Esercitazione 14 - 03/06/20}
 \textbf{Sequenza Specchiata}\\
-Dato un vettore $V$ di $n$ interi appartenenti all’insieme \{0,1\}, si scriva un algoritmo che restituisca la lunghezza del più lungo sottovettore contiguo formato da $k$ valori 0 seguiti da $k$ valori 1. Si noti che è possibile che esistano altri valori 0 prima del sottovettore così individuato, oppure altri valori 1 dopo il sottovettore, ma non è possibile che si verifichino entrambe le estensioni, altrimenti il sottovettore non sarebbe massimale. Discutere correttezza e complessità dell'algoritmo proposto.\\
-Esempio: per l’input 001111111\textbf{000111}10000, l’algoritmo deve restituire 6.\\
+Dato un vettore $V$ di $n$ interi appartenenti all'insieme \{0,1\}, si scriva un algoritmo che restituisca la lunghezza del più lungo sottovettore contiguo formato da $k$ valori 0 seguiti da $k$ valori 1. Si noti che è possibile che esistano altri valori 0 prima del sottovettore così individuato, oppure altri valori 1 dopo il sottovettore, ma non è possibile che si verifichino entrambe le estensioni, altrimenti il sottovettore non sarebbe massimale. Discutere correttezza e complessità dell'algoritmo proposto.\\
+Esempio: per l’input 001111111\textbf{000111}10000, l'algoritmo deve restituire 6.\\
 \begin{lstlisting}[caption=Sequenza Specchiata]
 int mirrored(int[] V, int n)
 	int maxValue = 0
@@ -22,7 +22,7 @@ int mirrored(int[] V, int n)
 				zero = 0
 	return 2*maxValue
 \end{lstlisting}
-L'algoritmo conta le occorrenze di 0 fino a quando non incontra un 1, a quel punto, se il numero di zeri è maggiore di 0, viene preso il valore massimo tra la più grande sequenza specchiata trovata fino ad ora e il minimo tra il numero di 0 e 1 attuale. Nel caso in cui le occorrenze di uno sono maggiori di quelle di zero non è più necessario contare poichè si è già trovata la sequenza massima e bisognerà attendere la prossima sequenza di zeri; nel caso in cui viceversa la sequenza di uno sia più breve di quella di zero allora è necessario ripartire a contare gli zeri. La complessità dell'algoritmo proposto è $\mathcal{O}(n)$.\\\\
+L'algoritmo conta le occorrenze di 0 fino a quando non incontra un 1, a quel punto, se il numero di zeri è maggiore di 0, viene preso il valore massimo tra la più grande sequenza specchiata trovata fino ad ora e il minimo tra il numero di 0 e 1 attuale. Nel caso in cui le occorrenze di uno sono maggiori di quelle di zero non è più necessario contare poiché si è già trovata la sequenza massima e bisognerà attendere la prossima sequenza di zeri; nel caso in cui viceversa la sequenza di uno sia più breve di quella di zero allora è necessario ripartire a contare gli zeri. La complessità dell'algoritmo proposto è $\mathcal{O}(n)$.\\\\
 \textbf{Aggiornamento del flusso massimo}\\
 Sia $G= (V, E, s, t, c)$ una rete di flusso con valori interi. Si supponga di conoscere un flusso massimo in $G$, e si supponga che la capacità di un singolo arco $(u, v) \in E$ sia aumentata di una unità. Progettare un algoritmo per aggiornare il flusso massimo in tempo $\mathcal{O}(n+m)$ oppure $\mathcal{O}(n^{2})$.\\
 La soluzione al problema consiste nel modificare la versione dell'algoritmo maxFlow (\emph{Ford-Fulkerson}) presentato nella sezione di \emph{Ricerca Locale} della dispensa. Essendo che tra i vari dati vi è anche il flusso massimo attuale e la funzione di capacità è possibile ricavarsi la capacità residua tramite differenza e il cammino aumentante implementato tramite una visita bfs e una memorizzazione tramite liste di adiacenza.
@@ -85,12 +85,12 @@ Una scuola vuole organizzare un ballo di fine anno. Ci sono $n$ maschi e $m$ fem
 \begin{flushleft}
 \textbf{Piscina}
 \end{flushleft}
-Siete responsabile dei corsi di nuoto organizzati da una piscina pubblica. I corsi vengono gestiti settimanalmente. Ogni corso dura un’ora. Ogni corso può avere al massimo 6 bambini. Ogni corso ha un orario di inizio che può andare dalle 9 alle 18 (per un totale di dieci corsi al giorno). Ogni bambino sceglie a quanti corsi partecipare alla settimana, ma questo numero non può essere superiore a 5 e non si può fare lezione più di due volte lo stesso giorno. Poiché i poveri bambini moderni sono stressati da mille altri corsi (calcio, musica, etc), ogni bambino può dare un certo numero di preferenze (ore in cui può partecipare ad un corso). Ogni corso deve essere insegnato da un insegnante. Ogni insegnante può dare un certo numero di disponibilità (ore in cui può insegnare un corso). Infine, ogni bambino che segue un corso paga 10 euro. \textbf{Descrivere} un algoritmo che di assegnamento bambini-corsi-insegnanti che massimizzi il guadagno, descrivendo per bene input, output. Discutere la complessità.\\
+Siete responsabile dei corsi di nuoto organizzati da una piscina pubblica. I corsi vengono gestiti settimanalmente. Ogni corso dura un'ora. Ogni corso può avere al massimo 6 bambini. Ogni corso ha un orario di inizio che può andare dalle 9 alle 18 (per un totale di dieci corsi al giorno). Ogni bambino sceglie a quanti corsi partecipare alla settimana, ma questo numero non può essere superiore a 5 e non si può fare lezione più di due volte lo stesso giorno. Poiché i poveri bambini moderni sono stressati da mille altri corsi (calcio, musica, etc), ogni bambino può dare un certo numero di preferenze (ore in cui può partecipare ad un corso). Ogni corso deve essere insegnato da un insegnante. Ogni insegnante può dare un certo numero di disponibilità (ore in cui può insegnare un corso). Infine, ogni bambino che segue un corso paga 10 euro. \textbf{Descrivere} un algoritmo che di assegnamento bambini-corsi-insegnanti che massimizzi il guadagno, descrivendo per bene input, output. Discutere la complessità.\\
 \textbf{Soluzione:} Il seguente problema può essere risolto mediante la costruzione di una Rete di Flusso $G = (V, E, s, p, c)$
 \begin{itemize}
 	\item $V$ è l'insieme dei nodi appartenenti alla rete di flusso ed è costruito come segue 
 	\begin{itemize}
-		\item Aggiungiamo $b$ nodi, uno per ogni bamino
+		\item Aggiungiamo $b$ nodi, uno per ogni bambino
 		\item Aggiungiamo $7b$ nodi, cioè 7 nodi per ogni bambino rappresentanti la sua settimana
 		\item Aggiungiamo $70$ nodi, cioè 10 nodi per ogni giorno della settimana rappresentati l'orario a cui può svolgersi il corso il tal giorno
 		\item Aggiungiamo $i$ nodi, uno per ogni insegnante
@@ -101,7 +101,7 @@ Siete responsabile dei corsi di nuoto organizzati da una piscina pubblica. I cor
 	\begin{itemize}
 		\item Aggiungiamo un arco da $s$ a ogni $b_{i}$ con $1 \leq i \leq b$
 		\item Aggiungiamo un arco $\forall b_{i} \mid 1 \leq i \leq b$ a $g_{ij}$ ($ \forall j \mid 1\leq j \leq 7$), cioè da bambino ai giorni in cui si tengono i corsi (7 giorni per ogni bambino)
-		\item Aggiungiamo un arco $\forall  g_{ij} \mid 1 \leq i \leq b \land 1 \leq j \leq 7$ a $c_{jk}$ ($\forall k \mid 1 \leq k \leq 10$), cioè associamo ogni orario (dalle 9 alle 18) di ogni giorno della settiamana a un corso
+		\item Aggiungiamo un arco $\forall  g_{ij} \mid 1 \leq i \leq b \land 1 \leq j \leq 7$ a $c_{jk}$ ($\forall k \mid 1 \leq k \leq 10$), cioè associamo ogni orario (dalle 9 alle 18) di ogni giorno della settimana a un corso
 		\item Aggiungiamo un arco $\forall  c_{jk} \mid 1 \leq j \leq 7 \land 1 \leq k \leq 10$ all'insegnante $i_{c}$ (!$\exists$ $1 \leq c \leq i \mid i_{c}$ vuole insegnare in quell'orario)
 		\item Aggiungiamo infine un arco $\forall i_{c} \mid 1 \leq c \leq i$ entrante in $p$
 	\end{itemize}

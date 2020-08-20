@@ -248,7 +248,7 @@ Algoritmo basato su una coda, senza priorità, computazionalmente più pesante r
 	return(T, d)
 \end{lstlisting}
 A differenza degli algoritmi precedenti questo algoritmo funziona per grafi con archi che possiedono un peso negativo, a discapito però di una maggiore complessità. \\
-Per studiare la complessità dell'algoritmo di Bellman-Ford-Moore è necessario parlare di passate; sostanzialmente in questo algoritmo un nodo può essere inserito nuovamente in coda, dopo essere stato già rimosso, a differenza degli algoritmi precedenti i cui nodi venivano estratti una singola volta per poi non essere più accodati; ad ogni estrazione infatti, che chiamiamo passata, vengono estratti i nodi il cui costo descrive i cammini minimi di lunghezza pari al numero di passata (dove la passata zeresima consiste con l'estrazione della sorgente) . Le passate si ripeteranno per un massimo di ($n-1$), nelle quali vegono ogni volta analizzati dei percorsi migliori che descrivono cammini di lughezza al più $n - 1$. \\\\
+Per studiare la complessità dell'algoritmo di Bellman-Ford-Moore è necessario parlare di passate; sostanzialmente in questo algoritmo un nodo può essere inserito nuovamente in coda, dopo essere stato già rimosso, a differenza degli algoritmi precedenti i cui nodi venivano estratti una singola volta per poi non essere più accodati; ad ogni estrazione infatti, che chiamiamo passata, vengono estratti i nodi il cui costo descrive i cammini minimi di lunghezza pari al numero di passata (dove la passata zeresima consiste con l'estrazione della sorgente) . Le passate si ripeteranno per un massimo di ($n-1$), nelle quali vengono ogni volta analizzati dei percorsi migliori che descrivono cammini di lunghezza al più $n - 1$. \\\\
 Il costo computazionale è dunque:
 \\\\
 \begin{tabular}{@{}lllll@{}}
@@ -261,7 +261,7 @@ Riga & Costo & Ripetizioni &  &  \\ \midrule
 \\\\
 Dal quale risulta un costo totale di $\mathcal{O}(mn)$, dato dal fatto che ogni nodo può essere inserito ed estratto al massimo $n-1$ volte. \\\\
 \textbf{Cammini minimi su DAG} \\
-Algoritmo basato su uno stack che contiene i nodi che fanno parte dell'ordinamento topologico a partire dalla sorgente. Si basa sul fatto che, se sappiamo che il grafo in questione non possiede cicli, non c’è modo di tornare su un nodo già visitato e abbassare il suo costo.
+Algoritmo basato su uno stack che contiene i nodi che fanno parte dell'ordinamento topologico a partire dalla sorgente. Si basa sul fatto che, se sappiamo che il grafo in questione non possiede cicli, non c'è modo di tornare su un nodo già visitato e abbassare il suo costo.
 \begin{lstlisting}[caption=Algoritmo per i DAG: cammini minimi a sorgente singola]
 (int[],int[]) shortestPath (Graph G, Node s)
 	int[] d = new int[1... G.n]		%d[u] := la distanza da s a u 
@@ -327,7 +327,7 @@ Denotiamo con $d^{k}[x][y]$ il costo totale del cammino minimo k-vincolato fra $
 \textbf{Matrice dei padri} \\
 Oltre a definire la matrice $d$, calcoliamo una matrice $T$ dove $T[x][y]$ rappresenta il predecessore di $y$ nel cammino più breve da $x$ a $y$. \\\\
 \textbf{Principio di funzionamento} \\
-L'algoritmo di Floyd-Warshall è basato sulla definizione di cammino minimo k-vincolato, sostanzialmente per ogni coppia di veritici si osserva il comportamento in seguito all'aggiunta di un nuovo nodo dal quale i cammini possono passare, l'aggiunta di tale vertice può o meno diminuire la distanza tra i nodi in questione. Si parte infatti con i cammini minimi 0 vincolati, i quali rappresentano tutti i possibili cammini che non passano per alcun vertice, ad eccezione dei nodi adiacenti, ovvero gli archi diretti. Mano a mano che si considerano nuovi nodi i costi possono modificarsi; la soluzione finale si troverà  una volta analizzati i cammini n-vincolati, in quanto sono i cammini di costo minimo che possono passare per qualunque vertice del grafo. \\
+L'algoritmo di Floyd-Warshall è basato sulla definizione di cammino minimo k-vincolato, sostanzialmente per ogni coppia di vertici si osserva il comportamento in seguito all'aggiunta di un nuovo nodo dal quale i cammini possono passare, l'aggiunta di tale vertice può o meno diminuire la distanza tra i nodi in questione. Si parte infatti con i cammini minimi 0 vincolati, i quali rappresentano tutti i possibili cammini che non passano per alcun vertice, ad eccezione dei nodi adiacenti, ovvero gli archi diretti. Mano a mano che si considerano nuovi nodi i costi possono modificarsi; la soluzione finale si troverà  una volta analizzati i cammini n-vincolati, in quanto sono i cammini di costo minimo che possono passare per qualunque vertice del grafo. \\
 Ciò che abbiamo definito fino ad ora può essere riassunto dalla seguente ricorrenza: \\
 \[
   d^{k}[x][y]=\begin{cases}
@@ -354,7 +354,7 @@ Ciò che abbiamo definito fino ad ora può essere riassunto dalla seguente ricor
 					T[u][v] = T[k][v]
 	return (T,d)
 \end{lstlisting}
-La prima parte dell'algoritmo si occupa della trasformazione del nostro grafo, che abbiamo sempre assunto essere espresso mediante liste di adiacenza, in un grafo rappresentato da una matrice di adiacenza. Una volta fatto questo, si fissa il parametro $k$ (che rapprensenta il vincolo del cammino preso in analisi), e per ogni coppia di nodi si verificano i percorsi migliori facendo le opportune modifiche sul costo. \\
+La prima parte dell'algoritmo si occupa della trasformazione del nostro grafo, che abbiamo sempre assunto essere espresso mediante liste di adiacenza, in un grafo rappresentato da una matrice di adiacenza. Una volta fatto questo, si fissa il parametro $k$ (che rappresenta il vincolo del cammino preso in analisi), e per ogni coppia di nodi si verificano i percorsi migliori facendo le opportune modifiche sul costo. \\
 La complessità totale dell'algoritmo è $\mathcal{O}(n^3)$ dovuta alla presenza di tre cicli for annidati che iterano sui nodi del grafo.
 \newpage
 \end{document}

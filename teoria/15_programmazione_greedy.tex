@@ -3,7 +3,7 @@
 
 \section{Programmazione Greedy}
 \subsection{Introduzione}
-Nella sezione precedente ci siamo occupati di risolvere alcuni problemi mediante l'utilizzo di programmazione dinamica e, in alcuni di questi casi, abbiamo dovuto controllare tutte le possibili soluzioni ottenute poichè non eravamo certi di dove potesse trovarsi il risultato. In questo capitolo ci occuperemo invece della programmazione greedy e ciò di selezionare una sola tra le scelte possibili, quella che ci sembra la migliore (localmente ottima), dimostrando però che questa scelta si rivela poi essere ottima a livello globale.\\
+Nella sezione precedente ci siamo occupati di risolvere alcuni problemi mediante l'utilizzo di programmazione dinamica e, in alcuni di questi casi, abbiamo dovuto controllare tutte le possibili soluzioni ottenute poiché non eravamo certi di dove potesse trovarsi il risultato. In questo capitolo ci occuperemo invece della programmazione greedy e ciò di selezionare una sola tra le scelte possibili, quella che ci sembra la migliore (localmente ottima), dimostrando però che questa scelta si rivela poi essere ottima a livello globale.\\
 \textbf{ATTENZIONE:} Non tutti i problemi hanno una scelta ingorda come soluzione!
 \subsection{Insieme indipendente massimale di intervalli}
 \textbf{Input}\\
@@ -19,7 +19,7 @@ Prima di parlare della risoluzione del problema con la tecnica greedy proviamo a
 \textbf{Sottostruttura Ottima}\\
 Si assuma che gli intervalli siano ordinati per tempo di fine: $b_1 \leq b_2 \leq ... \leq b_n$\\
 Definiamo il \textcolor{red}{sottoproblema $S[i...j]$} come l'insieme di intervalli che iniziano dopo la fine di $i$ e finiscono prima dell'inizio di $j$: $S[i...j] = \{k|b_i \leq a_k < b_k \leq a_j\}$\\
-Aggiungiamo due intervalli fittizzi:\\
+Aggiungiamo due intervalli fittizi:\\
 \begin{itemize}
 	\item  Intervallo 0: $b_0 = - \infty$ 
 	\item  Intervallo $n+1$: $a_{n+1} = + \infty$ 
@@ -42,7 +42,7 @@ Supponiamo che $A[i...j]$ sia una soluzione ottimale di $S[i...j]$ e sia $k$ un 
 			\item  $A[i...j]$ $\cap$ $S[k...j]$ è la soluzione ottimale di $S[k...j]$
 		\end{itemize}
 \end{itemize}
-\textbf{Dimostrazione (in pillole):} Come è possibile immaginare se ad esempio $A[i...j]$ $\cap$ $S[i...k]$ \textbf{non fosse la soluzione ottimale} di $S[i...k]$ allora vorrebbe dire che esisterebbe un altro insieme di elementi $A'[i...j]$ t.c. $A'[i...j]$ $\cap$ $S[i...k]$ è la soluzione ottimale di $S[k...j]$ ma ciò contraddirrebbe l'ipotesi iniziale! (cioè se non vale per uno dei due sottointervalli non può essere la soluzione complessiva)\\\\
+\textbf{Dimostrazione (in pillole):} Come è possibile immaginare se ad esempio $A[i...j]$ $\cap$ $S[i...k]$ \textbf{non fosse la soluzione ottimale} di $S[i...k]$ allora vorrebbe dire che esisterebbe un altro insieme di elementi $A'[i...j]$ t.c. $A'[i...j]$ $\cap$ $S[i...k]$ è la soluzione ottimale di $S[k...j]$ ma ciò contraddirebbe l'ipotesi iniziale! (cioè se non vale per uno dei due sottointervalli non può essere la soluzione complessiva)\\\\
 \textbf{Definizione ricorsiva della soluzione}\\
 $A[i...j]$ = $A[i...k]$ $\cup$ $\{k\}$ $\cup$ $A[k...j]$\\\\
 \textbf{Definizione Ricorsiva del suo costo}\\
@@ -60,7 +60,7 @@ Sia $DP[i][j]$ la dimensione del più grande sottoinsieme $A[i...j] \subseteq S[
 Grazie alla precedente definizione possiamo scrivere un algoritmo basato su programmazione dinamica o memoization e, visto che dobbiamo risolvere tutti i sottoproblemi, il costo totale è pari a $\mathcal{O}(n^3)$.\\
 Nel caso di intervalli pesati abbiamo visto che è possibile sviluppare una soluzione con costo $\mathcal{O}(n\log{n})$, ma siamo sicuri che sia necessario analizzare tutti i possibili valori $k$?\\\\
 \textbf{Teorema}\\
-Sia $S[i...j]$ un sottoproblema non vuoto e $m$ l’intervallo di $S[i ...j]$ con il minor tempo di fine (cioè $m \in S[i...j] $), allora:
+Sia $S[i...j]$ un sottoproblema non vuoto e $m$ l'intervallo di $S[i ...j]$ con il minor tempo di fine (cioè $m \in S[i...j] $), allora:
 \begin{itemize}
 	\item il sottoproblema $S[i...m]$ è vuoto
 	\item $m$ è compreso in qualche soluzione ottima di $S[i ...j]$
@@ -80,9 +80,9 @@ Se nessun intervallo in $S[i...j]$ termina prima di $a_m$ allora $S[i...m] = \em
 Sia \textcolor{red}{$A'[i...j]$} una soluzione ottima di $S[i...j]$.\\
 Sia \textcolor{red}{$m'$} l'intervallo con il minor tempo di fine in $A[i...j]$.\\
 Sia \textcolor{red}{$A[i..j] = A'[i...j] - \{ m' \} \cup \{ m \}$} una nuova soluzione attenuta togliendo $m'$ e aggiungendo $m$ ad $A'[i...j]$.\\
-\textcolor{red}{$A[i...j]$ è una soluzione ottima che contiene $m$}, in quanto ha la stessa dimentsione di $A'[i...j]$ e gli intervalli sono indipendenti. Per intenderci ricadiamo in due casi differenti:
+\textcolor{red}{$A[i...j]$ è una soluzione ottima che contiene $m$}, in quanto ha la stessa dimensione di $A'[i...j]$ e gli intervalli sono indipendenti. Per intenderci ricadiamo in due casi differenti:
 \begin{itemize}
-	\item Se $m = m'$ allora non cambia nulla perchè ho aggiunto e tolto lo stesso elemento
+	\item Se $m = m'$ allora non cambia nulla perché ho aggiunto e tolto lo stesso elemento
 	\item Se $m \neq m'$ allora ho trovato una soluzione differente ma con la stessa cardinalità della prima 
 \end{itemize}
 \textbf{Conseguenze}\\
@@ -182,7 +182,7 @@ scelta ingorda può essere unito a tale scelta
 	\end{itemize}
 	\item \textcolor{red}{Scrittura codice: top-down, anche in maniera iterativa}
 	\begin{itemize}
-		\item Nota: può essere necessario pre-processare l’input
+		\item Nota: può essere necessario pre-processare l'input
 	\end{itemize}
 \end{itemize}
 \subsection{Zaino Frazionario (o Reale)}
@@ -223,8 +223,8 @@ Si vuole rappresentare i dati in modo efficiente impiegando il numero minore di 
 \includegraphics[width=0.8\textwidth]{../img/Greedy_1.jpg}
 \caption{Possibili codifiche dei caratteri}
 \end{figure} \\
-Nella seguente immagine viengono mostrate codifiche differenti: la codifica ASCII estesa, una basata sui caratteri effettivamente presenti all'interno del testo mentre l'ultima basata sulla frequenza con cui compaiono i caratteri. L'ultimo caso è il più interessante poichè utilizza meno bit per memorizzare il carattere che compare più di frequente: questo viene definito \textcolor{red}{codice a prefissi}.\\
-In un codice a prefisso, \textcolor{red}{nessun codice è un prefisso di un altro codice}. Ad esempio non è possibile mappare $a = 0$, $b = 1$, $c = 11$ poichè come interpreto poi 111111?
+Nella seguente immagine vengono mostrate codifiche differenti: la codifica ASCII estesa, una basata sui caratteri effettivamente presenti all'interno del testo mentre l'ultima basata sulla frequenza con cui compaiono i caratteri. L'ultimo caso è il più interessante poiché utilizza meno bit per memorizzare il carattere che compare più di frequente: questo viene definito \textcolor{red}{codice a prefissi}.\\
+In un codice a prefisso, \textcolor{red}{nessun codice è un prefisso di un altro codice}. Ad esempio non è possibile mappare $a = 0$, $b = 1$, $c = 11$ poiché come interpreto poi 111111?
 \newpage
 \begin{flushleft}
 \textbf{Rappresentazione ad albero per la decodifica}
@@ -251,7 +251,7 @@ L'immagine precedente rappresenta un albero binario di decodifica che tuttavia h
 \textbf{Definizione Formale del problema}
 \end{flushleft}
 Dato in input un file $F$ composto da caratteri nell'alfabeto $\mathcal{A}$, \textcolor{red}{quanti bit sono richiesti per codificare il file}?\\
-Sia $T$ un albero che rappresenta la codifica e, per ogni $c \in \mathcal{A}$ (carattere dell'alfabeto), sia $d_{T}(c)$ la profondità della foglia che rappresenta $c$. Dagli schemi precenti sappiamo che il codice per rappresentare $c$ richiederà allora $d_{T}(c)$ bit. Se $f[c]$ è il numero di occorrenze di $c$ in $F$, allora la dimensione della codifica è
+Sia $T$ un albero che rappresenta la codifica e, per ogni $c \in \mathcal{A}$ (carattere dell'alfabeto), sia $d_{T}(c)$ la profondità della foglia che rappresenta $c$. Dagli schemi precedenti sappiamo che il codice per rappresentare $c$ richiederà allora $d_{T}(c)$ bit. Se $f[c]$ è il numero di occorrenze di $c$ in $F$, allora la dimensione della codifica è
 \begin{center}
 	$C[F, T] = \sum_{c \in \mathcal{A}} f[c] \cdot d_{T}(c)$
 \end{center}
@@ -299,7 +299,7 @@ Dato un grafo pesato, determinare come interconnettere tutti i suoi nodi minimiz
 	\item \textcolor{red}{Minimum spanning tree}
 \end{itemize}
 \textbf{Definizione del problema}\\
-Viene dato in input un grafo \textcolor{red}{$G = (V, E)$} non orientato e connesso e  \textcolor{red}{$w: V \times V \rightarrow \mathbb{R}$} funzione di peso (costo di connessione) t.c. se $[u, v] \in E$, allora $w(u, v)$ è il peso dell'arco $[u, v]$, altrimenti $+\infty$. Poichè $G$ è \emph{non orientato}, $w(u, v) = w(v, u)$.\\\\
+Viene dato in input un grafo \textcolor{red}{$G = (V, E)$} non orientato e connesso e  \textcolor{red}{$w: V \times V \rightarrow \mathbb{R}$} funzione di peso (costo di connessione) t.c. se $[u, v] \in E$, allora $w(u, v)$ è il peso dell'arco $[u, v]$, altrimenti $+\infty$. Poiché $G$ è \emph{non orientato}, $w(u, v) = w(v, u)$.\\\\
 \textbf{Albero di Copertura (Spanning Tree)}\\
 Dato un grafo $G = (V, E)$ non orientato e connesso, un \textcolor{red}{albero di copertura} di $G$ è un sottografo $T = (V, E_{T})$ tale che 
 \begin{itemize}
@@ -313,7 +313,7 @@ Dato un grafo $G = (V, E)$ non orientato e connesso, un \textcolor{red}{albero d
 	\item Trovare l'albero di copertura con radice $v$ il cui \textcolor{red}{cammino da $v$ ad ogni altro vertice $u$} sia minimo
 \end{enumerate}
 In questa sezione ci occuperemo degli \textcolor{red}{Alberi di Copertura di Peso Minimo}, progettiamo dunque un algoritmo generico di tipo greedy per la risoluzione del problema e poi mostriamo le due istanze di tale algoritmo: \textcolor{red}{Kruskal} e \textcolor{red}{Prim}.\\
-L'idea è quella di accrescere un sottoinsieme $A$ di archi in modo tale che venga sempre rispettata la sequente invariante:
+L'idea è quella di accrescere un sottoinsieme $A$ di archi in modo tale che venga sempre rispettata la seguente invariante:
 \begin{itemize}
 	\item $A$ è un sottoinsieme di qualche albero di connessione minimo
 \end{itemize}
@@ -379,8 +379,8 @@ Sia $T$ un albero di copertura minimo che contiene $A$ e $(u, v)$ un arco legger
 \begin{itemize}
 	\item $T' = T - \{(x, y)\} \cup \{(u, v)\}$
 	\item $T'$ è un \emph{albero di copertura}
-	\item $w(T') \leq w(T)$ (perchè $w(u, v) \leq w(x, y)$)
-	\item $w(T) \leq w(T')$ (perchè $T$ minimo)
+	\item $w(T') \leq w(T)$ (perché $w(u, v) \leq w(x, y)$)
+	\item $w(T) \leq w(T')$ (perché $T$ minimo)
 \end{itemize}
 \end{minipage} \\\\
 Dunque vale che $w(T') = w(T)$ e di conseguenza anche $T'$ è un albero di copertura di peso minimo.\\\\
@@ -425,7 +425,7 @@ SET kruskal(EDGE[] A, int n, int m)
 	return T
 \end{lstlisting}
 \textbf{Analisi della complessità algoritmo di Kruskal}\\
-Il tempo di esecuzione per l'algoritmo di kruskal dipende dalla realizzazione della struttura dati per Merge-Find Set: se utilizziamo la versione con \textcolor{red}{euristica sul rango + compressione}, (*) le cui operazioni hanno costo ammortizzato costante otteniamo
+Il tempo di esecuzione per l'algoritmo di Kruskal dipende dalla realizzazione della struttura dati per Merge-Find Set: se utilizziamo la versione con \textcolor{red}{euristica sul rango + compressione}, (*) le cui operazioni hanno costo ammortizzato costante otteniamo
 \begin{center}
 	\renewcommand{\arraystretch}{1.2}
 	\begin{tabular}{ |c|c|c| } 
@@ -457,7 +457,7 @@ Per le proprietà degli logaritmi possiamo però a questo punto portare all'este
 	\includegraphics[width=0.5\textwidth]{../img/Greedy_8.jpg}
 	\caption{Evoluzione algoritmo di Kruskal - Completo}
 \end{figure}
-Come si può osservare alcuni gli archi 6, 7 e 8 archi nell'immagine completa sono colorati in grigio in quanto sono stati estratti prima dell'arco 9 poichè di peso minore, tuttavia sono stati scartati in quanto l'operazione di find del Merge-Find Set ha restituito il medesimo rappresentante in quanto i due nodi facevano già parte dell'albero di copertura di peso minimo creato nel corso dell'algoritmo. Gli archi 10, 11 e 14 non sono stati analizzati invece poichè sono stati raggiunti gli $n-1$ archi che costruiscono l'albero.
+Come si può osservare alcuni gli archi 6, 7 e 8 archi nell'immagine completa sono colorati in grigio in quanto sono stati estratti prima dell'arco 9 poiché di peso minore, tuttavia sono stati scartati in quanto l'operazione di find del Merge-Find Set ha restituito il medesimo rappresentante in quanto i due nodi facevano già parte dell'albero di copertura di peso minimo creato nel corso dell'algoritmo. Gli archi 10, 11 e 14 non sono stati analizzati invece poichè sono stati raggiunti gli $n-1$ archi che costruiscono l'albero.
 \newpage
 \subsubsection{Algoritmo di Prim}
 \textbf{Idea}
@@ -466,7 +466,7 @@ Come si può osservare alcuni gli archi 6, 7 e 8 archi nell'immagine completa so
 	\item L'albero parte da un vertice arbitrario $r$ (la radice) e cresce fino a quando non ricopre tutti i vertici
 	\item Ad ogni passo viene aggiunto un \emph{arco leggero} che collega un vertice in $V_{A}$ con un vertice in $V - V_{A}$, dove $V_{A}$ è l'insieme di nodi raggiunti da archi in $A$
 \end{itemize}
-Per definizione $(V_{A}, V - V_{A})$ è un taglio che rispetta $A$ (infatti $V_{A}$ contiene i nodi connessi da archi apparenenti ad $A$ mentre $V-V_{A}$ quelli che ancora devono essere raggiunti dunque nessun arco di $A$ può attraversare il taglio) e per il corollario esposto precedentemente gli archi leggeri che attraversano il taglio sono sicuri.\\\\
+Per definizione $(V_{A}, V - V_{A})$ è un taglio che rispetta $A$ (infatti $V_{A}$ contiene i nodi connessi da archi appartenenti ad $A$ mentre $V-V_{A}$ quelli che ancora devono essere raggiunti dunque nessun arco di $A$ può attraversare il taglio) e per il corollario esposto precedentemente gli archi leggeri che attraversano il taglio sono sicuri.\\\\
 \textbf{Implementazione}\\
 La struttura dati che si utilizza in questo caso è una \emph{Min Priority Queue} la cui descrizione e implementazione si può trovare nella sezione \emph{Strutture Dati Speciali} della dispensa. Durante l'esecuzione, i vertici non ancora nell'albero si trovano in una coda con min-priorità $Q$ ordinata in base alla seguente definizione di priorità: la priorità del nodo $v$ è il peso minimo di un arco che collega $v$ ad un vertice nell'albero, o +$\infty$ se tale arco non esiste.\\
 L'implementazione dell'albero avviene invece tramite \emph{vettore dei padri} di conseguenza

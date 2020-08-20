@@ -3,14 +3,14 @@
 
 \subsection{Esercitazione 6 - 20/02/20}
 \textbf{Ottimizza la somma}\\
-Supponete di avere in input un vettore dininteri positivi distinti $V[1. . . n]$ e un valore $W$. Scrivere un algoritmo che:
+Supponete di avere in input un vettore di n interi positivi distinti $V[1. . . n]$ e un valore $W$. Scrivere un algoritmo che:
 \begin{enumerate}
 	\item restituisca il massimo valore $X =  \sum_{i = 1}^{n} x[i] V[i]$ tale che $X \leq W$ e ogni $x[i]$ è un intero non negativo
 	\item stampi il vettore $x$
 \end{enumerate}
 Ad esempio, per $V = [18,3,21,9,12,24]$ e $W = 17$, una possibile soluzione ottima è $x = [0,2,0,1,0,0]$ da cui deriva $X= 15$.\\
 Discutere correttezza e complessità.\\\\
-Da un'osservazione più attenta del problema ci si accorge che non è altro che una versione modificata di Knapsack (versione Senza Limiti) dove $w$ e $p$, rispettivamente i vettori che indicano il profitto e il peso di un oggetto, sono entrambi rappresentati da $V$. Nonostante bastasse richiamare l'algoritmo ricorsivo proposto nella parte di memoization proproniamo una versione iterativa che permette di stampare anche il vettore $x$:\\
+Da un'osservazione più attenta del problema ci si accorge che non è altro che una versione modificata di Knapsack (versione Senza Limiti) dove $w$ e $p$, rispettivamente i vettori che indicano il profitto e il peso di un oggetto, sono entrambi rappresentati da $V$. Nonostante bastasse richiamare l'algoritmo ricorsivo proposto nella parte di memoization proponiamo una versione iterativa che permette di stampare anche il vettore $x$:\\
 \begin{lstlisting}[caption=Ottimizza la Somma]
 int knapsack(int[] V, int n, int W)
 	int x[] = new int[1...n]

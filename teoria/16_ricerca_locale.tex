@@ -3,7 +3,7 @@
 
 \section{Ricerca locale}
 \textbf{Definizione}\\
-Se si conosce una soluzione ammissibile ad un problema di ottimizzazione, si può provare a trovare una soluzione migliore nelle "vicinanze" di quella precendente. Si continua in questo modo fino a quando non si è più in grado di migliorare. \\
+Se si conosce una soluzione ammissibile ad un problema di ottimizzazione, si può provare a trovare una soluzione migliore nelle "vicinanze" di quella precedente. Si continua in questo modo fino a quando non si è più in grado di migliorare. \\
 Uno schema possibile per la ricerca locale può essere il seguente:
 \begin{lstlisting}[ caption= Ricerca locale]
 ricercaLocale()
@@ -30,7 +30,7 @@ Una \textcolor{red}{rete di flusso $G = (V, E, s, t, c)$} è data da:
 Un \textcolor{red}{flusso} in $G$ è una funzione \textcolor{red}{$f: V \times V \rightarrow \mathbb{R}$} che soddisfa le seguenti proprietà:
 \begin{itemize}
 	\item \textcolor{red}{Vincolo sulla capacità}: $\forall u, v \in V : f(u, v) \leq c(u,v)$.\\ Il flusso non deve eccedere la capacità sull'arco.
-	\item \textcolor{red}{Assimmetria}: $\forall u, v \in V, f(u,v) = - f(v, u)$. 
+	\item \textcolor{red}{Asimmetria}: $\forall u, v \in V, f(u,v) = - f(v, u)$. 
 	\item \textcolor{red}{Conservazione del flusso}: $\forall u \in V - \{s, t\}, \sum_{v \in V} f(u, v) = 0$ 	\\
 	Per ogni nodo, la somma dei flussi entranti deve essere uguale alla somma dei flussi uscenti.
 \end{itemize}
@@ -53,8 +53,8 @@ Definiamo \textcolor{red}{flusso nullo} la funzione $f_{0} : V \times V \rightar
 \textbf{Somma di flussi}:\\
 Per ogni coppia di flussi $f_1$ e $f_2$ in $G$, definiamo il \textcolor{red}{flusso somma} $g = f_1 + f_2$ come un flusso tale per cui $g(u, v) = f_1(u, v) + f_2(u, v)$. \\\\
 \textbf{Capacità residua}:\\
-Definamo \textcolor{red}{capacità residua} di un flusso $f$ in una rete $G = (V, E, s, t, c)$ una funzione $c_f : V \times V \rightarrow \mathbb{R}^{\geq 0}$ tale che $c_f(u, v) = c(u, v) - f(u, v)$. \\
-Si noti che per la definzione di capactià residua si creano degli \textcolor{red}{archi all'indietro}. \\\\
+Definiamo \textcolor{red}{capacità residua} di un flusso $f$ in una rete $G = (V, E, s, t, c)$ una funzione $c_f : V \times V \rightarrow \mathbb{R}^{\geq 0}$ tale che $c_f(u, v) = c(u, v) - f(u, v)$. \\
+Si noti che per la definizione di capacità residua si creano degli \textcolor{red}{archi all'indietro}. \\\\
 \textbf{Reti residue}:\\
 Data una rete di flusso $G = (V, E, s, t, c)$ e un flusso $f$ su $G$, possiamo costruire una \textcolor{red}{rete residua} $G_f = (V, E_f, s, t, c_f)$, tale per cui $(u, v) \in E_f$ se e solo se $c_f(u, v) > 0$. \\\\
 \textbf{Algoritmo, schema generale}:
@@ -128,7 +128,7 @@ Se le capacità sono intere, l'algoritmo di Ford-Fulkerson ha complessità $\mat
 \begin{itemize}
 	\item L'algoritmo parte dal flusso nullo e termina quando il valore totale del flusso raggiunge $|f^*|$
 	\item Ogni incremento del flusso aumenta il flusso di almeno un'unità
-	\item Ogni ricerca di un cammino richiede una vistita del gafo, con costo $\mathcal{O}(V + E)$ o $\mathcal{O}(V^2)$
+	\item Ogni ricerca di un cammino richiede una visita del grafo, con costo $\mathcal{O}(V + E)$ o $\mathcal{O}(V^2)$
 	\item La somma dei flussi e il calcolo della rete residua può essere effettuato in tempo $\mathcal{O}(V + E) $ o $\mathcal{O}(V^2)$.
 \end{itemize}
 \textbf{Complessità, limite superiore - Versione Edmonds e Karp} \\
@@ -147,7 +147,7 @@ In questa sottosezione sono mostrati alcuni Lemmi e Teoremi utili per la dimostr
 \textbf{Lemma - Monotonia} \\
 Sia $\delta f(s,v)$ la distanza minima da $s$ a $v$ in una rete residua $G_f$. \\Sia $f'=f+g$ un flusso nella rete iniziale, con $g$ flusso non nullo derivante da un cammino aumentante. Allora $\delta f'(s,v)\geq \delta f(s,v)$. \\\\
 \textbf{Lemma - Aumenti di flusso} \\
-Il numero totale di aumenti di flusso eseguiti dall’algoritmo di Edmonds e Karp è $\mathcal{O}(V E)$ \\\\
+Il numero totale di aumenti di flusso eseguiti dall'algoritmo di Edmonds e Karp è $\mathcal{O}(V E)$ \\\\
 \textbf{Taglio} \\
 Un \textcolor{red}{taglio} $(S,T)$ della rete di flusso $G= (V, E, s, t, c)$ è una partizione di $V$ in due sottoinsiemi disgiunti $S, T$ tali che: 
 \begin{align*}
@@ -212,4 +212,5 @@ Si costruisce una rete di flusso $G = (V, E, s, p, c)$:
 \end{itemize}
 Il flusso massimo della rete di flusso, definita precedentemente, darà come risultato il massimo sottoinsieme cercato. \\
 Complessità del problema:\\ il massimo flusso ottenibile in questa rete di flusso è dell'ordine di $\mathcal{O}(V)$, rappresentato dal numero di job presenti. Supponendo che il grafo G sia memorizzato con liste di adiacenza l'algoritmo di Ford-Fulkerson esegue in un tempo pari a $\mathcal{O}((V + E)V) = \mathcal{O}(VE)$ (nota bene: la complessità considerata è la seguente, e non quella definita da Edmonds e Karp in quanto superiore).
+\newpage
 \end{document}

@@ -51,7 +51,7 @@ Le caratteristiche di tale schema sono le seguenti:
 	\end{itemize}
 	\item \textcolor{red}{Passo ricorsivo}
 	\begin{itemize}
-		\item Altrimenti, calcoliamo l’insieme $C$ delle scelte possibili
+		\item Altrimenti, calcoliamo l'insieme $C$ delle scelte possibili
 		\item Per ogni elemento $c \in C$:
 		\begin{itemize}
 			\item Scriviamo $c$ sulla scelta $S[i]$
@@ -63,7 +63,7 @@ L'esporazione dello spazio delle soluzioni, ammissibili e non, da origine a quel
 \begin{itemize}
 	\item \textcolor{red}{Albero di decisione} $\equiv$ Spazio di ricerca
 	\item  \textcolor{red}{Radice} $\equiv$ Soluzione parziale vuota
-	\item  \textcolor{red}{Nodi interni dell’albero di decisione} $\equiv$ Soluzioni parziali
+	\item  \textcolor{red}{Nodi interni dell'albero di decisione} $\equiv$ Soluzioni parziali
 	\item  \textcolor{red}{Foglie in un albero di decisione} $\equiv$ Soluzioni ammissibili
 \end{itemize}
 \begin{center}
@@ -214,7 +214,7 @@ La soluzione ammissibile è salvata all'interno del vettore $S$. \\
 Ad ogni passo ricorsivo si decide se inserire o meno l'elemento i-esimo all'interno della soluzione scegliendo tra i valori $0$ (elemento non compreso) e $1$ (elemento compreso).  \\
 Ogni volta che una scelta viene effettuata viene registrata all'interno del vettore $S$ e si passa all'analisi del prossimo valore. \\
 Viene contato il numero di elementi compresi nella soluzione attraverso la funzione \emph{count}: se abbiamo terminato di analizzare l'intero insieme e la dimensione è pari a $k$ allora processiamo la soluzione, altrimenti se abbiamo terminato l'analisi e la cardinalità di $S$ è superiore a $k$ la scartiamo, se invece abbiamo ancora elementi da scansionare proseguiamo con le scelte. \\
-Possiamo, invece che contare ogni volta il numero di elementi inseriti, utilizzare una variabile missing, la quale sarà inizializzata a $k$ ed identifica il numero di elmenti che sono necessari per completare la soluzione corrente. \\ 
+Possiamo, invece che contare ogni volta il numero di elementi inseriti, utilizzare una variabile missing, la quale sarà inizializzata a $k$ ed identifica il numero di elementi che sono necessari per completare la soluzione corrente. \\ 
 Come nella soluzione precedente, se terminata l'analisi dell'insieme $missing$ è pari a $0$ allora processiamo la soluzione (abbiamo inserito esattamente $k$ elementi) altrimenti la scartiamo, se mancano dei numeri da scandire allora effettueremo la scelta decrementando $missing$ di $1$, se abbiamo deciso che l'elemento $i$-esimo è compreso in $S$, oppure lasciandolo invariato, se si è deciso di non comprenderlo nella soluzione. 
 \newpage
 \begin{flushleft}
@@ -335,7 +335,7 @@ I passi che ci hanno portato alla soluzione finale sono stati i seguenti:
 \begin{itemize}
 	\item Il primo approccio (inefficiente) è stato quello di cercare di posizionare $n$ regine su $n^2$ caselle, controllando la soluzione quando abbiamo analizzato l'ultima cella. Lo spazio della soluzione è comunque troppo grande, il costo è di $\mathcal{O}((n^2)^n)$.
 	\item Il secondo miglioramento lo si ha avuto imponendo come vincolo il fatto di non posizionare le regine in caselle precedenti a quelle già scelte: lo spazio delle soluzioni si è ridotto di molto con un costo pari a  $\mathcal{O}\cfrac{(n^2)^n}{n!}$ (comunque ancora troppo elevato).
-	\item Posizionare una regina su ogni riga ha consensito un altro avanzamento in quanto, anche a livello intuitivo, le $n$ regine dovranno necessariamente trovarsi su righe differenti della scacchiera: la complessità in questo caso è $\mathcal{O}(n^n)$.
+	\item Posizionare una regina su ogni riga ha consentito un altro avanzamento in quanto, anche a livello intuitivo, le $n$ regine dovranno necessariamente trovarsi su righe differenti della scacchiera: la complessità in questo caso è $\mathcal{O}(n^n)$.
 	\item Il miglioramento finale è stato quello di vincolare la scelta di colonne differenti, in quanto le $n$ regine devono trovarsi necessariamente in colonne distinte. La complessità è stata dunque ridotta a: $\mathcal{O}(n!)$
 \end{itemize}
 Per evitare di essere troppo prolissi ci concentreremo solamente sulla soluzione discussa nell'ultimo punto (di fatto la più efficiente). \\
@@ -369,7 +369,7 @@ Grazie al pruning nella scelta, è possibile affermare che se riusciamo a posizi
 \textbf{Minimum-conflicts heuristic} \\
 Il problema delle $n$ regine è molto costoso, anche se abbiamo lavorato parecchio per ridurne il costo computazionale. Molto spesso infatti è impensabile lanciare un algoritmo di tale pesantezza su input molto elevati, è possibile quindi adottare alcune euristiche che non garantiscono di trovare un risultato corretto (è possibile risolvere questo problema lanciando sull'output ritornato, un algoritmo che verifichi se sia o meno una soluzione accettabile, se non lo fosse si riesegue l'algoritmo e si ripete la procedura) ma eseguono in tempi molto minori rispetto ad una soluzione deterministica basata su backtracking. \\
 La \emph{Minimum-conflicts heuristic} per il problema delle $n$ è così definita: \\
-Si parte da una soluzione iniziale “ragionevolmente buona”, e si muove il pezzo con il più grande numero di conflitti nella casella della stessa colonna che genera il numero minimo di conflitti. Si ripete fino a quando non ci sono più pezzi da muovere. \\
+Si parte da una soluzione iniziale "ragionevolmente buona", e si muove il pezzo con il più grande numero di conflitti nella casella della stessa colonna che genera il numero minimo di conflitti. Si ripete fino a quando non ci sono più pezzi da muovere. \\
 Questo algoritmo può essere eseguito in tempo lineare, ma come accennato poc'anzi, non garantisce che il risultato sia corretto.
 \newpage
 \subsection{Sudoku}

@@ -3,7 +3,7 @@
 
 \subsection{Esame 18/07/2019}
 \textbf{Esercizio B3}\\
-Sia $A$ un vettore contenenteninteri positivi.
+Sia $A$ un vettore contenente n interi positivi.
 \begin{itemize}
 	\item Una sottosequenza crescente di $A$ è un sottosequenza di $A$ i cui valori sono ordinati.
 	\item Il valore di una sottosequenza è pari alla somma dei suoi valori.
@@ -13,9 +13,9 @@ Scrivere un algoritmo
 \begin{center}
 	\textbf{int} maxIncreasing(\textbf{int}[ ]$A$, \textbf{int} $n$)
 \end{center}
-che  restituisca  il valore di  una  sottosequenza  crescente massimale contenuta in $A$. Discutere  informalmente  la  correttezza  dell’algoritmo  e calcolare la sua complessità computazionale.
+che  restituisca  il valore di  una  sottosequenza  crescente massimale contenuta in $A$. Discutere  informalmente  la  correttezza  dell'algoritmo  e calcolare la sua complessità computazionale.
 \textbf{Soluzione:}\\
-Il seguente problema può essere risolto utilizzando l'algoritmo \emph{Longest Increasing Subsequence} poichè di fatto si riduce a prendere un numero e sommarlo ai precedenti solo se questo è maggiore di quelli nella sequenza.
+Il seguente problema può essere risolto utilizzando l'algoritmo \emph{Longest Increasing Subsequence} poiché di fatto si riduce a prendere un numero e sommarlo ai precedenti solo se questo è maggiore di quelli nella sequenza.
 \begin{lstlisting}[caption=Longest Increasing Subsequence]
 int maxIncreasing(int[] A, int n)
    int[] DP = new int[1...n]

@@ -70,11 +70,7 @@ Durante il primo giorno lei prende una pillola dalla bottiglia, la spezza in due
 Nei giorni seguenti lei prende un pezzo a caso della bottiglia (potrebbe essere una pillola intera o una mezza pillola).\\
 Se ha pescato una mezza pillola la ingerisce. Se ha pescato una pillola intera la spezza a metà, rimette una delle due mezze pillole nella bottiglia e ingerisce l’altra mezza pillola.
 La zia può svuotare la bottiglia in tanti modi diversi. Rappresentiamo la cura come una stringa di $2N$ caratteri, in cui il carattere i-esimo è “$I$” se la zia ha pescato una pillola intera nel giorno i e “$M$” se la zia ha invece pescato una mezza pillola. Nel caso in cui la bottiglia originaria contenga 3 pillole intere, le possibili sequenze sono le seguenti:\\
-$IIIMMM$\\
-$IIMIMM$\\
-$IIMMIM$\\
-$IMIIMM$\\
-$IMIMIM$\\
+$IIIMMM$ - $IIMIMM$ - $IIMMIM$ - $IMIIMM$ - $IMIMIM$\\
 Il problema vi richiede di scrivere un programma che, dato $N$, restituisca il numero di possibili sequenze nel trattamento.\\\\
 Soluzione proposta: il seguente problema può essere risolto mediante Memoization creando una Matrice $DP[N][N]$ dove indichiamo sulle colonne il numero di pastiglie intere mentre sulle righe il numero di pastiglie a metà. Ad esempio con 3 pastiglie il nostro risultato si troverà in posizione $DP[0][3]$. Semplicemente ogni volta ci chiederemo se spezzare la pastiglia (e quindi andare in posizione $DP[i+1][j-1]$) oppure se prendere una metà (e accedere dunque in posizione $DP[i][j-1]$). Ovviamente questa operazione non può essere svolta sempre in maniera duplice (ad esempio partendo con 3 pastiglie intere possiamo soltanto spezzarne una, è indifferente quale) e i casi base sono quando abbiamo solo pastiglie a metà (quindi per $DP[i][0]$), quando si ha soltanto una pastiglia intera ($DP[0][1]$) oppure quando non se ne ha nessuna ($DP[0][0]$).
 \begin{lstlisting}[caption=Le pillole della Zia]
@@ -101,7 +97,6 @@ long long int pillole(int N)
 	DP[0][1] = 1
 	return pilloleRec(0, N, DP)
 \end{lstlisting}
-\newpage
 Esempio riempimento tabella:\\
 \begin{center}
 	\renewcommand{\arraystretch}{1.2}

@@ -3,7 +3,7 @@
 
 \subsection{Esercitazione 13 - 13/05/20}
 \textbf{Cubi}\\
-Siano dati $n$ cubi. Su ogni faccia del cubo è presente una lettera del'alfabeto. Ogni cubo può essere descritto da una stringa di $6$ caratteri (e.g. $abcdef$), che rappresenta le 6 facce del cubo. Sia data una parola costituita da $t \leq n$ caratteri. \textbf{Descrivere} un algoritmo che ritorni $true$ se è possibile comporre la parola utilizzando $t$ degli $n$ cubi (scegliendo una faccia per ognuno di essi), $false$ altrimenti. Discutere correttezza e complessità dell’algoritmo risultante.\\
+Siano dati $n$ cubi. Su ogni faccia del cubo è presente una lettera dell'alfabeto. Ogni cubo può essere descritto da una stringa di $6$ caratteri (e.g. $abcdef$), che rappresenta le 6 facce del cubo. Sia data una parola costituita da $t \leq n$ caratteri. \textbf{Descrivere} un algoritmo che ritorni $true$ se è possibile comporre la parola utilizzando $t$ degli $n$ cubi (scegliendo una faccia per ognuno di essi), $false$ altrimenti. Discutere correttezza e complessità dell'algoritmo risultante.\\
 Il problema sottoposto fa parte delle Reti di Flusso quindi procediamo in questo modo alla risoluzione:
 \begin{itemize}
 	\item Costruiamo una Rete di Flusso $G = (V, E, s, p, c)$, dove:
@@ -48,7 +48,7 @@ Ad esempio: 7,4,5,2,3,6 può essere partizionato in 7 + 2 = 4 + 5 = 3 + 6.\\
 Discutere la complessità e la correttezza – per questo esercizio, la dimostrazione di correttezza è importante e va scritta bene.\\
 \textbf{Soluzione:} Si può risolvere il problema per step pensando inizialmente al fatto che se è possibile accoppiare gli elementi tra di loro in modo da restituire lo stesso numero se sommati assieme, allora vuol dire che la somma di tutti deve restituire necessariamente un numero intero se divisi per $n / 2$. Il secondo passo per risolverlo è accorgersi che per for sì che tutte le coppie diano come risultato $k$, il numero più grande appartenente all'insieme deve essere abbinato con il numero più piccolo: proviamo a dimostrarlo.
 \begin{itemize}
-	\item Sia $g \in A$ il numero più grande appartentente all'insieme, $s \in A$ il numero più piccolo e $k$ il numero che risulta dalla somma di ogni coppia
+	\item Sia $g \in A$ il numero più grande appartenente all'insieme, $s \in A$ il numero più piccolo e $k$ il numero che risulta dalla somma di ogni coppia
 	\item Consideriamo ora anche $g' \in A - \{g\}$ e $s' \in A - \{s\}$ che corrispondono al secondo numero più grande e al secondo numero più piccolo
 	\item Assumiamo ora dunque per assurdo che $k = g + s' = g' + s$
 	\item Visto che i numeri appartenenti all'insieme sono tutti distinti vuol dire che $g > g'$ e che $s' > s$ e di conseguenza abbiamo che $g + s' > g' + s$, ma ciò contraddice la nostra ipotesi che $k = g + s' = g' + s$
@@ -73,7 +73,7 @@ Ad esempio, dato $S=\{01,10,011,101\}$:
 (011-10-10-101, 011-10-101-01 e 011-101-01-01)
 	\item $X = 0110001:$ non c’è modo di ottenere tre $0$ consecutivi
 \end{itemize}
-Per comodità, supponete che la lunghezza di una stringa $s$ sia $\mid s \mid$ e diavere a disposizione una primitiva $check(X, s, i)$ che ritorna vero se la stringa $s$ è contenuta nella stringa $X$ a partire dalla posizione $i$. Il costo della chiamata a $check()$ è $\mathcal{O}(\mid s \mid)$. Ad esempio, se $X=1001$ e $s=00$, $check(X, s,2)$ ritorna vero, per tutti gli altri indici $i$ ritorna falso.
+Per comodità, supponete che la lunghezza di una stringa $s$ sia $\mid s \mid$ e di avere a disposizione una primitiva $check(X, s, i)$ che ritorna vero se la stringa $s$ è contenuta nella stringa $X$ a partire dalla posizione $i$. Il costo della chiamata a $check()$ è $\mathcal{O}(\mid s \mid)$. Ad esempio, se $X=1001$ e $s=00$, $check(X, s,2)$ ritorna vero, per tutti gli altri indici $i$ ritorna falso.
 \begin{lstlisting}[caption=Stringhe primitive]
 int stringhePrimitiveDP(ITEM[] S, ITEM[] X, int m, int n)
 	int[] DP = new int[0..n]
@@ -105,7 +105,7 @@ int stringhePrimitiveRec(ITEM[] S, ITEM[] X, int[] DP, int m, int i)
 					DP[i] = DP[i] + stringhePrimitiveRec(S, X, DP, m, i - len)
 		return DP[i]		
 \end{lstlisting}
-La soluzione proposta, in entrambe le versioni, programmazione dinamica e memoisation, ha complessità computazionale pari a $\mathcal{O}(Snm)$ dovuta al fatto che per riempire ogni cella della tabella delle soluzioni di lunghezza $n$ è necessaria una complessità di $\mathcal{O}(Sm)$. \\
+La soluzione proposta, in entrambe le versioni, programmazione dinamica e memoization, ha complessità computazionale pari a $\mathcal{O}(Snm)$ dovuta al fatto che per riempire ogni cella della tabella delle soluzioni di lunghezza $n$ è necessaria una complessità di $\mathcal{O}(Sm)$. \\
 La ricorsione su cui fanno riferimento è la seguente: \\
 Sia DP[i] il numero di modi in cui è possibile ottenere il prefisso X[i], allora possiamo definire: 
 \begin{equation*}
@@ -117,7 +117,7 @@ Sia DP[i] il numero di modi in cui è possibile ottenere il prefisso X[i], allor
 I casi previsti sono i seguenti:
 \begin{itemize}
 	\item Se non ho alcun carattere da utilizzare per il confronto con gli elementi di $S$ allora significa che ho completato correttamente la stringa $X$, dunque il valore ritornato è 1
-	\item Se invece non è vuota, provo a completare tale stringa sottraendo le stringhe se rispettano il \emph{check()}. Se infatti X(i - S[j], i) combacia con una stringa S[j] dell'insieme S, allora è possibile ridurre il problema ai modi possibili per formare la stringa X(i - S[j], i), questo va fatto per tutte le stringhe che possono che combaciano con il suffisso di X(i). Il valore DP[i] è infatti la somma di tali sottoproblemi. 
+	\item Se invece non è vuota, provo a completare tale stringa sottraendo le stringhe se rispettano il \emph{check()}. Se infatti X(i - S[j], i) combacia con una stringa S[j] dell'insieme S, allora è possibile ridurre il problema ai modi possibili per formare la stringa X(i - S[j], i), questo va fatto per tutte le stringhe che possono che combaciano con il suffisso di X(i). Il valore DP[i] è infatti la somma di tali sotto-problemi. 
 	\item Il valore della soluzione è locato in DP[n]
 \end{itemize}
 \textbf{Sottostruttura ottima} \\
@@ -131,7 +131,7 @@ Gestire un McDonald non è semplice:
 	\item Avete a disposizione un insieme $D$ di dipendenti; ogni dipendente $d_{j} \in D$ dichiara un insieme di turni $n_{j} \subseteq T$ in cui non può lavorare.
 	\item Ad esempio, $d_{j}$ non può lavorare nei turni $\{t_{1}, t_{7}, t_{21}\}$.
 	\item Per contratto aziendale, ogni lavoratore non può lavorare per più di 5 turni.
-	\item Ogni giorno, un dipendendente non può lavorare per più di due turni (qualsiasi, anche non consecutivi).
+	\item Ogni giorno, un dipendente non può lavorare per più di due turni (qualsiasi, anche non consecutivi).
 \end{enumerate}
 \textbf{Progettare} un algoritmo che produca uno scheduling che illustri, per ogni turno, il personale associato e discuterne la complessità.\\
 \textbf{Soluzione:} Il seguente problema può essere risolto mediante la costruzione di una Rete di Flusso $G = (V, E, s, p, c)$

@@ -3,7 +3,7 @@
 
 \subsection{Esame 01/09/2015}
 \textbf{Esercizio B4}\\
-Sia data una stringa $s[1...n]$ di $n$ caratteri. Scrivere un algoritmo che restituisce la lunghezza della \emph{sottostringa palindroma massimale} contenuta all’interno di $s$. Ricordiamo che una $sottostringa$ è un sottoinsieme ordinato di caratteri contiguo di $s$. Ricordiamo che una stringa $palindroma$ si legge allo stesso modo da sinistra a destra e da destra a sinistra. Per $massimale$, si intende che non esistono sottostringhe palindrome più lunghe (ma possono esisterne altre della stessa lunghezza). Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale.
+Sia data una stringa $s[1...n]$ di $n$ caratteri. Scrivere un algoritmo che restituisce la lunghezza della \emph{sottostringa palindroma massimale} contenuta all'interno di $s$. Ricordiamo che una $sottostringa$ è un sottoinsieme ordinato di caratteri contiguo di $s$. Ricordiamo che una stringa $palindroma$ si legge allo stesso modo da sinistra a destra e da destra a sinistra. Per $massimale$, si intende che non esistono sottostringhe palindrome più lunghe (ma possono esisterne altre della stessa lunghezza). Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale.
 \textbf{Soluzione:}\\
 Il problema può essere risolto mediante programmazione dinamica utilizzando una matrice $DP[i][j]$ i cui indici sono utilizzati per analizzare due elementi della stringa $s$ in contemporanea. A differenza della sottosequenza palindroma massimale la complessità di questo problema sta nel fatto che non basta semplicemente trovare due elementi uguali nella stringa per dichiararli presenti nella sottostringa massimale ma si può affermare ciò solo dopo aver controllato ogni singolo carattere all'interno della presunta stringa palindroma. Dunque potremo affermare che una sottostringa contenuta all'interno della nostra stringa è palindroma solamente quando ci troveremo in posizione j - i + i $\leq$ 1 e i precedenti saranno uguali in modo simmetrico. Tutto ciò può essere riassunto dalla seguente equazione di ricorrenza
 \begin{equation*}
@@ -32,6 +32,6 @@ int mpsRec(string s, int[][] DP, int i, int j)
 			DP[i][j] = max(mpsRec(s, DP, i, j-1), mpsRec(s, DP, i+1, j)) 
 	return DP[i][j]
 \end{lstlisting}
-L'algoritmo proposto ha complessità $\mathcal{O}(n^{2})$ poichè la tabella che viene generata ha dimensione $n \times n$ è al limite verrà riempita tutta dall'algoritmo. 
+L'algoritmo proposto ha complessità $\mathcal{O}(n^{2})$ poiché la tabella che viene generata ha dimensione $n \times n$ è al limite verrà riempita tutta dall'algoritmo. 
 \newpage
 \end{document}

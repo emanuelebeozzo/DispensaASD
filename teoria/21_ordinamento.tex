@@ -3,7 +3,8 @@
 
 \section{Algoritmi di Ordinamento}
 \subsection{Problema dell'ordinamento}
-Finora abbiamo studiato i seguenti algoritmi di ordinamento\\\\
+\textbf{Problema}: Data una sequenza $A = a_1, a_2 , ..., a_n$ di $n$ valori, restituire una sequenza $B = b_1 , b_2 , ..., b_n$ che sia una permutazione di $A$ e tale per cui $b_1 \leq b_2 \leq ... \leq b_n$.\\\
+Finora abbiamo studiato i seguenti algoritmi di ordinamento:\\\\
 \noindent\begin{minipage}{0.5\textwidth}
 \begin{itemize}
 	\item SelectionSort - $\Theta(n^{2})$
@@ -19,7 +20,7 @@ Finora abbiamo studiato i seguenti algoritmi di ordinamento\\\\
 	\item QuickSort - $\Omega(n), \mathcal{O}(n^{2})$
 \end{itemize}
 \end{minipage} \\\\\\
-\textcolor{red}{Tutti questi algoritmi sono basati su confronti}, cioè le decisioni sull'ordinamento vengono prese in base al confornto $(<, =, >)$ fra due valori e la diretta conseguenza è che gli algoritmi migliori hanno una complessità pari a \textcolor{red}{$\mathcal{O}(n \log n)$} (InsertionSort e ShellSort sono più performanti solo in casi particolari).\\
+\textcolor{red}{Tutti questi algoritmi sono basati su confronti}, cioè le decisioni sull'ordinamento vengono prese in base al confronto $(<, =, >)$ fra due valori e la diretta conseguenza è che gli algoritmi migliori hanno una complessità pari a \textcolor{red}{$\mathcal{O}(n \log n)$} (InsertionSort e ShellSort sono più performanti solo in casi particolari).\\
 E' possibile dimostrare che \textcolor{red}{qualunque algoritmo di ordinamento basato su confronti} ha una complessità \textcolor{red}{$\Omega(n \log n)$}:
 \begin{itemize}
 	\item Consideriamo un qualunque algoritmo di ordinamento $A$ basato su confronti
@@ -31,13 +32,88 @@ E' possibile dimostrare che \textcolor{red}{qualunque algoritmo di ordinamento b
 	\item \textcolor{red}{cammino radice-foglia in un albero di decisione}: sequenza di confronti che vengono eseguiti dall'algoritmo corrispondente
 	\item \textcolor{red}{Altezza dell'albero di decisione}: numero confronti che vengono eseguiti dall'algoritmo corrispondente nel caso pessimo
 \end{itemize}
-Si consideriano tutti gli alberi di decisione ottenibili da algoritmi di ordinamento basati su confronti\\\\
+Si considerino tutti gli alberi di decisione ottenibili da algoritmi di ordinamento basati su confronti\\\\
 \textbf{Lemma 1}: Un albero di decisione per l'ordinamento di $n$ elementi contiene almeno $n!$ foglie\\\\
 \textbf{Lemma 2}: Sia $T$ un albero binario in cui ogni nodo interno ha esattamente 2
-figli e sia $k$ il numero delle sue foglie. L’altezza dell’albero è almeno $\log k$ - ovvero $\Omega(\log k)$.\\\\
+figli e sia $k$ il numero delle sue foglie. L'altezza dell'albero è almeno $\log k$ - ovvero $\Omega(\log k)$.\\\\
 \textbf{Teorema}: Il numero di confronti necessari per ordinare $n$ elementi nel caso
 peggiore è $\Omega(n \log n)$
-\subsection{Spaghetti Sort}
+\newpage
+\subsection{Algoritmi basati su confronti}
+\subsubsection{Selection Sort}
+\begin{lstlisting}[ caption= Selection Sort]
+SelectionSort(ITEM[] A, int n)
+	for i = 1 to n - 1 do
+		int min_temp = min_from_to(A, i, n)
+		A[min_temp] $\leftrightarrow$ A[i]
+
+int min_from_to(ITEM[] A, int inizio, int fine)
+	int i_min = inizio
+  	for indice = inizio + 1 to fine do
+		if S[i_min] > S[indice] then
+			i_min = indice
+	return i_min
+\end{lstlisting}
+\textbf{Costo computazionale}: La complessità nel caso medio, pessimo ed ottimo è uguale e vale $\mathcal{O}(n^{2})$.
+\subsubsection{Insertion Sort}
+\begin{lstlisting}[ caption= Insertion Sort]
+insertionSort(ITEM[] A, int n)
+	for i = 2 to n do
+		% Salvo l'elemento che dovro' shiftare
+		ITEM temp = A[i]
+		% Mi salvo la sua posizione
+		int j = i
+		% Scorro il mazzo a ritroso trovando la sua posizione
+		while j > 1 and temp < A[j-1] do
+			A[j] = A[j-1]
+			j = j - 1
+		A[j] = temp
+\end{lstlisting}
+\textbf{Costo computazionale}: La complessità nel caso medio e pessimo  e vale $\mathcal{O}(n^{2})$, mentre per il caso ottimo la complessità è invece $\mathcal{O}(n)$. \\
+Questo tipo di algoritmo è indicato per quando si vogliono riordinare piccoli insiemi di elementi.
+\newpage
+\subsubsection{Merge Sort}
+\begin{lstlisting}[ caption= Merge Sort]
+mergeSort(ITEM[] A, int n)
+	mergeSort_rec(A, 1, n)
+
+mergeSort_rec(ITEM[] A, int first, int last)
+  	if first $\leq$ last do
+		int mid = (first + last)/2
+		mergeSort_rec(A, first, mid)
+		mergeSort_rec(A, mid + 1, last)
+		merge(A, first, mid, last)
+
+merge(ITEM[] A, int first, int mid, int last)
+  	int i, j, k, h
+  	% vettore di appoggio
+  	ITEM[] B = new ITEM[1..last]
+  	i = first
+  	j = mid + 1
+  	k = first
+  	% riempimento vettore di appoggio in maniera ordinata
+  	while i $\leq$ mid and j $\leq$ last do
+		if A[i] < A[j] then
+			B[k] = A[i]
+			i = i + 1
+		else  
+			B[k] = A[j]
+			j = j + 1
+		k = k + 1
+	j = last
+  	for h = mid downto i do
+  		A[j] = A[h]
+  		j = j - 1
+  	for j = first to k - 1 do
+  		A[j] = B[j]
+\end{lstlisting}
+\textbf{Costo computazionale}: La complessità di merge è di $\mathcal{O}(n)$, mentre la complessità di merge sort vale in tutti i casi $\mathcal{O}(n\log{}n)$.\
+\subsubsection{Heap Sort}
+\textbf{Riferimento}: Vedi il capitolo riguardante \hyperref[sec:heap]{\emph{Strutture dati speciali - Heap}}.
+\subsubsection{Quick Sort}
+\textbf{Riferimento}: Vedi il capitolo riguardante \hyperref[sec:quicksort]{\emph{Divide-et-Impera}}.\\\
+\subsection{Algoritmi NON basati su confronti}
+\subsubsection{Spaghetti Sort}
 \textbf{Algoritmo Spaghetti Sort - $\mathcal{O}(n)$}
 \begin{enumerate}
 	\item Prendi $n$ spaghetti
@@ -46,7 +122,7 @@ peggiore è $\Omega(n \log n)$
 	\item Prendi il più lungo, misuralo e metti il valore corrispondente in fondo al vettore da ordinare
 	\item Ripeti (4) fino a quando non hai terminato gli spaghetti
 \end{enumerate}
-\subsection{Counting Sort}
+\subsubsection{Counting Sort}
 \textbf{Assunzione}\\
 I numeri da ordinare sono compresi in un intervallo $[1...k]$\\\\
 \textbf{Come funziona}\\
@@ -69,9 +145,9 @@ countingSort(int[] A, int n, int k)
 \end{lstlisting}
 La complessità del Counting Sort è dunque pari a $\mathcal{O}(n + k)$: se $k$ è $\mathcal{O}(n)$, allora la complessità del Counting Sort è $\mathcal{O}(n)$.\\
 \textbf{ATTENZIONE}: se $k$ è $\mathcal{O}(n^{3})$ questo algoritmo è il peggiore di tutti quelli visti fino ad ora!
-\subsection{Pigeonhole Sort}
+\subsubsection{Pigeonhole Sort}
 Cosa succede se i valori da ordinare non sono numeri interi ma ad esempio dei record associati ad una chiave che vanno ordinati? Non è possibile usare il counting ma si può invece utilizzare delle \emph{Liste Concatenate}
-\subsection{Bucket Sort}
+\subsubsection{Bucket Sort}
 \textbf{Ipotesi sull'input}
 \begin{itemize}
 	\item Valori Reali uniformementi distribuiti nell'intervallo $[0, 1)$

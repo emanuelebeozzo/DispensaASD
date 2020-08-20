@@ -91,7 +91,7 @@ Sia $DP[i][j$] il numero di sequenze ottenibili considerando $i$ caratteri $R$ e
 \end{flushleft}
 \begin{enumerate}
 	\item Ogni intero positivo $n$ può essere scritto come somma di quadrati di interi. Scrivere un algoritmo che, preso in input $n$, restituisce il numero minimo di quadrati la cui somma è pari ad $n$. Discuterne correttezza e complessità.
-	\item Scrivere un algoritmo che, dato $n$, stampatutti i modi possibili per esprimere $n$ come somma di quadrati, discutendo correttezza e complessità
+	\item Scrivere un algoritmo che, dato $n$, stampa tutti i modi possibili per esprimere $n$ come somma di quadrati, discutendo correttezza e complessità
 \end{enumerate}
 \begin{lstlisting}[caption=Somma di Quadrati - Conteggio]
 int sommaQuadrati(int n, int missing)
@@ -173,6 +173,6 @@ processSolution(ITEM[] S, int n)
         print S[i]
     print "}"
 \end{lstlisting}
-Il costo della soluzione è pari a $\mathcal{O}(k \cdot n^{k})$: per arrivare a tale complessità basta pensare al fatto che il numero di nodi che forma il k-cammino è pari a $k+1$ ma uno di questi è $s$ (invariante) e quindi i nodi variabili sono k. Supponendo di avere un grafo completo (i cui nodi hanno dunque $n-1$ archi ognuno) si ha che è possibile scegliere fra $n-1$ nodi come nodo adiacente a $s$, dopodichè $n-2$ per il nodo adiacente a $n-1$ e così via fino a $n-k$ nodi. La complessità dunque è data da $(n-1) \cdot (n-2) \cdot (n-3) \cdot ... \cdot (n-k) = n^{k}$. Il termine $k$ invece è ottenuto dal costo della stampa di $k$ termini.
+Il costo della soluzione è pari a $\mathcal{O}(k \cdot n^{k})$: per arrivare a tale complessità basta pensare al fatto che il numero di nodi che forma il k-cammino è pari a $k+1$ ma uno di questi è $s$ (invariante) e quindi i nodi variabili sono k. Supponendo di avere un grafo completo (i cui nodi hanno dunque $n-1$ archi ognuno) si ha che è possibile scegliere fra $n-1$ nodi come nodo adiacente a $s$, dopodiché $n-2$ per il nodo adiacente a $n-1$ e così via fino a $n-k$ nodi. La complessità dunque è data da $(n-1) \cdot (n-2) \cdot (n-3) \cdot ... \cdot (n-k) = n^{k}$. Il termine $k$ invece è ottenuto dal costo della stampa di $k$ termini.
 \newpage
 \end{document}

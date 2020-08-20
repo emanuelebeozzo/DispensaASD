@@ -43,7 +43,7 @@ Il costo dell'algoritmo greedy proposto ha complessità $\mathcal{O}(n \log n)$ 
 \end{flushleft}
 Identico al caso precedente solo che...\\
 \begin{itemize}
-	\item Siano $D[1...n]$ e $C[1...n]$ due vettori di interi, dove $D[i]$ è la distanza dell'area di servizio i-esima dall’inizio dell’autostrada, e $C[i]$ è il costo di una nuova batteria nell'area $i$.
+	\item Siano $D[1...n]$ e $C[1...n]$ due vettori di interi, dove $D[i]$ è la distanza dell'area di servizio i-esima dall'inizio dell'autostrada, e $C[i]$ è il costo di una nuova batteria nell'area $i$.
 	\item Il costo totale del viaggio è dato dalla somma dei costi delle batterie sostituite per arrivare al km $L$.
 \end{itemize}
 \begin{lstlisting}[caption=Batterie DP]
@@ -69,7 +69,7 @@ int batterie(int[] D, int[] C, int n, int L, int r)
         minSoFar = -1
     return minSoFar
 \end{lstlisting}
-La complessità della soluzione è $\mathcal{O}(n^2)$ in quanto per la costruzione di ogni cella della tabella delle soluzioni sono necessare al più $\mathcal{O}(n)$ interazioni. \\
+La complessità della soluzione è $\mathcal{O}(n^2)$ in quanto per la costruzione di ogni cella della tabella delle soluzioni sono necessarie al più $\mathcal{O}(n)$ interazioni. \\
 La correttezza della soluzione mostrata può essere provata nel seguente modo: \\
 Sia DP[i] la tabella di programmazione dinamica che memorizza il costo minore necessario per il carburante avendo fatto rifornimento alla stazione i-esima, sempre che sia possibile arrivarci. L'equazione di ricorrenza è dunque la seguente:
 \begin{equation*}
@@ -80,8 +80,8 @@ Sia DP[i] la tabella di programmazione dinamica che memorizza il costo minore ne
     \end{cases}
 \end{equation*} \\
 \textbf{Sottosequenza}\\
-Una stringa $P$ è una supersequenza di una stringa $T$ se $T$ è una sottosequenza di $P$. Scrivere un algoritmo che restituisca la lunghezza della supersequenza comune minimale di due stringhe $P$,$T$, ovvero la più piccola supersequenza di entrambe le stringhe. Discutere correttezza e complessità dell’algoritmo proposto.\\
-Esempio: L’unica supersequenza comune minimale di $AB$ e $BC$ è $ABC$, e la sua lunghezza è pari a 3.\\
+Una stringa $P$ è una supersequenza di una stringa $T$ se $T$ è una sotto-sequenza di $P$. Scrivere un algoritmo che restituisca la lunghezza della supersequenza comune minimale di due stringhe $P$,$T$, ovvero la più piccola supersequenza di entrambe le stringhe. Discutere correttezza e complessità dell'algoritmo proposto.\\
+Esempio: L'unica supersequenza comune minimale di $AB$ e $BC$ è $ABC$, e la sua lunghezza è pari a 3.\\
 Esempio: Esistono due supersequenze comuni minimali di $DAB$ e $DCB$, ovvero $DACB$ e $DCAB$, e la loro lunghezza è pari a 4.
 \begin{lstlisting}[caption=Supersequenza comune minimale]
 int supersequenzaComuneMinimale(ITEM[] S, ITEM[] T, int n, int m) 
@@ -114,7 +114,7 @@ I casi gestiti sono dunque: \\
 \begin{itemize}
     \item Se le stringhe sono entrambe vuote l'unica supersequenza possibile è l'insieme vuoto.
     \item Se una delle due stringhe analizzata è vuota mentre l'altra non lo è allora la supersequenza comune minimale è quella che possiede dei caratteri. 
-    \item Se i caratteri combaciano allora posso aggiundere il carattere considerato e considerare le stringhe con un carattere in meno entrambe
+    \item Se i caratteri combaciano allora posso aggiungere il carattere considerato e considerare le stringhe con un carattere in meno entrambe
     \item Se i caratteri non combaciano allora cerco il minimo tra considerare o meno il carattere corrente di T e uno in meno di P e il viceversa, aggiungendo 1, ovvero il carattere considerato.
 \end{itemize}
 \textbf{Cammini Indipendenti}\\

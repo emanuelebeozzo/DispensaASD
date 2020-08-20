@@ -119,7 +119,7 @@ Alcuni esempi sono:
 	\item Moda: il valore (o i valori) più frequenti
 \end{itemize} 
 \subsection{Il calcolo della mediana}
-Il problema della mediana è quello di calcolare, dato un vettore $A$ contenene $n$ valori, l'elemento/i che occuperebbe/ro la posizione centrale se il vettore $A$ fosse ordinato. \\
+Il problema della mediana è quello di calcolare, dato un vettore $A$ contenente $n$ valori, l'elemento/i che occuperebbe/ro la posizione centrale se il vettore $A$ fosse ordinato. \\
 Ovviamente è possibile riordinare il vettore mediante un algoritmo di ordinamento basato su confronti di costo computazionale pari a $\mathcal{O}(n \log n)$ e prelevare l'elemento a metà. \\
 Ci chiediamo ora se è possibile fare meglio di così, estendendo il problema del calcolo della mediana a quello della selezione, dato che la mediana è un suo sottoproblema: \\
 Dato un array $A$ contenente $n$ valori e un valore $1 \leq k \leq n$, trovare l'elemento che occuperebbe la posizione $k$ se il vettore fosse ordinato. \\
@@ -184,13 +184,13 @@ Procediamo dunque al calcolo della complessità:
 \end{align*}
 Siamo partiti dall’assunzione che $j$ assume equiprobabilisticamente tutti i valori compresi fra $1$ e $n$, se così non fosse possiamo forzarlo noi scambiando qualche valore: \\
 $A[random(start,end)] \leftrightarrow A[start]$ (vale anche per QuickSort)\\
-La complessità nel caso medio è dunque: $\mathcal{O}(n)$ nel caso della Selezione, mentre $O(n \log n)$ nel caso dell’Ordinamento. \\
+La complessità nel caso medio è dunque: $\mathcal{O}(n)$ nel caso della Selezione, mentre $O(n \log n)$ nel caso dell'ordinamento. \\
 Questo algoritmo, basato sul calcolo del $pivot$ è un algoritmo di tipo \emph{Las Vegas} in quanto corretto, ma il tempo di esecuzione è probabilistico, a seconda della distribuzione di valori ritornati dalla funzione $pivot$. \\
 \textbf{Selezione deterministica}: \\
 L'idea è la seguente:
 \begin{itemize}
 	\item Suddividiamo il vettore in gruppi di 5.
-	\item Chiameremo l’i-esimogruppo $S_i$, con $i \in [1, \lceil n/5 \rceil]$. 
+	\item Chiameremo l’i-esimo gruppo $S_i$, con $i \in [1, \lceil n/5 \rceil]$. 
 	\item Troviamo il mediano $M_i$ di ogni gruppo $S_i$. 
 	\item Tramite una chiamata ricorsiva, si trova il mediano $m$ delle mediane $[M_1,M_2,...,M_{\lceil n/5 \rceil}]$. 
 	\item Usiamo $m$ come pivot e richiamiamo l'algoritmo ricorsivamente sulla porzione di vettore opportuna, come nella \emph{selection()}.
