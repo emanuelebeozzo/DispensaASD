@@ -564,7 +564,7 @@ computePar(int[] c, int n)
 	for h = 2 to n do
 		for i = 1 to n - h + 1 do 
 			int j = i + h - 1 
-			DP[i][j] = +1
+			DP[i][j] = +inf
 			% k: last product
 			for k = i to j - 1 do 
 				int temp = DP[i][k] + DP[k+1][j] + 

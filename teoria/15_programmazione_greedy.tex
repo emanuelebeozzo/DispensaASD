@@ -474,7 +474,7 @@ L'implementazione dell'albero avviene invece tramite \emph{vettore dei padri} di
 	\item Ogni nodo $v$ mantiene un puntatore al padre $p[v]$
 	\item $A$ è mantenuto implicitamente: $A = \{[v, p[v]] \mid v \in V - Q - \{r\}\}$ ($r$ non può essere selezionato come nodo in quanto è il nodo radice dell'albero e non può avere un padre)
 \end{itemize}
-\begin{lstlisting}[caption=Albero di Copertura di Peso Minimo - Kruskal]
+\begin{lstlisting}[caption=Albero di Copertura di Peso Minimo - Prim]
 prim(GRAPH G, NODE r, int[] p)
 	PRIORITYQUEUE Q = MinPriorityQueue()
 	% Creiamo i Priority Item per accedere ad un elemento piu' in fretta
