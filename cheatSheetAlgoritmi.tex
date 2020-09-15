@@ -2,25 +2,33 @@
 
 \usepackage{subfiles}
 \usepackage{stile/style}
+\usepackage{tocloft}
+\usepackage{hyperref}
+\usepackage{fontawesome}
 
 % Preambolo
-\title{
-	\Large{
-		\textbf{
-			CheatSheet: Algoritmi e Strutture Dati di Alberto Montresor
-		}
-	}
-}
-\author{
-	Simone Alghisi, 
-	Emanuele Beozzo, 
-	Samuele Bortolotti
-}
-
-\date{Dicembre 25, 2019}
+\advance\cftsecnumwidth 0.3em\relax
+\advance\cftsubsecindent 0.3em\relax
+\advance\cftsubsecnumwidth 0.4em\relax
 
 \begin{document}
-	\maketitle
+	\begin{titlepage}
+		\begin{center}
+		{\Huge \textbf{CheatSheet} \par}
+    		\vspace{0.5cm}
+    		{\Large \textbf{Corso di Algoritmi e Strutture Dati del Professor}
+    		\vspace{0.2cm}
+    		\textbf{Alberto Montresor - Università di Trento} \par}
+		\vspace*{\fill}
+    		{\Large 
+    		\faGithub \hspace{0.2em} \href{https://github.com/Simone-Alghisi}{Simone Alghisi},	
+    		\faGithub \hspace{0.2em} \href{https://github.com/emanuelebeozzo}{Emanuele Beozzo}, 
+    		\faGithub \hspace{0.2em} \href{https://github.com/samuelebortolotti}{Samuele Bortolotti}
+    		\par}
+    		\vspace{0.5cm}
+    		{\Large Settembre 15, 2020}
+		\end{center}
+	\end{titlepage}
 	\newpage
 	\tableofcontents
 	\newpage
