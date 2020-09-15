@@ -6,7 +6,10 @@
 \textbf{Introduzione} Tecnica classica di risoluzione dei problemi che consiste nello spezzare il problema ricorsivamente in sottoproblemi. A differenza della tecnica del divide-et-impera, ogni sotto problema viene risolto solo una volta e la sua soluzione viene memorizzata in una tabella. Nel caso bisognasse risolvere nuovamente il sottoproblema, si ottiene la soluzione facendo un semplice accesso alla tabella senza effettuare di nuovo il calcolo. La tabella ha un costo di lookup pari a  $\mathcal{O}$(1). 
 
 \subsubsection{Domino}
-\textbf{Problema:} Il gioco del domino è basato su tessere di dimensione $2\times1$. Scrivere un algoritmo efficiente che prenda in input un intero n e restituisca il numero di possibili disposizioni di n tessere in un rettangolo $2\times n$. \\\\
+\textbf{Problema:} Il gioco del domino è basato su tessere di dimensione $2\times1$. Scrivere un algoritmo efficiente che prenda in input un intero n e restituisca il numero di possibili disposizioni di n tessere in un rettangolo $2\times n$. 
+
+\bigskip
+
 \textbf{Soluzione:} Iniziamo a considerare alcuni casi per definire una soluzione. Con $n=0$ abbiamo solo una disposizione possibile (nessuna tessera), con $n=1$ abbiamo solo una disposizione possibile (tessera messa in verticale). L'ultima tessera può essere disposta in due modi: se la posiziono in verticale devo risolvere il problema con dimensione $n-1$, mentre se la metto in orizzontale devo per forza mettere 2 tessere e risolvere il problema di dimensione $n-2$. In generale la soluzione ha la seguente forma: 
 
 \begin{equation*}
@@ -14,8 +17,12 @@
     	1 & \text{$n \leq 1$}\\
     	DP[n-2] + DP[n-1] & \text{$n > 1$}
   	\end{cases}
-\end{equation*}\\\\
-Notiamo che il risultato è la sequenza di Fibonacci: 1, 1, 2, 3, 5, 8, ... \\
+\end{equation*}
+
+\bigskip
+
+Notiamo che il risultato è la sequenza di Fibonacci: 1, 1, 2, 3, 5, 8, ... 
+
 Proponiamo 3 soluzioni al problema:
 \begin{itemize}
 	\item domino1(): soluzione ricorsiva che non fa uso della programmazione dinamica e risolve più volte gli stessi sottoproblemi
@@ -57,7 +64,7 @@ int domino3(int n)
 Il costo per le varie versioni è il seguente: 
 \begin{center}
 	\renewcommand{\arraystretch}{1.2}
-	\begin{tabular}{ |c|c|c| } 
+	\begin{tabular}{ |c|c|c|} 
 		\hline
 			Funzione & Complessità (Tempo) & Complessità (Spazio)\\ 
 		\hline
@@ -85,7 +92,7 @@ raccogliere i fondi. Ogni abitante i ha intenzione di donare una quantità $D[i]
 	\item Se non accetto la donazione $i$-esima: $HV(i) = HV(i-1)$
 	\item Se accetto la donazione i-esima: $HV(i) = i \cup HV(i-2)$
 	\item Per decidere se accettare una donazione $i$: $HV(i) = highest(HV(i -1),  \{i\} \cup HV(i-2))$
-	\item Casi base: HV(0) = $\emptyset$ e HV(1) = $\{$1$\}$ \\
+	\item Casi base: HV(0) = $\emptyset$ e HV(1) = $\{$1$\}$ 
 \end{itemize} 
 Mettendo tutto insieme otteniamo:
 \begin{equation*}
@@ -103,7 +110,10 @@ Per riuscire a calcolare l'insieme delle soluzioni dobbiamo prima calcolare il v
     	D[1] & \text{$i = 1$}\\
     	max(DP[i -1], DP[i-2]+D[i]) & \text{$i \ge 2$}
   	\end{cases}
-\end{equation*} \\\\
+\end{equation*} 
+
+\bigskip
+
 \textbf{Implementazione:}
 \begin{lstlisting}[ caption= Hateville versione $\mathcal{O}(n)$ senza calcolo della soluzione]
 int hateville(int[] D, int n)
@@ -161,7 +171,7 @@ Siano dati in input:
 L'output deve essere un insieme $S  \subseteq \{1, ..., n \}$ tale che:
 \begin{itemize}
 	\item Il volume totale deve essere minore o uguale alla capacità 
-	\item Il profitto totale deve essere massimizzato\\
+	\item Il profitto totale deve essere massimizzato
 \end{itemize} 
 \textbf{Soluzione:} Dato uno zaino di capacità $C$ e $n$ oggetti caratterizzati da peso $w$ e profitto $p$, definiamo $DP[i][c]$ come il massimo profitto che può essere ottenuto dai primi $i \leq n$ oggetti contenuti in uno zaino di
 capacità $c \leq C$. Il massimo profitto ottenibile per il problema originale è rappresentato da $DP[n][C]$.\\
@@ -254,10 +264,18 @@ int knapsackRec(int[] w, int[] p, int i, int c, Hash DP)
     	-\infty & \text{$c < 0$}\\
     	max(DP[i \textcolor{red}{-1}][c-w[i]]+p[i], DP[i-1][c]) & \text{$altrimenti$}
   	\end{cases}
-\end{equation*} \\
-Se rimuoviamo il $-1$ che troviamo nell'equazione di ricorrenza vista nei casi precedenti, ricadiamo nel caso in cui ci chiediamo se ci conviene prendere lo stesso oggetto più volte, pur avendo una capacità minore, oppure se ci conviene non prendere l'oggetto e passare a un altro. \\
-Al posto che modificare la formula precedente, a cui basterebbe come detto precedentemente rimuovere il $-1$, proviamo a pensare a una soluzione più efficiente a livello di spazio occupato in memoria. \\\\
-Dato dunque uno zaino senza limiti di scelta di capacità $C$ e $n$ oggetti caratterizzati da un peso $w$ e da un porfitto $p$, definiamo $DP[c]$ come il massimo profitto che può essere ottenuto da tali oggetti in uno zaino di capacità $c \leq C$\\\\
+\end{equation*} 
+
+Se rimuoviamo il $-1$ che troviamo nell'equazione di ricorrenza vista nei casi precedenti, ricadiamo nel caso in cui ci chiediamo se ci conviene prendere lo stesso oggetto più volte, pur avendo una capacità minore, oppure se ci conviene non prendere l'oggetto e passare a un altro. 
+
+Al posto che modificare la formula precedente, a cui basterebbe come detto precedentemente rimuovere il $-1$, proviamo a pensare a una soluzione più efficiente a livello di spazio occupato in memoria. 
+
+\bigskip
+
+Dato dunque uno zaino senza limiti di scelta di capacità $C$ e $n$ oggetti caratterizzati da un peso $w$ e da un porfitto $p$, definiamo $DP[c]$ come il massimo profitto che può essere ottenuto da tali oggetti in uno zaino di capacità $c \leq C$
+
+\bigskip
+
 Se pensiamo al fatto che possiamo prendere un numero arbitrario di volte un qualsiasi oggetto, pur rimanendo vincolati dalla capacità residua dello zaino, questo significa che con capacità restante $c$, ci converrà prendere l'oggetto con profitto massimo ($max(p[i])$) con $w[i] \leq c$.
 
 \begin{equation*}
@@ -265,7 +283,10 @@ Se pensiamo al fatto che possiamo prendere un numero arbitrario di volte un qual
     	0 & \text{$c = 0$}\\
     	max_{w[i] \leq c}\{DP[c-w[i]]+p[i]\} & \text{$c>0$}
   	\end{cases}
-\end{equation*}\\\\
+\end{equation*}
+
+\bigskip
+
 \textbf{Implemetazioni}
 \begin{lstlisting}[caption= Knapsack zaino senza limiti]
 int knapsack(int[] w, int[] p, int n, int C)
@@ -286,8 +307,12 @@ int knapsackRec(int[] w, int[] p, int n, int c, int[] DP)
 	   	   DP[c] = max(DP[c], val)
 	return DP[c]
 \end{lstlisting}
-Qual è la complessità della funzione $knapsack()$?\\
-La funzione knapsack deve generare un vettore grande $C$ e, nel caso peggiore, dovrà riempire tutti i suoi elementi. Riempire un singolo elemento ha costo $\mathcal{O}(n)$ e quindi il costo complessivo della funzione è  $\mathcal{O}(nC)$.\\\\
+Qual è la complessità della funzione $knapsack()$?
+
+La funzione knapsack deve generare un vettore grande $C$ e, nel caso peggiore, dovrà riempire tutti i suoi elementi. Riempire un singolo elemento ha costo $\mathcal{O}(n)$ e quindi il costo complessivo della funzione è  $\mathcal{O}(nC)$.
+
+\bigskip
+
 Se utilizziamo questo tipo di approccio lo spazio occupato in memoria è pari a $\Theta(C)$ ma ricostruire la soluzione diventa più complesso in quanto è necessario l'utilizzo di un altro vettore che ci dica da dove venga il massimo.
 \begin{equation*}
   	DP[c] =\begin{cases}
@@ -330,47 +355,85 @@ Quello che viene restituito dalla funzione $solution()$ è una lista di indici d
 \newpage
 \subsection{Altri esempi di programmazione dinamica} 
 \subsubsection{Sottosequenza comune massimale}
-\textbf{Definizione: Sottosequenza}\\
-Una sequenza $P$ è una \textcolor{red}{sottosequenza} di $T$ se $P$ è ottenuto da $T$ rimuovendo uno o più dei suoi elementi.\\\\
-\textbf{Definizione: Sottosequenza comune}\\
-Una sequenza $X$ è una \textcolor{red}{sottosequenza comune} di due sequenze $T, U$ se è sottosequenza sia di $T$ che di $U$.\\
-Scriveremo $X \in \mathcal{CS}(T, U)$\\\\
-\textbf{Definizione: Sottosequenza comune massimale}\\
-Una sequenza $X \in \mathcal{CS}(T, U)$ è una \textcolor{red}{sottosequenza comune massimale} di due sequenze $T, U$ se non esiste un'altra sottosequenza $Y \in \mathcal{CS}(T, U)$ tale che $Y$ sia più lunga di $X$  ($|Y| > |X|$).\\
-Scriveremo $X \in \mathcal{LCS}(T, U)$\\\\
-\textbf{Problema: $\mathcal{LCS}$}\\
-Date due sequenze $T$ e $U$, trovare la più lunga sottosequenza comune tra le due.\\\\
-Per poter descrivere la soluzione matematica ottima abbiamo ancora bisogno di un'altra definizione:\\
-\textbf{Prefisso}: Data una sequenza $T$ composta da $t_{1}t_{2}...t_{n}$, $T(i)$ denota il \textcolor{red}{prefisso} dei primi $i$ caratteri cioè: $T(i) = t_{1}t_{2}...t_{i}$\\\\
+\textbf{Definizione: Sottosequenza}
+
+Una sequenza $P$ è una \textcolor{red}{sottosequenza} di $T$ se $P$ è ottenuto da $T$ rimuovendo uno o più dei suoi elementi.
+
+\bigskip
+
+\textbf{Definizione: Sottosequenza comune}
+
+Una sequenza $X$ è una \textcolor{red}{sottosequenza comune} di due sequenze $T, U$ se è sottosequenza sia di $T$ che di $U$.
+
+Scriveremo $X \in \mathcal{CS}(T, U)$
+
+\bigskip
+
+\textbf{Definizione: Sottosequenza comune massimale}
+
+Una sequenza $X \in \mathcal{CS}(T, U)$ è una \textcolor{red}{sottosequenza comune massimale} di due sequenze $T, U$ se non esiste un'altra sottosequenza $Y \in \mathcal{CS}(T, U)$ tale che $Y$ sia più lunga di $X$  ($|Y| > |X|$).
+
+Scriveremo $X \in \mathcal{LCS}(T, U)$
+
+\bigskip
+
+\textbf{Problema: $\mathcal{LCS}$}
+
+Date due sequenze $T$ e $U$, trovare la più lunga sottosequenza comune tra le due.
+
+\bigskip
+
+Per poter descrivere la soluzione matematica ottima abbiamo ancora bisogno di un'altra definizione:
+
+\textbf{Prefisso}: Data una sequenza $T$ composta da $t_{1}t_{2}...t_{n}$, $T(i)$ denota il \textcolor{red}{prefisso} dei primi $i$ caratteri cioè: $T(i) = t_{1}t_{2}...t_{i}$
+
+\bigskip
+
 \textbf{Analisi dei casi ricorsivi}
 \begin{itemize}
-	\item \textbf{Caso 1:}\\
+	\item \textbf{Caso 1:}
+	
 Si considerino due prefissi $T(i)$ e $U(j)$ tali per cui il loro ultimo carattere coincide: $t_{i} = u_{j}$.\\
-es: $T(i) = ALBERTO$, $U(j) = PIERO$.\\
-\textbf{Soluzione}\\
+es: $T(i) = ALBERTO$, $U(j) = PIERO$.
+
+\textbf{Soluzione}
+
 $LCS(T(i), U(j))$ = $LCS(T(i-1), U(j-1))$ $\oplus$ $t_{i}$\\
-nel caso dell'esempio mostrato sopra:\\
+nel caso dell'esempio mostrato sopra:
+
 $LCS(ALBERTO, PIERO)$ = $LCS(ALBERT, PIER)$ $\oplus$ O
-	\item \textbf{Caso 2:}\\
-Si considerino due prefissi $T(i)$ e $U(j)$ tali per cui il loro ultimo carattere è differente: $t_{i} \neq u_{j}$.\\
-es: $T(i) = ALBERT$, $U(j) = PIER$.\\
-\textbf{Soluzione}\\
-$LCS(T(i), U(j))$ = $longest(LCS(T(i-1), U(j)), LCS(T(i), U(j-1)))$\\
-nel caso dell'esempio mostrato sopra:\\
-$LCS(ALBERTO, PIERO)$ = $longest (LCS(ALBER, PIER), LCS(ALBERT, PIE))$\\
+	\item \textbf{Caso 2:}
+	
+Si considerino due prefissi $T(i)$ e $U(j)$ tali per cui il loro ultimo carattere è differente: $t_{i} \neq u_{j}$.
+
+es: $T(i) = ALBERT$, $U(j) = PIER$.
+
+\textbf{Soluzione}
+
+$LCS(T(i), U(j))$ = $longest(LCS(T(i-1), U(j)), LCS(T(i), U(j-1)))$
+
+nel caso dell'esempio mostrato sopra:
+
+$LCS(ALBERTO, PIERO)$ = $longest (LCS(ALBER, PIER), LCS(ALBERT, PIE))$
+
 \end{itemize}
-\textbf{Casi Base}\\
-La più lunga sottosequenza tra $T(i)$ e $U(j)$ quando uno dei due è vuoto è $LCS(T(i), U(0))$ = $\emptyset$\\\\
-\textbf{Formula Completa}\\
-\begin{equation*}
+\textbf{Casi Base}
+
+La più lunga sottosequenza tra $T(i)$ e $U(j)$ quando uno dei due è vuoto è $LCS(T(i), U(0))$ = $\emptyset$
+
+\newpage
+
+\textbf{Formula Completa}
+
+\begin{equation*}\resizebox{.9\hsize}{!}{$
   	LCS(T(i), U(j)) =\begin{cases}
     	\emptyset & \text{$i = 0$ or $j=0$}\\
     	LCS(T(i-1), U(j-1)) \oplus t_{i} & \text{$i>0$ and $j>0$ and $t_{i} = u_{j}$}\\
     	longest(LCS(T(i-1), U(j)), LCS(T(i), U(j-1))) & \text{$i>0$ and $j>0$ and $t_{i} \neq u_{j}$}
-    	
   	\end{cases}
-\end{equation*}
-\textbf{Lunghezza della LCS}\\
+$}\end{equation*}
+\textbf{Lunghezza della LCS}
+
 Date due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scrivere una formula ricorsiva $DP[i][j]$ che restituisca la \textcolor{red}{lunghezza} della LCS dei prefissi $T(i)$ e $U(j)$.
 
 \begin{equation*}
@@ -381,7 +444,10 @@ Date due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scrivere una formula ricorsi
     	
   	\end{cases}
 \end{equation*}
-L'informazione relativa alla lunghezza della LCS del problema si troverà in $DP[n][m]$.\\\\
+L'informazione relativa alla lunghezza della LCS del problema si troverà in $DP[n][m]$.
+
+\bigskip
+
 \textbf{Esempio funzionamento soluzione e struttura dati}\\
 La tabella seguente mostra la struttura dati che sarà presente in memoria dopo aver eseguito l'algoritmo sulle stringhe ATBCBD e TACCBT. La freccia che punta verso il basso vuol dire che l'elemento è stato ricavato dall'elemento presente sulla stessa colonna della tabella, ma sulla riga precedente, la freccia che punta verso destra che l'elemento proviene dalla stessa riga ma dalla colonna precedente, mentre la freccia diagonale che l'elemento è stato calcolato a partire dall'elemento sulla riga e sulla colonna precedente. 
 
@@ -409,7 +475,10 @@ La tabella seguente mostra la struttura dati che sarà presente in memoria dopo 
 			\hline
 	\end{tabular}
 \end{center}
-Il risultato dell'esempio lo troviamo nella tabella in posizione [6,6] e vale 3. L'insieme delle soluzioni (cioè le lettere appartenenti alla sottosequenza massima) possono essere ricavate seguendo le frecce nella presenti nella struttura dati.\\\\
+Il risultato dell'esempio lo troviamo nella tabella in posizione [6,6] e vale 3. L'insieme delle soluzioni (cioè le lettere appartenenti alla sottosequenza massima) possono essere ricavate seguendo le frecce nella presenti nella struttura dati.
+
+\bigskip
+
 \textbf{Implementazione ricorrenza}
 \begin{lstlisting}[caption= Lunghezza LCS]
 int lcs(int[] T, int[] U, int n, int m)
@@ -426,7 +495,6 @@ int lcs(int[] T, int[] U, int n, int m)
 				DP[i][j] = max(DP[i-1][j], DP[i][j-1])
 	return DP[n][m]
 \end{lstlisting}
-\newpage
 \begin{flushleft}
 Nel caso in cui si voglia invece restituire la sottosequenza comune è invece necessario usare un algoritmo di questo tipo:
 \end{flushleft}
@@ -462,7 +530,10 @@ La complessità computazionale di subsequence è al massimo $T(n) = \mathcal{O}(
 	\item un carattere in $P$ non è incluso in $T$ (inserimento)
 	\item un carattere in $T$ non è incluso in $P$ (cancellazione)
 \end{itemize}
-\textbf{Problema:} Trovare un'occorrenza \emph{k-approssimata} di $P$ in $T$ con $k$ minimo (0 $\leq$ k $\leq$ m).\\\\
+\textbf{Problema:} Trovare un'occorrenza \emph{k-approssimata} di $P$ in $T$ con $k$ minimo (0 $\leq$ k $\leq$ m).
+
+\bigskip
+
 \textbf{Sottostruttura ottima e formula ricorsiva}
 Sia $DP[0...m][0...n]$ una tabella di programmazione dinamica tale che $DP[i][j]$ sia il minimo valore $k$ per cui esiste un’occorrenza k-approssimata di $P(i)$ in $T(j)$ che termina nella posizione $j$.
 \begin{equation*}
@@ -472,9 +543,7 @@ Sia $DP[0...m][0...n]$ una tabella di programmazione dinamica tale che $DP[i][j]
     	min(DP[i-1][j-1] + d , DP[i-1][j] + 1, DP[i][j-1] + 1)  & \text{$altrimenti$}   	
   	\end{cases}
 \end{equation*}
-\begin{center}
 dove $d = iif(P[i] == T[j]$, 0 , 1).
-\end{center}
 \newpage
 \begin{flushleft}
 La formula tratta i vari casi: se $P[i]=T[j]$ avanza su entrambi i caratteri, se $P[i] \neq T[j]$ avanza aggiungi 1 e trova la soluzione minima tra avanzare sul pattern (inserimento), avanzare sul testo (cancellazione) e avanzare su entrambi i caratteri (sostituzione).
@@ -498,16 +567,24 @@ int stringMatching(ITEM[] P, ITEM[] T, int m, int n)
 	return pos
 \end{lstlisting}
 \subsubsection{Prodotto di catena di matrici}
-\textbf{Problema:} Data una sequenza di n matrici $A_1, A_2, A_3, ..., A_n$, compatibili due a due al prodotto, vogliamo calcolare il loro prodotto.\\
-Il prodotto di matrici: non è commutativo, è \textcolor{red}{associativo}: ($A_1 \cdot A_2) \cdot A_3 = A_1 \cdot (A_2 \cdot A_3$) e si basa sulla moltiplicazione scalare come operazione elementare. Vogliamo calcolare il prodotto delle $n$ matrici impiegando il più basso numero possibile di moltiplicazioni scalari.\\\\
+\textbf{Problema:} Data una sequenza di n matrici $A_1, A_2, A_3, ..., A_n$, compatibili due a due al prodotto, vogliamo calcolare il loro prodotto.
+
+Il prodotto di matrici: non è commutativo, è \textcolor{red}{associativo}: ($A_1 \cdot A_2) \cdot A_3 = A_1 \cdot (A_2 \cdot A_3$) e si basa sulla moltiplicazione scalare come operazione elementare. Vogliamo calcolare il prodotto delle $n$ matrici impiegando il più basso numero possibile di moltiplicazioni scalari.
+
+\bigskip
+
 \textbf{Definizioni:} Una \emph{parentesizzazione} $P_{i,j}$ del prodotto $A_i \cdot A_{i+1}\cdot ... \cdot A_j$ consiste:
 \begin{itemize}
 	\item nella matrice $A_i$, se $i = j$;
 	\item nel prodotto di due parentesizzazioni ($P_{i,k} \cdot P_{k+1,j}$), altrimenti.
 \end{itemize}
-Una \textbf{Parentesizzazione ottima} è la parentesizzazione che richiede il minor numero di moltiplicazioni scalari per essere completata, fra tutte le parentesizzazioni possibili.\\
+Una \textbf{Parentesizzazione ottima} è la parentesizzazione che richiede il minor numero di moltiplicazioni scalari per essere completata, fra tutte le parentesizzazioni possibili.
+
 In ogni parentesizzazione ottima esiste un ultimo prodotto cioè esiste un indice k tale che $P[i...j] = P[i...k] \cdot P[k+1...j]$ dove $P[i...j]$ rappresenta una parentesizzazione per il prodotto $A_i \cdot A_{i+1} \cdot ... \cdot A_j$.\\
-Definiamo inoltre $c_{i-1}$ il numero di righe della matrice $A_i$ e $c_{i}$  il numero di colonne della matrice $A_i$.\\\\
+Definiamo inoltre $c_{i-1}$ il numero di righe della matrice $A_i$ e $c_{i}$  il numero di colonne della matrice $A_i$.
+
+\bigskip
+
 \textbf{Sottostruttura ottima e formula ricorsiva:} Se $P[i...j] = P[i...k]P[k+1...j]$ è una parentesizzazione ottima del prodotto $A[i...j]$, allora:
 \begin{itemize}
 	\item $P[i...k]$ è parentesizzazione ottima del prodotto $A[i...k]$
@@ -577,9 +654,16 @@ computePar(int[] c, int n)
 \textbf{Costo computazionale:} Il costo di $computePar()$ è pari a $\mathcal{O}(n^{3})$.
 \newpage
 \subsubsection{Insieme indipendente di intervalli pesati}
-\textbf{Definizioni e input:} Siano dati n intervalli distinti $[a_1, b_1[, ..., [a_n,b_n[$ della retta reale, aperti a destra, dove all'intervallo $i$ è associato un profitto $w_{i}$, $1\leq i \leq n$. Due intervalli $i$ e $j$ sono \emph{disgiunti} se $b_j \leq a_i$ oppure $b_i \leq a_j.$\\\\
-\textbf{Problema:} Trovare un \textcolor{red}{insieme indipendente di peso massimo}, ovvero un sottoinsieme di intervalli disgiunti tra loro tale che la somma dei loro profitti sia la più grande possibile.\\\\
-\textbf{Soluzione:} Per usare la programmazione dinamica, è necessario effettuare una pre-elaborazione: ordinare gli intervalli per estremi finali crescenti cioè $b_1 \leq b_2 \leq ... \leq b_n$. \\
+\textbf{Definizioni e input:} Siano dati n intervalli distinti $[a_1, b_1[, ..., [a_n,b_n[$ della retta reale, aperti a destra, dove all'intervallo $i$ è associato un profitto $w_{i}$, $1\leq i \leq n$. Due intervalli $i$ e $j$ sono \emph{disgiunti} se $b_j \leq a_i$ oppure $b_i \leq a_j.$
+
+\bigskip
+
+\textbf{Problema:} Trovare un \textcolor{red}{insieme indipendente di peso massimo}, ovvero un sottoinsieme di intervalli disgiunti tra loro tale che la somma dei loro profitti sia la più grande possibile.
+
+\bigskip
+
+\textbf{Soluzione:} Per usare la programmazione dinamica, è necessario effettuare una pre-elaborazione: ordinare gli intervalli per estremi finali crescenti cioè $b_1 \leq b_2 \leq ... \leq b_n$. 
+
 Una seconda possibile pre-elaborazione consiste nel pre-calcolare il predecessore $pred_{i} = j$ di $i$, dove: 
 \begin{itemize}
 	\item $j < i$ è il massimo indice tale che $b_j \leq a_i$
@@ -592,7 +676,7 @@ Definiamo la ricorrenza:
     	max(DP[i-1], DP[pred_{i}] + w_{i})  & \text{$i > 0$}   	
   	\end{cases}
 \end{equation*}
-dove $DP[i]$ contiene il profitto massimo ottenibile con i primi i intervalli.\\\\
+dove $DP[i]$ contiene il profitto massimo ottenibile con i primi i intervalli.
 \newpage
 \noindent
 \textbf{Implementazione:}

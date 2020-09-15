@@ -13,11 +13,18 @@ Srotoliamo la ricorrenza in un albero i cui nodi rappresentano i costi ai vari l
   		\end{cases}
 	\end{equation*}
 \end{center}
-$T(n) = n + 4T(n/2) = n + 4(4T(n/4) + n) = n + 4n/2 + 16T(n/2^{2}) = n + 2n + 16n/4 + 64T(n/8)$\\
-= ...\\
-= $n + 2n + 4n + ... + 2^{k-1} + 4^{k}T(n/2^{k})$ \textcolor{red}{se poniamo $2^{k} = n \implies k = \log{n}$}\\
-= $n + 2n + 4n + ... + 2^{\log{n-1}}n + 4^{\log{n}}T(1) = n \sum\limits_{j=0}^{\log{n-1}} {2^{j}} + 4^{\log{n}}$\\
-$= n \textcolor{red}{\frac{2^{\log{n}-1}}{2-1}} + 4^{\log{n}} = n(n-1) + n^{2} = 2n^{2} - n = \textcolor{red}{\Theta(n^{2})}$\\\\
+$T(n) = n + 4T(n/2) = n + 4(4T(n/4) + n) = n + 4n/2 + 16T(n/2^{2}) = n + 2n + 16n/4 + 64T(n/8)$
+
+= ...
+
+= $n + 2n + 4n + ... + 2^{k-1} + 4^{k}T(n/2^{k})$ \textcolor{red}{se poniamo $2^{k} = n \implies k = \log{n}$}
+
+= $n + 2n + 4n + ... + 2^{\log{n-1}}n + 4^{\log{n}}T(1) = n \sum\limits_{j=0}^{\log{n-1}} {2^{j}} + 4^{\log{n}}$
+
+$= n \textcolor{red}{\frac{2^{\log{n}-1}}{2-1}} + 4^{\log{n}} = n(n-1) + n^{2} = 2n^{2} - n = \textcolor{red}{\Theta(n^{2})}$
+
+\bigskip
+
 \textbf{Secondo Esempio}
 	\begin{equation*}
   		T(n)=\begin{cases}
@@ -50,21 +57,38 @@ Proviamo a visualizzare l'albero delle chiamate:
 		\hline
 	\end{tabular}
 \end{center}
-Dunque sappiamo che al livello $\log{n}$ il costo sarà pari a $4^{\log{n}}$, duqnue ci basta fare la sommatoria fino a $\log{n-1}$ e poi aggiungere il restante:\\
-$T(n)$ =  $\sum\limits_{i=0}^{\log{n-1}} {4^{i} \cdot n^{3}/2^{3i}} + 4^{\log{n}}$\\\\
-\textcolor{red}{possiamo portare fuori i termini costanti dalla sommatoria}\\\\
-= \textcolor{red}{$n^{3}$} $\sum\limits_{i=0}^{\log{n-1}} {\frac{4^{i}}{2^{3i}}} + 4^{\log{n}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\frac{\textcolor{red}{2^{2i}}}{2^{3i}}} + \textcolor{red}{2^{2\log{n}}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\textcolor{red}{(\frac{1}{2})^{i}}} + \textcolor{red}{n^{2}}$\\\\
-\textcolor{red}{estendiamo la sommatoria fino a $\infty$}\\\\
+Dunque sappiamo che al livello $\log{n}$ il costo sarà pari a $4^{\log{n}}$, duqnue ci basta fare la sommatoria fino a $\log{n-1}$ e poi aggiungere il restante:
+
+$T(n)$ =  $\sum\limits_{i=0}^{\log{n-1}} {4^{i} \cdot n^{3}/2^{3i}} + 4^{\log{n}}$
+
+\bigskip
+
+\textcolor{red}{possiamo portare fuori i termini costanti dalla sommatoria}
+
+\bigskip
+
+= \textcolor{red}{$n^{3}$} $\sum\limits_{i=0}^{\log{n-1}} {\frac{4^{i}}{2^{3i}}} + 4^{\log{n}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\frac{\textcolor{red}{2^{2i}}}{2^{3i}}} + \textcolor{red}{2^{2\log{n}}}$ = $n^{3}$ $\sum\limits_{i=0}^{\log{n-1}} {\textcolor{red}{(\frac{1}{2})^{i}}} + \textcolor{red}{n^{2}}$
+
+\bigskip
+
+\textcolor{red}{estendiamo la sommatoria fino a $\infty$}
+
+\bigskip
+
 \textcolor{red}{$\leq$} $n^{3}$ $\sum\limits_{i=0}^{\textcolor{red}{\infty}} {(\frac{1}{2})^{i}} + n^{2}$ =
 $n^{3}$ $\cdot$ \textcolor{red}{$\frac{1}{1-\frac{1}{2}}$} + $n^{2}$ = $2n^{3} + n^2$
 \newpage
 \begin{flushleft}
 Abbiamo dimostrato che T(n) = $\mathcal{O}$($n^{3}$): non possiamo affermare che sia $\Theta(n) = n^{3}$ perchè abbiamo dimostrato solo un limite superiore.
 \end{flushleft}
-Tuttavia basta notare che l'equazione originale possiede un termine del tipo $an^{3}$ (con $a \in \mathbb{N}$) $\implies$ $T(n) = \Omega(n^{3})$\\  
+Tuttavia basta notare che l'equazione originale possiede un termine del tipo $an^{3}$ (con $a \in \mathbb{N}$) $\implies$ $T(n) = \Omega(n^{3})$
+
 Visto che abbiamo dimostrato anche il limite inferiore $\implies$ T(n) = $\Theta(n^{3})$ 
 \subsection{Metodo di Sostituzione, o per Tentativi}
-Metodo in cui si cerca di indovinare una soluzione, in base alla propria esperienza, e si dimostra la correttezza di questa soluzione tramite \textcolor{red}{induzione}\\\\
+Metodo in cui si cerca di indovinare una soluzione, in base alla propria esperienza, e si dimostra la correttezza di questa soluzione tramite \textcolor{red}{induzione}
+
+\bigskip
+
 \textbf{Primo Esempio}
 	\begin{equation*}
   		T(n)=\begin{cases}
@@ -73,33 +97,71 @@ Metodo in cui si cerca di indovinare una soluzione, in base alla propria esperie
   		\end{cases}
 	\end{equation*}
 \hfill\\
-\textbf{Limite Superiore}\\
-\textcolor{red}{Tentativo: $T(n) = \mathcal{O}(n)$}\\
-$\exists c > 0, \exists m \geq 0$ : $T(n) \leq cn, \forall n \geq m$\\\\
-\textbf{Caso Base}: Dimostriamo la disequazione per T(1)\\
-T(1) = 1 $\stackrel{?}{\leq}$ 1 $\cdot$ c $\iff$ c $\geq$ 1\\\\
-\textbf{Ipotesi Induttiva}: $\forall k < n$ : $T(k) \leq ck$\\
-\textbf{Passo di Induzione}: Dimostriamo la disequazione per $T(n)$\\
-$T(n) =  T(\lfloor n/2 \rfloor) + n \leq c( \lfloor n/2 \rfloor) + n \leq cn/2 + n \stackrel{?}{\leq} cn \iff  c/2 + 1 \leq c$\\
-$\iff c \geq 2$\\
-Abbiamo provato che $T(n) \leq cn$ e un valore di $c$ che rispetta entrambe le disequazioni è ad esempio \textcolor{red}{$c$ = 2}.\\
-Questo vale per \textcolor{red}{$n = 1$}, e per tutti i valori di $n$ seguenti; quindi \textcolor{red}{$m = 1$}.\\
-Abbiamo provato che $T(n) = \mathcal{O}(n)$, ora dobbiamo occuparci del \textbf{Limite Inferiore}\\\\
-\textcolor{red}{Tentativo: $T(n) = \Omega(n)$}\\
-$\exists c > 0$, $\exists m \geq 0$ : $T(n) \geq cn$, $\forall n \geq m$\\\\
-\textbf{Caso Base}: Dimostriamo la disequazione per T(1)\\
-T(1) = 1 $\stackrel{?}{\geq}$ 1 $\cdot c \iff c \leq$ 1\\\\
-\textbf{Ipotesi Induttiva}: $\forall k < n$ : $T(k) \geq ck$\\
-\textbf{Passo di Induzione}: Dimostriamo la disequazione per $T(n)$\\
-$T(n) =  T(\lfloor n/2 \rfloor) + n \geq c( \lfloor n/2 \rfloor) + n \geq cn/2$ \textcolor{red}{- 1} + $n$\\\\\\
-\textcolor{red}{sottraggo 1 in modo che sia sicuramente più piccolo del limite inferiore} \\\\
+\textbf{Limite Superiore}
+
+\textcolor{red}{Tentativo: $T(n) = \mathcal{O}(n)$}
+
+$\exists c > 0, \exists m \geq 0$ : $T(n) \leq cn, \forall n \geq m$
+
+\bigskip
+
+\textbf{Caso Base}: Dimostriamo la disequazione per T(1)
+
+T(1) = 1 $\stackrel{?}{\leq}$ 1 $\cdot$ c $\iff$ c $\geq$ 1
+
+\bigskip
+
+\textbf{Ipotesi Induttiva}: $\forall k < n$ : $T(k) \leq ck$
+
+\textbf{Passo di Induzione}: Dimostriamo la disequazione per $T(n)$
+
+$T(n) =  T(\lfloor n/2 \rfloor) + n \leq c( \lfloor n/2 \rfloor) + n \leq cn/2 + n \stackrel{?}{\leq} cn \iff  c/2 + 1 \leq c$
+
+$\iff c \geq 2$
+
+Abbiamo provato che $T(n) \leq cn$ e un valore di $c$ che rispetta entrambe le disequazioni è ad esempio \textcolor{red}{$c$ = 2}.
+
+Questo vale per \textcolor{red}{$n = 1$}, e per tutti i valori di $n$ seguenti; quindi \textcolor{red}{$m = 1$}.
+
+Abbiamo provato che $T(n) = \mathcal{O}(n)$, ora dobbiamo occuparci del \textbf{Limite Inferiore}
+
+\bigskip
+
+\textcolor{red}{Tentativo: $T(n) = \Omega(n)$}
+
+$\exists c > 0$, $\exists m \geq 0$ : $T(n) \geq cn$, $\forall n \geq m$
+
+\bigskip
+
+\textbf{Caso Base}: Dimostriamo la disequazione per T(1)
+
+T(1) = 1 $\stackrel{?}{\geq}$ 1 $\cdot c \iff c \leq$ 1
+
+\bigskip
+
+\textbf{Ipotesi Induttiva}: $\forall k < n$ : $T(k) \geq ck$
+
+\textbf{Passo di Induzione}: Dimostriamo la disequazione per $T(n)$
+
+$T(n) =  T(\lfloor n/2 \rfloor) + n \geq c( \lfloor n/2 \rfloor) + n \geq cn/2$ \textcolor{red}{- 1} + $n$
+
+\bigskip
+
+\textcolor{red}{sottraggo 1 in modo che sia sicuramente più piccolo del limite inferiore} 
+
+\bigskip
+
 $cn/2 - 1 + n \stackrel{?}{\geq} cn \iff c/2 - 1/n + 1 \geq c \iff c \leq 2 - 2/n$
 \newpage
 \begin{flushleft}
 Mettendo assieme le due condizioni si ha che nel caso base (per $n \leq 1$) $c \leq 1$ e nel passo induttivo (per $n > 1$) $c \leq 2 - 2/n$ (quindi nel caso peggiore, cioè per $n = 2$, si ha $c \leq 1$): un valore $c$ che soddisfa entrambe le disequazioni per un $n \geq 1$ è $c = 1$. Questo vale ovviamente per $n = 1$ e quindi per $m = 1$.
 \end{flushleft}
-Notare che era possibile dimostrare che $T(n) = \Omega(n)$ come fatto nel caso del \emph{Metodo per Livelli}, cioè notando che nell'equazione fosse presente un termine del tipo  $an^{1}$ (con a $\in$ $\mathbb{N}$).\\
-Visto che abbiamo dimostrato sia il Limite Inferiore che il Limite Superiore possiamo dire che T(n) = $\Theta(n)$.\\\\
+Notare che era possibile dimostrare che $T(n) = \Omega(n)$ come fatto nel caso del \emph{Metodo per Livelli}, cioè notando che nell'equazione fosse presente un termine del tipo  $an^{1}$ (con a $\in$ $\mathbb{N}$).
+
+Visto che abbiamo dimostrato sia il Limite Inferiore che il Limite Superiore possiamo dire che T(n) = $\Theta(n)$.
+
+\bigskip
+
 \textbf{Secondo Esempio (Difficoltà Matematica)}
 	\begin{equation*}
   		T(n)=\begin{cases}
@@ -108,19 +170,42 @@ Visto che abbiamo dimostrato sia il Limite Inferiore che il Limite Superiore pos
   		\end{cases}
 	\end{equation*}
 \hfill\\
-\textcolor{red}{Tentativo: T(n) = $\mathcal{O}$(n)}\\
-$\exists c > 0$, $\exists m \geq 0$ : $T(n) \leq cn$, $\forall n \geq m$\\\\
-\textbf{Ipotesi Induttiva}: $\forall k < n$ : $T(k) \leq ck$\\
-\textbf{Passo di Induzione}: Dimostriamo la disequazione per $T(n)$\\
-$T(n) =  T(\lfloor n/2 \rfloor) + T(\lceil n/2 \rceil) + 1 \leq c(\lfloor n/2 \rfloor) + c(\lceil n/2 \rceil) + 1$\\
-$\leq 2c(n/2) + 1 \stackrel{?}{\leq} cn \iff \cancel{cn} + 1 \leq \cancel{cn} \iff 1 \leq 0$ \textcolor{red}{NO!}\\\\
-Pur non sembrando, il tentativo è corretto, tuttavia non riusciamo a dimostrarlo per via di un termine di ordine inferiore, usiamo un'ipotesi induttiva più stretta:\\
-\textcolor{red}{$\exists b > 0$, $\forall k < n$ : $T(k) \leq ck - b$}\\
-$T(n) =  T(\lfloor n/2 \rfloor) + T(\lceil n/2 \rceil) + 1 \leq c(\lfloor n/2 \rfloor) - b + c(\lceil n/2 \rceil) - b + 1$\\
-$\leq 2c(n/2) - 2b + 1 = cn - 2b + 1 \stackrel{?}{\leq} cn - b \iff b \geq 1$\\\\
-\textbf{Caso Base}: Dimostriamo la disequazione per T(1)\\
-T(1) = 1 $\stackrel{?}{\leq}$ 1 $\cdot c - b \iff c \geq b + 1$\\\\
-$\implies$ una coppia di valori che può soddisfare le disequazioni è $b = 1$ e $c = 2$; questo vale da $n = 1$ in poi e quindi per $m = 1$.\\\\
+\textcolor{red}{Tentativo: T(n) = $\mathcal{O}$(n)}
+
+$\exists c > 0$, $\exists m \geq 0$ : $T(n) \leq cn$, $\forall n \geq m$
+
+\bigskip
+
+\textbf{Ipotesi Induttiva}: $\forall k < n$ : $T(k) \leq ck$
+
+\textbf{Passo di Induzione}: Dimostriamo la disequazione per $T(n)$
+
+$T(n) =  T(\lfloor n/2 \rfloor) + T(\lceil n/2 \rceil) + 1 \leq c(\lfloor n/2 \rfloor) + c(\lceil n/2 \rceil) + 1$
+
+$\leq 2c(n/2) + 1 \stackrel{?}{\leq} cn \iff \cancel{cn} + 1 \leq \cancel{cn} \iff 1 \leq 0$ \textcolor{red}{NO!}
+
+\bigskip
+
+Pur non sembrando, il tentativo è corretto, tuttavia non riusciamo a dimostrarlo per via di un termine di ordine inferiore, usiamo un'ipotesi induttiva più stretta:
+
+\textcolor{red}{$\exists b > 0$, $\forall k < n$ : $T(k) \leq ck - b$}
+
+$T(n) =  T(\lfloor n/2 \rfloor) + T(\lceil n/2 \rceil) + 1 \leq c(\lfloor n/2 \rfloor) - b + c(\lceil n/2 \rceil) - b + 1$
+
+$\leq 2c(n/2) - 2b + 1 = cn - 2b + 1 \stackrel{?}{\leq} cn - b \iff b \geq 1$
+
+\bigskip
+
+\textbf{Caso Base}: Dimostriamo la disequazione per T(1)
+
+T(1) = 1 $\stackrel{?}{\leq}$ 1 $\cdot c - b \iff c \geq b + 1$
+
+\bigskip
+
+$\implies$ una coppia di valori che può soddisfare le disequazioni è $b = 1$ e $c = 2$; questo vale da $n = 1$ in poi e quindi per $m = 1$.
+
+\bigskip
+
 \textbf{Terzo Esempio (Problemi con i Casi Base)}
 	\begin{equation*}
   		T(n)=\begin{cases}
@@ -129,24 +214,43 @@ $\implies$ una coppia di valori che può soddisfare le disequazioni è $b = 1$ e
   		\end{cases}
 	\end{equation*}
 \hfill\\
-\textcolor{red}{Tentativo: T(n) = $\mathcal{O}(n\log{n})$}\\
-$\exists c > 0$, $\exists m \geq 0$ : $T(n) \leq c(n\log{n})$, $\forall n \geq m$\\\\
-\textbf{Ipotesi Induttiva}: $\forall k < n$ : $T(k) \leq c(k\log{k})$\\
-\textbf{Passo di Induzione}: Dimostriamo la disequazione per $T(n)$\\
-$T(n) = 2T(\lfloor n/2 \rfloor) + n \leq 2(c \lfloor n/2 \rfloor \log{\lfloor n/2 \rfloor}) + n$\\
-$\leq 2(c(n/2) \log{(n/2)}) + n = 2cn(\log{n} - \log{2}) + n$\\
+\textcolor{red}{Tentativo: T(n) = $\mathcal{O}(n\log{n})$}
+
+$\exists c > 0$, $\exists m \geq 0$ : $T(n) \leq c(n\log{n})$, $\forall n \geq m$
+
+\bigskip
+
+\textbf{Ipotesi Induttiva}: $\forall k < n$ : $T(k) \leq c(k\log{k})$
+
+\textbf{Passo di Induzione}: Dimostriamo la disequazione per $T(n)$
+
+$T(n) = 2T(\lfloor n/2 \rfloor) + n \leq 2(c \lfloor n/2 \rfloor \log{\lfloor n/2 \rfloor}) + n$
+
+$\leq 2(c(n/2) \log{(n/2)}) + n = 2cn(\log{n} - \log{2}) + n$
+
 $= cn(\log{n} - 1) + n \stackrel{?}{\leq} cn\log{n} \iff c(\log{n}-1) + 1 \leq c \log{n}$ 
-$\iff c \geq 1$\\
-\textbf{Caso Base}: Dimostriamo la disequazione per T(1)\\
-T(1) = 1 $\stackrel{?}{\leq} c \cdot \log{1} \iff 1 \leq 0$ \textcolor{red}{NO!}\\
-...ma, non è un problema: il valore di $m$ lo possiamo scegliere noi.\\
-Proviamo gli altri casi:\\
-$T(2) = 2T(\lfloor 2/2 \rfloor) + 2 = 2T(1) + 2 = 4 \stackrel{?}{\leq} c \cdot 2 \log{2} \iff c \geq 2$\\
-$T(3) = 2T(\lfloor 3/2 \rfloor) + 3 = 2T(1) + 3 = 5 \stackrel{?}{\leq} c \cdot 3 \log{3} \iff c \geq \frac{5}{3 \log{3}}$\\
-$T(4) = 2T(\lfloor 4/2 \rfloor) + 4 = 2T(2) + 4$\\
-\textcolor{red}{...ma a questo punto mi posso fermare perchè ho trovato un termine noto}\\
-A questo punto non resta che scegliere il valore maggiore per cui vale $c$, in questo caso $c \geq 2$\\
-Quindi abbiamo dimostrato che vale per $n = 2$ in poi e una coppia è $n = 2$, $c = 24$ (e quindi $m = 2$).\\
+$\iff c \geq 1$
+
+\textbf{Caso Base}: Dimostriamo la disequazione per T(1)
+
+T(1) = 1 $\stackrel{?}{\leq} c \cdot \log{1} \iff 1 \leq 0$ \textcolor{red}{NO!}
+
+...ma, non è un problema: il valore di $m$ lo possiamo scegliere noi.
+
+Proviamo gli altri casi:
+
+$T(2) = 2T(\lfloor 2/2 \rfloor) + 2 = 2T(1) + 2 = 4 \stackrel{?}{\leq} c \cdot 2 \log{2} \iff c \geq 2$
+
+$T(3) = 2T(\lfloor 3/2 \rfloor) + 3 = 2T(1) + 3 = 5 \stackrel{?}{\leq} c \cdot 3 \log{3} \iff c \geq \frac{5}{3 \log{3}}$
+
+$T(4) = 2T(\lfloor 4/2 \rfloor) + 4 = 2T(2) + 4$
+
+\textcolor{red}{...ma a questo punto mi posso fermare perchè ho trovato un termine noto}
+
+A questo punto non resta che scegliere il valore maggiore per cui vale $c$, in questo caso $c \geq 2$
+
+Quindi abbiamo dimostrato che vale per $n = 2$ in poi e una coppia è $n = 2$, $c = 24$ (e quindi $m = 2$).
+
 \subsection{Metodo dell'Esperto, o delle Ricorrenze Comuni}
 Siano $a$ e $b$ due costanti intere tali che $a \geq 1$ e $b \geq 2$ e, $c, \beta$ costanti reali tali che $c > 0$ e $\beta \geq 0$. Sia $T(n)$ data dalla relazione di ricorrenza:
 	\begin{equation*}
@@ -163,7 +267,8 @@ Posto $\alpha$ = $\log{a}/\log{b}$ = $\log_{b}{a}$, allora:
     		\Theta(n^{\beta}) & \text{$\alpha < \beta$}
   		\end{cases}
 	\end{equation*}
-\textbf{Esempio}:\\
+\textbf{Esempio}:
+
 $T(n) = 4T(n/16) + n^{2}$ $\implies$ $a = 4$, $b = 16$\\
 $\beta = 2$\\
 $\alpha = \log{b} / \log{a} = \log{16} / \log{4} = \log_{16}{4} = 1/2$\\
@@ -176,7 +281,8 @@ Sia $a$ $\geq$ 1, $b$ $>$ 1, $f(n)$ asintoticamente positiva, e sia
     		d & \text{$n \leq 1$}
   		\end{cases}
 	\end{equation*}
-Siano dati 3 casi:\\
+Siano dati 3 casi:
+
 \begin{center}
 	\renewcommand{\arraystretch}{1.2}
 	\begin{tabular}{ |c|c| } 
@@ -189,20 +295,40 @@ Siano dati 3 casi:\\
 		\hline
 	\end{tabular}
 \end{center}
-\textbf{Esempio 1}\\
-$T(n) = 9T(n/3) + n \implies a = 9, b = 3, \log_{b}{a} = 2$\\
-$f(n) = n = \mathcal{O}(n^{\log_{b}{a} - \epsilon}) =  \mathcal{O}(n^{2 - \epsilon})$, con $\epsilon$ $<$ 1\\
-Caso (1) $\implies$ $T(n) = \Theta(n^{2})$\\\\
-\textbf{Esempio 2}\\
-$T(n) = T(2n/3) + 1 \implies a = 1, b = 2/3, \log_{b}{a} = 0$\\
-$f(n) = n^{0} = \Theta(n^{\log_{b}{a}}) =  \Theta(n^{0})$\\
-Caso (2) $\implies$ $T(n) = \Theta(\log{n})$\\\\
-$\textbf{Esempio 3}$\\
-$T(n) = 3T(n/4) + n\log{n} \implies a = 3, b = 4, \log_{b}{a} \approx 0.79$\\
-$f(n) = n\log{n} = \Omega(n^{\log_{4}{3} + \epsilon})$, con $\epsilon$ $<$ 1 - $\log_{4}{3} \approx 0.208$\\\\
-Caso(3) $\implies$ Dobbiamo dimostrare che:\\
-$\exists c$ $\leq$ 1, $\exists m$ $>$ 0 : $af(n/b) \leq cf(n), \forall n$ $\geq$ $m$\\
-$af(n/b) = 3n/4\log{n/4} = 3n/4\log{n} - 3n/4\log{4} \leq 3n/4\log{n} \stackrel{?}{\leq} cn\log{n}$\\
+\textbf{Esempio 1}
+
+$T(n) = 9T(n/3) + n \implies a = 9, b = 3, \log_{b}{a} = 2$
+
+$f(n) = n = \mathcal{O}(n^{\log_{b}{a} - \epsilon}) =  \mathcal{O}(n^{2 - \epsilon})$, con $\epsilon$ $<$ 1
+
+Caso (1) $\implies$ $T(n) = \Theta(n^{2})$
+
+\bigskip
+
+\textbf{Esempio 2}
+
+$T(n) = T(2n/3) + 1 \implies a = 1, b = 2/3, \log_{b}{a} = 0$
+
+$f(n) = n^{0} = \Theta(n^{\log_{b}{a}}) =  \Theta(n^{0})$
+
+Caso (2) $\implies$ $T(n) = \Theta(\log{n})$
+
+\bigskip
+
+$\textbf{Esempio 3}$
+
+$T(n) = 3T(n/4) + n\log{n} \implies a = 3, b = 4, \log_{b}{a} \approx 0.79$
+
+$f(n) = n\log{n} = \Omega(n^{\log_{4}{3} + \epsilon})$, con $\epsilon$ $<$ 1 - $\log_{4}{3} \approx 0.208$
+
+\bigskip
+
+Caso(3) $\implies$ Dobbiamo dimostrare che:
+
+$\exists c$ $\leq$ 1, $\exists m$ $>$ 0 : $af(n/b) \leq cf(n), \forall n$ $\geq$ $m$
+
+$af(n/b) = 3n/4\log{n/4} = 3n/4\log{n} - 3n/4\log{4} \leq 3n/4\log{n} \stackrel{?}{\leq} cn\log{n}$
+
 L'ultima disequazione è soddisfatta da $c = 3/4$ e $m = 1$
 \subsection{Ricorrenze Lineari di Ordine Costante}
 Siano $a\textsubscript{$1$}$, $a\textsubscript{$2$}$, $...$, $a\textsubscript{$h$}$ costanti intere non negative, con $h$ costante positiva, $c$ e $\beta$ costanti reali tali che $c$ $>$ 0 e $\beta$ $\geq$ 0, e sia $T(n)$ definita dalla relazione di ricorrenza:
@@ -217,11 +343,18 @@ Posto $a = \sum\limits_{1 \leq i \leq h} {a \textsubscript{$i$}}$, allora:
 	\item $T(n)$ è $\Theta(n^{\beta+1})$, se $a = 1$,
 	\item $T(n)$ è $\Theta(a^{n}n^{\beta})$, se $a \geq 2$,
 \end{itemize}
-\textbf{Esempio 1}\\
-$T(n) = T(n - 10) + n^{2} \implies a = 1, \beta = 2$\\
-Caso (1) poichè $a = 1$, il costo è polinomiale $\implies$ $T(n) = \Theta(n^{\beta+1}) = \Theta(n^{3})$\\\\
-\textbf{Esempio 2}\\
-$T(n) = T(n - 2) +  T(n - 1) + 1 \implies a = 2, \beta = 0$\\
+\textbf{Esempio 1}
+
+$T(n) = T(n - 10) + n^{2} \implies a = 1, \beta = 2$
+
+Caso (1) poichè $a = 1$, il costo è polinomiale $\implies$ $T(n) = \Theta(n^{\beta+1}) = \Theta(n^{3})$
+
+\bigskip
+
+\textbf{Esempio 2}
+
+$T(n) = T(n - 2) +  T(n - 1) + 1 \implies a = 2, \beta = 0$
+
 Caso (2) poichè $a = 2$, il costo è esponenziale $\implies$ $T(n) = \Theta(a^{n}n^{\beta}) = \Theta(2^n)$
 \newpage
 \end{document}

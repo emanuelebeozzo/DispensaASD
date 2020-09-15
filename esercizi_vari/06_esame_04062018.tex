@@ -2,13 +2,16 @@
 \begin{document}
 
 \subsection{Esame 04/06/2018}
-\textbf{Esercizio B4}\\
+\textbf{Esercizio B4}
+
 Siano dati un vettore $X$ contenente $n$ valori interi positivi distinti e due valori interi positivi $k, w$, con $k \leq n$. La \emph{somma massimale} $(k, w)-vincolata$ di $X$ è il più grande valore $v$ ottenibile come somma di non più di $k$ valori contenuti in $X$, tale che $v \leq w$. Formalmente
 \begin{center}
 	$v \leq w \land v = max_{S \subseteq \{1, ..., n\} \land \mid S \mid \leq k} \sum_{i \in S} X[i]$\\
 \end{center}
-Ad esempio, se $X = [12,13,11,6,23,19]$, $w = 27$, $k= 3$, il valore da restituire è pari a $25 = 12 + 13$ oppure $19 + 6$. Non è possibile ottenere 26 o 27, nemmeno utilizzando tre valori. Scrivere un algoritmo che dati in input $X,n,k,w$ restituisca il valore della somma massimale $(k, w)-vincolata$. Discutere informalmente la correttezza della   soluzione proposta e calcolare la complessità computazionale.\\
-\textbf{Soluzione:}\\
+Ad esempio, se $X = [12,13,11,6,23,19]$, $w = 27$, $k= 3$, il valore da restituire è pari a $25 = 12 + 13$ oppure $19 + 6$. Non è possibile ottenere 26 o 27, nemmeno utilizzando tre valori. Scrivere un algoritmo che dati in input $X,n,k,w$ restituisca il valore della somma massimale $(k, w)-vincolata$. Discutere informalmente la correttezza della   soluzione proposta e calcolare la complessità computazionale.
+
+\textbf{Soluzione:}
+
 Il problema descritto può essere risolto tramite programmazione dinamica: il primo passo per avviarsi verso la soluzione consiste nel definire correttamente il tipo di struttura che dovremo utilizzare per risolvere il problema. Se pensiamo di utilizzare una semplice matrice e di porre idealmente i $n$ valori sulle righe e il valori da 1 a $w$ sulle colonne come vincolo per impedirci di superare il numero in questione ci accorgiamo subito che non siamo in grado di tenere traccia di quanti numeri abbiamo sommato fino a questo momento (ricordiamoci che la somma deve essere $k-vincolata$ e che possiamo usare solo $k$ numeri per avvicinarci il più possibile al nostro $w$). Dunque abbiamo bisogno di una matrice a \emph{3 dimensioni} che possiamo definire nel modo seguente
 \begin{equation*}
   	DP[i][j][s]=\begin{cases}
@@ -40,8 +43,10 @@ int maxLimitedSumRec(int[] X, int[][][] DP, int i, int j, int s)
 			DP[i][j][s] = DP[i-1][j][s]
 	return DP[i][j][s]
 \end{lstlisting}
-L'algoritmo proposto per la soluzione ha complessità $\mathcal{O}(nwk)$ che è data se non dal riempimento totale della matrice tridimensionale (visto l'utilizzo di memoization) perlomeno dalla creazione e inizializzazione della della stessa.\\
-La correttezza può essere provata dimostrando la sottostruttura ottima: sia $X_{p}$ il problema di dover trovare la sequenza di al massimo $k$ valori scegliendo tra $n$ valori differenti per ottenere al più il valore $w$. Sia $S$ la soluzione ottimale al problema proposto e contenente quindi il più grande insieme di numeri $k-vincolato$ la cui somma è al più $w$. Supponiamo ora per assurdo che la soluzione ottimale al problema $X_{p} - \{j\}$ non sia $S - \{j\}$, questo vuol dire che esiste $S'$ soluzione ottimale.\\
+L'algoritmo proposto per la soluzione ha complessità $\mathcal{O}(nwk)$ che è data se non dal riempimento totale della matrice tridimensionale (visto l'utilizzo di memoization) perlomeno dalla creazione e inizializzazione della della stessa.
+
+La correttezza può essere provata dimostrando la sottostruttura ottima: sia $X_{p}$ il problema di dover trovare la sequenza di al massimo $k$ valori scegliendo tra $n$ valori differenti per ottenere al più il valore $w$. Sia $S$ la soluzione ottimale al problema proposto e contenente quindi il più grande insieme di numeri $k-vincolato$ la cui somma è al più $w$. Supponiamo ora per assurdo che la soluzione ottimale al problema $X_{p} - \{j\}$ non sia $S - \{j\}$, questo vuol dire che esiste $S'$ soluzione ottimale.
+
 Da qui si può ricavare dunque che $\sum(S') > \sum(S - \{j\}) \rightarrow \sum(S' \cup \{j\}) > \sum(S)$ ma ciò contraddice il fatto che $S$ sia la soluzione ottimale di cardinalità massima. Per comodità della dimostrazione è anche possibile osservare che per essere incluso in $S'$, $j$ deve essere un valore che sommato agli altri non fa superare $w$ e il numero di valori in $S'$ è $< k$. Dunque $S$ non contiene un valore che gli avrebbe permesso di ottenere la somma massima e quindi $S$ non è in realtà la soluzione ottima al problema: ciò è assurdo perché contraddice la nostra ipotesi iniziale.
 \newpage
 \end{document}

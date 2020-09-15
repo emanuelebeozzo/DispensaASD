@@ -22,8 +22,10 @@ Questo algoritmo per risolvere il problema effettua una visita a
 partire da ogni nodo, verificando nodo per nodo se la sequenza viene rispettata, altrimenti, interrompe la
 visita qualora le etichette non corrispondano. Semplicemente viene fatto passare per ogni nodo l'algoritmo \textit{checkLabels}, il quale in dfs controlla se il suo valore è pari al valore del vettore nella posizione passata, se si allora esso propaga l'algoritmo con la posizione successiva agli adiacenti, altrimenti non fa nulla. Qualora si arrivasse alla fine del percorso l'algoritmo ritorna true. Si noti che la complessità è superpolinomiale, in quanto è
 necessario seguire tutti i possibili percorsi, anche tenendo conto che il
-grafo e aciclico.\\
-\textbf{Griglia quadra}\\
+grafo e aciclico.
+
+\textbf{Griglia quadra}
+
 Soluzione con costruzione del grafo:
 \begin{lstlisting}[caption=Griglia quadra - costruzione grafo]
 (GRAPH, int[]) costruisciGrafo(int[][] A, int n)
@@ -76,9 +78,12 @@ int distanza1_3(int[][] A, int n)
           			q.enqueue(v)
   	return $+\infty$
 \end{lstlisting}
-La costruzione del grafo partendo dalla matrice ha un costo di $\Theta(n^2)$, e si può fare con dei semplici accorgimenti: un assegnazione univoca di un identificatore del nodo, semplicemente un numero da 1 a $n^2$ e un controllo sugli indici per non selezionare un nodo non esistente. \\
+La costruzione del grafo partendo dalla matrice ha un costo di $\Theta(n^2)$, e si può fare con dei semplici accorgimenti: un assegnazione univoca di un identificatore del nodo, semplicemente un numero da 1 a $n^2$ e un controllo sugli indici per non selezionare un nodo non esistente. 
+
 Questo algoritmo costruisce un grafo partendo da una matrice, si occupa inoltre di inserire all'interno di un vettore \textit{colors[i]} il valore della cella della matrice associata al nodo \textit{i}. \\ Avendo questo è semplice trovare la distanza minima dalle celle di colore 1 ad una cella di colore 3, effettuando una bfs assegnando distanza 0 dei nodi con colore pari a 1 e procedendo come insegna \textit{Erdos}. Ritorniamo la distanza della prima occorrenza di colore 3 in quanto essendo la bfs una visita per livelli, la prima occorrenza è anche la meno distante.
-\\\\
+
+\bigskip
+
 Soluzione con bfs direttamente sulla matrice:
 \begin{lstlisting}[caption=Griglia quadra]
 int grid(int[][] M, int n)

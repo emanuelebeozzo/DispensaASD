@@ -2,9 +2,12 @@
 \begin{document}
 \section{Laboratori}
 \subsection{Laboratorio 7 - 04/03/20}
-\textbf{Zaino}\\
+\textbf{Zaino}
+
 Avete uno zaino di capacità C ed un insieme di N oggetti. Per ognuno di questi oggetti, sapete il peso (Pi) e il valore (Vi). Dovete scegliere quali oggetti mettere nello zaino in modo da ottenere il maggior valore possibile senza superare la capacità dello zaino.
-\\\\
+
+\bigskip
+
 Soluzione proposta:
 \begin{lstlisting}[ caption=Zaino (ottimizzazione memoria)]
 %Inizializzazione dei vettori soluzione
@@ -43,10 +46,17 @@ int knapsack(int[] DP_precedente, int[] DP_successivo, int[] P, int[] V, int C, 
 	return DP_precedente[C];
 	
 \end{lstlisting}
-L'algoritmo riprende la logica della versione dello zaino (non illimitato) implementato con programmazione dinamica aggiungendo un'ottimizzazione a livello di memoria: non salvo tutta la matrice DP, ma considero solo due righe di tale matrice (salvate tramite array paralleli): la riga dell'elemento i-esimo per tutte le capacità possibili e la riga dell'elemento i-1 per tutte le capacità e conterrà il profitto massimo calcolato fino ad ora. Questa ottimizzazione nasce dal fatto che la formula usata per l'implementazione considera solamente la riga DP[i-1][...] per effettuare i calcoli successivi e nessun altra riga tra le precedenti e le successive.\\\\
-\textbf{Sottoinsieme Crescente di Somma Massima(sottocres)}\\
+L'algoritmo riprende la logica della versione dello zaino (non illimitato) implementato con programmazione dinamica aggiungendo un'ottimizzazione a livello di memoria: non salvo tutta la matrice DP, ma considero solo due righe di tale matrice (salvate tramite array paralleli): la riga dell'elemento i-esimo per tutte le capacità possibili e la riga dell'elemento i-1 per tutte le capacità e conterrà il profitto massimo calcolato fino ad ora. Questa ottimizzazione nasce dal fatto che la formula usata per l'implementazione considera solamente la riga DP[i-1][...] per effettuare i calcoli successivi e nessun altra riga tra le precedenti e le successive.
+
+\bigskip
+
+\textbf{Sottoinsieme Crescente di Somma Massima(sottocres)}
+
 Vi viene dato in input un array di N interi $A_{1}...A_{n}$. Per ogni elemento potete scegliere se includerlo nell’insieme soluzione, o se ignorarlo. Se un elemento $A_{i}$ fa parte dell’insieme, tutti gli elementi che lo succedono nell’array e che hanno valore minore di $A_{i}$ non possono essere inclusi nell’insieme. In altre parole, gli elementi dell’insieme, quando stampati nell’ordine in cui si trovavano nell’array, devono formare una sequenza crescente.
-Vogliamo massimizzare la somma degli elementi dell’insieme.\\\\
+Vogliamo massimizzare la somma degli elementi dell’insieme.
+
+\bigskip
+
 Soluzione proposta: il seguente problema può essere risolto mediante Programmazione Dinamica poiché è possibile notare che, provando a cercare la massima sequenza di numeri crescenti, continuiamo a risolvere gli stessi sottoproblemi più e più volte.
 
 \begin{lstlisting}[caption=Sottoinsieme Crescente di Somma Massima]
@@ -63,15 +73,29 @@ int sottocres(int n, int[] A)
 		massimo = max(massimo, DP[i])
 	return massimo
 \end{lstlisting} 
-Spiegazione: ad ogni iterazione del ciclo for andiamo ad inizializzare l'elemento $DP[i]$ con $A[i]$; questa operazione viene fatta per due motivi: il primo è che magari l'emento che stiamo analizzando è di per sè già la più grande sottosequenza crescente che possiamo ottenere all'interno del nostro input, il secondo è perchè, non avendo inizializzato il vettore $DP$, la nostra funzione farebbe degli accessi non leciti. All'interno del primo ciclo si ha un secondo ciclo (questo ci suggerisce che la complessità della nostra funzione è $\mathcal{O}(n^{2})$) che serve per controllare nuovamente tutti gli elementi che abbiamo inserito fino ad ora ed inserire con certezza il massimo in quella casella. Il controllo che viene eseguito si occupa di verificare non solo che $A[i] \geq A[j]$ (notare il fatto che sono ritenuti validi anche numeri uguali perchè definito in questi termini il problema) ma anche che $DP[i] < DP[j] + A[i]$ e che quindi, come dicevamo prima, ci sia effettivamente un guadagno rispetto al numero a cui inizializzamo la cella, oppure che, nel caso di più possibilità, consideriamo effettivamente quella che porta il guadagno massimo.\\\\
-\textbf{Le pillole della zia (pillole)}\\
-La zia Lucilla deve assumere ogni giorno mezza pillola di una certa medicina. Lei inizia il trattamento con un bottiglia che contiene esattamente $N$ pillole.\\\
-Durante il primo giorno lei prende una pillola dalla bottiglia, la spezza in due, ne ingerisce una metà e rimette l'altra metà nella bottiglia.\\
-Nei giorni seguenti lei prende un pezzo a caso della bottiglia (potrebbe essere una pillola intera o una mezza pillola).\\
+Spiegazione: ad ogni iterazione del ciclo for andiamo ad inizializzare l'elemento $DP[i]$ con $A[i]$; questa operazione viene fatta per due motivi: il primo è che magari l'emento che stiamo analizzando è di per sè già la più grande sottosequenza crescente che possiamo ottenere all'interno del nostro input, il secondo è perchè, non avendo inizializzato il vettore $DP$, la nostra funzione farebbe degli accessi non leciti. All'interno del primo ciclo si ha un secondo ciclo (questo ci suggerisce che la complessità della nostra funzione è $\mathcal{O}(n^{2})$) che serve per controllare nuovamente tutti gli elementi che abbiamo inserito fino ad ora ed inserire con certezza il massimo in quella casella. Il controllo che viene eseguito si occupa di verificare non solo che $A[i] \geq A[j]$ (notare il fatto che sono ritenuti validi anche numeri uguali perchè definito in questi termini il problema) ma anche che $DP[i] < DP[j] + A[i]$ e che quindi, come dicevamo prima, ci sia effettivamente un guadagno rispetto al numero a cui inizializzamo la cella, oppure che, nel caso di più possibilità, consideriamo effettivamente quella che porta il guadagno massimo.
+
+\bigskip
+
+\textbf{Le pillole della zia (pillole)}
+
+La zia Lucilla deve assumere ogni giorno mezza pillola di una certa medicina. Lei inizia il trattamento con un bottiglia che contiene esattamente $N$ pillole.
+
+\bigskip
+
+Durante il primo giorno lei prende una pillola dalla bottiglia, la spezza in due, ne ingerisce una metà e rimette l'altra metà nella bottiglia.
+
+Nei giorni seguenti lei prende un pezzo a caso della bottiglia (potrebbe essere una pillola intera o una mezza pillola).
+
 Se ha pescato una mezza pillola la ingerisce. Se ha pescato una pillola intera la spezza a metà, rimette una delle due mezze pillole nella bottiglia e ingerisce l’altra mezza pillola.
-La zia può svuotare la bottiglia in tanti modi diversi. Rappresentiamo la cura come una stringa di $2N$ caratteri, in cui il carattere i-esimo è “$I$” se la zia ha pescato una pillola intera nel giorno i e “$M$” se la zia ha invece pescato una mezza pillola. Nel caso in cui la bottiglia originaria contenga 3 pillole intere, le possibili sequenze sono le seguenti:\\
-$IIIMMM$ - $IIMIMM$ - $IIMMIM$ - $IMIIMM$ - $IMIMIM$\\
-Il problema vi richiede di scrivere un programma che, dato $N$, restituisca il numero di possibili sequenze nel trattamento.\\\\
+La zia può svuotare la bottiglia in tanti modi diversi. Rappresentiamo la cura come una stringa di $2N$ caratteri, in cui il carattere i-esimo è “$I$” se la zia ha pescato una pillola intera nel giorno i e “$M$” se la zia ha invece pescato una mezza pillola. Nel caso in cui la bottiglia originaria contenga 3 pillole intere, le possibili sequenze sono le seguenti:
+
+$IIIMMM$ - $IIMIMM$ - $IIMMIM$ - $IMIIMM$ - $IMIMIM$
+
+Il problema vi richiede di scrivere un programma che, dato $N$, restituisca il numero di possibili sequenze nel trattamento.
+
+\bigskip
+
 Soluzione proposta: il seguente problema può essere risolto mediante Memoization creando una Matrice $DP[N][N]$ dove indichiamo sulle colonne il numero di pastiglie intere mentre sulle righe il numero di pastiglie a metà. Ad esempio con 3 pastiglie il nostro risultato si troverà in posizione $DP[0][3]$. Semplicemente ogni volta ci chiederemo se spezzare la pastiglia (e quindi andare in posizione $DP[i+1][j-1]$) oppure se prendere una metà (e accedere dunque in posizione $DP[i][j-1]$). Ovviamente questa operazione non può essere svolta sempre in maniera duplice (ad esempio partendo con 3 pastiglie intere possiamo soltanto spezzarne una, è indifferente quale) e i casi base sono quando abbiamo solo pastiglie a metà (quindi per $DP[i][0]$), quando si ha soltanto una pastiglia intera ($DP[0][1]$) oppure quando non se ne ha nessuna ($DP[0][0]$).
 \begin{lstlisting}[caption=Le pillole della Zia]
 long long int pilloleRec(int row, int col, long long int[][] DP)
@@ -97,7 +121,8 @@ long long int pillole(int N)
 	DP[0][1] = 1
 	return pilloleRec(0, N, DP)
 \end{lstlisting}
-Esempio riempimento tabella:\\
+Esempio riempimento tabella:
+
 \begin{center}
 	\renewcommand{\arraystretch}{1.2}
 	\begin{tabular}{ |c|c|c|c|c| } 

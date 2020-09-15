@@ -122,23 +122,38 @@ $\exists c_1 > 0, \exists c_2 > 0, \exists m \geq 0$ : $\textcolor{red}{c_1g(n) 
 	\item \textbf{Espressioni Polinomiali}\\
 		$\textcolor{red}{a_{k} n^k + a_{k-1} n^{k-1} + ... + a_{1}n + a_{0}, a_{k} > 0 \implies f(n) = \Theta(n^k)}$
 		\begin{itemize}
-			\item \textbf{Limite Superiore}: $\exists c > 0, \exists m \geq 0$ : $f(n) \leq cn^k, \forall n \geq m$\\
-			$f(n) = a_{k} n^k + a_{k-1} n^{k-1} + ... + a_{1}n + a_{0}$\\
-			$\leq$ $a_{k}n^k$ $+$ $\mid$$a_{k-1}$$\mid$$n^{k-1}$ $+$ ... $+$ $\mid$$a_{1}$$\mid$$n$ $+$ $\mid$$a_{0}$$\mid$ \\
-			$\leq$ $a_{k}n^k$ $+$ $\mid$$a_{k-1}$$\mid$$n^{k}$ $+$ ... $+$ $\mid$$a_{1}$$\mid$$n^k$ $+$ $\mid$$a_{0}$$\mid$$n^k$ \\
-			$\leq$ $(a_{k}$ $+$ $\mid$$a_{k-1}$$\mid$ $+$ ... $+$ $\mid$$a_{1}$$\mid$ $+$ $\mid$$a_{0}$$\mid$$)n^k$\\
-			$\leq cn^k$\\\\
-			Che risulta essere vera per $c$ $\geq$ $(a_{k}$ $+$ $\mid$$a_{k-1}$$\mid$ $+$ ... $+$ $\mid$$a_{1}$$\mid$ $+$ $\mid$$a_{0}$$\mid$$)$ e per $m = 1$.\\
-			\item \textbf{Limite Inferiore}: $\exists d > 0, \exists m \geq 0$ : $f(n) \geq cn^k, \forall n \geq m$\\
-			$f(n) = a_{k} n^k + a_{k-1} n^{k-1} + ... + a_{1}n + a_{0}$\\
-			$\geq$ $a_{k}n^k$ $-$ $\mid$$a_{k-1}$$\mid$$n^{k-1}$ $-$ ... $-$ $\mid$$a_{1}$$\mid$$n$ $-$ $\mid$$a_{0}$$\mid$ \\
-			$\geq$ $a_{k}n^k$ $-$ $\mid$$a_{k-1}$$\mid$$n^{k-1}$ $-$ ... $-$ $\mid$$a_{1}$$\mid$$n^{k-1}$ $-$ $\mid$$a_{0}$$\mid$$n^{k-1}$ \\
-			$\geq dn^k$\\\\
-			L'ultima equazione è vera se:\\
+			\item \textbf{Limite Superiore}: $\exists c > 0, \exists m \geq 0$ : $f(n) \leq cn^k, \forall n \geq m$
+			
+			$f(n) = a_{k} n^k + a_{k-1} n^{k-1} + ... + a_{1}n + a_{0}$
+			
+			$\leq$ $a_{k}n^k$ $+$ $\mid$$a_{k-1}$$\mid$$n^{k-1}$ $+$ ... $+$ $\mid$$a_{1}$$\mid$$n$ $+$ $\mid$$a_{0}$$\mid$ 
+			
+			$\leq$ $a_{k}n^k$ $+$ $\mid$$a_{k-1}$$\mid$$n^{k}$ $+$ ... $+$ $\mid$$a_{1}$$\mid$$n^k$ $+$ $\mid$$a_{0}$$\mid$$n^k$ 
+			
+			$\leq$ $(a_{k}$ $+$ $\mid$$a_{k-1}$$\mid$ $+$ ... $+$ $\mid$$a_{1}$$\mid$ $+$ $\mid$$a_{0}$$\mid$$)n^k$
+			
+			$\leq cn^k$
+			
+			Che risulta essere vera per $c$ $\geq$ $(a_{k}$ $+$ $\mid$$a_{k-1}$$\mid$ $+$ ... $+$ $\mid$$a_{1}$$\mid$ $+$ $\mid$$a_{0}$$\mid$$)$ e per $m = 1$.
+			
+			\item \textbf{Limite Inferiore}: $\exists d > 0, \exists m \geq 0$ : $f(n) \geq cn^k, \forall n \geq m$
+			
+			$f(n) = a_{k} n^k + a_{k-1} n^{k-1} + ... + a_{1}n + a_{0}$
+			
+			$\geq$ $a_{k}n^k$ $-$ $\mid$$a_{k-1}$$\mid$$n^{k-1}$ $-$ ... $-$ $\mid$$a_{1}$$\mid$$n$ $-$ $\mid$$a_{0}$$\mid$ 
+			
+			$\geq$ $a_{k}n^k$ $-$ $\mid$$a_{k-1}$$\mid$$n^{k-1}$ $-$ ... $-$ $\mid$$a_{1}$$\mid$$n^{k-1}$ $-$ $\mid$$a_{0}$$\mid$$n^{k-1}$ 
+			
+			$\geq dn^k$
+			
+			L'ultima equazione è vera se:
+			
 			$d$ $\leq$ $a_{k}$ $-$ $\mid$$a_{k-1}$$\mid$$n^{-1}$ $-$ ... $-$ $\mid$$a_{1}$$\mid$$n^{-1}$ $-$ $\mid$$a_{0}$$\mid$$n^{-1} > 0 \iff n >$ $(\mid$$a_{k-1}$$\mid$ $+$ ... $+$ $\mid$$a_{0}$$\mid)/a_{k}$
 		\end{itemize}
-	\item \textbf{Casi Particolari}\\
-		La complessità di \textcolor{red}{$f(n) = 5$} e di \textcolor{red}{$f(n) = 5 + \sin(n)$} è \textcolor{red}{ $\Theta$(1)}\\
+	\item \textbf{Casi Particolari}
+	
+		La complessità di \textcolor{red}{$f(n) = 5$} e di \textcolor{red}{$f(n) = 5 + \sin(n)$} è \textcolor{red}{ $\Theta$(1)}
+		
 		(P.S. la stessa cosa vale se vi è una limitazione al numero di dati che è necessario fornire in input)
 	\item ... altri casi trattati nella parte di teoria
 \end{itemize}

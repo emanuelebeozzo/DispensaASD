@@ -25,8 +25,12 @@ boolean isShangaiSolvable(int[] X, int[] n, int m)
       		return false
   	return true
 \end{lstlisting}
-Il problema può essere visto come un problema di assenza di cicli in un grafo. Dove i numeri da $1$ a \textit{n} che identificano i bastoncini sono difatto dei nodi, mentre invece le relazioni identificate dal verbo "sovrasta" degli archi. É molto semplice dunque realizzare un grafo con i dati che ci vengono forniti (si noti che $X[i]$ sovrasta \textit{Y[i]}) e verficare se esso è un \textit{DAG}, ovvero se non presenta cicli. \\ 
-Per farlo possiamo semplicemente avvalerci della funzione hasCycle per i grafi orientati, che si trova nella sezione: 8.5 Grafo orientato aciclico(DAG): DFS.\\\\
+Il problema può essere visto come un problema di assenza di cicli in un grafo. Dove i numeri da $1$ a \textit{n} che identificano i bastoncini sono difatto dei nodi, mentre invece le relazioni identificate dal verbo "sovrasta" degli archi. É molto semplice dunque realizzare un grafo con i dati che ci vengono forniti (si noti che $X[i]$ sovrasta \textit{Y[i]}) e verficare se esso è un \textit{DAG}, ovvero se non presenta cicli. 
+
+Per farlo possiamo semplicemente avvalerci della funzione hasCycle per i grafi orientati, che si trova nella sezione: 8.5 Grafo orientato aciclico(DAG): DFS.
+
+\bigskip
+
 \textbf{Votazioni}
 \begin{lstlisting}[caption=Le votazioni]
 int[] election(GRAPH G, int[] status)
@@ -68,7 +72,8 @@ int[] election(GRAPH G, int[] status)
   
   	return indecisi
 \end{lstlisting}
-Per risolvere questo problema sono necessarie due visite in bfs assegnando dunque le distanze minori ai nodi dai nodi facenti parte del partito PE e una visita assegnando la distanza minima dai nodi PP. La visita viene effettuata incodando i corrispettivi membri del partito nella loro appostita coda con distanza pari a 0, la distanza viene aggiornata non appena vengono scoperti (lo stesso principio di ragionamento è presente nell'algoritmo di \textit{Erdos}). Una volta che abbiamo le distanze minime dai membri del partito PE e PP controlliamo se qualche nodo possiede la stessa dai membri dei due schieramenti, se questo avviene incrementiamo il numero degli indecisi.\\
+Per risolvere questo problema sono necessarie due visite in bfs assegnando dunque le distanze minori ai nodi dai nodi facenti parte del partito PE e una visita assegnando la distanza minima dai nodi PP. La visita viene effettuata incodando i corrispettivi membri del partito nella loro appostita coda con distanza pari a 0, la distanza viene aggiornata non appena vengono scoperti (lo stesso principio di ragionamento è presente nell'algoritmo di \textit{Erdos}). Una volta che abbiamo le distanze minime dai membri del partito PE e PP controlliamo se qualche nodo possiede la stessa dai membri dei due schieramenti, se questo avviene incrementiamo il numero degli indecisi.
+
 Ritorniamo infine gli indecisi totali.
 
 \end{document}

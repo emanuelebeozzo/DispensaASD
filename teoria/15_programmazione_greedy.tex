@@ -1,9 +1,10 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
-\begin{document}
 
+\begin{document}
 \section{Programmazione Greedy}
 \subsection{Introduzione}
-Nella sezione precedente ci siamo occupati di risolvere alcuni problemi mediante l'utilizzo di programmazione dinamica e, in alcuni di questi casi, abbiamo dovuto controllare tutte le possibili soluzioni ottenute poiché non eravamo certi di dove potesse trovarsi il risultato. In questo capitolo ci occuperemo invece della programmazione greedy e ciò di selezionare una sola tra le scelte possibili, quella che ci sembra la migliore (localmente ottima), dimostrando però che questa scelta si rivela poi essere ottima a livello globale.\\
+Nella sezione precedente ci siamo occupati di risolvere alcuni problemi mediante l'utilizzo di programmazione dinamica e, in alcuni di questi casi, abbiamo dovuto controllare tutte le possibili soluzioni ottenute poiché non eravamo certi di dove potesse trovarsi il risultato. In questo capitolo ci occuperemo invece della programmazione greedy e ciò di selezionare una sola tra le scelte possibili, quella che ci sembra la migliore (localmente ottima), dimostrando però che questa scelta si rivela poi essere ottima a livello globale.
+
 \textbf{ATTENZIONE:} Non tutti i problemi hanno una scelta ingorda come soluzione!
 \subsection{Insieme indipendente massimale di intervalli}
 \textbf{Input}\\
@@ -15,11 +16,16 @@ Sia $S$ = $\{1, 2, ..., n\}$ un insieme di intervalli della retta reale. Ogni in
 \textbf{Definizione del Problema} \\
 Un \textcolor{red}{insieme indipendente massimale} è un sottoinsieme di massima cardinalità formato da intervalli tutti disgiunti tra loro.
 \subsubsection{Dalla programmazione dinamica...}
-Prima di parlare della risoluzione del problema con la tecnica greedy proviamo a vedere come avremmo affrontato il problema con programmazione dinamica, definendo la sottostruttura ottima, per cercare la cosiddetta scelta ingorda.\\\\
-\textbf{Sottostruttura Ottima}\\
-Si assuma che gli intervalli siano ordinati per tempo di fine: $b_1 \leq b_2 \leq ... \leq b_n$\\
-Definiamo il \textcolor{red}{sottoproblema $S[i...j]$} come l'insieme di intervalli che iniziano dopo la fine di $i$ e finiscono prima dell'inizio di $j$: $S[i...j] = \{k|b_i \leq a_k < b_k \leq a_j\}$\\
-Aggiungiamo due intervalli fittizi:\\
+Prima di parlare della risoluzione del problema con la tecnica greedy proviamo a vedere come avremmo affrontato il problema con programmazione dinamica, definendo la sottostruttura ottima, per cercare la cosiddetta scelta ingorda.
+
+\textbf{Sottostruttura Ottima}
+
+Si assuma che gli intervalli siano ordinati per tempo di fine: $b_1 \leq b_2 \leq ... \leq b_n$
+
+Definiamo il \textcolor{red}{sottoproblema $S[i...j]$} come l'insieme di intervalli che iniziano dopo la fine di $i$ e finiscono prima dell'inizio di $j$: $S[i...j] = \{k|b_i \leq a_k < b_k \leq a_j\}$
+
+Aggiungiamo due intervalli fittizi:
+
 \begin{itemize}
 	\item  Intervallo 0: $b_0 = - \infty$ 
 	\item  Intervallo $n+1$: $a_{n+1} = + \infty$ 
@@ -42,11 +48,18 @@ Supponiamo che $A[i...j]$ sia una soluzione ottimale di $S[i...j]$ e sia $k$ un 
 			\item  $A[i...j]$ $\cap$ $S[k...j]$ è la soluzione ottimale di $S[k...j]$
 		\end{itemize}
 \end{itemize}
-\textbf{Dimostrazione (in pillole):} Come è possibile immaginare se ad esempio $A[i...j]$ $\cap$ $S[i...k]$ \textbf{non fosse la soluzione ottimale} di $S[i...k]$ allora vorrebbe dire che esisterebbe un altro insieme di elementi $A'[i...j]$ t.c. $A'[i...j]$ $\cap$ $S[i...k]$ è la soluzione ottimale di $S[k...j]$ ma ciò contraddirebbe l'ipotesi iniziale! (cioè se non vale per uno dei due sottointervalli non può essere la soluzione complessiva)\\\\
-\textbf{Definizione ricorsiva della soluzione}\\
-$A[i...j]$ = $A[i...k]$ $\cup$ $\{k\}$ $\cup$ $A[k...j]$\\\\
-\textbf{Definizione Ricorsiva del suo costo}\\
-Come si determina $k$? Devo analizzare tutte le possibilità.\\
+\textbf{Dimostrazione (in pillole):} Come è possibile immaginare se ad esempio $A[i...j]$ $\cap$ $S[i...k]$ \textbf{non fosse la soluzione ottimale} di $S[i...k]$ allora vorrebbe dire che esisterebbe un altro insieme di elementi $A'[i...j]$ t.c. $A'[i...j]$ $\cap$ $S[i...k]$ è la soluzione ottimale di $S[k...j]$ ma ciò contraddirebbe l'ipotesi iniziale! (cioè se non vale per uno dei due sottointervalli non può essere la soluzione complessiva)
+
+\hfill \break
+\textbf{Definizione ricorsiva della soluzione}
+
+$A[i...j]$ = $A[i...k]$ $\cup$ $\{k\}$ $\cup$ $A[k...j]$
+
+\hfill \break
+\textbf{Definizione Ricorsiva del suo costo}
+
+Come si determina $k$? Devo analizzare tutte le possibilità.
+
 Sia $DP[i][j]$ la dimensione del più grande sottoinsieme $A[i...j] \subseteq S[i...j]$ di intervalli indipendenti
 \begin{center}
 	\begin{equation*}
@@ -57,9 +70,14 @@ Sia $DP[i][j]$ la dimensione del più grande sottoinsieme $A[i...j] \subseteq S[
 	\end{equation*}
 \end{center}
 \subsubsection{...alla soluzione ingorda}
-Grazie alla precedente definizione possiamo scrivere un algoritmo basato su programmazione dinamica o memoization e, visto che dobbiamo risolvere tutti i sottoproblemi, il costo totale è pari a $\mathcal{O}(n^3)$.\\
-Nel caso di intervalli pesati abbiamo visto che è possibile sviluppare una soluzione con costo $\mathcal{O}(n\log{n})$, ma siamo sicuri che sia necessario analizzare tutti i possibili valori $k$?\\\\
-\textbf{Teorema}\\
+Grazie alla precedente definizione possiamo scrivere un algoritmo basato su programmazione dinamica o memoization e, visto che dobbiamo risolvere tutti i sottoproblemi, il costo totale è pari a $\mathcal{O}(n^3)$.
+
+Nel caso di intervalli pesati abbiamo visto che è possibile sviluppare una soluzione con costo $\mathcal{O}(n\log{n})$, ma siamo sicuri che sia necessario analizzare tutti i possibili valori $k$?
+
+\bigskip
+
+\textbf{Teorema}
+\hfill \break
 Sia $S[i...j]$ un sottoproblema non vuoto e $m$ l'intervallo di $S[i ...j]$ con il minor tempo di fine (cioè $m \in S[i...j] $), allora:
 \begin{itemize}
 	\item il sottoproblema $S[i...m]$ è vuoto
@@ -74,18 +92,26 @@ Sappiamo che:
 	\item  \textcolor{red}{$a_m < b_m$} (Definizione di intervallo)
 	\item \textcolor{red}{$\forall k \in S[i...j]$ : $b_m \leq b_k$} ($m$ ha minor tempo di fine)
 \end{itemize}
-Ne segue che: \textcolor{red}{$\forall k \in S[i...j]$ : $a_m < b_k$} (Transitività)\\
-Se nessun intervallo in $S[i...j]$ termina prima di $a_m$ allora $S[i...m] = \emptyset$.\\\\
+Ne segue che: \textcolor{red}{$\forall k \in S[i...j]$ : $a_m < b_k$} (Transitività)
+
+Se nessun intervallo in $S[i...j]$ termina prima di $a_m$ allora $S[i...m] = \emptyset$.
+
+\bigskip
+
 \textbf{Dimostrazione 2}\\
-Sia \textcolor{red}{$A'[i...j]$} una soluzione ottima di $S[i...j]$.\\
-Sia \textcolor{red}{$m'$} l'intervallo con il minor tempo di fine in $A[i...j]$.\\
-Sia \textcolor{red}{$A[i..j] = A'[i...j] - \{ m' \} \cup \{ m \}$} una nuova soluzione attenuta togliendo $m'$ e aggiungendo $m$ ad $A'[i...j]$.\\
+Sia \textcolor{red}{$A'[i...j]$} una soluzione ottima di $S[i...j]$.
+
+Sia \textcolor{red}{$m'$} l'intervallo con il minor tempo di fine in $A[i...j]$.
+
+Sia \textcolor{red}{$A[i..j] = A'[i...j] - \{ m' \} \cup \{ m \}$} una nuova soluzione attenuta togliendo $m'$ e aggiungendo $m$ ad $A'[i...j]$.
+
 \textcolor{red}{$A[i...j]$ è una soluzione ottima che contiene $m$}, in quanto ha la stessa dimensione di $A'[i...j]$ e gli intervalli sono indipendenti. Per intenderci ricadiamo in due casi differenti:
 \begin{itemize}
 	\item Se $m = m'$ allora non cambia nulla perché ho aggiunto e tolto lo stesso elemento
 	\item Se $m \neq m'$ allora ho trovato una soluzione differente ma con la stessa cardinalità della prima 
 \end{itemize}
-\textbf{Conseguenze}\\
+\textbf{Conseguenze}
+
 \begin{itemize}
 	\item \textcolor{red}{Non è più necessario analizzare tutti i possibili valori di k}: faccio una scelta ingorda ma sicura, seleziono l'attività $m$ con il minor tempo di fine
 	\item \textcolor{red}{Non è più necessario analizzare due sottoproblemi}: elimino tutte le attività che non sono compatibili con la scelta ingorda e dunque mi rimane da risolvere solamente il sottoproblema $S[m...j]$
@@ -107,8 +133,12 @@ SET indipendentSet(int[] a, int[] b)
 La complessità dell'algoritmo è $\mathcal{O}(n\log{n})$ se l'input non è ordinato oppure $\mathcal{O}(n)$ nel caso in cui sia già ordinato.
 \subsection{Problema del resto}
 \textbf{Input}\\
-Un insieme di tagli di monete, memorizzati in un vettore di interi positivi $t[1...n]$ e un intero $R$ rappresentante il resto che dobbiamo restituire.\\\\
-\textbf{Definizione del problema}\\
+Un insieme di tagli di monete, memorizzati in un vettore di interi positivi $t[1...n]$ e un intero $R$ rappresentante il resto che dobbiamo restituire.
+
+\bigskip
+
+\textbf{Definizione del problema}
+
 Trovare il più piccolo numero intero di pezzi necessari per dare un resto di $R$ centesimi utilizzando i tagli disponibili, assumendo di avere un numero illimitato di monete per ogni taglio.
 \begin{center}
 	$\mathcal{R} = \sum_{i=1}^{n} x[i] \cdot t[i]$ e $m = \sum_{i = 1}^{n} x[i]$ ha valore minimo
@@ -119,10 +149,16 @@ Trovare il più piccolo numero intero di pezzi necessari per dare un resto di $R
 	\item Sia $A(i)$ una soluzione ottima del problema $S(i)$, rappresentata da un multi-insieme; 
 	\item Sia $j \in A(i)$
 \end{itemize}
-Allora, $S(i - t[j])$ è un sottoproblema di $S(i)$, la cui soluzione ottima è data da $A(i) - \{j\}$.\\\\
-\textbf{Definizione Ricorsiva}\\
-Tabella di programmazione dinamica: $DP[0...R]$\\
-$DP[i]$: \textcolor{red}{minimo numero di monete per risolvere il problema $S[i]$}\\
+Allora, $S(i - t[j])$ è un sottoproblema di $S(i)$, la cui soluzione ottima è data da $A(i) - \{j\}$.
+
+\bigskip
+
+\textbf{Definizione Ricorsiva}
+
+Tabella di programmazione dinamica: $DP[0...R]$
+
+$DP[i]$: \textcolor{red}{minimo numero di monete per risolvere il problema $S[i]$}
+
 \begin{equation*}
   	DP[i]=\begin{cases}
    		0  & \text{$i = 0$}\\
@@ -146,7 +182,8 @@ int[] resto(int[] t, int n, int R)
 		R = R - x[coin[R]]
 	return x
 \end{lstlisting}
-In questo caso dunque la complessità della soluzione è pari a $\mathcal{O}(nR)$.\\
+In questo caso dunque la complessità della soluzione è pari a $\mathcal{O}(nR)$.
+
 Possiamo fare meglio di così? Non se utilizziamo programmazione dinamica: proviamo a pensare ad un approccio greedy.
 \begin{center}
 Selezioniamo la moneta $j$ più grande tale per cui $t[j] \leq R$, e poi risolviamo il problema $S(R - t[j])$.
@@ -196,7 +233,8 @@ Riedizione di Knapsack dove si ha
 	\end{itemize}
 \end{itemize}
 In questa versione è possibile prendere frazioni di oggetti.\\
-A differenza dei casi precedenti, questa versione di Knapsack si presta alla risoluzione mediante l'utilizzo di un algoritmo greedy, tuttavia bisogna stare molto attenti al tipo di approccio che si vuole adottare: prendere l'oggetto dal guadagno maggiore non sempre è la scelta migliore, infatti se per assurdo avessi un oggetto con un profitto pari a $p$ ma di peso $C$ (pari alla capacità) e 2 oggetti con ciascuno un profitto pari a $\frac{2}{3} p$ ma peso $C/2$ mi converrebbe prendere gli altri due oggetti ($p < \frac{4}{3}p$). Si potrebbe dunque pensare di ovviare a questa problematica prendendo gli oggetti per peso crescente ma anche questa non è la soluzione corretta: potrei letteralmente finire col riempire il mio zaino con dei sassolini senza portare a casa alcun profitto.\\
+A differenza dei casi precedenti, questa versione di Knapsack si presta alla risoluzione mediante l'utilizzo di un algoritmo greedy, tuttavia bisogna stare molto attenti al tipo di approccio che si vuole adottare: prendere l'oggetto dal guadagno maggiore non sempre è la scelta migliore, infatti se per assurdo avessi un oggetto con un profitto pari a $p$ ma di peso $C$ (pari alla capacità) e 2 oggetti con ciascuno un profitto pari a $\frac{2}{3} p$ ma peso $C/2$ mi converrebbe prendere gli altri due oggetti ($p < \frac{4}{3}p$). Si potrebbe dunque pensare di ovviare a questa problematica prendendo gli oggetti per peso crescente ma anche questa non è la soluzione corretta: potrei letteralmente finire col riempire il mio zaino con dei sassolini senza portare a casa alcun profitto.
+
 La soluzione corretta risulta dunque combinare questi due approcci e quindi di ordinare il mio insieme di oggetti per \textcolor{red}{profitto specifico $p_{i}/w_{i}$ decrescente}: in questo modo verranno privilegiati per primi gli oggetti con rapporto profitto/peso alto.
 \begin{lstlisting}[caption=Zaino Frazionario]
 float[] zaino(float[] p, float[] v, float C, int n)
@@ -207,7 +245,10 @@ float[] zaino(float[] p, float[] v, float C, int n)
 		C = C - w[i] $\cdot$ x[i]
 	return x
 \end{lstlisting}
-La complessità di questo algoritmo è $\mathcal{O}(n)$ nel caso in cui l'input sia già stato ordinato, altrimenti $\mathcal{O}(n \log{n})$. Nel vettore $x$, $x[i]$ rappresenta quanto deve essere prelevato dell'elemento $i$-esimo per raggiungere il profitto massimo.\\\\
+La complessità di questo algoritmo è $\mathcal{O}(n)$ nel caso in cui l'input sia già stato ordinato, altrimenti $\mathcal{O}(n \log{n})$. Nel vettore $x$, $x[i]$ rappresenta quanto deve essere prelevato dell'elemento $i$-esimo per raggiungere il profitto massimo.
+
+\bigskip
+
 \textbf{Correttezza (informale)}
 Assumiamo che gli oggetti siano ordinati per profitto specifico decrescente e che $x$ sia la soluzione ottimale. Supponiamo ora che del primo oggetto sia stata prelevata una quantità $x[1] < min(C/w[i], 1) < 1$, dunque è possibile costruire una nuova soluzione $x'$ dove $x'[1] = min(C/w[i], 1)$ di conseguenza la quantità prelevata di uno o più oggetti si è ridotta. Otteniamo dunque che il profitto di $x'$ è maggiore o uguale a quello di $x$, tuttavia può solo che essere uguale in quanto avevamo presupposto che $x$ fosse soluzione ottimale.
 \subsection{Compressione di Huffman}
@@ -298,9 +339,14 @@ Dato un grafo pesato, determinare come interconnettere tutti i suoi nodi minimiz
 	\item \textcolor{red}{Albero di connessione (di peso) minimo}
 	\item \textcolor{red}{Minimum spanning tree}
 \end{itemize}
-\textbf{Definizione del problema}\\
-Viene dato in input un grafo \textcolor{red}{$G = (V, E)$} non orientato e connesso e  \textcolor{red}{$w: V \times V \rightarrow \mathbb{R}$} funzione di peso (costo di connessione) t.c. se $[u, v] \in E$, allora $w(u, v)$ è il peso dell'arco $[u, v]$, altrimenti $+\infty$. Poiché $G$ è \emph{non orientato}, $w(u, v) = w(v, u)$.\\\\
-\textbf{Albero di Copertura (Spanning Tree)}\\
+\textbf{Definizione del problema}
+
+Viene dato in input un grafo \textcolor{red}{$G = (V, E)$} non orientato e connesso e  \textcolor{red}{$w: V \times V \rightarrow \mathbb{R}$} funzione di peso (costo di connessione) t.c. se $[u, v] \in E$, allora $w(u, v)$ è il peso dell'arco $[u, v]$, altrimenti $+\infty$. Poiché $G$ è \emph{non orientato}, $w(u, v) = w(v, u)$.
+
+\bigskip
+
+\textbf{Albero di Copertura (Spanning Tree)}
+
 Dato un grafo $G = (V, E)$ non orientato e connesso, un \textcolor{red}{albero di copertura} di $G$ è un sottografo $T = (V, E_{T})$ tale che 
 \begin{itemize}
 	\item $T$ è un albero
@@ -312,7 +358,8 @@ Dato un grafo $G = (V, E)$ non orientato e connesso, un \textcolor{red}{albero d
 	\item Trovare l'albero di copertura il cui \textcolor{red}{peso totale} sia minimo rispetto a ogni altro albero di copertura, cioè per cui $w(T) = \sum_{[u, v] \in E_{T}}w(u, v)$ è minimo rispetto a tutti gli altri alberi di copertura
 	\item Trovare l'albero di copertura con radice $v$ il cui \textcolor{red}{cammino da $v$ ad ogni altro vertice $u$} sia minimo
 \end{enumerate}
-In questa sezione ci occuperemo degli \textcolor{red}{Alberi di Copertura di Peso Minimo}, progettiamo dunque un algoritmo generico di tipo greedy per la risoluzione del problema e poi mostriamo le due istanze di tale algoritmo: \textcolor{red}{Kruskal} e \textcolor{red}{Prim}.\\
+In questa sezione ci occuperemo degli \textcolor{red}{Alberi di Copertura di Peso Minimo}, progettiamo dunque un algoritmo generico di tipo greedy per la risoluzione del problema e poi mostriamo le due istanze di tale algoritmo: \textcolor{red}{Kruskal} e \textcolor{red}{Prim}.
+
 L'idea è quella di accrescere un sottoinsieme $A$ di archi in modo tale che venga sempre rispettata la seguente invariante:
 \begin{itemize}
 	\item $A$ è un sottoinsieme di qualche albero di connessione minimo
@@ -349,8 +396,12 @@ SET mst-generico(GRAPH G, int[] w)
 	\item Sia $(S, V - S)$ un qualunque taglio che rispetta $A$
 	\item Sia $[u, v]$ un arco leggero che attraversa il taglio
 \end{itemize}
-Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A\\\\
-\textbf{Dimostrazione}\\
+Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A
+
+\bigskip
+
+\textbf{Dimostrazione}
+
 Sia $T$ un albero di copertura minimo che contiene $A$ e $(u, v)$ un arco leggero che attraversa il taglio (ha peso minimo tra tutti quelli che attraversano il taglio). Due casi:
 \begin{itemize}
 	\item $(u, v) \in T$: allora $(u, v)$ è sicuro per $A$
@@ -360,7 +411,9 @@ Sia $T$ un albero di copertura minimo che contiene $A$ e $(u, v)$ un arco legger
 \begin{flushleft}
 \emph{Consideriamo la seguente situazione}:
 \end{flushleft}
-\noindent\begin{minipage}{0.3\textwidth}
+\begin{table*}[t] 
+\begin{tabular}{@{}c@{}} % 
+\begin{minipage}{0.3\textwidth}
 \includegraphics[width=\linewidth]{../img/Greedy_5.jpg}
 \end{minipage}
 \hfill
@@ -370,7 +423,8 @@ Sia $T$ un albero di copertura minimo che contiene $A$ e $(u, v)$ un arco legger
 	\item $u, v$ stanno in lati opposti del taglio (l'arco $(u, v)$ attraversa il taglio)
 	\item $\exists (x, y) \in C$ che attraversa il taglio
 \end{itemize}
-\end{minipage}
+\end{minipage} \\
+
 \noindent\begin{minipage}{0.3\textwidth}
 \includegraphics[width=\linewidth]{../img/Greedy_6.jpg}
 \end{minipage}
@@ -382,8 +436,17 @@ Sia $T$ un albero di copertura minimo che contiene $A$ e $(u, v)$ un arco legger
 	\item $w(T') \leq w(T)$ (perché $w(u, v) \leq w(x, y)$)
 	\item $w(T) \leq w(T')$ (perché $T$ minimo)
 \end{itemize}
-\end{minipage} \\\\
-Dunque vale che $w(T') = w(T)$ e di conseguenza anche $T'$ è un albero di copertura di peso minimo.\\\\
+\end{minipage} 
+\end{tabular}
+\end{table*}
+
+
+\bigskip
+
+Dunque vale che $w(T') = w(T)$ e di conseguenza anche $T'$ è un albero di copertura di peso minimo.
+
+\bigskip
+
 \textbf{Corollario}
 \begin{itemize}
 	\item Sia $G = (V, E)$ un grafo \emph{non orientato} e $connesso$
@@ -392,7 +455,10 @@ Dunque vale che $w(T') = w(T)$ e di conseguenza anche $T'$ è un albero di coper
 	\item Sia $C$ una componente connessa (un albero) nella foresta $G_{A} = (V, A)$
 	\item Sia $[u, v]$ un arco leggero che connette $C$ a qualche altra componente in $G_{A}$
 \end{itemize}
-Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A.\\\\
+Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A.
+
+\bigskip
+
 L'idea generale è di prendere una componente connessa $C$ nella foresta $G_{A}$ e un qualunque arco leggero $[u, v]$ che connette $C$ a qualche altra componente connessa di $G_{A}$ (di fatto anch'essa è un albero di peso minimo in quanto i suoi archi appartengono a un sottoinsieme contenuto in qualche albero di copertura di peso minimo). $[u, v]$ non può essere altro se un arco sicuro per $A$.
 \newpage
 \subsubsection{Algoritmo di Kruskal}
@@ -424,7 +490,11 @@ SET kruskal(EDGE[] A, int n, int m)
 		i = i + 1
 	return T
 \end{lstlisting}
-\textbf{Analisi della complessità algoritmo di Kruskal}\\
+
+\bigskip
+
+\textbf{Analisi della complessità algoritmo di Kruskal}
+
 Il tempo di esecuzione per l'algoritmo di Kruskal dipende dalla realizzazione della struttura dati per Merge-Find Set: se utilizziamo la versione con \textcolor{red}{euristica sul rango + compressione}, (*) le cui operazioni hanno costo ammortizzato costante otteniamo
 \begin{center}
 	\renewcommand{\arraystretch}{1.2}
@@ -466,8 +536,12 @@ Come si può osservare alcuni gli archi 6, 7 e 8 archi nell'immagine completa so
 	\item L'albero parte da un vertice arbitrario $r$ (la radice) e cresce fino a quando non ricopre tutti i vertici
 	\item Ad ogni passo viene aggiunto un \emph{arco leggero} che collega un vertice in $V_{A}$ con un vertice in $V - V_{A}$, dove $V_{A}$ è l'insieme di nodi raggiunti da archi in $A$
 \end{itemize}
-Per definizione $(V_{A}, V - V_{A})$ è un taglio che rispetta $A$ (infatti $V_{A}$ contiene i nodi connessi da archi appartenenti ad $A$ mentre $V-V_{A}$ quelli che ancora devono essere raggiunti dunque nessun arco di $A$ può attraversare il taglio) e per il corollario esposto precedentemente gli archi leggeri che attraversano il taglio sono sicuri.\\\\
-\textbf{Implementazione}\\
+Per definizione $(V_{A}, V - V_{A})$ è un taglio che rispetta $A$ (infatti $V_{A}$ contiene i nodi connessi da archi appartenenti ad $A$ mentre $V-V_{A}$ quelli che ancora devono essere raggiunti dunque nessun arco di $A$ può attraversare il taglio) e per il corollario esposto precedentemente gli archi leggeri che attraversano il taglio sono sicuri.
+
+\bigskip
+
+\textbf{Implementazione}
+
 La struttura dati che si utilizza in questo caso è una \emph{Min Priority Queue} la cui descrizione e implementazione si può trovare nella sezione \emph{Strutture Dati Speciali} della dispensa. Durante l'esecuzione, i vertici non ancora nell'albero si trovano in una coda con min-priorità $Q$ ordinata in base alla seguente definizione di priorità: la priorità del nodo $v$ è il peso minimo di un arco che collega $v$ ad un vertice nell'albero, o +$\infty$ se tale arco non esiste.\\
 L'implementazione dell'albero avviene invece tramite \emph{vettore dei padri} di conseguenza
 \begin{itemize}
@@ -516,20 +590,28 @@ L'efficienza dell'algoritmo di Prim dipende dall'implementazione della coda con 
 		\hline
 	\end{tabular}
 \end{center}
-Il tempo totale è dunque $\mathcal{O}(n + n \log n + m \log n) = \textcolor{red}{\mathcal{O}(m \log n)}$ e quindi è asintoticamente uguale a quello di Kruskal.\\
-Se la coda con priorità fosse invece implementata tramite \emph{vettore non ordinato} il costo diventerebbe $\mathcal{O}(n^{2})$.\\
-La scelta del tipo di struttura da utilizzare dipende dal tipo di grafo in questione se \emph{sparso} oppure \emph{fortemente connesso}.\\\\
+Il tempo totale è dunque $\mathcal{O}(n + n \log n + m \log n) = \textcolor{red}{\mathcal{O}(m \log n)}$ e quindi è asintoticamente uguale a quello di Kruskal.
+
+Se la coda con priorità fosse invece implementata tramite \emph{vettore non ordinato} il costo diventerebbe $\mathcal{O}(n^{2})$.
+
+La scelta del tipo di struttura da utilizzare dipende dal tipo di grafo in questione se \emph{sparso} oppure \emph{fortemente connesso}.
+
+\bigskip
+
 \textbf{Evoluzione algoritmo di Prim - Esempio}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\textwidth]{../img/Greedy_9.jpg}
-	\caption{Evoluzione algoritmo di Prim - 1..4}
-\end{figure}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.5\textwidth]{../img/Greedy_10.jpg}
-	\caption{Evoluzione algoritmo di Prim - Completo}
-\end{figure} \\
+\begin{center}
+	\begin{figure}[H]
+		\includegraphics[width=\linewidth]{../img/Greedy_9.jpg}
+		\caption{Evoluzione algoritmo di Prim - 1..4}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[H]
+		\includegraphics[width=\linewidth]{../img/Greedy_10.jpg}
+		\caption{Evoluzione algoritmo di Prim - Completo}
+	\end{figure}
+\end{center}
+
 Nel caso dell'algoritmo di Prim gli archi che si vanno a considerare seguono come logica quello dell'ultimo arco aggiunto. Gli archi colorati di grigio (non tratteggiati) indicano quelli che sono stati analizzati dall'algoritmo e la cui priorità è stata modificata ma non è detto che saranno quelli che verranno usati per formare l'albero di copertura di peso minimo.
 \newpage
 \end{document}

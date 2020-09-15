@@ -2,7 +2,8 @@
 \begin{document}
 
 \subsection{Esame 18/07/2019}
-\textbf{Esercizio B3}\\
+\textbf{Esercizio B3}
+
 Sia $A$ un vettore contenente n interi positivi.
 \begin{itemize}
 	\item Una sottosequenza crescente di $A$ è un sottosequenza di $A$ i cui valori sono ordinati.
@@ -14,7 +15,8 @@ Scrivere un algoritmo
 	\textbf{int} maxIncreasing(\textbf{int}[ ]$A$, \textbf{int} $n$)
 \end{center}
 che  restituisca  il valore di  una  sottosequenza  crescente massimale contenuta in $A$. Discutere  informalmente  la  correttezza  dell'algoritmo  e calcolare la sua complessità computazionale.
-\textbf{Soluzione:}\\
+\textbf{Soluzione:}
+
 Il seguente problema può essere risolto utilizzando l'algoritmo \emph{Longest Increasing Subsequence} poiché di fatto si riduce a prendere un numero e sommarlo ai precedenti solo se questo è maggiore di quelli nella sequenza.
 \begin{lstlisting}[caption=Longest Increasing Subsequence]
 int maxIncreasing(int[] A, int n)
@@ -38,7 +40,8 @@ L'algoritmo può essere descritto mediante la seguente equazione di ricorrenza
     	A[i] & \text{altrimenti}
   	\end{cases}
 \end{equation*}
-La complessità dell'algoritmo è dunque pari a $\mathcal{O}(n^{2})$ in quanto è necessario utilizzare due cicli per poter ottenere il valore della sottosequenza massima. Si sottolinea in questo caso l'importanza del fatto che la soluzione \textbf{non} necessariamente si troverà in $DP[n]$ bensì in una qualunque delle celle del vettore $DP$: basti pensare a una sequenza di numeri decrescente.\\
+La complessità dell'algoritmo è dunque pari a $\mathcal{O}(n^{2})$ in quanto è necessario utilizzare due cicli per poter ottenere il valore della sottosequenza massima. Si sottolinea in questo caso l'importanza del fatto che la soluzione \textbf{non} necessariamente si troverà in $DP[n]$ bensì in una qualunque delle celle del vettore $DP$: basti pensare a una sequenza di numeri decrescente.
+
 La correttezza può essere dimostrata provando che l'algoritmo possiede sottostruttura ottimale: sia $X_{P}$ il vettore contenente la sequenza di numeri di cui vogliamo calcolare la sottosequenza crescente massimale e sia $S$ l'insieme dei numeri la cui somma restituisce il valore di una delle sottosequenze crescenti massimale (contenente dunque la soluzione ottimale). Consideriamo ora il problema $X_{P} - \{j\}$, a cui di fatto viene tolto l'ultimo elemento: allora deve essere che la soluzione di tale problema è $S - \{j\}$, se così non fosse allora vorrebbe dire che esisterebbe un problema $S'$ che è soluzione ottima al problema, di conseguenza
 \begin{center}
 $\sum(S') > \sum(S - \{j\})$ $\rightarrow$ $\sum(S' + \{j\}) > \sum(S)$

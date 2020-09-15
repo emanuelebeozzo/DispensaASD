@@ -8,8 +8,10 @@
     	T(\lfloor n/2 \rfloor) + T(\lfloor n/4 \rfloor)+ T(\lfloor n/8 \rfloor)+ 2T(\lfloor n/16 \rfloor) + 1 & \text{$n > 16$}\\
     	1 & \text{$n \leq 16$}
   	\end{cases}
-\end{equation*} \\
-\textbf{Soluzione A1} Non possiamo applicare il master theorem quindi proviamo a risolvere il problema per tentativi. Proviamo con il metodo di sostituzione a verificare e vale T(n) = $\mathcal{O}(n)$. Dimostriamo per induzione.\
+\end{equation*} 
+
+\textbf{Soluzione A1} Non possiamo applicare il master theorem quindi proviamo a risolvere il problema per tentativi. Proviamo con il metodo di sostituzione a verificare e vale T(n) = $\mathcal{O}(n)$. Dimostriamo per induzione.
+
 \begin{itemize}
 	\item Ipotesi induttiva: T(k) $\leq$ ck, per k $<$ n
 	\item Passo induttivo:
@@ -58,9 +60,12 @@ Per esempio, la croce visibile nell’esempio è composta da 17 valori 1e l’al
 \begin{center}
 \includegraphics{../img/esame_07022019}
 \end{center}
-\textbf{Soluzione} \\
-Il docente propone un approccio basato su programmazione dinamica per risolvere il seguente problema. \\ Si costruiscono quattro matrici di appoggio, chiamate $L,R,U,D$ (left, right, up,down). \\
-Le caselle $L[i][j]$, $R[i][j]$, $U[i][j]$, $D[i][j]$ contiene la più lunga fila di valori $1$ che si estende a partire dalla cella $(i, j)$(compresa) nella direzione sinistra, destra, alto, basso. \\
+\textbf{Soluzione} 
+
+Il docente propone un approccio basato su programmazione dinamica per risolvere il seguente problema. \\ Si costruiscono quattro matrici di appoggio, chiamate $L,R,U,D$ (left, right, up,down). 
+
+Le caselle $L[i][j]$, $R[i][j]$, $U[i][j]$, $D[i][j]$ contiene la più lunga fila di valori $1$ che si estende a partire dalla cella $(i, j)$(compresa) nella direzione sinistra, destra, alto, basso. 
+
 Tali vettori vengono calcolati come segue: 
 \begin{equation*}
   	L[i][j] =\begin{cases}
@@ -90,7 +95,8 @@ Tali vettori vengono calcolati come segue:
     	0 & \text{$i > 1$ \textbf{and} $M[i][j] = 0$}
   	\end{cases}
 \end{equation*}
-Ovvero partendo dalla posizione $(i, j)$ si considerano le somme di 1 sulla rispettiva dimensione, nella cella considerata precedentemente, solo se il valore sulla matrice originale $M$ è 1. \\
+Ovvero partendo dalla posizione $(i, j)$ si considerano le somme di 1 sulla rispettiva dimensione, nella cella considerata precedentemente, solo se il valore sulla matrice originale $M$ è 1. 
+
 Una volta calcolati questi valori è possibile trovare la più grande croce il cui centro è collocato in $(i, j)$ semplicemente calcolando: 
 \begin{center}
 $min(L[i][j], R[i][j], U[i][j], D[i][j]) \cdot 4 - 3$

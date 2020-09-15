@@ -1,4 +1,5 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
+
 \begin{document}
 
 \section{Grafi}
@@ -39,6 +40,8 @@ visitare una e una volta sola tutti i nodi del grafo che possono essere raggiunt
 \textbf{Soluzione}: Esistono principalmente due metodologie per visitare un grafo:\
 \begin{itemize}
 \item BFS(Breadth-First search - visita in ampiezza): visita i nodi per livelli partendo dalla radice, poi visitando i nodi a distanza 1, poi a distanze 2, ecc fino a visitare tutti i nodi raggiungibili dalla sorgente.
+
+\begin{adjustbox}{max width=\linewidth}
 \begin{lstlisting}[caption= Visita BFS]
 bfs(GRAPH G, NODE r)
 	QUEUE Q = QUEUE
@@ -55,9 +58,10 @@ bfs(GRAPH G, NODE r)
 			if not visited[v] then
 				visited[v] = true
 				Q.enqueue(v)
-
 \end{lstlisting}
+\end{adjustbox}
 	\item DFS (Depth-First search - visita in profondità): visita ricorsiva, cioè ogni nodo viene visitato ricorsivamente, visitando anche in modo ricorsivo i suoi nodi adiacenti. Con questo tipo di visita riusciamo a visitare un intero grafo, non solo i nodi raggiungibili da una sorgente.
+\begin{adjustbox}{max width=\linewidth}
 \begin{lstlisting}[caption= Visita DFS]
 % versione ricorsiva con stack implicito
 dfs(GRAPH G, Node u, boolean[] visited)
@@ -86,12 +90,15 @@ dfs(GRAPH G, Node r)
 				% visita l'arco (u,v)
 				S.push(v)
 \end{lstlisting}
+\end{adjustbox}
 \end{itemize}
 \newpage
 
 \subsection{Cammini più brevi: BFS}
-\textbf{Problema}: Dato un grafo G e un nodo r, calcolare il cammino più breve da r a tutti gli altri nodi. Le distanze sono misurate come il numero di archi attraversati.\
-\textbf{Soluzione}: Algoritmo per il calcolo del numero di Erdos.\
+\textbf{Problema}: Dato un grafo G e un nodo r, calcolare il cammino più breve da r a tutti gli altri nodi. Le distanze sono misurate come il numero di archi attraversati.
+
+\textbf{Soluzione}: Algoritmo per il calcolo del numero di Erdos.
+
 \begin{lstlisting}[caption= Erdos]
 erdos(GRAPH G, NODE r, int[] erdos, NODE[] parent)
 	QUEUE Q = QUEUE
