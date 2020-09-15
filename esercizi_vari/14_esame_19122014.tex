@@ -2,17 +2,24 @@
 \begin{document}
 
 \subsection{Esame 19/12/2014}
-\textbf{Numero minimo di intervalli unitari} \\
+\textbf{Numero minimo di intervalli unitari} 
+
 Dato un vettore $V$ di $n$ numeri reali, bisogna calcolare il numero minimo di intervalli di lunghezza \emph{unitaria} in grado di ricoprire tutti i valori di $V$.  Un intervallo di lunghezza unitaria è definito da una coppia $[x, x + 1]$, estremi inclusi. Ad esempio se $n= 5$ e $V=\{2.5,3.8,1.5,3.1,1.8\}$, allora il numero minimo di intervalli unitari è $2$ e una possibile soluzione è $[1.5,2.5] ,[3,4]$. Scrivere un algoritmo 
 \begin{center}
 	\emph{int minIntervals(real[] V, int n)}
 \end{center}
-che risolva il problema. \\
-\textbf{Soluzione} \\
-Per risolvere il problema è possibile usare un approccio greedy. \\ 
-Ordiniamo il vettore $V$ con un algoritmo di ordinamento basato su confronti come mergeSort (di complessità computazionale $\mathcal{O}(n \log n)$. \\
-Vogliamo dimostrare che un intervallo l'intervallo $[V[1], V[1] + 1]$ (l'intervallo unitario che inizia in $V[1]$) fa sempre parte di una soluzione ottima.  \\
-Si prenda una soluzione ottima. Se si consideri l'intervallo $[x, x + 1] \in S$ che "ricopre" $V[1]$, ovvero tale per cui $x \leq V[1] \leq x + 1$; tale intervallo deve esistere, in quanto $V[1]$ deve essere ricoperto. Poichè $V[1] \geq x$ e $V[1]$ è il primo punto del vettore, è possibile ottenere una soluzione $C - \{[x, x + 1]\} \cup \{[V[1], V[1] + 1]\}$ che ha la stessa dimensione di $C$, ricopre $V[1]$ e tutti i punti precedentemente ricoperti da $[x, x + 1]$. \\
+che risolva il problema. 
+
+\textbf{Soluzione} 
+
+Per risolvere il problema è possibile usare un approccio greedy. 
+
+Ordiniamo il vettore $V$ con un algoritmo di ordinamento basato su confronti come mergeSort (di complessità computazionale $\mathcal{O}(n \log n)$. 
+
+Vogliamo dimostrare che un intervallo l'intervallo $[V[1], V[1] + 1]$ (l'intervallo unitario che inizia in $V[1]$) fa sempre parte di una soluzione ottima.  
+
+Si prenda una soluzione ottima. Se si consideri l'intervallo $[x, x + 1] \in S$ che "ricopre" $V[1]$, ovvero tale per cui $x \leq V[1] \leq x + 1$; tale intervallo deve esistere, in quanto $V[1]$ deve essere ricoperto. Poichè $V[1] \geq x$ e $V[1]$ è il primo punto del vettore, è possibile ottenere una soluzione $C - \{[x, x + 1]\} \cup \{[V[1], V[1] + 1]\}$ che ha la stessa dimensione di $C$, ricopre $V[1]$ e tutti i punti precedentemente ricoperti da $[x, x + 1]$. 
+
 In parole più semplici, pensiamo di avere il vettore $V$ ordinato; siamo consapevoli che tutto il vettore deve venire coperto, e in quanto $V[1]$ è il valore minore possibile che deve essere compreso, non possiamo fare altro che utilizzare un intervallo che parta da $V[1]$ e termini in $V[1] + 1$. Sia $j$ l'elemento che stiamo analizzando e sia $V[i]$ l'inizio dell'ultimo intervallo considerato nella soluzione ottimale; procedendo con la scansione possono verificarsi due casi:
 \begin{itemize}
 	\item $V[j] \leq V[i] + 1$, questo significa che il valore $V[j]$ è compreso nell'ultimo intervallo inserito nella soluzione ottimale

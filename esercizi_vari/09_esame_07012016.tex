@@ -2,15 +2,23 @@
 \begin{document}
 
 \subsection{Esame 07/01/2016}
-\textbf{Intervallo di copertura massima minimale} \\
-Sia dato un insieme $X$ di $n$ intervalli della retta reale, descritti tramite due vettori $a[1...n]$ e $b[1...n]$, dove l'i-esimo intervallo è descritto da $[ a[i], b[i] ]$ (estremi inclusi). \\
-La copertura $\mathcal{C(X)}$ di $\mathcal{X}$ è l'unione di tutti i punti della retta reale che sno inclusi negli intervalli in $\mathcal{X} : \mathcal{C(X)} = \bigcup_{I \in \mathcal{X}} I$. \\
-Scrivere un algoritmo che restituisca il più piccolo sottoinsieme $\mathcal{Y} \subseteq \mathcal{X}$, fra tutti quelli la cui copertura è uguale alla copertura di $\mathcal{X (C(Y) =C(X))}$ \\
-Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale. \\
+\textbf{Intervallo di copertura massima minimale} 
+
+Sia dato un insieme $X$ di $n$ intervalli della retta reale, descritti tramite due vettori $a[1...n]$ e $b[1...n]$, dove l'i-esimo intervallo è descritto da $[ a[i], b[i] ]$ (estremi inclusi). 
+
+La copertura $\mathcal{C(X)}$ di $\mathcal{X}$ è l'unione di tutti i punti della retta reale che sno inclusi negli intervalli in $\mathcal{X} : \mathcal{C(X)} = \bigcup_{I \in \mathcal{X}} I$. 
+
+Scrivere un algoritmo che restituisca il più piccolo sottoinsieme $\mathcal{Y} \subseteq \mathcal{X}$, fra tutti quelli la cui copertura è uguale alla copertura di $\mathcal{X (C(Y) =C(X))}$ 
+
+Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale. 
+
 Ad esempio, dati gli intervalli $\mathcal{X} = \{[2,4], [4,7], [8,10] [3,6]\}$, il sottoinsieme $\mathcal{Y}= \{[2,4], [4,7], [8,10]\}$ ha la stessa copertura di $\mathcal{X}$. \\
-\textbf{Soluzione} \\
-Come si poteva intuire, è possibile usare un approccio greedy per la soluzione del problema. Infatti se ordiniamo gli intervalli per estremo di inizio crescente, il problema si riporta a scartare gli intervalli che sono già stati compresi o saranno compresi nell'intervallo massimo coperto. \\
-Per questa soluzione il professore adotta una \emph{semplificazione}, ovvero l'ordinamento a parità di inizio viene effettuato per estremo di fine. \\
+\textbf{Soluzione} 
+
+Come si poteva intuire, è possibile usare un approccio greedy per la soluzione del problema. Infatti se ordiniamo gli intervalli per estremo di inizio crescente, il problema si riporta a scartare gli intervalli che sono già stati compresi o saranno compresi nell'intervallo massimo coperto. 
+
+Per questa soluzione il professore adotta una \emph{semplificazione}, ovvero l'ordinamento a parità di inizio viene effettuato per estremo di fine. 
+
 La soluzione proposta è la seguente: 
 \begin{lstlisting}[ caption = Intervallo di copertura massima minimale]
 SET cover(int[] a, int[] b, int n)
@@ -26,21 +34,30 @@ SET cover(int[] a, int[] b, int n)
 			S[j] = i
 	return $\{ S[k] \mid 1 \leq k \leq j \}$ 
 \end{lstlisting}
-\textbf{Funzionamento} \\
-S rappresenta il nostro vettore contenente la soluzione, nel nostro caso gli indici dell'intervallo massimale con cardinalità minore, j invece rappresenta 'indice dell'ultimo intervallo inserito. \\
-Ogni volta che si sta per inserire un intervallo (indice $i$), lo si confronta con il penultimo inserito (indice $S[j -1]$); se il penultimo intervallo inserito e il nuovo intervallo sono in contatto $(a[i] \leq b[S[j -1]])$, si elimina l'ultimo intervallo inserito ($S[j]$), facendo arretrare $j$; si continua così fino a quando si raggiunge il primo intervallo oppure si trovano due intervalli non in contatto. A quel punto, viene inserito il nuovo intervallo. \\
-La complessità resta $\mathcal{O}(n \log n)$, dovuto all'ordinamento, perché nonostante i due cicli, ogni intervallo viene inserito e rimosso al massimo una volta, e quindi il corpo principale dell'algoritmo (escluso l'ordinamento) ha costo di $\mathcal{O}(n)$. \\
-Questa tecnica è chiamata \emph{backtrack iterativo} e segue questa filosofia: \\
-\emph{"prova ad aggiungere un'intervallo (perché coerente con quelli precedenti), ma se un futuro inserimento renderà questo intervallo inutile, lo si rimuoverà (una e una sola volta)"} \\
-\textbf{Correttezza} \\
+\textbf{Funzionamento} 
+
+S rappresenta il nostro vettore contenente la soluzione, nel nostro caso gli indici dell'intervallo massimale con cardinalità minore, j invece rappresenta 'indice dell'ultimo intervallo inserito. 
+
+Ogni volta che si sta per inserire un intervallo (indice $i$), lo si confronta con il penultimo inserito (indice $S[j -1]$); se il penultimo intervallo inserito e il nuovo intervallo sono in contatto $(a[i] \leq b[S[j -1]])$, si elimina l'ultimo intervallo inserito ($S[j]$), facendo arretrare $j$; si continua così fino a quando si raggiunge il primo intervallo oppure si trovano due intervalli non in contatto. A quel punto, viene inserito il nuovo intervallo. 
+
+La complessità resta $\mathcal{O}(n \log n)$, dovuto all'ordinamento, perché nonostante i due cicli, ogni intervallo viene inserito e rimosso al massimo una volta, e quindi il corpo principale dell'algoritmo (escluso l'ordinamento) ha costo di $\mathcal{O}(n)$. 
+
+Questa tecnica è chiamata \emph{backtrack iterativo} e segue questa filosofia: 
+
+\emph{"prova ad aggiungere un'intervallo (perché coerente con quelli precedenti), ma se un futuro inserimento renderà questo intervallo inutile, lo si rimuoverà (una e una sola volta)"} 
+
+\textbf{Correttezza} 
+
 Per dimostrare la correttezza, dimostriamo il seguente invariante: all'inizio del ciclo i-esimo, la soluzione contenuta in $S[...j]$ è ottima per il sottoinsieme dato dai primi $i - 1$ intervalli. Quando $i = 2$, ovvero prima dell’inizio del ciclo, $S[1...1]$ contiene il primo (e unico) intervallo; è quindi una soluzione corretta. Assumendo che la proprietà sia vera fino al ciclo $i - 1$-esimo, dimostriamo che sia vera all'inizio del ciclo i-esimo:
 \begin{itemize}
 	\item Se l'intervallo $i$ ha un estremo superiore più basso o uguale dell'intervallo $S[j]$, non deve essere inserito (in quanto $a[S[j]] \leq a[i]$ per l'ordinamento degli intervalli e $b[i] \leq b[S[j]]$ per ipotesi, ovvero l'intervallo $i$ è totalmente contenuto nell'intervallo $S[j]$).
 	\item Altrimenti, se $b[i]> b[S[j]]$,è necessario che sia inserito, altrimenti il valore $b[i]$ non sarebbe coperto. Ma una volta inserito, può essere che $\exists k < j$ tale che $\bigcup^{j}_{k+1} I[S[k]] \subseteq I_S[k] \cup I_i$ i; in tal caso, tutti questi intervalli vanno rimossi.
 	\item Infine, al termine dell'esecuzione, gli intervalli contenuti in $S[1. . . j]$ sono una soluzione ottima per tutti gli $n$ intervalli.
 \end{itemize}
-\textbf{Una soluzione che noi abbiamo proposto è la seguente} \\
-Abbiamo deciso sul focalizzarci anche noi sulla rimozione degli intervalli ammissibili per la costruzione della copertura massima che fossero già contenuti in altri intervalli. Non abbiamo inoltre dato per scontato che esistesse una modalità che permetta l'ordinamento degli intervalli per estremi di inizio crescenti e a parità di estremo di inizio, ordini per estremo di fine decrescente. \\
+\textbf{Una soluzione che noi abbiamo proposto è la seguente} 
+
+Abbiamo deciso sul focalizzarci anche noi sulla rimozione degli intervalli ammissibili per la \hfill \break costruzione della copertura massima che fossero già contenuti in altri intervalli. Non abbiamo inoltre dato per scontato che esistesse una modalità che permetta l'ordinamento degli intervalli per estremi di inizio crescenti e a parità di estremo di inizio, ordini per estremo di fine decrescente. 
+
 Tale soluzione è la seguente:
 \begin{lstlisting}[ caption = Intervallo di copertura massima minimale]
 SET cover(int[] a, int[] b, int n)
@@ -74,12 +91,19 @@ Dove:
 	\item fine rappresenta la fine dell'ultimo intervallo inserito
 	\item tmp rappresenta la fine di un intervallo passato, serve per determinare se un intervallo che inizialmente sembra ottimo, ovvero compreso nella soluzione ottimale in quanto ricopre una distanza maggiore considerando gli $intervalli - 1$ elementi precedenti, deve essere scartato per fare posto ad un nuovo intervallo la cui copertura sia maggiore e che si interseca perfettamente con gli $intervalli - 1$ elementi precedenti.
 \end{itemize}
-La dimostrazione della correttezza di questo algoritmo può essere fatta similmente a come scritta dal professore, solamente che in questo caso non si ha \emph{backtrack iterativo}.\\\\
-\textbf{Costo minimo del taglio sulla stringa} \\
+La dimostrazione della correttezza di questo algoritmo può essere fatta similmente a come scritta dal professore, solamente che in questo caso non si ha \emph{backtrack iterativo}.
+
+\bigskip
+
+\textbf{Costo minimo del taglio sulla stringa} 
+
 In un certo linguaggio di programmazione che siete obbligati ad utilizzare, l'unica operazione disponibile sulle stringhe è il "taglio": data una stringa $S$ di $L$ caratteri ed una posizione $k$, con $1 \leq k < L$, l'operazione di divisione taglia la stringa in due stringhe di $k$ e $L - k$ caratteri. Ad esempio, dividere $"alberto"$ in posizione $2$ restituisce \emph{"al"} e \emph{"berto"}. 
-Il costo di questa operazione è pari a $L$, in quanto richiede di copiare la stringa originale in due diverse zone di memoria. \\
-Supponete di avere in input una stringa di $L$ caratteri e un vettore $V$ di $n$ posizioni in cui tagliare la stringa.  \\
-Ad esempio, dati \emph{"checompitodifficile"} e $V=\{3,10\}$, il risultato è \emph{"che"}, \emph{"compito"}, \emph{"difficile"}. L'ordine in cui vengono effettuati i tagli è importante, perché a seconda dell'ordine si ottengono costi diversi.  \\
+Il costo di questa operazione è pari a $L$, in quanto richiede di copiare la stringa originale in due diverse zone di memoria. 
+
+Supponete di avere in input una stringa di $L$ caratteri e un vettore $V$ di $n$ posizioni in cui tagliare la stringa.  
+
+Ad esempio, dati \emph{"checompitodifficile"} e $V=\{3,10\}$, il risultato è \emph{"che"}, \emph{"compito"}, \emph{"difficile"}. L'ordine in cui vengono effettuati i tagli è importante, perché a seconda dell'ordine si ottengono costi diversi.  
+
 Ad esempio, supponete di avere una stringa di $19$ caratteri \emph{"checa..odiesercizio"} e di doverla spezzare nelle posizioni 3,8,10, ottenendo così \emph{"che"}, \emph{"ca..o"}, \emph{"di"}, \emph{"esercizio"}:
 \begin{itemize}
 	\item Ordine: $3, 8, 10$: costo $19 + 16 + 11 = 46$
@@ -88,7 +112,8 @@ Ad esempio, supponete di avere una stringa di $19$ caratteri \emph{"checa..odies
 \end{itemize}
 Scrivere un algoritmo che, dati $V[1. . . n]$ e $L$, restituisca il costo minimo necessario per spezzare la stringa originale secondo quanto descritto in $V$. \\
 \textbf{Soluzione} \\
-È possibile risolvere tale problema utilizzando un approccio basato su programmazione dinamica, in particolare sia $DP[i][j]$ il costo minimo identificata dal taglio i-esimo al taglio j-esimo, ovvero i caratteri identificati da $V[i] + 1$ a $V[j]$: si estenda il vettore iniziale con $V[0] = 0$ e $V[n + 1] = L$, utilizzati come delle sentinelle. Il problema iniziale corrisponde a $DP[0][n + 1]$. \\
+È possibile risolvere tale problema utilizzando un approccio basato su programmazione dinamica, in particolare sia $DP[i][j]$ il costo minimo identificata dal taglio i-esimo al taglio j-esimo, ovvero i caratteri identificati da $V[i] + 1$ a $V[j]$: si estenda il vettore iniziale con $V[0] = 0$ e $V[n + 1] = L$, utilizzati come delle sentinelle. Il problema iniziale corrisponde a $DP[0][n + 1]$. 
+
 La formulazione ricorsiva è la seguente: 
 \begin{equation*}
   	DP[i][j] =\begin{cases}
@@ -99,8 +124,10 @@ La formulazione ricorsiva è la seguente:
 \begin{flushleft}
 \textbf{Funzionamento}
 \end{flushleft}
-Si considerano i tagli a partire da $0$ e $n + 1$, dove il costo primario necessario da pagare è sempre $L$. Dopodiché si considera il problema diminuendo la dimensione della stringa: \\
-Quando $j = i + 1$ non c'è nessun taglio intermedio da fare; quindi il costo è pari a zero. Altrimenti si considerano tutti i possibili tagli intermedi (fra $i$ e $j$) e si ottengono due sottostringhe le quali vengono trattate separatamente e sommate, considerando il valore minimo fra tutti i tagli intermedi. In questo modo infatti si combinano tutti i modi possibili per tagliare la stringa a seconda dei valori indicati nel vettore $V$ che identifica le posizioni dove è necessario tagliare, selezionando sempre il valore minore. \\
+Si considerano i tagli a partire da $0$ e $n + 1$, dove il costo primario necessario da pagare è sempre $L$. Dopodiché si considera il problema diminuendo la dimensione della stringa: 
+
+Quando $j = i + 1$ non c'è nessun taglio intermedio da fare; quindi il costo è pari a zero. Altrimenti si considerano tutti i possibili tagli intermedi (fra $i$ e $j$) e si ottengono due sottostringhe le quali vengono trattate separatamente e sommate, considerando il valore minimo fra tutti i tagli intermedi. In questo modo infatti si combinano tutti i modi possibili per tagliare la stringa a seconda dei valori indicati nel vettore $V$ che identifica le posizioni dove è necessario tagliare, selezionando sempre il valore minore. 
+
 Utilizzando memoization, si ottiene un algoritmo di costo $\mathcal{O}(n^3)$
 \newpage
 \begin{lstlisting}[ caption = Ordine di tagli di costo minimo]

@@ -2,13 +2,18 @@
 \begin{document}
 
 \subsection{Esame 08/06/2017}
-\textbf{Alberi binari strutturalmente diversi h-vincolati} \\
+\textbf{Alberi binari strutturalmente diversi h-vincolati} 
+
 Scrivere un algoritmo che data una coppia di interi $n, h$, restituisca il numero di alberi binari strutturalmente diversi contenenti $n$ nodi e di altezza al più $h$. 
 Due alberi binari si dicono "strutturalmente" diversi se disegnando correttamente i figli destri e sinistri, si ottengono figure diverse. 
-Ad esempio, un nodo radice con un figlio destro è diverso da un nodo radice con un figlio sinistro. Entrambi questi alberi hanno altezza $1$. \\
-Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale. \\
-\textbf{Soluzione} \\
-Questo problema riprende un concetto che non abbiamo avuto modo di affrontare durante il corso, ovvero la formula ricorsiva che restituisce, dato il numero di nodi, il numero di alberi binari strutturalmente diversi. \\
+Ad esempio, un nodo radice con un figlio destro è diverso da un nodo radice con un figlio sinistro. Entrambi questi alberi hanno altezza $1$. 
+
+Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale. 
+
+\textbf{Soluzione} 
+
+Questo problema riprende un concetto che non abbiamo avuto modo di affrontare durante il corso, ovvero la formula ricorsiva che restituisce, dato il numero di nodi, il numero di alberi binari strutturalmente diversi. 
+
 Questa ricorrenza è riportata qui: 
 \begin{equation*}
   	DP[i] =\begin{cases}

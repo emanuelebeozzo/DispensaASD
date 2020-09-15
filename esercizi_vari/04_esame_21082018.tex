@@ -2,14 +2,17 @@
 \begin{document}
 
 \subsection{Esame 21/08/2018}
-\textbf{Esercizio B3}\\
+\textbf{Esercizio B3}
+
 Sia $G$ un grafo \emph{non orientato} e \emph{connesso} contenente $n$ nodi. Una \emph{n-colorazione} con gap del grafo è un assegnamento dei numeri compresi fra 1 ed $n$ ai nodi del grafo che rispetta le seguenti regole:
 \begin{itemize}
 	\item Tutti i numeri in $\{1,...,n\}$ sono usati esattamente una volta
 	\item Dati due nodi adiacenti $u, v$ (i.e., $(u, v) \in E$) e detti $color[u]$, $color[v]$ i  loro  colori,  allora $\mid color[u] - color[v] \mid$ $\geq$ 2. In altre parole, non è possibile assegnare due colori uguali o consecutivi a due nodi adiacenti.
 \end{itemize}
-Scrivere un algoritmo che prenda in input un grafo $G$ e restituisca \textbf{true} se e solo se esiste una $n-colorazione$ con gap $G$. Discutere informalmente la correttezza   della soluzione proposta e calcolare la complessità computazionale.\\
-\textbf{Soluzione:}\\
+Scrivere un algoritmo che prenda in input un grafo $G$ e restituisca \textbf{true} se e solo se esiste una $n-colorazione$ con gap $G$. Discutere informalmente la correttezza   della soluzione proposta e calcolare la complessità computazionale.
+
+\textbf{Soluzione:}
+
 Il problema descritto è $NP-completo$ dunque per risolvere è necessario utilizzare backtrack in modo da provare ogni possibile associazione di colori per ogni nodo. Essendo che il grafo è non orientato e connesso partendo da un qualsiasi nodo è possibile coprire sempre tutto il grafo quindi possiamo (tra molte virgolette) risparmiarci di lanciare l'algoritmo ogni volta su un nodo di partenza differente in quanto se esiste una sequenza che rispetta i vincoli precedenti questa potrà essere trovata partendo da un nodo qualsiasi.
 \begin{lstlisting}[caption=n-Colorazione (gapColoring)]
 bool gapColoring(GRAPH G)

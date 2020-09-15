@@ -3,10 +3,14 @@
 
 \subsection{Esame 17/12/2015}
 \textbf{Esercizio B2}\\
-Si consideri una sequenza di interi $V$. La cancellazione da $V$ di un certo numero di elementi, mantenendo l'ordine, determina una sottosequenza. Una $k-sottosequenza$ di $V$ è una sottosequenza di $V$ in cui compaiono al più $k$ \emph{elementi consecutivi} di $V$. Il valore di una sottosequenza è dato dalla somma dei suoi elementi. Dato un vettore $V$ contenente $n$ interi ed un intero $k$, con $k \leq n$, scrivere un algoritmo che restituisca il valore della \emph{k-sottosequenza massimale}, ovvero quella che ha valore massimo fra tutte le $k-sottosequenze$.\\
-Ad esempio, per $V=\{1,7,8,9,1,10,6,8,8\}$ e $k = 2$, l'output è 44, ottenuto dalla 2-sottosequenza massimale $\{1,8,9,10,8,8\}$.\\
-Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale.\\
-\textbf{Soluzione:}\\
+Si consideri una sequenza di interi $V$. La cancellazione da $V$ di un certo numero di elementi, mantenendo l'ordine, determina una sottosequenza. Una $k-sottosequenza$ di $V$ è una sottosequenza di $V$ in cui compaiono al più $k$ \emph{elementi consecutivi} di $V$. Il valore di una sottosequenza è dato dalla somma dei suoi elementi. Dato un vettore $V$ contenente $n$ interi ed un intero $k$, con $k \leq n$, scrivere un algoritmo che restituisca il valore della \emph{k-sottosequenza massimale}, ovvero quella che ha valore massimo fra tutte le $k-sottosequenze$.
+
+Ad esempio, per $V=\{1,7,8,9,1,10,6,8,8\}$ e $k = 2$, l'output è 44, ottenuto dalla 2-sottosequenza massimale $\{1,8,9,10,8,8\}$.
+
+Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale.
+
+\textbf{Soluzione:}
+
 Il problema può essere risolto mediante programmazione dinamica utilizzando una matrice $DP[i][j]$ usiamo le righe per considerare il numero $i$-esimo del vettore $V$ mentre sulle colonne memorizziamo quanti numeri consecutivi possiamo ancora prendere. Tutto questo può essere riassunto dalla seguente formula ricorsiva
 \begin{equation*}
   	DP[i][j]=\begin{cases}
