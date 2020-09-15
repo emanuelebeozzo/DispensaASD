@@ -61,7 +61,10 @@ ccdfs(GRAPH G, int counter, NODE u, int[] id, int[] types, int& maxSoFar)
     		if id[v] == 0 then
       			ccdfs(G, counter, v, id, types, maxSoFar)
 \end{lstlisting}
-L'algoritmo costruisce a partire dalla matrice una semplice grafo. Non appena il grafo è stato preparato si chiama, per tutti i nodi, la procedura in dfs chiamata \textit{ccdfs} con una piccola modifca, essa modifca la grandezza della componente connessa per riferimento che viene opportunatamente resettata al termine della procedura; l'algoritmo inoltre non si propaga se il tipo della casella è pari a 0. Infine si tiene sempre morizzata la grandezza della componente connessa massima che verrà ritornata dalla procedura principale.\\\\
+L'algoritmo costruisce a partire dalla matrice una semplice grafo. Non appena il grafo è stato preparato si chiama, per tutti i nodi, la procedura in dfs chiamata \textit{ccdfs} con una piccola modifca, essa modifca la grandezza della componente connessa per riferimento che viene opportunatamente resettata al termine della procedura; l'algoritmo inoltre non si propaga se il tipo della casella è pari a 0. Infine si tiene sempre morizzata la grandezza della componente connessa massima che verrà ritornata dalla procedura principale.
+
+\bigskip
+
 Soluzione alternativa senza la costruzione del grafo:
 \begin{lstlisting}[caption=Foresta senza costruzione del grafo]
 int searchForest(int[][]A, int n)
@@ -80,10 +83,17 @@ int dfs(int[][]A, int i, int j, int n)
   	else
     	return 0
 \end{lstlisting}
-Lo scopo di questo algoritmo è analogo al precedente, in questo caso, come nel precedente si chiama sui nodi foresta la procedura in dfs.\\
-La procedura torna un valore diverso da 0 se la cella tornata è in una posizione valida ed ovviamente è di tipo foresta. \\
-Ogni nodo viene settato visitato modificando direttamente la matrice, in particolare viene settato il campo stesso a 0 e viene fatta una chiamata ricorsiva su tutte e quattro le direzioni consentite. \\  Ovviamente la procedura finale ritornerà la dimensione della foresta connessa più grande.\\\\
-\textbf{Nodi che raggiungo ovunque}\\
+Lo scopo di questo algoritmo è analogo al precedente, in questo caso, come nel precedente si chiama sui nodi foresta la procedura in dfs.
+
+La procedura torna un valore diverso da 0 se la cella tornata è in una posizione valida ed ovviamente è di tipo foresta. 
+
+Ogni nodo viene settato visitato modificando direttamente la matrice, in particolare viene settato il campo stesso a 0 e viene fatta una chiamata ricorsiva su tutte e quattro le direzioni consentite. 
+Ovviamente la procedura finale ritornerà la dimensione della foresta connessa più grande.
+
+\bigskip
+
+\textbf{Nodi che raggiungo ovunque}
+
 \begin{lstlisting}[caption=Nodi che raggiungo ovunque]
 int nodiRaggiunti(GRAPH G, NODE r)
 	boolean[] visited = new boolean[1..G.size()]
@@ -109,6 +119,7 @@ int nodiOnniscenti(GRAPH G)
       		countNodi = countNodi + 1
   	return countNodi
 \end{lstlisting}
-Il principio di base è quello di lanciare una visita in bfs per ogni nodo che compone il grafo e controllare se tutti i nodi sono stati vistati; se questo accade allora il numero di nodi visti sarà pari al numero di nodi totali, incrementando dunque il contatore dei nodi che raggiungono ovunque. \\ L'algoritmo termina ritornando il numero di nodi che raggiungono ovunque.
+Il principio di base è quello di lanciare una visita in bfs per ogni nodo che compone il grafo e controllare se tutti i nodi sono stati vistati; se questo accade allora il numero di nodi visti sarà pari al numero di nodi totali, incrementando dunque il contatore dei nodi che raggiungono ovunque. 
 
+L'algoritmo termina ritornando il numero di nodi che raggiungono ovunque.
 \end{document}
