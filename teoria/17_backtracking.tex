@@ -365,7 +365,9 @@ queen(int n, int[] S, int i)
 				S[i] = j	% La scelta e' legale
 				queens(n, S, i + 1) % Analizzo la prossima riga
 \end{lstlisting}
-Grazie al pruning nella scelta, è possibile affermare che se riusciamo a posizionare l'ennesima regina allora la soluzione trovata è ammissibile. \\\\
+Grazie al pruning nella scelta, è possibile affermare che se riusciamo a posizionare l'ennesima regina allora la soluzione trovata è ammissibile.
+
+\bigskip
 \textbf{Minimum-conflicts heuristic} \\
 Il problema delle $n$ regine è molto costoso, anche se abbiamo lavorato parecchio per ridurne il costo computazionale. Molto spesso infatti è impensabile lanciare un algoritmo di tale pesantezza su input molto elevati, è possibile quindi adottare alcune euristiche che non garantiscono di trovare un risultato corretto (è possibile risolvere questo problema lanciando sull'output ritornato, un algoritmo che verifichi se sia o meno una soluzione accettabile, se non lo fosse si riesegue l'algoritmo e si ripete la procedura) ma eseguono in tempi molto minori rispetto ad una soluzione deterministica basata su backtracking. \\
 La \emph{Minimum-conflicts heuristic} per il problema delle $n$ è così definita: \\
@@ -465,7 +467,9 @@ SET moves(int[][] S, int x, int y)
 Le mosse sono generate a partire dal movimento del cavallo negli scacchi. \\
 La procedura \emph{moves} controlla se la mossa vada a finire in una cella della matrice non visitata, se così non fosse non viene inserita all'interno del set. \\
 Ad ogni passo si calcola il set di mosse che possono essere scelte, e per tutte queste si prova a completare il giro di cavallo: se si trova una soluzione la si processa in caso contrario si torna indietro settando la cella non visitata e riprovando con una nuova mossa tra quelle disponibili. \\
-Se non rimane alcuna scelta valida si ritorna sui propri passi effettuando una scelta differente da quella effettuata in precedenza. \\\\
+Se non rimane alcuna scelta valida si ritorna sui propri passi effettuando una scelta differente da quella effettuata in precedenza.
+
+\bigskip
 \textbf{Considerazioni sul problema}
 \begin{itemize}
 	\item Ad ogni passo ho al massimo $8$ caselle possibili, quindi ne visito al più $8^{63} \approx 7.8455$
@@ -479,7 +483,9 @@ Se non rimane alcuna scelta valida si ritorna sui propri passi effettuando una s
 	\item \textbf{Poligono convesso}: un poligono nel piano è \textcolor{red}{convesso} se ogni segmento di retta che congiunge due punti del poligono sta interamente nel poligono stesso (bordo incluso).
 	\item \textbf{Inviluppo convesso}: dati $n$ punti $p_1, . . . , p_n$ nel piano, con $n \geq 3$, l'\textcolor{red}{inviluppo convesso} (\textcolor{red}{convex hull}) è, fra tutti i poligoni convessi che li contengono tutti, quello di superficie minima.
 \end{itemize}
-Ci chiediamo ora come è possibile determinare, dati $n$ punti ($n \geq 3$), quali tra questi costituiscano l'inviluppo convesso, ovvero quali debbano essere selezionati per costruire i bordi del poligono convesso di superficie minima contenente tutti gli $n$ punti. \\\\
+Ci chiediamo ora come è possibile determinare, dati $n$ punti ($n \geq 3$), quali tra questi costituiscano l'inviluppo convesso, ovvero quali debbano essere selezionati per costruire i bordi del poligono convesso di superficie minima contenente tutti gli $n$ punti.
+
+\bigskip
 \textbf{Soluzione} \\
 Un primo approccio per risolvere il problema è quello di considerare retta che passa per una coppia di punti $p_i, p_j$, che divide il piano in due semipiani chiusi ($\mathcal{O}(n^2)$ coppie); infatti se tutti i punti rimanenti $(n - 2)$ stanno "dalla stessa parte", allora lo spigolo $S_{ij}$ fa parte dell'inviluppo convesso. Il costo di questa procedura sarà di $\mathcal{O}(n^3)$. Semplicemente lanciando per tutte le coppie di possibili di punti la procedura per determinare se tutti i punti rimanenti appartengono allo stesso semipiano, se si, allora tale coppia di vertici appartiene all'inviluppo convesso.
 \begin{center}

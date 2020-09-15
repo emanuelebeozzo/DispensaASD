@@ -49,14 +49,22 @@ Data una rete G = $(V, E, s, t, c)$, trovare un flusso che abbia valore massimo 
 \end{equation*}
 \end{flushleft}
 \textbf{Flusso nullo}:\\
-Definiamo \textcolor{red}{flusso nullo} la funzione $f_{0} : V \times V \rightarrow \mathbb{R}^{\geq 0}$ tale che $f(u, v) = 0$ per ogni $u, v \in V$ . \\\\
+Definiamo \textcolor{red}{flusso nullo} la funzione $f_{0} : V \times V \rightarrow \mathbb{R}^{\geq 0}$ tale che $f(u, v) = 0$ per ogni $u, v \in V$ .
+
+\bigskip
 \textbf{Somma di flussi}:\\
-Per ogni coppia di flussi $f_1$ e $f_2$ in $G$, definiamo il \textcolor{red}{flusso somma} $g = f_1 + f_2$ come un flusso tale per cui $g(u, v) = f_1(u, v) + f_2(u, v)$. \\\\
+Per ogni coppia di flussi $f_1$ e $f_2$ in $G$, definiamo il \textcolor{red}{flusso somma} $g = f_1 + f_2$ come un flusso tale per cui $g(u, v) = f_1(u, v) + f_2(u, v)$.
+
+\bigskip
 \textbf{Capacità residua}:\\
 Definiamo \textcolor{red}{capacità residua} di un flusso $f$ in una rete $G = (V, E, s, t, c)$ una funzione $c_f : V \times V \rightarrow \mathbb{R}^{\geq 0}$ tale che $c_f(u, v) = c(u, v) - f(u, v)$. \\
-Si noti che per la definizione di capacità residua si creano degli \textcolor{red}{archi all'indietro}. \\\\
+Si noti che per la definizione di capacità residua si creano degli \textcolor{red}{archi all'indietro}.
+
+\bigskip
 \textbf{Reti residue}:\\
-Data una rete di flusso $G = (V, E, s, t, c)$ e un flusso $f$ su $G$, possiamo costruire una \textcolor{red}{rete residua} $G_f = (V, E_f, s, t, c_f)$, tale per cui $(u, v) \in E_f$ se e solo se $c_f(u, v) > 0$. \\\\
+Data una rete di flusso $G = (V, E, s, t, c)$ e un flusso $f$ su $G$, possiamo costruire una \textcolor{red}{rete residua} $G_f = (V, E_f, s, t, c_f)$, tale per cui $(u, v) \in E_f$ se e solo se $c_f(u, v) > 0$.
+
+\bigskip
 \textbf{Algoritmo, schema generale}:
  \begin{lstlisting}[ caption= schema generale flusso massimo]
 int[][] maxFlow(GRAPH G, NODE s, NODE t, int[][] c)
@@ -69,8 +77,12 @@ int[][] maxFlow(GRAPH G, NODE s, NODE t, int[][] c)
 	until $g = f_0$ 
 	return $f$
 \end{lstlisting}
-\textbf{Dimostrazione correttezza} \\\\
-\textbf{Lemma}: Se $f$ è un flusso in $G$ e $g$ è un flusso in $G_f$, allora $f+g$ è un flusso in $G$. \\\\
+\textbf{Dimostrazione correttezza}
+
+\bigskip
+\textbf{Lemma}: Se $f$ è un flusso in $G$ e $g$ è un flusso in $G_f$, allora $f+g$ è un flusso in $G$.
+
+\bigskip
 \textbf{Dimostrazione}:
 \begin{itemize}
 	\item Vincolo sulla capacità:
@@ -122,7 +134,9 @@ int[][] maxFlow(GRAPH G, NODE s, NODE t, int[][] c)
 	return f
 \end{lstlisting}
 Ford e Fulkerson suggerirono una semplice visita del grafo, in profondità oppure in ampiezza. \\Edmonds e Karp suggerirono di utilizzare una visita in ampiezza. \\
-Il costo della visita: $\mathcal{O}(V + E)$ \\\\
+Il costo della visita: $\mathcal{O}(V + E)$
+
+\bigskip
 \textbf{Complessità, limite superiore - Versione Ford-Fulkerson} \\
 Se le capacità sono intere, l'algoritmo di Ford-Fulkerson ha complessità $\mathcal{O}((V + E)|f^{*}|)$ (liste) o $\mathcal{O}(V^2 |f^*|)$ (matrice).
 \begin{itemize}
@@ -143,11 +157,17 @@ In questo caso dunque si presentano due limiti superiori per lo stesso algoritmo
 Entrambi sono limiti superiori validi, dunque per determinare la complessità dell'algoritmo è sufficiente scegliere il più basso. \\
 Dunque, utilizzando una visita in ampiezza la complessità è data da $\mathcal{O}(min((V + E)|f^{*}|, VE^2))$ (liste di adiacenza),\\ $\mathcal{O}(min(V^2|f^{*}|, VE^2))$ (matrice di adiacenza).
 \subsection{Teoremi e lemmi utili}
-In questa sottosezione sono mostrati alcuni Lemmi e Teoremi utili per la dimostrazione della complessità e della correttezza dell'algoritmo di Edmonds e Karp, che non verranno dimostrate per brevità.\\\\
+In questa sottosezione sono mostrati alcuni Lemmi e Teoremi utili per la dimostrazione della complessità e della correttezza dell'algoritmo di Edmonds e Karp, che non verranno dimostrate per brevità.
+
+\bigskip
 \textbf{Lemma - Monotonia} \\
-Sia $\delta f(s,v)$ la distanza minima da $s$ a $v$ in una rete residua $G_f$. \\Sia $f'=f+g$ un flusso nella rete iniziale, con $g$ flusso non nullo derivante da un cammino aumentante. Allora $\delta f'(s,v)\geq \delta f(s,v)$. \\\\
+Sia $\delta f(s,v)$ la distanza minima da $s$ a $v$ in una rete residua $G_f$. \\Sia $f'=f+g$ un flusso nella rete iniziale, con $g$ flusso non nullo derivante da un cammino aumentante. Allora $\delta f'(s,v)\geq \delta f(s,v)$.
+
+\bigskip
 \textbf{Lemma - Aumenti di flusso} \\
-Il numero totale di aumenti di flusso eseguiti dall'algoritmo di Edmonds e Karp è $\mathcal{O}(V E)$ \\\\
+Il numero totale di aumenti di flusso eseguiti dall'algoritmo di Edmonds e Karp è $\mathcal{O}(V E)$.
+
+\bigskip
 \textbf{Taglio} \\
 Un \textcolor{red}{taglio} $(S,T)$ della rete di flusso $G= (V, E, s, t, c)$ è una partizione di $V$ in due sottoinsiemi disgiunti $S, T$ tali che: 
 \begin{align*}
@@ -165,9 +185,13 @@ Se $f$ è un flusso in $G$, il flusso netto $F(S,T)$ attraverso $(S,T)$ è:
   	F(S,T) = \sum_{u \in S, v \in T}f(u,v)
 \end{equation*}
 \textbf{Lemma - Valore del flusso di taglio} \\
-Dato un flusso $f$ e un taglio $(S,T)$, la quantità di flusso $F(S,T)$ che attraversa il taglio è uguale a $|f|$. \\\\
+Dato un flusso $f$ e un taglio $(S,T)$, la quantità di flusso $F(S,T)$ che attraversa il taglio è uguale a $|f|$. 
+
+\bigskip
 \textbf{Lemma – Capacità taglio} \\
-Il \textcolor{red}{flusso massimo} è limitato superiormente dalla capacità del \textcolor{red}{taglio minimo}, ovvero il taglio la cui capacità è minore fra tutti i tagli. \\\\
+Il \textcolor{red}{flusso massimo} è limitato superiormente dalla capacità del \textcolor{red}{taglio minimo}, ovvero il taglio la cui capacità è minore fra tutti i tagli.
+
+\bigskip
 \textbf{Teorema conclusivo}
 \begin{itemize}
 	\item $f$ è un \textcolor{red}{flusso massimo};
@@ -175,7 +199,9 @@ Il \textcolor{red}{flusso massimo} è limitato superiormente dalla capacità del
 	\item esiste un \textcolor{red}{taglio minimo} $(S, T)$ tale che $C(S, T) = |f|$.
 \end{itemize}
 \subsection{Esempio di flusso massimo}
-\textbf{Problema - Job Assignment} \\
+\textbf{Problema - Job Assignment}
+
+\bigskip
 \textbf{Input}: 
 \begin{itemize}
 	\item Un insieme $J$ contenente $n$ job;

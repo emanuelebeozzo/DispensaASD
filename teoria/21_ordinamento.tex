@@ -3,23 +3,18 @@
 
 \section{Algoritmi di Ordinamento}
 \subsection{Problema dell'ordinamento}
-\textbf{Problema}: Data una sequenza $A = a_1, a_2 , ..., a_n$ di $n$ valori, restituire una sequenza $B = b_1 , b_2 , ..., b_n$ che sia una permutazione di $A$ e tale per cui $b_1 \leq b_2 \leq ... \leq b_n$.\\\
-Finora abbiamo studiato i seguenti algoritmi di ordinamento:\\\\
-\noindent\begin{minipage}{0.5\textwidth}
+\textbf{Problema}: Data una sequenza $A = a_1, a_2 , ..., a_n$ di $n$ valori, restituire una sequenza $B = b_1 , b_2 , ..., b_n$ che sia una permutazione di $A$ e tale per cui $b_1 \leq b_2 \leq ... \leq b_n$.
+
+Finora abbiamo studiato i seguenti algoritmi di ordinamento:
+
 \begin{itemize}
 	\item SelectionSort - $\Theta(n^{2})$
 	\item InsertionSort - $\Omega(n), \mathcal{O}(n^{2})$
 	\item ShellSort - $\Omega(n), \mathcal{O}(n^{3/2})$
-\end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}{0.5\textwidth}\raggedleft
-\begin{itemize}
 	\item MergeSort - $\Theta(n \log n)$
 	\item HeapSort - $\Theta(n \log n)$
 	\item QuickSort - $\Omega(n), \mathcal{O}(n^{2})$
-\end{itemize}
-\end{minipage} \\\\\\
+\end{itemize} 
 \textcolor{red}{Tutti questi algoritmi sono basati su confronti}, cioè le decisioni sull'ordinamento vengono prese in base al confronto $(<, =, >)$ fra due valori e la diretta conseguenza è che gli algoritmi migliori hanno una complessità pari a \textcolor{red}{$\mathcal{O}(n \log n)$} (InsertionSort e ShellSort sono più performanti solo in casi particolari).\\
 E' possibile dimostrare che \textcolor{red}{qualunque algoritmo di ordinamento basato su confronti} ha una complessità \textcolor{red}{$\Omega(n \log n)$}:
 \begin{itemize}
@@ -32,10 +27,16 @@ E' possibile dimostrare che \textcolor{red}{qualunque algoritmo di ordinamento b
 	\item \textcolor{red}{cammino radice-foglia in un albero di decisione}: sequenza di confronti che vengono eseguiti dall'algoritmo corrispondente
 	\item \textcolor{red}{Altezza dell'albero di decisione}: numero confronti che vengono eseguiti dall'algoritmo corrispondente nel caso pessimo
 \end{itemize}
-Si considerino tutti gli alberi di decisione ottenibili da algoritmi di ordinamento basati su confronti\\\\
-\textbf{Lemma 1}: Un albero di decisione per l'ordinamento di $n$ elementi contiene almeno $n!$ foglie\\\\
-\textbf{Lemma 2}: Sia $T$ un albero binario in cui ogni nodo interno ha esattamente 2
-figli e sia $k$ il numero delle sue foglie. L'altezza dell'albero è almeno $\log k$ - ovvero $\Omega(\log k)$.\\\\
+
+Si considerino tutti gli alberi di decisione ottenibili da algoritmi di ordinamento basati su confronti
+
+\bigskip
+\textbf{Lemma 1}: Un albero di decisione per l'ordinamento di $n$ elementi contiene almeno $n!$ foglie
+
+\bigskip
+\textbf{Lemma 2}: Sia $T$ un albero binario in cui ogni nodo interno ha esattamente 2 figli e sia $k$ il numero delle sue foglie. L'altezza dell'albero è almeno $\log k$ - ovvero $\Omega(\log k)$.
+
+\bigskip
 \textbf{Teorema}: Il numero di confronti necessari per ordinare $n$ elementi nel caso
 peggiore è $\Omega(n \log n)$
 \newpage
@@ -111,7 +112,8 @@ merge(ITEM[] A, int first, int mid, int last)
 \subsubsection{Heap Sort}
 \textbf{Riferimento}: Vedi il capitolo riguardante \hyperref[sec:heap]{\emph{Strutture dati speciali - Heap}}.
 \subsubsection{Quick Sort}
-\textbf{Riferimento}: Vedi il capitolo riguardante \hyperref[sec:quicksort]{\emph{Divide-et-Impera}}.\\\
+\textbf{Riferimento}: Vedi il capitolo riguardante \hyperref[sec:quicksort]{\emph{Divide-et-Impera}}.
+
 \subsection{Algoritmi NON basati su confronti}
 \subsubsection{Spaghetti Sort}
 \textbf{Algoritmo Spaghetti Sort - $\mathcal{O}(n)$}
@@ -124,9 +126,13 @@ merge(ITEM[] A, int first, int mid, int last)
 \end{enumerate}
 \subsubsection{Counting Sort}
 \textbf{Assunzione}\\
-I numeri da ordinare sono compresi in un intervallo $[1...k]$\\\\
+I numeri da ordinare sono compresi in un intervallo $[1...k]$
+
+\bigskip
 \textbf{Come funziona}\\
-Costruisce un array $B[1...k]$ che conta il numero di volte che un volre compreso in $[1...k]$ compare in $A$ e rialloca dunque i valori così ottenuti nel vettore da ordinare $A$.\\\\
+Costruisce un array $B[1...k]$ che conta il numero di volte che un volre compreso in $[1...k]$ compare in $A$ e rialloca dunque i valori così ottenuti nel vettore da ordinare $A$.
+
+\bigskip
 \textbf{Miglioramenti}\\
 L'intervallo non deve necessariamente iniziare in 1 e finire in $k$; qualunque intervallo di cui conosciamo gli estremi può essere utilizzato nel \emph{Counting Sort}
 \begin{lstlisting}[caption=Counting Sort]
