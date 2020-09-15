@@ -8,9 +8,17 @@ Supponete di avere in input un vettore di n interi positivi distinti $V[1. . . n
 	\item restituisca il massimo valore $X =  \sum_{i = 1}^{n} x[i] V[i]$ tale che $X \leq W$ e ogni $x[i]$ è un intero non negativo
 	\item stampi il vettore $x$
 \end{enumerate}
-Ad esempio, per $V = [18,3,21,9,12,24]$ e $W = 17$, una possibile soluzione ottima è $x = [0,2,0,1,0,0]$ da cui deriva $X= 15$.\\
-Discutere correttezza e complessità.\\\\
-Da un'osservazione più attenta del problema ci si accorge che non è altro che una versione modificata di Knapsack (versione Senza Limiti) dove $w$ e $p$, rispettivamente i vettori che indicano il profitto e il peso di un oggetto, sono entrambi rappresentati da $V$. Nonostante bastasse richiamare l'algoritmo ricorsivo proposto nella parte di memoization proponiamo una versione iterativa che permette di stampare anche il vettore $x$:\\
+
+Ad esempio, per $V = [18,3,21,9,12,24]$ e $W = 17$, una possibile soluzione ottima è 
+\break 
+$x = [0,2,0,1,0,0]$ da cui deriva $X= 15$.
+
+Discutere correttezza e complessità.
+
+\bigskip
+Da un'osservazione più attenta del problema ci si accorge che non è altro che una versione modificata di Knapsack (versione Senza Limiti) dove $w$ e $p$, rispettivamente i vettori che indicano il profitto e il peso di un oggetto, sono entrambi rappresentati da $V$. Nonostante bastasse richiamare l'algoritmo ricorsivo proposto nella parte di memoization proponiamo una versione iterativa che permette di stampare anche il vettore $x$:
+
+
 \begin{lstlisting}[caption=Ottimizza la Somma]
 int knapsack(int[] V, int n, int W)
 	int x[] = new int[1...n]
@@ -50,7 +58,8 @@ La complessità in questo caso risulta essere pari a $\mathcal{O}(nW)$ per il so
     	-\infty & \text{$w < 0$}\\
     	max(DP[i][c-V[i]]+V[i], DP[i-1][w]) & \text{$altrimenti$}
   	\end{cases}
-\end{equation*} \\\\
+\end{equation*}
 
+\bigskip
 
 \end{document}

@@ -28,7 +28,9 @@ processSubsets(int[] S, int n)
             print " "
     print "}"
 \end{lstlisting}
-La complessità della funzione presentata è dell'ordine di $\mathcal{O}(n \cdot 2^n)$, dato che è necessaria una complessità di $\mathcal{O}(2^n)$ per la generazione di tutti i sottoinsiemi. Si ricorda che questo è un limite superiore, per cui non verranno effettivamente generate e controllate tutti i sottoinsiemi, vi è infatti un meccanismo di puning che si occupa di ridurre le sequenze generate, evitando di proseguire con la costruzione di un insieme di elementi il cui peso sfora la capacità. Mentre la componente di complessità $\mathcal{O}(n)$ è data dal costo computazionale della funzione di processamento che stampa la sequenza.\\\\
+La complessità della funzione presentata è dell'ordine di $\mathcal{O}(n \cdot 2^n)$, dato che è necessaria una complessità di $\mathcal{O}(2^n)$ per la generazione di tutti i sottoinsiemi. Si ricorda che questo è un limite superiore, per cui non verranno effettivamente generate e controllate tutti i sottoinsiemi, vi è infatti un meccanismo di puning che si occupa di ridurre le sequenze generate, evitando di proseguire con la costruzione di un insieme di elementi il cui peso sfora la capacità. Mentre la componente di complessità $\mathcal{O}(n)$ è data dal costo computazionale della funzione di processamento che stampa la sequenza.
+
+\bigskip
 \textbf{Prima Elementare - Compito 01/02/12}\\
 Scrivere un algoritmo che stampa tutte le possibili stringhe composte da $n$ caratteri $R$ e da $m$ caratteri $G$, per un totale di $n+m$ caratteri.\\
 Scrivere un algoritmo che conta tutte queste possibili stringhe - ovviamente senza generarle tutte e poi contandole.\\
@@ -139,7 +141,9 @@ sommaQuadratiRec(int n, SET S)
 			sommaQuadratiRec(n - i$^{2}$, S)
 			S.remove(i$^2$)	
 \end{lstlisting}
-Utilizzando l'algoritmo proposto di fatto si ha la possibilità di stampare tutte le sequenze possibili di somme di quadrati senza ripetizioni e in ordine decrescente: tutte le volte infatti verranno scartati i numeri che sono maggiori di $\lfloor \sqrt n \rfloor$. La complessità viene definita \emph{superpolinomiale}.\\\\
+Utilizzando l'algoritmo proposto di fatto si ha la possibilità di stampare tutte le sequenze possibili di somme di quadrati senza ripetizioni e in ordine decrescente: tutte le volte infatti verranno scartati i numeri che sono maggiori di $\lfloor \sqrt n \rfloor$. La complessità viene definita \emph{superpolinomiale}.
+
+\bigskip
 \textbf{k-cammini - Compito 25/7/18}\\
 Scrivere un algoritmo che prende in input un grafo $G= (V, E)$, un nodo $s \in V$ e un intero $k$ e stampa tutti i cammini contenuti nel grafo tali che:
 \begin{itemize}
