@@ -8,6 +8,7 @@ La dispensa **contiene**:
     * svolti durante le lezioni di tutorato dell'AA 2019/2020
     * svolti durante le esercitazioni in aula dell'AA 2019/2020
     * svolti in preparazione all'esame e reputati particolarmente interessanti come esercizi tipo
+
 La dispensa **non contiene** - 'cause reasons:
 * diverse dimostrazioni che sono **necessarie** per l'orale
 * la sezione dell'Analisi Ammortizzata
