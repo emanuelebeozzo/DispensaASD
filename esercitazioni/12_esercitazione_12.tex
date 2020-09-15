@@ -5,7 +5,7 @@
 The famous gangster Vito Deadstone is moving to New York. He has avery big family there, all of them living on Lamafia Avenue. Since he will visit all his relatives very often, he wants to find a house close to them. Indeed, Vito wants to minimize the total distance to all of his relatives and has blackmailed you to write a program that solves his problem.
 \begin{itemize}
 	\item \textbf{Input} For each test case you will be given the integer number of relatives $r(0 < r < 500)$ and the street numbers (also integers) $s_1, s_2, ..., s_i, ..., s_r$ where they live $(0< si<30000)$. Note that several relatives might live at the same street number.
-	\item \textbf{Output} For each test case, your program must write the minimal sum of distances from the optimal Vito's house to each one of his relatives. The distance between two street numbers $s_i$ and $s_j$ is $d_{i,j}= \mid si - sj \mid$.
+	\item \textbf{Output} For each test case, your program must write the minimal sum of distances from the optimal Vito's house to each one of his relatives. The distance between two street numbers $s_i$ and $s_j$ is $d_{i,j}= \mid s_{i} - s_{j} \mid$.
 \end{itemize}
 Per la risoluzione del problema è necessario ricercare all'interno del vettore che identifica i numeri civici dei parenti di Vito, quello più vicino possibile a tutti gli altri. \\ 
 La soluzione per il problema mostrato è il calcolo della mediana, infatti per definizione è il valore che si trova nel mezzo della distribuzione. La correttezza può essere mostrata come segue: \\
@@ -85,6 +85,6 @@ Tale algoritmo si basa sui seguenti passaggi:
 	\item Usa $m$ come pivot e richiama l'algoritmo ricorsivamente sull'array opportuno
 	\item Quando la dimensione scende sotto una certa soglia, possiamo utilizzare un algoritmo di ordinamento per trovare il mediano, in questo caso \emph{InsertionSort} che ha ottime prestazioni per insiemi di piccole dimensioni.
 \end{itemize}
-Dove $median5$ è una funzione che ritorna il valore mediano di 5 elementi e pivot è la funzione nota che trova il pivot di un vettore, già usata per l'algoritmo di ordinamento \emph{QuickSort}.
+Dove $median5$ è una funzione che ritorna il valore mediano di 5 elementi e pivot è la funzione nota che trova il pivot di un vettore, già usata per l'algoritmo di ordinamento \hyperref[sec:quicksort]{\emph{QuickSort}}.
 \newpage
 \end{document}
