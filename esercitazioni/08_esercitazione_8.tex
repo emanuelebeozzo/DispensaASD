@@ -11,8 +11,14 @@ int massimaCopertura(int[] a, int[] b, int n)
         w[i] = b[i] - a[i]
     return maxInterval(a, b, w, n)
 \end{lstlisting}
-La complessità computazionale è $\mathcal{O}(n \log n)$, dovuta alla funzione maxInterval. \\
-È possibile osservare infatti che il problema proposto può essere trattato come il problema dell'insieme indipendente di intervalli di peso massimo, il cui peso è dato dalla grandezza dell'intervallo perché cerchiamo il sottoinsieme di intervalli disgiunti più grande possibile. Per l'algoritmo maxInterval è sufficiente consultare la sezione \emph{Insieme indipendente di intervalli pesati} nel capitolo \emph{Programmazione dinamica}.\\\\
+
+La complessità computazionale è $\mathcal{O}(n \log n)$, dovuta alla funzione maxInterval. 
+
+È possibile osservare infatti che il problema proposto può essere trattato come il problema \hfill \break dell'insieme indipendente di intervalli di peso massimo, il cui peso è dato dalla grandezza dell'intervallo perché cerchiamo il sottoinsieme di intervalli disgiunti più grande possibile.
+ 
+Per l'algoritmo maxInterval è sufficiente consultare la sezione \emph{Insieme indipendente di intervalli pesati} nel capitolo \emph{Programmazione dinamica}.
+
+\bigskip
 \textbf{I Promessi Sposi}\\
 Scrivere un algoritmo che prenda in input una stringa testo $T$ di $n$ caratteri e una stringa pattern $P$ di $m$ caratteri e restituisca il numero di volte distinte che la stringa $P$ appare come sotto-sequenza di $T$. Discutere correttezza e complessità dell'algoritmo.
 \begin{lstlisting}[caption=Sottosequenze di un pattern in un testo (Promessi Sposi)]
@@ -36,6 +42,7 @@ int promessiSposiRec(string[] T, string[] P, int[][] DP, int i, int j)
 			DP[i][j] = promessiSposiRec(T, P, DP, i-1, j)
 	return DP[i][j]
 \end{lstlisting}
+\newpage
 La complessità dell'algoritmo è $\mathcal{O}(nm)$ mentre è possibile scrivere la sua equazione di ricorrenza nel seguente modo:
 \begin{equation*}
   	DP[i][j] =\begin{cases}
@@ -52,6 +59,8 @@ $DP[i][j]$ rappresenta il numero di sotto-sequenze del prefisso del pattern $P_{
 	\item $T[i] == P[j]$, cioè sono stati trovati due caratteri che sono uguali nel pattern e nel testo. In questo caso è necessario far avanzare sia il pattern che il testo in modo da verificare che sia possibile avere un match completo, sia cercare altre possibili occorrenze con quella medesima lettera.
 	\item $T[i] \neq P[j]$, si passa alla prossima lettera del testo e si prosegue con la ricerca del pattern.
 \end{itemize}
+
+\bigskip
 \textbf{D20 - Compito 02/09/13}\\
 Siano dati $n$ dadi, con il dado i-esimo dotato di $F[i]$ facce numerate da $1$ a $F[i]$. Scrivere un algoritmo che restituisca il numero di modi diversi con cui è possibile ottenere una certa somma $X$ sommando i valori di tutti i dadi. Permutazioni: contatele oppure no, ma siatene consapevoli...
 \begin{lstlisting}[caption= D20 con permutazioni]
@@ -91,7 +100,9 @@ Dove i casi presi in considerazione sono i seguenti:
     \item Se possiedo dadi disponibili allora posso formare il numero $x$ considerando le combinazioni possibili con un dado in meno e ottenendo un numero dal lancio che compensi a formare il numero $x$ cercato. In parole più semplici, sia $n$ il dado lanciato nell'istante corrente, il numero di combinazioni possibili per la quale è possibile ottenere $x$ è dato dalla somma delle combinazioni del lancio del dado $n-1$-esimo che contribuiscono alla composizione del numero $x$:
     $DP[n][x]$ = $\sum_{\forall j \in F[i]} DP[i-1][x - j]$
 \end{itemize}
-Tale soluzione restituisce dunque anche le permutazioni di valori che contribuiscono alla composizione del numero $X$. \\\\
+Tale soluzione restituisce dunque anche le permutazioni di valori che contribuiscono alla composizione del numero $X$.
+
+\bigskip
 Una soluzione alternativa per evitare il conteggio delle permutazioni potrebbe essere la seguente:
 \begin{lstlisting}[caption= D20 senza permutazioni]
 int D20(int F[], int n, int X)
@@ -181,8 +192,10 @@ int 3partition(int[] V, int n)
 					indexMin = i
 	return indexMin
 \end{lstlisting}
-La complessità di questa soluzione è $\mathcal{O}(n^{2})$.\\
-Nonostante sembrerebbe la soluzione migliore, nel caso di $k$ partizioni non è affatto consigliato utilizzare $k-1$ cicli per suddividere il vettore. In questo caso la risoluzione più efficiente consiste nell'utilizzare l'algoritmo per quello che è definito \emph{Painter Partition Problem}. Per evitare incomprensioni con le soluzioni precedenti è necessario sottolineare che il vettore DP usato in precedenza verrà rinominato in $tot[1...n]$ e che $DP$ in questo caso farà riferimento ad una matrice.\\
+La complessità di questa soluzione è $\mathcal{O}(n^{2})$.
+
+Nonostante sembrerebbe la soluzione migliore, nel caso di $k$ partizioni non è affatto consigliato utilizzare $k-1$ cicli per suddividere il vettore. In questo caso la risoluzione più efficiente consiste nell'utilizzare l'algoritmo per quello che è definito \emph{Painter Partition Problem}. Per evitare incomprensioni con le soluzioni precedenti è necessario sottolineare che il vettore DP usato in precedenza verrà rinominato in $tot[1...n]$ e che $DP$ in questo caso farà riferimento ad una matrice.
+
 \begin{lstlisting}[caption=k-partizioni]
 int k_partition(int[] V, int n, int k)
 	int[] tot = new int[1...n]
@@ -219,7 +232,9 @@ Sia $DP[i][t]$ il minimo costo associato al sotto-problema di trovare la miglior
         min_{1 \leq j < i}max(DP[j][t-1], tot[i] - tot[j]) & \text{altrimenti}
     \end{cases}
 \end{equation*}
-\\La tabella ha dimensione $n \times k$, ogni cella richiede tempo $\mathcal{O}(n)$ per essere riempita e il costo computazionale è quindi $\mathcal{O}(kn^{2})$.\\\\
+\\La tabella ha dimensione $n \times k$, ogni cella richiede tempo $\mathcal{O}(n)$ per essere riempita e il costo computazionale è quindi $\mathcal{O}(kn^{2})$.
+
+\bigskip
 \textbf{Quadrato Binario - Compito 10/09/12}\\
 Sia $A$ una matrice $n \times n$ di valori booleani $0/1$. Scrivere un algoritmo che prenda in input la matrice $A$ e la sua dimensione $n$, e restituisca la dimensione del più grande quadrato composto da valori $1$ contenuto nella matrice.\\
 La soluzione proposta consiste nel memorizzare innanzitutto in una matrice $DP$ la matrice iniziale in modo da poterci lavorare successivamente. L'algoritmo si basa sul controllo del valore contenuto nella cella a sinistra, in alto, in alto a sinistra e della cella stessa che si sta esaminando; viene poi selezionato il valore minimo fra questi quattro e viene sommato uno. Questa condizione stabilisce che si formerà un quadrato di celle più grandi solo e soltanto se il valore delle quattro celle è uguale e quindi se di fatto tutte le celle precedenti contengono un quadrato di quella dimensione.

@@ -4,7 +4,8 @@
 \subsection{Esercitazione 4 - 05/12/19}
 \textbf{Chi manca?} \\
 Sia dato un vettore ordinato $A[1...n]$ contenente \textit{n} elementi interi distinti appartenenti all’intervallo $1...n+1$. Si scriva un algoritmo, basato sulla ricerca binaria, per individuare in tempo $\mathcal{O}(\log(n))$ l’unico intero dell’intervallo $1...n+1$ che non compare in \textit{A}.
-\\\\
+
+\bigskip
 Soluzione proposta:
 \begin{lstlisting}[ caption=Chi manca]
 int chiManca(int[] A, int n)
@@ -27,9 +28,12 @@ Il principio di funzionamento dell'algoritmo è il seguente: \\
 In quanto il vettore è composto dai valori da $1..n+1$ ma è di soli \textit{n} elementi ordinati occorre vedere se è presente un gap, ovvero se l'elemento analizzato è pari alla posizione, se fosse così allora l'elemento da trovare è nella parte di destra, in quanto la parte di sinistra non contiene gap, altrimenti la ricerca va fatta a destra, ma non rimuovendo l'elemento nella chiamata ricorsiva (ancora non sappiamo se è quell'elemento il gap che cerchiamo). Continuando questa procedura arriveremo ad un singolo elemento, ovvero quello che ha generato il gap.\\
 Tuttavia ci sono altri casi da considerare, in particolare se il vettore \textit{A} contenesse gli elementi $1..n$ allora il gap non sarebbe presente, andando a neutralizzare di fatto l'algoritmo. Possiamo però gestire questo caso semplicemente in una funzione wrapper che controlla se l'ultimo elemento è pari alla dimensione, in questo caso infatti nel vettore \textit{A} non sono presenti gap e quindi l'elemento mancante è $n + 1$. \\
 La soluzione proposta ha soluzione $\mathcal{O}(\log(n))$
-\\\\
+
+\bigskip
 \textbf{Punto fisso} \\
-Progettare un algoritmo che, preso un vettore ordinato \textit{A} di interi distinti, determini se esiste un indice $i$ tale che $A[i] = i$ in tempo $\mathcal{O}(\log(n))$.\\\\
+Progettare un algoritmo che, preso un vettore ordinato \textit{A} di interi distinti, determini se esiste un indice $i$ tale che $A[i] = i$ in tempo $\mathcal{O}(\log(n))$.
+
+\bigskip
 La soluzione proposta è la seguente:
 \newpage
 
@@ -52,9 +56,12 @@ boolean puntoFissoRec(int[] A, int inizio, int fine)
 \end{lstlisting}
 Il punto fisso per come è definito è semplicemente la ricerca di un elemento che sia uguale alla sua posizione, ovviamente, in quanto il vettore è ordinato, so che se l'elemento è minore dell'indice della metà del vettore allora sicuramente si trova nella parte sinistra, altrimenti nella parte di destra. \\
 La soluzione proposta ha soluzione $\mathcal{O}(\log(n))$
-\\\\
+
+\bigskip
 \textbf{Vettori uni-modulari} \\
-Un vettore di interi \textit{A} è detto unimodulare se ha tutti valori distinti ed esiste un indice \textit{h} tale che $ A[1] > A[2] > ... > A[h-1] > A[h] $ e $A[h] < A[h+1] < A[h+2] < ... < A[n]$, dove \textit{n} è la dimensione del vettore.\\ Progettare un algoritmo $\mathcal{O}(\log(n))$ che dato un vettore unimodulare restituisce il valore minimo del vettore.\\\\
+Un vettore di interi \textit{A} è detto unimodulare se ha tutti valori distinti ed esiste un indice \textit{h} tale che $ A[1] > A[2] > ... > A[h-1] > A[h] $ e $A[h] < A[h+1] < A[h+2] < ... < A[n]$, dove \textit{n} è la dimensione del vettore.\\ Progettare un algoritmo $\mathcal{O}(\log(n))$ che dato un vettore unimodulare restituisce il valore minimo del vettore.
+
+\bigskip
 Soluzione proposta:
 \begin{lstlisting}[ caption=Vettore unimodulare]
 int minVettoreUniModulare(int[] A, int n)
@@ -81,9 +88,12 @@ Caso base:
 se è presente un singolo elemento allora l'elemento è il minimo del vettore unimodulare, se invece rimangono presenti due elementi allora ritorna il minimo dei due. \\
 Caso ricorsivo: determino l'elemento centrale, se l'elemento rispecchia la definizione di minimo in tale vettore allora l'elemento è stato trovato, altrimenti in base ad un semplice confronto determino se proseguire nella ricorsione nella parte sinistra o destra. \\
 La complessità della soluzione proposta è $\mathcal{O}(\log(n))$
-\\\\
+
+\bigskip
 \textbf{Samarcanda}\\
-Nel gioco di Samarcanda, ogni giocatore è figlio di una nobile famiglia della Serenissima, il cui compito è di partire da Venezia con una certadotazione di denari, arrivare nelle ricche città orientali, acquistare le merci preziose al prezzo più conveniente e tornare alla propria città perrivenderle. Dato un vettore \textit{P} di \textit{n} interi in cui $P[i]$ è il prezzo di una certa merce al giorno \textit{i}, trovare la coppia di giornate \textit{(x, y)} con $x < y$ per cui risultamassimo il valore $P[y]-P[x]$. Calcolare la complessità e dimostrare la correttezza.\\\\
+Nel gioco di Samarcanda, ogni giocatore è figlio di una nobile famiglia della Serenissima, il cui compito è di partire da Venezia con una certadotazione di denari, arrivare nelle ricche città orientali, acquistare le merci preziose al prezzo più conveniente e tornare alla propria città perrivenderle. Dato un vettore \textit{P} di \textit{n} interi in cui $P[i]$ è il prezzo di una certa merce al giorno \textit{i}, trovare la coppia di giornate \textit{(x, y)} con $x < y$ per cui risultamassimo il valore $P[y]-P[x]$. Calcolare la complessità e dimostrare la correttezza.
+
+\bigskip
 Soluzione proposta:
 \begin{lstlisting}[caption=Samarcanda]
 int samarcanda(int[ ] A,int i,int j)

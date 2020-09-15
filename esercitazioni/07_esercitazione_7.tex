@@ -37,7 +37,9 @@ Sia DP[i][j] la matrice che rappresenta il massimo guadagno ottenibile partendo 
   	\end{cases}
 \end{equation*}
 In particolare i casi base sono rappresentati dal profitto ottenibile da una qualsiasi cella della prima riga come il profitto della stessa in quanto è la posizione di partenza del pedone.\\
-La soluzione, ovvero il massimo profitto ottenibile, sarà il massimo valore contenuto nelle celle della n-esima riga.\\\\
+La soluzione, ovvero il massimo profitto ottenibile, sarà il massimo valore contenuto nelle celle della n-esima riga.
+
+\bigskip
 \textbf{Donald Trump}\\
 Compito 16/7/2016\\
 La soluzione proposta si basa sul problema di Longest Increasing Subseaquence: sostanzialmente si utilizza un vettore DP per verificare che la città i-esima sia a distanza almeno D da quella j-esima già analizzata in precedenza e, se il numero di elettori è maggiore di quello precedente, allora la cella DP[i] viene aggiornata con il nuovo numero di elettori.

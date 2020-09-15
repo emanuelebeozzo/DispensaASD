@@ -2,7 +2,8 @@
 \begin{document}
 
 \subsection{Esercitazione 3 - 26/11/19}
-\textbf{Grafi – Stessa distanza} \\
+\textbf{Grafi – Stessa distanza}
+
 \begin{itemize}
 \item In un grafo orientato G, dati due nodi \textit{s} e \textit{v}, si dice che:
 	\begin{itemize}
@@ -34,10 +35,11 @@ int stessaDistanza(GRAPH G, NODE s, NODE v)
 L'algoritmo utilizza due volte la procedura di Erdos, che è possibile trovare nell'apposita sezione Grafi. \\ Si ricorda che la procedura di Erdos ritorna la distanza minima, intesa come numero di archi attraversati, dal nodo passato a tutti gli altri nodi, salvando il valore di $+\infty$ se il nodo non è raggiungibile dalla sorgente. Dunque è facile trovare la soluzione al problema trovando i nodi abbiano la stessa distanza dalla rispettiva radice e che siano raggiungibli.
 La soluzione presentata è dunque corretta, per la breve spiegazione riportata in precedenza, e si può notare che la complessità è dell'ordine di $\Theta(n + m)$ 
 \newpage
-\textbf{Grafi – Grafi bipartiti} \\
+\textbf{Grafi – Grafi bipartiti}
+
 \begin{itemize}
 	\item Un grafo non orientato \textit{G} è \textbf{bipartito} se l’insieme dei nodi può essere partizionato in due sotto insiemi disgiunti tali che nessun arco del grafo connette due nodi appartenenti allo stesso sottoinsieme.
-	\item $G = (V, E)$ è \textbf{2-colorabile} se è possibile trovare una 2-colorazione di esso, ovvero un assegnamento $c[u] \in C$ per ogni nodo $u \in V$, dove $C$ è un insieme di "colori" di dimensione 2, tale che: \\
+	\item $G = (V, E)$ è \textbf{2-colorabile} se è possibile trovare una 2-colorazione di esso, ovvero un assegnamento $c[u] \in C$ per ogni nodo $u \in V$, dove $C$ è un insieme di "colori" di dimensione 2, tale che: 
 
 	\begin{center}
 		$(u, v) \in E \Rightarrow c(u) \neq c(v)$.
@@ -96,14 +98,16 @@ int[] is2colorabile(GRAPH G)
   	return colors
 \end{lstlisting}
 Il funzionamento della soluzione con dfs è pressoché identico a quella con bfs, essa si avvale di una funzione i\textit{s2colorabile\_rec\_dfs}, la quale propaga ricosivamente la colorazione tra nodi, qualora essa trovi lo stesso colore in due nodi adiacenti essa ritorna false e dunque l'intero algoritmo ritornerà nil, in quanto non è possibile alcuna 2-colorazione. \\ Il colore assegnato al primo nodo di ogni componente connessa è 0, tale valore ovviamente è ininfluente ai fini della correttezza dell'algoritmo. \\
-La soluzione dell'algoritmo proposto è $\Theta(n + m)$ in entrambe le versioni, in quanto si sfrutta una semplice visita di un grafo mediante liste di adiacenza. \\\\
-\textbf{Grafi – Distanza fra partizioni}\\
+La soluzione dell'algoritmo proposto è $\Theta(n + m)$ in entrambe le versioni, in quanto si sfrutta una semplice visita di un grafo mediante liste di adiacenza. 
+
+\bigskip
+\textbf{Grafi – Distanza fra partizioni}
 
 \begin{itemize}
-	\item Dato un grafo G e due sottoinsiemi $V_1$ e $V_2$ dei suoi vertici, sidefinisce distanza tra $V_1$ e $V_2$ la distanza minima per andare da unnodo in $V_1$ ad un nodo in $V_2$, misurata in numero di archi.
+	\item Dato un grafo G e due sottoinsiemi $V_1$ e $V_2$ dei suoi vertici, sidefinisce distanza tra $V_1$ e $V_2$ la distanza minima per andare da un nodo in $V_1$ ad un nodo in $V_2$, misurata in numero di archi.
 	\item Nel caso $V_1$ e $V_2$ non siano disgiunti, allora la distanza è 0.
 	\item Scrivere un algoritmo \textit{mindist(Graph G, Set $V_1$, Set $V_2$)} che restituisce la distanza minima fra $V_1$ e $V_2$.
-	\item Discutere complessità e correttezza, assumendo che l’implementazione degli insiemi sia tale che il costo di verificare l’appartenenza di un elemento all’insieme abbia costo $\mathcal{O}(1)$.
+	\item Discutere complessità e correttezza, assumendo che l'implementazione degli insiemi sia tale che il costo di verificare l'appartenenza di un elemento all’insieme abbia costo $\mathcal{O}(1)$.
 	\item Nota: è facile scrivere un algoritmo $\mathcal{O}(nm)$; esistono tuttavia algoritmi di complessità $\mathcal{O}(n^2)$ (con matrice di adiacenza) e $\mathcal{O}(n + m)$.
 \end{itemize}
 
@@ -134,8 +138,9 @@ Lo pseudocodice precedente prima di tutto inizializza un vettore delle distanze 
 Successivamente si esegue una visita bfs in cui si sfrutta il principio che sta dietro all'algoritmo dei cammini minimi di Erdos, ovvero assegno ad ogni elemento la distanza del padre dal set $V_1 + 1$, il primo nodo che appartiene a $V_2$ trovato durante la visita è quello con distanza minima, dunque viene tornato il numero di archi attraversati. \\
 Qualora questo non funzionasse allora le due partizioni appartengono a due componenti connesse distinte per cui la distanza è: $+\infty$. \\
 La complessità della soluzione proposta è pari a $\Theta(n + m)$ dato dal costo della visita bfs.
-\\\\
-\textbf{Grafi – Connetti il grafo}\\
+
+\bigskip
+\textbf{Grafi – Connetti il grafo}
 
 \begin{itemize}
 	\item Progettare un algoritmo efficiente che dato un grafo non orientato, restituisca il numero minimo di archi da aggiungere per renderlo connesso.

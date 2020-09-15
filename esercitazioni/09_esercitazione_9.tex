@@ -3,13 +3,19 @@
 
 \subsection{Esercitazione 9 - 30/03/20}
 \textbf{Sciatori}\\
-Siano dati n sciatori di altezza $p_{1}, ..., p_{n}$ ed $n$ paia di sci di lunghezza $s_{1}, ..., s_{n}$. Il problema è assegnare ad ogni sciatore un paio di sci, in modo da minimizzare la differenza totale fra le altezza degli sciatori e la lunghezza degli sci; ovvero, se allo sciatore $i$ è assegnato il paio di sci $h(i)$, minimizzare la seguente quantità:\\
+Siano dati n sciatori di altezza $p_{1}, ..., p_{n}$ ed $n$ paia di sci di lunghezza $s_{1}, ..., s_{n}$. Il problema è assegnare ad ogni sciatore un paio di sci, in modo da minimizzare la differenza totale fra le altezza degli sciatori e la lunghezza degli sci; ovvero, se allo sciatore $i$ è assegnato il paio di sci $h(i)$, minimizzare la seguente quantità:
+
+
 \begin{equation}
 	\sum_{i = 1}^{n}\mid{p_{i} - s_{h(i)}}\mid
 \end{equation}
-Si consideri il seguente algoritmo greedy. Si individui la coppia (sciatore, sci) con la minima differenza. Si assegni allo sciatore questo paio di sci. Si ripete con gli sciatori restanti fino a quando non si è terminato. Provare la correttezza di questo algoritmo o trovare un controesempio.\\\\
+Si consideri il seguente algoritmo greedy. Si individui la coppia (sciatore, sci) con la minima differenza. Si assegni allo sciatore questo paio di sci. Si ripete con gli sciatori restanti fino a quando non si è terminato. Provare la correttezza di questo algoritmo o trovare un controesempio.
+
+\bigskip
 \textbf{Soluzione:} L'algoritmo proposto non è una soluzione corretta al problema proposto, è necessario pensare ad esempio al caso in cui $p = [8, 13]$ e $s = [10, 5]$. In questo caso la differenza minima è data associando $p = 8$ con $s = 10$ e di conseguenza $p = 13$ verrà associato con $s = 5$ per un totale di 10. Se invece avessimo associato $p = 8$ a $s = 5$ e $p = 13$ a $s = 10$ avremmo ottenuto come risultato 6.\\
-Questa osservazione ci fornisce anche un'ottima base per la soluzione greedy dell'algoritmo per cui è necessario \textbf{ordinare entrambi i vettori} di sciatori e sci in modo da \textbf{associare sempre lo sciatore di altezza maggiore con il paio di sci di lunghezza maggiore}.\\\\  
+Questa osservazione ci fornisce anche un'ottima base per la soluzione greedy dell'algoritmo per cui è necessario \textbf{ordinare entrambi i vettori} di sciatori e sci in modo da \textbf{associare sempre lo sciatore di altezza maggiore con il paio di sci di lunghezza maggiore}.
+
+\bigskip  
 \textbf{Sfilatino alla Nutella - Compito 31/05/13}\\
 Nella sagra di Hateville, è stato realizzato lo sfilatino alla Nutella più lungo del mondo, lungo $L$ centimetri. Ora si tratta di realizzare un altro record: il maggior numero di persone servite con lo stesso sfilatino. Alla sagra sono presenti $n$ persone, dove la persona $i$-esima chiede un segmento di sfilatino lungo $V[i]$ centimetri; secondo il regolamento, ogni richiesta va servita esattamente, ovvero se la persona $i$ verrà servita, riceverà il segmento richiesto. Tutte le lunghezze sono intere. Scrivere un algoritmo che restituisca il numero massimo di persone che possono essere servite con lo sfilatino. Non è necessario utilizzare tutto lo sfilatino. Oltre a calcolare la complessità dell'algoritmo proposto, discutere anche la correttezza, menzionando la tecnica scelta e specificando bene perché tale tecnica può essere applicata in questo caso.
 \begin{lstlisting}[caption=Sfilatino alla Nutella]

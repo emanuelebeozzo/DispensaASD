@@ -4,7 +4,8 @@
 \subsection{Esercitazione 5 - 19/12/19}
 \textbf{Per fare un albero (binario di ricerca) ci vuole...}\\
 Dato un vettore \textit{V} di \textit{n} interi ordinati e distinti, scrivere una procedurache costruisce un albero binario di ricerca di altezza minima.Discuterne la correttezza e la complessità
-\\\\
+
+\bigskip
 Soluzione proposta:
 \begin{lstlisting}[ caption=Costruzione ABR a partire da vettore ordinato]
 Tree buildTree(int[] A, int n)
@@ -34,7 +35,8 @@ L'algoritmo così descritto è dunque corretto ed ha complessità data dalla seg
 Dal \textit{Master Theorem} sappiamo che:\\
 $a = 2, b = 2, \beta = 0, \alpha = \log_a(b) = \log_2(2) = 1$\\
 Dunque: $\alpha > \beta$ allora $T(n) = \Theta(n^\alpha) = \Theta(n)$ 
-\\\\
+
+\bigskip
 \textbf{Good vs bad guys}\\
 Fra ogni coppia di wrestler professionisti può esserci una rivalità oppureno. Per ragioni di marketing, è una buona idea dividere i wrestler professionisti in due gruppi, "buoni" e "cattivi", e farli combattere fra di loro. Supponete di avere in input un insieme di rivalità, rappresentate comeun vettore di coppie \textit{(x, y)}, dove \textit{x} e \textit{y} sono identificatori di wrestler compresi fra \textit{1} ed \textit{n}. Scrivere un algoritmo che restituisca \textit{true} se è possibile suddividere i wrestler professionisti in due sottoinsiemi non vuoti ("buoni" e"cattivi"), non necessariamente della stessa dimensione, in modo tale che non ci siano rivalità all’intero dei due gruppi; \textit{false} altrimenti.
 \newpage
@@ -75,13 +77,15 @@ boolean 2wrestlercolorabile_rec(GRAPH G, NODE u, int colors[], int color)
 Il problema proposto è un problema di grafo 2-colorabile, infatti è necessario, dopo la costruzione del grafo a partire dai vettori di rivalità, effetuare una visita in dfs con la colorazione del grafo. \\
 La spiegazione della colorazione del grafo la si può trovare nel'esercitazione 3 sotto la voce "Grafi bipartiti".
 \newpage
-\textbf{Grafi – Pozzo universale}\\
+\textbf{Grafi – Pozzo universale}
+
 \begin{itemize}
 	\item Un pozzo universale è un nodo con out-degree uguale a zero e in-degree uguale a $n-1$.
 	\item Dato un grafo orientato \textit{G} rappresentato tramite matrice diadiacenza, scrivere un algoritmo che opera in tempo $\Theta(n)$ in grado di determinare se \textit{G} contiene un pozzo universale.
 	\item È possibile ottenere la stessa complessità con liste di adiacenza?
 \end{itemize}
-La soluzione proposta è la seguente:\\
+La soluzione proposta è la seguente:
+
 \begin{lstlisting}[ caption=Pozzo universale]
 boolean hashPozzo(NODE[][] G, int n)
 	int candidate = 0 % riga candidata
@@ -125,8 +129,11 @@ In quanto in input abbiamo una matrice di adiacenza, allora un pozzo universale 
 Nel momento in cui troviamo una cella di valore 1 allora tale riga non può essere un pozzo universale, ci spostiamo dunque sulla riga identificata dalla colonna del valore 1 trovato, questo perché le righe corrispondenti alle colonne precedenti sono state scartate, se si è verificato il caso precedente, mentre non possiamo scartare tale riga in quanto può avere in-degree pari a $n-1$ e dunque un potenziale candidato.\\
 Arrivati al termine della visita lineare abbiamo un candidato, dunque verifichiamo se esso è realmente un pozzo universale effettuando, con costo ancora lineare, la somma di tutti i valori sulla sua riga e sulla sua colonna; se out-degree = \textit{0} e in-degree = $n - 1$ abbiamo trovato il pozzo universale.\\
 Il costo dell'algoritmo è pari a 3 visite di grandezza n, dunque: $\Theta(n)$.
-\\\\
-\textbf{Ricorrenza $4T(\sqrt(n)) + \log^2(n)$}\\\\
+
+\bigskip
+\textbf{Ricorrenza: $4T(\sqrt(n)) + \log^2(n)$}
+
+\bigskip
 Si ottengano limiti superiori e inferiori per la seguente ricorrenza:
 \begin{center}
 	\begin{equation*}
@@ -136,9 +143,13 @@ Si ottengano limiti superiori e inferiori per la seguente ricorrenza:
   		\end{cases}
 	\end{equation*}
 \end{center}
+
+\bigskip
 Questa equazione, in quanto presenta una radice è difficile da portare ad una forma chiusa, dobbiamo dunque ricorrere ad una supposizione che ci semplificherà i calcoli. In particolare:
 Poniamo $n = 2^k$, sostituendo tale valore nella ricorrenza otteniamo:\\
-$T(2^k) = 4T(\sqrt(2^k)) + \log^{2}(k^2)= 4T(2^{k/2}) + k^2$\\\\
+$T(2^k) = 4T(\sqrt(2^k)) + \log^{2}(k^2)= 4T(2^{k/2}) + k^2$
+
+\bigskip
 Sostituiamo quindi la variable $T(2^k)$ con $S(k)$ e otteniamo tramite \textit{Master Theorem}\\
 $S(k) = 4S(\frac{k}{2}) +k^2$ \\
 Vale:\\

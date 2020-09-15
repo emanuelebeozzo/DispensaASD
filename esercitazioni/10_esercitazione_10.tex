@@ -41,7 +41,9 @@ Il costo dell'algoritmo greedy proposto ha complessità $\mathcal{O}(n \log n)$ 
 \begin{flushleft}
 \textbf{Batterie - DP}
 \end{flushleft}
-Identico al caso precedente solo che...\\
+Identico al caso precedente solo che...
+
+
 \begin{itemize}
 	\item Siano $D[1...n]$ e $C[1...n]$ due vettori di interi, dove $D[i]$ è la distanza dell'area di servizio i-esima dall'inizio dell'autostrada, e $C[i]$ è il costo di una nuova batteria nell'area $i$.
 	\item Il costo totale del viaggio è dato dalla somma dei costi delle batterie sostituite per arrivare al km $L$.
@@ -74,11 +76,12 @@ La correttezza della soluzione mostrata può essere provata nel seguente modo: \
 Sia DP[i] la tabella di programmazione dinamica che memorizza il costo minore necessario per il carburante avendo fatto rifornimento alla stazione i-esima, sempre che sia possibile arrivarci. L'equazione di ricorrenza è dunque la seguente:
 \begin{equation*}
     DP[i]=\begin{cases}
-        + \infty & \text{$\forall i \mid i < j \rightarrow D[j] + r > D[i]$, o nel caso $i == 1$ $r < D[1]$} \\
+        + \infty & \text{$\forall i \mid i < j \rightarrow D[j] + r > D[i]$ $\lor$ $i == 1$ $r < D[1]$} \\
         C[1] & \text{$i == 1 \land r \geq D[1]$}\\
         min(DP[j] + C[i])_{\forall j \mid j \leq i \land D[j] + r \leq D[i]} & \text{altrimenti}
     \end{cases}
-\end{equation*} \\
+\end{equation*} 
+
 \textbf{Sottosequenza}\\
 Una stringa $P$ è una supersequenza di una stringa $T$ se $T$ è una sotto-sequenza di $P$. Scrivere un algoritmo che restituisca la lunghezza della supersequenza comune minimale di due stringhe $P$,$T$, ovvero la più piccola supersequenza di entrambe le stringhe. Discutere correttezza e complessità dell'algoritmo proposto.\\
 Esempio: L'unica supersequenza comune minimale di $AB$ e $BC$ è $ABC$, e la sua lunghezza è pari a 3.\\
@@ -100,7 +103,9 @@ int supersequenzaComuneMinimale(ITEM[] S, ITEM[] T, int n, int m)
 \end{lstlisting}
 La complessità della soluzione proposta è $\mathcal{O}(nm)$ dovuta al popolamento della tabella delle soluzioni. \\
 La correttezza è rappresentata dalla seguente formula ricorsiva: \\
-Sia DP[i][j] il numero minimo di caratteri necessari per costruire una supersequenza dai prefissi P(i) e T(j), essa viene definita come segue: \\
+Sia DP[i][j] il numero minimo di caratteri necessari per costruire una supersequenza dai prefissi P(i) e T(j), essa viene definita come segue: 
+
+
 \begin{equation*}
     DP[i][j]=\begin{cases}
         0 & \text{$i == 0 \land j == 0$} \\
@@ -110,7 +115,9 @@ Sia DP[i][j] il numero minimo di caratteri necessari per costruire una supersequ
         min(DP[i-1][j], DP[i][j-1] + 1) & \text{altrimenti} \\
     \end{cases}
 \end{equation*}
-I casi gestiti sono dunque: \\
+
+I casi gestiti sono dunque:
+
 \begin{itemize}
     \item Se le stringhe sono entrambe vuote l'unica supersequenza possibile è l'insieme vuoto.
     \item Se una delle due stringhe analizzata è vuota mentre l'altra non lo è allora la supersequenza comune minimale è quella che possiede dei caratteri. 
@@ -119,7 +126,7 @@ I casi gestiti sono dunque: \\
 \end{itemize}
 \textbf{Cammini Indipendenti}\\
 Dato un grafo orientato $G= (V, E)$ e due vertici $s$, $t$ contenuti in $V$,descrivere un algoritmo che restituisca il numero totale di cammini $edge-disjoint$, ovvero in cui un arco può comparire al massimo in un cammino.
-\begin{figure}[h]
+\begin{figure}[ht]
 \caption{Edge-Disjoint Graph}
 \centering
 \includegraphics[width=0.5\textwidth]{../img/Locale_1.jpg}
@@ -127,6 +134,7 @@ Dato un grafo orientato $G= (V, E)$ e due vertici $s$, $t$ contenuti in $V$,desc
 L'esercizio proposto non è altro che una Rete di Flusso $G(V, E, c, s, t)$ dove i nodi $s$ e $t$ sono rispettivamente supersorgente e superpozzo.\\
 Visto che non è necessario aggiungere archi definiamo la funzione di capacità $c: V \times V \rightarrow R$  che associa ad ogni $(u, v) \in V$ il valore 1 in modo che venga percorso esattamente una e una sola volta.\\
 Il numero di cammini edge-disjoint sarà dato dal flusso massimo $\mid f^* \mid$ associato a tale rete di flusso che è limitato superiormente da $\mathcal{O}(n)$ perché ci sono al più $(n-1)$ archi che escono dalla sorgente (o che entrano nel pozzo).\\
+\newpage
 \textbf{Torri di Controllo}
 \begin{itemize}
     \item Si consideri un insieme di aerei $A=\{a_1,..., a_n\}$ e un insieme di torri di controllo $T=\{t_1,..., t_m\}$.
