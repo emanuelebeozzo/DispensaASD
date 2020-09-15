@@ -2,9 +2,11 @@
 \begin{document}
 
 \subsection{Esercitazione 13 - 13/05/20}
-\textbf{Cubi}\\
-Siano dati $n$ cubi. Su ogni faccia del cubo è presente una lettera dell'alfabeto. Ogni cubo può essere descritto da una stringa di $6$ caratteri (e.g. $abcdef$), che rappresenta le 6 facce del cubo. Sia data una parola costituita da $t \leq n$ caratteri. \textbf{Descrivere} un algoritmo che ritorni $true$ se è possibile comporre la parola utilizzando $t$ degli $n$ cubi (scegliendo una faccia per ognuno di essi), $false$ altrimenti. Discutere correttezza e complessità dell'algoritmo risultante.\\
-Il problema sottoposto fa parte delle Reti di Flusso quindi procediamo in questo modo alla risoluzione:
+\textbf{Cubi}
+
+Siano dati $n$ cubi. Su ogni faccia del cubo è presente una lettera dell'alfabeto. Ogni cubo può essere descritto da una stringa di $6$ caratteri (e.g. $abcdef$), che rappresenta le 6 facce del cubo. Sia data una parola costituita da $t \leq n$ caratteri. \textbf{Descrivere} un algoritmo che ritorni $true$ se è possibile comporre la parola utilizzando $t$ degli $n$ cubi (scegliendo una faccia per ognuno di essi), $false$ altrimenti. Discutere correttezza e complessità dell'algoritmo risultante.
+
+Il problema sottoposto fa parte delle Reti di Flusso quindi procediamo in questo modo alla \hfill \break risoluzione:
 \begin{itemize}
 	\item Costruiamo una Rete di Flusso $G = (V, E, s, p, c)$, dove:
 	\begin{itemize}
@@ -35,9 +37,9 @@ Il problema sottoposto fa parte delle Reti di Flusso quindi procediamo in questo
 			\item Per Edmonds-Karp il limite superiore è pari a $\mathcal{O}(n^{2} \cdot t^{3})$
 			\item In questo caso la complessità da scegliere è quella data da Ford-Fulkerson
 		\end{itemize}
-		\item L'algoritmo restituirà infine $true$ come valore se e solo se il flusso massimo $\mid f^{*} \mid = t$ in quanto vorrà dire che si è trovata una combinazione di dadi per cui è possibile costruire la parola.\\
+		\item L'algoritmo restituirà infine $true$ come valore se e solo se il flusso massimo $\mid f^{*} \mid = t$ in quanto vorrà dire che si è trovata una combinazione di dadi per cui è possibile costruire la parola.
 \end{itemize}
-\begin{figure}[h]
+\begin{figure}[H]
 \caption{Rete di Flusso - Cubi}
 \centering
 \includegraphics[width=0.5\textwidth]{../img/Locale_2.jpg}
@@ -64,9 +66,14 @@ bool coppie(int[] A, int n)
 			return false
 	return true
 \end{lstlisting}
-La complessità dell'algoritmo proposto è dunque $\mathcal{O}(n \log n)$ in quanto si utilizza un ordinamento basato su confronti.\\
-\textbf{Stringhe Primitive}\\
-Scrivere un algoritmo che, dati un insieme S contenente $m$ stringhe dette primitive ed una stringa $X[1. . . n]$, conti in quanti modi diversi $X$ è ottenibile dalla concatenazione di stringhe primitive. \\\\
+La complessità dell'algoritmo proposto è dunque $\mathcal{O}(n \log n)$ in quanto si utilizza un ordinamento basato su confronti.
+
+\textbf{Stringhe Primitive}
+
+Scrivere un algoritmo che, dati un insieme S contenente $m$ stringhe dette primitive ed una stringa $X[1. . . n]$, conti in quanti modi diversi $X$ è ottenibile dalla concatenazione di stringhe primitive. 
+
+\bigskip
+
 Ad esempio, dato $S=\{01,10,011,101\}$:
 \begin{itemize}
 	\item $X = 0111010101: $ ci sono 3 modi
@@ -120,10 +127,16 @@ I casi previsti sono i seguenti:
 	\item Se invece non è vuota, provo a completare tale stringa sottraendo le stringhe se rispettano il \emph{check()}. Se infatti X(i - S[j], i) combacia con una stringa S[j] dell'insieme S, allora è possibile ridurre il problema ai modi possibili per formare la stringa X(i - S[j], i), questo va fatto per tutte le stringhe che possono che combaciano con il suffisso di X(i). Il valore DP[i] è infatti la somma di tali sotto-problemi. 
 	\item Il valore della soluzione è locato in DP[n]
 \end{itemize}
-\textbf{Sottostruttura ottima} \\
-Sia $Y = \{\{i\}, ... \{k\}\}$ l'insieme contenente gli insiemi formati dagli indici del vettore $S$ che costituiscono tutti i modi possibili per rappresentare la stringa $X$. \\
-Supponiamo di considerare la stringa $X - {S[j]}$, ottenuta dalla stringa $X$ rimuovendo la stringa $S[j]$ dal suffisso di $X$, dove $S[j]$ è una stringa dell'insieme $S$; la soluzione ottima per il problema $X - {S[j]}$ sarà costituita dunque da $Y - \{j\}$. Se così non fosse, dovrebbe esistere un insieme $Y' = \{\{i'\}, ... \{k'\}\}$ la cui cardinalità sia superiore a quella di $Y$, ovvero $\mid Y' \mid > \mid Y - \{j\} \mid$. Ma questo è impossibile in quanto $\mid Y' \cup \{j\} \mid > \mid Y \mid$ il che renderebbe $Y' \cup \{j\}$ la soluzione ottima per $X$ violando l'assunzione che vede $Y$ soluzione ottimale per $X$.\\\\
-\textbf{MC Donald}\\
+\textbf{Sottostruttura ottima} 
+
+Sia $Y = \{\{i\}, ... \{k\}\}$ l'insieme contenente gli insiemi formati dagli indici del vettore $S$ che costituiscono tutti i modi possibili per rappresentare la stringa $X$. 
+
+Supponiamo di considerare la stringa $X - {S[j]}$, ottenuta dalla stringa $X$ rimuovendo la stringa $S[j]$ dal suffisso di $X$, dove $S[j]$ è una stringa dell'insieme $S$; la soluzione ottima per il problema $X - {S[j]}$ sarà costituita dunque da $Y - \{j\}$. Se così non fosse, dovrebbe esistere un insieme $Y' = \{\{i'\}, ... \{k'\}\}$ la cui cardinalità sia superiore a quella di $Y$, ovvero $\mid Y' \mid > \mid Y - \{j\} \mid$. Ma questo è impossibile in quanto $\mid Y' \cup \{j\} \mid > \mid Y \mid$ il che renderebbe $Y' \cup \{j\}$ la soluzione ottima per $X$ violando l'assunzione che vede $Y$ soluzione ottimale per $X$.
+
+\bigskip
+
+\textbf{MC Donald}
+
 Gestire un McDonald non è semplice:
 \begin{enumerate}
 	\item La giornata lavorativa è suddivisa in 3 turni da 4 ore, dalle 11 alle 23.
@@ -160,25 +173,29 @@ Gestire un McDonald non è semplice:
 		\item Associamo agli archi uscenti da $g_{ij}$ ($1 \leq i \leq D$ $\land$ $1 \leq j \leq 7$) capacità 0 nel caso in cui il turno rientra nell'insieme $n_{i}$ dell'impiegato $d_{i}$ altrimenti 1 per rispettare il vincolo 3
 		\item Associamo agli archi uscenti da ogni $t_{i}$ ($1 \leq i \leq T$) una capacità pari a $p_{i}$, in modo da rispettare il vincolo 2
 	\end{itemize}
-	\item La complessità dell'algoritmo proposto è pari a $min$(Ford-Fulkerson, Edmonds-Karp) = $min(\mathcal{O}((V + E) \mid f^{*} \mid), \mathcal{O}(VE^{2}))$:
+	\item La complessità dell'algoritmo proposto è pari a \hfill \break $min$(Ford-Fulkerson, Edmonds-Karp) = $min(\mathcal{O}((V + E) \mid f^{*} \mid), \mathcal{O}(VE^{2}))$:
 		\begin{itemize}
 			\item Il numero di nodi complessivi è dato da $D + 7D + 21 + 2 = 8D + 23$
 			\item Il numero di archi complessivi è dato da $D + 7D + 21D + 21 = 29D + 21$
 			\item Il flusso massimo è pari a $5D$ oppure a $\sum_{i = 1}^{21}p_{i}$ (unità di personale legata al turno $i$-esimo)
 			\item Per Ford-Fulkerson il limite superiore dunque è pari a $\mathcal{O}(D^{2})$
 			\item Per Edmons-Karp il limite superiore è pari a $\mathcal{O}(D^{3})$
-			\item In questo caso la complessità da scegliere è quella data da Ford-Fulkerson\\
+			\item In questo caso la complessità da scegliere è quella data da Ford-Fulkerson
 		\end{itemize}
 \end{itemize}
-\begin{figure}[h]
+\begin{figure}[H]
 \caption{Rete di Flusso - MC Donald}
 \centering
 \includegraphics[width=0.5\textwidth]{../img/Locale_3.jpg}
 \end{figure}
-\textbf{Anagrammi}\\
-Un'anagramma è una parola o frase ottenuta riarrangiando le lettere di un'altra parola o frase. Per esempio, "notremors" è un anagramma di "montresor". Si supponga di avere in input un vettore di $n$ stringhe di lunghezza massima $k$; si scriva un algoritmo che stampi in output tutti i gruppi di anagrammi contenuti in queste $n$ stringhe. Se ne discuta correttezza e complessità.\\
-Esempio di input: rosa, pippo, poppi, raso, orsa, giappone\\
-Esempio di output: \{rosa, raso, orsa\}, \{pippo, poppi\}, \{giappone\}\\
+\textbf{Anagrammi}
+
+Un'anagramma è una parola o frase ottenuta riarrangiando le lettere di un'altra parola o frase. Per esempio, "notremors" è un anagramma di "montresor". Si supponga di avere in input un vettore di $n$ stringhe di lunghezza massima $k$; si scriva un algoritmo che stampi in output tutti i gruppi di anagrammi contenuti in queste $n$ stringhe. Se ne discuta correttezza e complessità.
+
+Esempio di input: rosa, pippo, poppi, raso, orsa, giappone
+
+Esempio di output: \{rosa, raso, orsa\}, \{pippo, poppi\}, \{giappone\}
+
 \begin{lstlisting}[caption=anagrammi]
 anagrams(ITEM[] S, int n)
 	HASH H $\leftarrow$ Hash()
@@ -198,8 +215,10 @@ anagrams(ITEM[] S, int n)
 		SET S $\leftarrow$ H.lookup(x)
 		print S
 \end{lstlisting}
-Visto che un anagramma non è altro che una permutazione di un insieme di lettere è possibile capire o meno se una sequenza di lettere è un anagramma di un'altra sequenza semplicemente riordinandole. Il costo dell'ordinamento è pari a $\mathcal{O}(k \log{k}$) visto che le stringhe sono lunghe al massimo $k$ e il controllo di tutte le stringhe richiede tempo lineare $\mathcal{O}(n)$ come anche la stampa. L'inserimento all'interno della struttura, la lookup e l'inserimento set richiedono tempo $\mathcal{O}(1)$.\\
-Il costo complessivo dell'algoritmo è quindi pari a $\mathcal{O}(nk \log{k})$.\\
+Visto che un anagramma non è altro che una permutazione di un insieme di lettere è possibile capire o meno se una sequenza di lettere è un anagramma di un'altra sequenza semplicemente riordinandole. Il costo dell'ordinamento è pari a $\mathcal{O}(k \log{k}$) visto che le stringhe sono lunghe al massimo $k$ e il controllo di tutte le stringhe richiede tempo lineare $\mathcal{O}(n)$ come anche la stampa. L'inserimento all'interno della struttura, la lookup e l'inserimento set richiedono tempo $\mathcal{O}(1)$.
+
+Il costo complessivo dell'algoritmo è quindi pari a $\mathcal{O}(nk \log{k})$.
+
 In alternativa a questa soluzione è anche possibile immaginare di utilizzare un singolo set al cui interno vengono inserite le varie lettere che compongono una parola e controllare le altre, man mano rimuovendole dall'insieme nel caso in cui siano permutazione stampandole. Il costo di questa soluzione è pari a $\mathcal{O}(k \cdot n^{2})$ supponendo che l'operazione contains costi $\mathcal{O}(1)$.
 \newpage
 \end{document}
