@@ -2,14 +2,14 @@
 \begin{document}
 
 \chapter{Algoritmi probabilistici}
-\subsection{Introduzione}
+\section{Introduzione}
 Gli algoritmi probabilistici, prendono tale nome perché la casualità è un fattore determinante nella loro esecuzione. \\
 Esistono algoritmi probabilistici di due diverse tipologie:
 \begin{itemize}
 	\item Algoritmi la cui correttezza è probabilistica (\textcolor{red}{Montecarlo})
 	\item Algoritmi corretti, il cui tempo di funzionamento è probabilistico (\textcolor{red}{Las Vegas})
 \end{itemize}
-\subsection{Test di primalità}
+\section{Test di primalità}
 Ci chiediamo quale potrebbe essere un algoritmo per determinare se un numero $n$ in input risulta primo oppure no. 
 Un approccio basilare al problema potrebbe essere quello di considerare tutti i valori $i$ da 2 a $\lfloor \sqrt{n} \rfloor$, se uno di questi valori divide perfettamente $n$, ovvero il modulo della divisione $n/i$ da resto $0$, allora il numero $n$ non può essere primo. \\
 Se non siamo in grado di trovare un divisore esatto di $n$ durante questa analisi allora il numero considerato è sicuramente primo. 
@@ -110,7 +110,7 @@ Tale algoritmo ha una complessità computazionale particolare che non discuterem
  Esso ha una probabilità di errore del $(1/4)^k$ dove $k$ è il numero di tentativi con cui viene ricercato il testimone. \\
  Nonostante non sia deterministico è comunque utilizzato dato il costo computazionale relativamente basso. \\
 Come si può intuire tutti gli algoritmi proposti fino ad ora, fatta eccezione per la prima soluzione deterministica, sono algoritmi della categoria \emph{Montecarlo} in quanto la loro correttezza è probabilistica, ovvero siamo sempre sicuri di non essere in presenza di numeri primi se viene ritornato \textbf{false}, non possiamo dire di esserlo se viene restituito \textbf{true}.
-\subsection{Algoritmi probabilistici: statistica}
+\section{Algoritmi probabilistici: statistica}
 I casi analizzati sono i più semplici, cioè quelli che ci permettono di trovare alcune caratteristiche che sono statisticamente rilevanti da un vettore numerico. \\
 Alcuni esempi sono:
 \begin{itemize}
@@ -118,7 +118,7 @@ Alcuni esempi sono:
 	\item Varianza: $\sigma^2 = \frac{1}{n} \sum_{i = 1}^{n} (A[i] - \mu)^2$
 	\item Moda: il valore (o i valori) più frequenti
 \end{itemize} 
-\subsection{Il calcolo della mediana}
+\section{Il calcolo della mediana}
 Il problema della mediana è quello di calcolare, dato un vettore $A$ contenente $n$ valori, l'elemento/i che occuperebbe/ro la posizione centrale se il vettore $A$ fosse ordinato. \\
 Ovviamente è possibile riordinare il vettore mediante un algoritmo di ordinamento basato su confronti di costo computazionale pari a $\mathcal{O}(n \log n)$ e prelevare l'elemento a metà. \\
 Ci chiediamo ora se è possibile fare meglio di così, estendendo il problema del calcolo della mediana a quello della selezione, dato che la mediana è un suo sottoproblema: \\

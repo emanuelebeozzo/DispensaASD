@@ -2,10 +2,10 @@
 \begin{document}
 
 \chapter{Programmazione dinamica e memoization}
-\subsection{Programmazione dinamica}
+\section{Programmazione dinamica}
 \textbf{Introduzione} Tecnica classica di risoluzione dei problemi che consiste nello spezzare il problema ricorsivamente in sottoproblemi. A differenza della tecnica del divide-et-impera, ogni sotto problema viene risolto solo una volta e la sua soluzione viene memorizzata in una tabella. Nel caso bisognasse risolvere nuovamente il sottoproblema, si ottiene la soluzione facendo un semplice accesso alla tabella senza effettuare di nuovo il calcolo. La tabella ha un costo di lookup pari a  $\mathcal{O}$(1). 
 
-\subsubsection{Domino}
+\subsection{Domino}
 \textbf{Problema:} Il gioco del domino è basato su tessere di dimensione $2\times1$. Scrivere un algoritmo efficiente che prenda in input un intero n e restituisca il numero di possibili disposizioni di n tessere in un rettangolo $2\times n$. 
 
 \bigskip
@@ -78,7 +78,7 @@ Il costo per le varie versioni è il seguente:
 \end{center} \
 
 
-\subsubsection{Hateville}
+\subsection{Hateville}
 \textbf{Problema:} Hateville è un villaggio particolare, composto da $n$ case, numerate da 1 a $n$ lungo una singola strada. Ad Hateville ognuno odia i propri vicini della porta accanto, da entrambi i lati. Quindi, il vicino i odia i vicini $i-1$ e $i+1$ (se esistenti).
 Hateville vuole organizzare una sagra e vi ha affidato il compito di
 raccogliere i fondi. Ogni abitante i ha intenzione di donare una quantità $D[i]$, ma non intende partecipare ad una raccolta fondi a cui partecipano uno o entrambi i propri vicini. Scrivere un algoritmo che restituisca il sottoinsieme di indici S  $\subseteq$ $\{$1, ..., n $\}$ tale per cui la donazione totale T = $\sum\limits_{i \in S} {D[i]}$ è massimale. 
@@ -154,7 +154,7 @@ int hateville(int[] D, int n)
 	\item Complessità solution(): $\Theta(n)$
 	\item Complessità hateville() (sia per tempo che per spazio): $\Theta(n)$
 \end{itemize}
-\subsubsection{Zaino (Knapsack)}
+\subsection{Zaino (Knapsack)}
 \textbf{Problema:} Dato un insieme di oggetti, ognuno caratterizzato da un peso e un
 profitto, e uno "zaino" con un limite di capacità, individuare un
 sottoinsieme di oggetti: 
@@ -203,7 +203,8 @@ int knapsack(int[] w, int[] p, int n, int C)
 \end{lstlisting}
 \textbf{Complessità:} La complessità dell'algoritmo è $\mathcal{O}(nC)$, ma se consideriamo che sono necessari $k = \log C$ bit per rappresentare $C$, la complessità diventa \textcolor{red}{$pseudo-polinomiale$} e vale $T(n) = \mathcal{O}(n2^{k})$.
 La versione ricorsiva che non fa uso della memorizzazione costa $\mathcal{O}(2^{n})$. Questo è un problema \emph{NP completo}.
-\subsection{Memoization}
+
+\section{Memoization}
 \textbf{Introduzione}\\
 Non tutte le soluzioni dei sottoproblemi possibili sono utili alla soluzione del problema originale e quindi non vanno calcolate e memorizzate. Questa tecnica fonde l'approccio di memorizzazione della programmazione dinamica con l'approccio top-down di divide et impera.\\
 Passi per utilizzare la memoization:
@@ -213,7 +214,7 @@ Passi per utilizzare la memoization:
 	\item Ogni sottoproblema viene calcolato una sola volta e memorizzato come nella versione bottom-up
 \end{itemize}
 \newpage
-\subsubsection{Zaino (Knapsack)}
+\subsection{Zaino (Knapsack)}
 \textbf{Problema:} Il problema è lo stesso visto per la programmazione dinamica. \\
 \textbf{Implementazione:}
 \begin{lstlisting}[ caption= Knapsack versione $\mathcal{O}(nC)$ zaino con memoization]
@@ -255,7 +256,7 @@ int knapsackRec(int[] w, int[] p, int i, int c, Hash DP)
 \end{lstlisting}
 \textbf{Complessità:} La complessità dell'algoritmo è $\mathcal{O}(nC)$, quindi non sembrerebbe esserci nessun vantaggio se non la semplicità di convertire codice ricorsivo in memoization. Utilizzando l'hash al posto di una matrice per DP non è necessario fare l'inizializzazione e il costo di esecuzione diventa $\mathcal{O}( min (2^{n}, nC))$.
 \newpage
-\subsubsection{Zaino (Knapsack) senza limiti}
+\subsection{Zaino (Knapsack) senza limiti}
 \textbf{Problema:} Il problema è lo stesso visto nei casi precedenti con la modifica che non si pone limite al numero di volte che un oggetto può essere selezionato. Come modificare dunque la formula ricorsiva in questo caso? Potrebbe venirci in mente una soluzione basata sulla programmazione greedy ma per come è espresso il problema siamo certi del fatto che esista una soluzione basata su programmazione dinamica.
 
 \begin{equation*}
@@ -353,8 +354,9 @@ LIST solution(int[] w, int c, int[] pos)
 \end{lstlisting}
 Quello che viene restituito dalla funzione $solution()$ è una lista di indici dove i suoi elementi possono comparire più di una volta (multinsieme). Notiamo che se $c=0$ allora lo zaino è stato riempito perfettamente mentre per $pos[c]<0$ allora lo zaino non può essere riempito interamente (rimarrà della capacità residua ma nessun oggetto in grado di riempirlo perfettamente).
 \newpage
-\subsection{Altri esempi di programmazione dinamica} 
-\subsubsection{Sottosequenza comune massimale}
+
+\section{Altri esempi di programmazione dinamica} 
+\subsection{Sottosequenza comune massimale}
 \textbf{Definizione: Sottosequenza}
 
 Una sequenza $P$ è una \textcolor{red}{sottosequenza} di $T$ se $P$ è ottenuto da $T$ rimuovendo uno o più dei suoi elementi.
@@ -518,7 +520,7 @@ LIST subsequence(int[][] DP, ITEM[] T, ITEM[] U, int i, int j)
 \end{lstlisting}
 La complessità computazionale di subsequence è al massimo $T(n) = \mathcal{O}(m+n)$ che  corrisponde al numero massimo di controlli che verranno eseguiti per ricostituire la soluzione, mentre il costo per creare e riempire la matrice è pari a $T(n) = \mathcal{O}(mn)$. In totale il costo di LCS è pari a $T(n) = \mathcal{O}(mn)$.
 
-\subsubsection{String matching approssimato}
+\subsection{String matching approssimato}
 \textbf{Definizione:} Un'occorrenza \textcolor{red}{$k-approssimata$} di $P$ in $T$, dove: 
 \begin{itemize}
 	\item $P = p_{1}...p_{m}$ è una stringa detta pattern
@@ -566,7 +568,8 @@ int stringMatching(ITEM[] P, ITEM[] T, int m, int n)
 			pos = j
 	return pos
 \end{lstlisting}
-\subsubsection{Prodotto di catena di matrici}
+
+\subsection{Prodotto di catena di matrici}
 \textbf{Problema:} Data una sequenza di n matrici $A_1, A_2, A_3, ..., A_n$, compatibili due a due al prodotto, vogliamo calcolare il loro prodotto.
 
 Il prodotto di matrici: non è commutativo, è \textcolor{red}{associativo}: ($A_1 \cdot A_2) \cdot A_3 = A_1 \cdot (A_2 \cdot A_3$) e si basa sulla moltiplicazione scalare come operazione elementare. Vogliamo calcolare il prodotto delle $n$ matrici impiegando il più basso numero possibile di moltiplicazioni scalari.
@@ -653,7 +656,8 @@ computePar(int[] c, int n)
 \end{lstlisting}
 \textbf{Costo computazionale:} Il costo di $computePar()$ è pari a $\mathcal{O}(n^{3})$.
 \newpage
-\subsubsection{Insieme indipendente di intervalli pesati}
+
+\subsection{Insieme indipendente di intervalli pesati}
 \label{sec:indSet}
 \textbf{Definizioni e input:} Siano dati n intervalli distinti $[a_1, b_1[, ..., [a_n,b_n[$ della retta reale, aperti a destra, dove all'intervallo $i$ è associato un profitto $w_{i}$, $1\leq i \leq n$. Due intervalli $i$ e $j$ sono \emph{disgiunti} se $b_j \leq a_i$ oppure $b_i \leq a_j.$
 
@@ -712,7 +716,8 @@ int[] computePredecessor(int[] a, int[] b, int n)
 \end{lstlisting}
 \textbf{Costo computazionale:} Il costo per calcolare i predecessori mostrato nel codice è pari a $\mathcal{O}(n^{2})$, ma si può fare meglio di così ed arrivare ad un costo $\mathcal{O}(n \log n)$.
 In totale il costo di $maxinterval()$ è pari a $\mathcal{O}(n \log n)$ in quanto il calcolo dei predecessori vale $\mathcal{O}(n \log n)$, l'ordinamento vale $\mathcal{O}(n \log n)$, il riempimento di DP vale $\mathcal{O}(n)$  e la ricostruzione della soluzione costa $\mathcal{O}(n)$.
-\subsection{Schema risoluzione problema}
+
+\section{Schema risoluzione problema}
 \textbf{Fasi risoluzione problema con programmazione dinamica/memoization:}\
 \begin{itemize}
 	\item Caratterizzare la struttura di una soluzione ottima

@@ -15,7 +15,7 @@ int maxSumKadane(int[] A, int n)
 	return maxSoFar
 \end{lstlisting}
 
-\section{Valutazione Algoritmi} \subsection{Calcolo del Minimo}
+\section{Calcolo del Minimo}
 \textbf{Problema}: Dato un vettore di interi $S[1...n]$ trovare il minimo\\
 \textbf{Soluzione}:
 \begin{lstlisting}[ caption=Ricerca Minimo]
@@ -39,7 +39,7 @@ Nella versione seguente viene ritornata una coppia $<$$int$, $int$$>$ che contie
 \end{lstlisting}
 \newpage
 
-\subsection{Ricerca Binaria}
+\section{Ricerca Binaria}
 \textbf{Problema}: Dato un vettore ordinato di interi $S[1...n]$ e un intero $v$, controllare se nel vettore è presente un elemento $A[i] = v$ (con $0 \leq i \leq n$) e in quel caso restituirne l'indice.\\
 \textbf{Soluzione} (Ricerca Binaria): Analizzo l'elemento centrale del sottovettore (indice $m$)
 \begin{itemize}
@@ -62,7 +62,7 @@ int binarySearch(int[] S, int v, int start, int end)
 \end{lstlisting}
 
 \section{Analisi degli Algoritmi}
-\subsection{Tempo di Calcolo}
+\section{Tempo di Calcolo}
 \begin{itemize}
 	\item Ogni istruzione richiede un tempo costante per essere eseguita;
 	\item Questa costante è potenzialmente diversa per ogni istruzione;
@@ -81,7 +81,7 @@ $T(n) = c1 + c2n + c3(n-1) + c4(n-1) + c5 = (c2 + c3 + c4)n + (c1 + c5 - c3 - c4
 
 \newpage
 
-\subsection{Complessità Algoritmi vs Complessità Problemi: Moltiplicazione di Gauss}
+\section{Complessità Algoritmi vs Complessità Problemi: Moltiplicazione di Gauss}
 \textbf{Problema: Moltiplicazione numeri complessi}
 \begin{itemize}
 	\item $(a + bi)(c + di) = [ac - bd] + [ad + bc]i$
@@ -99,7 +99,7 @@ Usiamo la tecnica della \textbf{moltiplicazione di Gauss}:
 \end{itemize}
 Notiamo che $A_3$ e $A_4$ sono esattamente i termini che ci aspettiamo vengano restituiti dalla moltiplicazione dei numeri complessi e che, in questo caso, il costo delle operazioni all'interno del nostro sistema risulta essere 3.05.
 
-\subsection{Notazione Asintotica e Proprietà}
+\section{Notazione Asintotica e Proprietà}
 Definzione \textcolor{red}{$\mathcal{O}(g(n))$}:\\
 Sia $g(n)$ una funzione di costo; indichiamo con $\mathcal{O}(g(n))$ un insieme di funzioni $f(n)$ tali per cui:
 \begin{center}
@@ -159,7 +159,7 @@ $\exists c_1 > 0, \exists c_2 > 0, \exists m \geq 0$ : $\textcolor{red}{c_1g(n) 
 	\item ... altri casi trattati nella parte di teoria
 \end{itemize}
 
-\subsection{Complessità}
+\section{Complessità}
 $\forall r < s, h < k, a < b$\\
 \textcolor{red}{$\mathcal{O}(1)$ $\subset$ $\mathcal{O}$($\log$$^{r}n$) $\subset$ $\mathcal{O}$($\log$$^{s}n$) $\subset$ $\mathcal{O}$($n^{h}$) $\subset$ $\mathcal{O}$($n^{h}$$\log$$^{r}n$)  $\subset$ $\mathcal{O}$($n^{h}$$\log$$^{s}n$) $\subset$ $\mathcal{O}$($n^{k}$) $\subset$ $\mathcal{O}$($a^{n}$) $\subset$ $\mathcal{O}$($b^{n}$)}
 \newpage

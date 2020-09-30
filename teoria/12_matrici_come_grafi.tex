@@ -2,8 +2,8 @@
 \begin{document}
 
 \chapter{Trattare le matrici quadrate come Grafi}
-\textbf{Attenzione!} In questa sezione si vogliono elencare delle tecniche per trattare una matrice quadrata come grafi. \\Tuttavia gli schemi riportati in seguito nelle sottosezioni successive non forniscono delle soluzioni già pronte, ma vanno rielaborate a seconda dell'esercizio (essendo infatti degli schemi guida).
-\subsection{Costruire un grafo a partire da una matrice}
+\textbf{Attenzione!} In questo capitolo si vogliono elencare delle tecniche per trattare una matrice quadrata come grafi. \\Tuttavia gli schemi riportati in seguito nelle sottosezioni successive non forniscono delle soluzioni già pronte, ma vanno rielaborate a seconda dell'esercizio (essendo infatti degli schemi guida).
+\section{Costruire un grafo a partire da una matrice}
 Schema generico della costruzione di un grafo a partire da una matrice quadrata:
 \begin{lstlisting}[caption=Schema costruzione Grafo da una matrice]
 GRAPH schemaCostruisciGrafo(int[][] A, int n)
@@ -30,7 +30,7 @@ GRAPH schemaCostruisciGrafo(int[][] A, int n)
         		G.insertEdge(idNodo, idAdiacente)
   	return G
 \end{lstlisting}
-\subsection{Visita di una matrice in DFS}
+\section{Visita di una matrice in DFS}
 \begin{lstlisting}[ caption=Generica visita DFS ricorsiva in una matrice quadrata]
 dfsRec(int[][] M, int n, int r, int c)
 	if 1 $\leq$ r < n and 1 $\leq$ c < n and M[r][c] > 0 then
@@ -73,7 +73,7 @@ int dfs(ITEM[][]A, int r, int j, int n)
 \end{lstlisting}
 L'esempio precedente riporta una semplice DFS con i principi illustrati in precedenza. Tale BFS ritorna un valore in base ad una certa condizione, la procedura ne ritorna il massimo in tutta la matrice quadrata vista come grafo.
 \newpage
-\subsection{Visita di una matrice in BFS}
+\section{Visita di una matrice in BFS}
 \begin{lstlisting}[caption=Schema BFS con Matrice quadra]
 int grid(int[][] M, int n)
 	int[] dr = [-1, 0, +1, 0] % Mosse possibili sulle righe

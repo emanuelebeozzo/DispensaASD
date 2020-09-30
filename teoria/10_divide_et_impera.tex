@@ -2,7 +2,7 @@
 \begin{document}
 
 \chapter{Divide-et-impera}
-\subsection{QuickSort}
+\section{QuickSort}
 \label{sec:quicksort}
 \textbf{Problema}: Dato un vettore di ITEM A[1...n] e una coppia di indici start e end tali che 1  $\leq$ start  $\leq$ end  $\leq$ n, ordina il vettore A[i...n] in modo crescente. ITEM è un tipo di dato in cui è definito il confronto tra elementi.\\
 \textbf{Soluzione}: l'algoritmo utilizza la tecnica divide-et-impera e si compone di due funzioni: la funzione pivot() si occupa, dato un sotto vettore, di definire un perno e di spostare a sinistra del perno tutti gli elementi più piccoli del perno stesso e  destra  gli elementi più grandi, mentre la funzione QuickSort() si occupa di richiamare la funzione in modo ricorsivo su sotto array di dimensione minore.\
@@ -32,7 +32,7 @@ void QuickSort(ITEM A[], int start, int end)
 \textbf{Specifica e assunzioni}: Metodi per la gestione della struttura. Assumiamo di memorizzare nella struttura degli interi e non degli oggetti e prevediamo che esista una associazione intero-oggetto memorizzata esternamente.\
 
 
-\subsection{Gap}
+\section{Gap}
 \textbf{Problema}: Dato un vettore V di interi contenente n $\geq$ 2 elementi e tale che V[1] $<$ V[n], trovare la posizione di un gap nel vettore. In un vettore V contente almeno 2 interi, un gap è un indice i tale che 1 $<$ i $\leq$ n, tale che V[i-1] $<$ V[i]. Le condizioni poste nel problema di avere almeno 2 elementi e che valga V[1] $<$ V[n], garantiscono che ci sia almeno un gap.\\
 \textbf{Soluzione}: implementazione ricorsiva con tecnica divide-et-impera. Uso una funzione wrapper per avere a disposizione più parametri.
 \newpage

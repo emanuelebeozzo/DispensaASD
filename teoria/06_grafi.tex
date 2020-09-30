@@ -34,7 +34,7 @@ Se non diversamente specificato, nel seguito:
 	\item Assumeremo che dopo l’inizializzazione, il grafo sia statico
 \end{itemize}
 
-\subsection{Visite grafi}
+\section{Visite grafi}
 \textbf{Problema}: Dato un grafo G=(V,E) e un vertice v $\in$ V,
 visitare una e una volta sola tutti i nodi del grafo che possono essere raggiunti da v.\
 \textbf{Soluzione}: Esistono principalmente due metodologie per visitare un grafo:\
@@ -94,7 +94,7 @@ dfs(GRAPH G, Node r)
 \end{itemize}
 \newpage
 
-\subsection{Cammini più brevi: BFS}
+\section{Cammini più brevi: BFS}
 \textbf{Problema}: Dato un grafo G e un nodo r, calcolare il cammino più breve da r a tutti gli altri nodi. Le distanze sono misurate come il numero di archi attraversati.
 
 \textbf{Soluzione}: Algoritmo per il calcolo del numero di Erdos.
@@ -126,7 +126,7 @@ printPath(NODE r, NODE s, NODE[] parent)
 		printPath(r, parent[s], parent)
 		print s
 \end{lstlisting}
-\subsection{Componenti connesse: DFS}
+\section{Componenti connesse: DFS}
 \textbf{Problema}: Dato un grafo G non orientato verificare se è connesso (cioè  ogni suo nodo è raggiungibile da ogni altro nodo) e identificare le sue componenti connesse (cioè sottografi massimali e connessi).\\
 \textbf{Soluzione}: Un grafo è connesso se, al termine della DFS tutti i nodi sono stati marcati come visitati. Altrimenti la visita deve ricominciare da capo da un nodo non marcato, identificando una nuova componente del grafo. Strutture necessarie: un vettore \textit{id} che contiene gli identificatori delle componenti, in cui \textit{id}[u] è il numero che identifica la componente connessa a cui appartiene il nodo u. Se l'id di un nodo è uguale a 0, vuol dire che quel nodo deve essere ancora visitato.\
 \newpage
@@ -151,7 +151,7 @@ ccdfs(GRAPH G, int counter, Node u, int[] id)
 \end{lstlisting}
 
 
-\subsection{Grafo non orientato aciclico: DFS}
+\section{Grafo non orientato aciclico: DFS}
 \textbf{Problema}: Dato un grafo G non orientato verificare se è aciclico, cioè se non contiene cicli (con lunghezza maggiore di 2). Restituire true se G contiene un cicli, false altrimenti.\\
 \textbf{Soluzione}: La soluzione si basa sempre su una DFS. \
 \begin{lstlisting}[caption= Grafo non orientato aciclico (hasCycle)]
@@ -176,7 +176,7 @@ boolean hasCycleRec(GRAPH G, Node u, Node p, boolean[] visited)
 \end{lstlisting}
 
 \newpage
-\subsubsection{Albero di copertura DFS}
+\subsection{Albero di copertura DFS}
 \textbf{Problema}: Dato un grafo G orientato creare un albero di copertura T e classificare gli archi presenti nel grafo.\
 \textbf{Soluzione}: Ogni volta che si esamina un arco da un nodo marcato ad uno non marcato,chiamiamo questo arco come arco dell'albero. Gli archi (u,v) non inclusi nell'albero (cioè non archi dell'albero) sono classificati in 3 categorie: 
 
@@ -209,7 +209,7 @@ dfs-schema(GRAPH G, Node u, int& time, int[] dt, int[] ft)
 	ft[u] = time
 \end{lstlisting}
 
-\subsection{Grafo orientato aciclico(DAG): DFS}
+\section{Grafo orientato aciclico(DAG): DFS}
 \textbf{Problema}: Dato un grafo G orientato verificare se è aciclico, cioè se non contiene cicli (con lunghezza maggiore uguale a 2). Restituire true se G contiene un cicli, false altrimenti.\
 \textbf{Soluzione}: La soluzione usata per i grafi non orientati non è sempre funzionante. Per risolvere il problema dobbiamo usare il concetto dell'albero di copertura DFS e i vari tipi di archi. Esiste un teorema che afferma che un grafo orientato è aciclico $\iff$ non esistono archi all'indietro nel grafo.
 \newpage
@@ -230,7 +230,7 @@ boolean hasCycle(GRAPH G, Node u, int &time, int[] dt, int[] ft)
 \end{lstlisting}
 
 
-\subsection{Ordinamento topologico: DFS}
+\section{Ordinamento topologico: DFS}
 \textbf{Problema}: Dato un grafo G che rispetta le proprietà di DAG, restituire l'ordinamento topologico di tale grafo. L'ordinamento topologico è un ordinamento lineare tale che se (u,v) $\in$ E, allora u appare prima di v nell'ordinamento.\
 \textbf{Soluzione}: Usare una DFS nella quale l'operazione principale consiste nell'aggiungere il nodo in testa ad una lista in post-ordine. Il risultato sarà l'ordinamento topologico. 
 \begin{lstlisting}[caption= Ordinamento topologico]
@@ -253,7 +253,7 @@ ts-dfs(GRAPH G, NODE u, boolean[] visited, STACK S)
 \end{lstlisting}
 
 
-\subsection{Componenti fortemente connesse (SCC): DFS}
+\section{Componenti fortemente connesse (SCC): DFS}
 \textbf{Problema}: Dato un grafo G orientato verificare se è fortemente connesso (cioè  ogni suo nodo è raggiungibile da ogni altro nodo) e identificare le sue componenti connesse (cioè sottografi orientati massimali e connessi).\
 \textbf{Soluzione}: Non è possibile usare lo stesso algoritmo che identifica le componenti fortemente connesse perchè il risultato dipende dal nodo di partenza. Una delle possibili soluzioni è usare l'algoritmo di Kosaraju che consiste nel:
 \begin{itemize}

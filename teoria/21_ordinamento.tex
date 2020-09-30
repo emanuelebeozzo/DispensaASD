@@ -2,7 +2,7 @@
 \begin{document}
 
 \chapter{Algoritmi di Ordinamento}
-\subsection{Problema dell'ordinamento}
+\section{Problema dell'ordinamento}
 \textbf{Problema}: Data una sequenza $A = a_1, a_2 , ..., a_n$ di $n$ valori, restituire una sequenza $B = b_1 , b_2 , ..., b_n$ che sia una permutazione di $A$ e tale per cui $b_1 \leq b_2 \leq ... \leq b_n$.
 
 Finora abbiamo studiato i seguenti algoritmi di ordinamento:
@@ -39,9 +39,9 @@ Si considerino tutti gli alberi di decisione ottenibili da algoritmi di ordiname
 \bigskip
 \textbf{Teorema}: Il numero di confronti necessari per ordinare $n$ elementi nel caso
 peggiore è $\Omega(n \log n)$
-\newpage
-\subsection{Algoritmi basati su confronti}
-\subsubsection{Selection Sort}
+
+\section{Algoritmi basati su confronti}
+\subsection{Selection Sort}
 \begin{lstlisting}[ caption= Selection Sort]
 SelectionSort(ITEM[] A, int n)
 	for i = 1 to n - 1 do
@@ -56,7 +56,7 @@ int min_from_to(ITEM[] A, int inizio, int fine)
 	return i_min
 \end{lstlisting}
 \textbf{Costo computazionale}: La complessità nel caso medio, pessimo ed ottimo è uguale e vale $\mathcal{O}(n^{2})$.
-\subsubsection{Insertion Sort}
+\subsection{Insertion Sort}
 \begin{lstlisting}[ caption= Insertion Sort]
 insertionSort(ITEM[] A, int n)
 	for i = 2 to n do
@@ -73,7 +73,7 @@ insertionSort(ITEM[] A, int n)
 \textbf{Costo computazionale}: La complessità nel caso medio e pessimo  e vale $\mathcal{O}(n^{2})$, mentre per il caso ottimo la complessità è invece $\mathcal{O}(n)$. \\
 Questo tipo di algoritmo è indicato per quando si vogliono riordinare piccoli insiemi di elementi.
 \newpage
-\subsubsection{Merge Sort}
+\subsection{Merge Sort}
 \begin{lstlisting}[ caption= Merge Sort]
 mergeSort(ITEM[] A, int n)
 	mergeSort_rec(A, 1, n)
@@ -109,13 +109,13 @@ merge(ITEM[] A, int first, int mid, int last)
   		A[j] = B[j]
 \end{lstlisting}
 \textbf{Costo computazionale}: La complessità di merge è di $\mathcal{O}(n)$, mentre la complessità di merge sort vale in tutti i casi $\mathcal{O}(n\log{}n)$.\
-\subsubsection{Heap Sort}
+\subsection{Heap Sort}
 \textbf{Riferimento}: Vedi il capitolo riguardante \hyperref[sec:heap]{\emph{Strutture dati speciali - Heap}}.
-\subsubsection{Quick Sort}
+\subsection{Quick Sort}
 \textbf{Riferimento}: Vedi il capitolo riguardante \hyperref[sec:quicksort]{\emph{Divide-et-Impera}}.
 
-\subsection{Algoritmi NON basati su confronti}
-\subsubsection{Spaghetti Sort}
+\section{Algoritmi NON basati su confronti}
+\subsection{Spaghetti Sort}
 \textbf{Algoritmo Spaghetti Sort - $\mathcal{O}(n)$}
 \begin{enumerate}
 	\item Prendi $n$ spaghetti
@@ -124,7 +124,7 @@ merge(ITEM[] A, int first, int mid, int last)
 	\item Prendi il più lungo, misuralo e metti il valore corrispondente in fondo al vettore da ordinare
 	\item Ripeti (4) fino a quando non hai terminato gli spaghetti
 \end{enumerate}
-\subsubsection{Counting Sort}
+\subsection{Counting Sort}
 \textbf{Assunzione}\\
 I numeri da ordinare sono compresi in un intervallo $[1...k]$
 
@@ -151,9 +151,11 @@ countingSort(int[] A, int n, int k)
 \end{lstlisting}
 La complessità del Counting Sort è dunque pari a $\mathcal{O}(n + k)$: se $k$ è $\mathcal{O}(n)$, allora la complessità del Counting Sort è $\mathcal{O}(n)$.\\
 \textbf{ATTENZIONE}: se $k$ è $\mathcal{O}(n^{3})$ questo algoritmo è il peggiore di tutti quelli visti fino ad ora!
-\subsubsection{Pigeonhole Sort}
+
+\subsection{Pigeonhole Sort}
 Cosa succede se i valori da ordinare non sono numeri interi ma ad esempio dei record associati ad una chiave che vanno ordinati? Non è possibile usare il counting ma si può invece utilizzare delle \emph{Liste Concatenate}
-\subsubsection{Bucket Sort}
+
+\subsection{Bucket Sort}
 \textbf{Ipotesi sull'input}
 \begin{itemize}
 	\item Valori Reali uniformementi distribuiti nell'intervallo $[0, 1)$
@@ -165,9 +167,11 @@ Cosa succede se i valori da ordinare non sono numeri interi ma ad esempio dei re
 	\item Per l'ipotesi di uniformità, il numero atteso di valori nei bucket è 1
 	\item Possono essere ordinati con Insertion Sort
 \end{itemize}
-\subsection{Proprietà degli algoritmi di Ordinamento}
+
+\section{Proprietà degli algoritmi di Ordinamento}
 Un algoritmo di ordinamento viene detto \textcolor{red}{stabile} se preserva l'ordine iniziale tra due elementi con la stessa chiave. Esempi di algoritmi stabili sono Insertion Sort, Merge Sort e Pigeonhole Sort. Per rendere un qualunque algoritmo di ordinamento stabile è sufficiente usare come chiave di ordinamento la coppia (chiave, posizione iniziale).
-\subsection{Tabella Riassuntiva}
+
+\section{Tabella Riassuntiva}
 \begin{itemize}
 	\item \textbf{Insertion Sort}: $\Omega(n), \mathcal{O}(n^{2})$, stabile, sul posto, iterativo. Adatto per piccoli valori, sequenze quasi ordinate.
 	\item \textbf{Merge Sort}: $\Theta(n \log n)$, stabile, richiede $\mathcal{O}(n)$ spazio aggiuntivo, ricorsivo (richiede $\mathcal{O}(\log n)$ spazio sullo stack). Buona performance in cache, buona parallelizzazione.
@@ -179,5 +183,4 @@ Un algoritmo di ordinamento viene detto \textcolor{red}{stabile} se preserva l'o
 	\item \textbf{Shell Sort}: $\mathcal{O}(n \sqrt{n})$, stabile, adatto per piccoli valori, sequenze quasi ordinate.
 	\item \textbf{Tim Sort}:  $\Omega(n), \mathcal{O}(n \log n)$, algoritmo ibrido basato su Merge Sort e Insertion Sort che cerca sequenze consecutive (run) già ordinate.
 \end{itemize}
-\newpage
 \end{document}

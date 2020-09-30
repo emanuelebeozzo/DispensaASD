@@ -4,7 +4,7 @@
 \chapter{Alberi}
 \textbf{Descrizione}: Un albero radicato consiste in un insieme di nodi e un insieme di archi orientati che connettono coppie di nodi. Un nodo è definito come radice e, a differenza degli altri nodi, non ha archi entranti e esiste un percorso unico tra la radice e ogni nodo.
 
-\subsection{Alberi binari}
+\section{Alberi binari}
 Un albero binario è un albero radicato in cui ogni nodo ha al massimo due figli, identificati come figlio sinistro e figlio destro.\\
 \textbf{Specifica}: Tutte le operazioni possibili sugli alberi binari sono le seguenti. 
 \begin{lstlisting}[caption= Specifica albero binario]
@@ -69,7 +69,7 @@ deleteRight()
 \end{lstlisting}
 \newpage
 
-\subsubsection{Visite alberi binari}
+\subsection{Visite alberi binari}
 \textbf{Problema}: Dato un albero T, visitare tutti i nodi della struttura.\\
 \textbf{Soluzione}: Esistono principalmente due metodologie per visitare un albero:
 \begin{itemize}
@@ -111,7 +111,7 @@ bfs(TREE albero)
 \end{lstlisting}
 \newpage
 
-\subsubsection{Esempi visite alberi binari con DFS}
+\subsection{Esempi visite alberi binari con DFS}
 \textbf{Esempi}: Due algoritmi sugli alberi binari che fanno uno delle BFS.
 \begin{lstlisting}[caption= Esempi DFS alberi binari]
 % conta i nodi di un albero binario
@@ -133,7 +133,7 @@ stampa_exp(TREE albero)
 		print ")"
 \end{lstlisting}
 
-\subsubsection{Esempi visite alberi binari con BFS}
+\subsection{Esempi visite alberi binari con BFS}
 Un albero binario di Natale è un albero binario tale per cui vale la seguente regola: tutti i livelli hanno la stessa brillantezza.  \\La brillantezza di un livello è pari alla somma della brillantezza dei nodi appartenenti a tale livello.  Un albero binario nil è un albero binario di Natale, ma triste.
 \begin{lstlisting}[caption=Esempi BFS alberi binari]
 boolean alberoBinNatale(TREE T)
@@ -165,7 +165,8 @@ boolean alberoBinNatale(TREE T)
 La soluzione proposta conosce il numero di nodi che fanno parte di un livello, in quanto, nel momento in cui un livello termina, in coda sono presenti tutti i nodi del livello successivo. \\
 Il primo livello ovviamente ha dimensione 1, in quanto è un albero binario radicato. Ovviamente partendo da questo è semplice sommare la brillantezza dei livelli sapendo che, al termine dello stesso, gli elementi del prossimo livello sono dati dagli n elmenti in coda a tal momento, dove $n = q.size()$, dove $q$ è l'instanza della coda.
 \end{flushleft}
-\subsection{Alberi generici}
+
+\section{Alberi generici}
 Un albero generico è un albero con un numero di figli non fissato.\\
 \textbf{Specifica}: Tutte le operazioni possibili sugli alberi generici sono le seguenti. 
 \begin{lstlisting}[ caption= Specifica albero generico]
@@ -193,7 +194,7 @@ deleteSibling()
 \textbf{Memorizzazione}: Esistono 3 diverse modalità per memorizzare un albero generico: vettore dei figli, primo figlio - prossimo fratello, vettore dei padri.\
 \newpage
 
-\subsubsection{Visite alberi generici}
+\subsection{Visite alberi generici}
 \textbf{Problema}: Dato un albero generico T, visitare tutti i nodi della struttura.\
 \textbf{Soluzione}: Esistono principalmente due metodologie per visitare un albero:
 \begin{itemize}
@@ -233,7 +234,7 @@ generic_bfs(TREE albero)
 \end{lstlisting}
 \newpage
 
-\subsection{Alberi Binari di Ricerca (ABR)}
+\section{Alberi Binari di Ricerca (ABR)}
 \textbf{Descrizione}: Un albero $T$ è un albero binario che rispetta le seguenti proprietà: le chiavi contenute nei nodi del \emph{sottoalbero sinistro} di un nodo generico $u$ sono minori di $u.key$, mentre le chiavi contenute nei nodi del \emph{sottoalbero destro} sono maggiori di $u.key$. L'idea degli ABR è quella di portare la ricerca binaria negli alberi. Un ABR è un dizionario in cui ogni nodo $u$ contiene delle associazioni chiave-valore salvate attraverso una coppia \emph{(u.key, u.value)}.\\
 \textbf{Specifica}: La struttura di un ARB e tutte le operazioni possibili sono le seguenti. 
 \begin{lstlisting}[ caption= Specifica ABR]
@@ -397,7 +398,7 @@ TREE cancellazione(TREE albero, ITEM key)
 \end{lstlisting}
 \newpage
 
-\subsection{Alberi Red-Black}
+\section{Alberi Red-Black}
 \textbf{Descrizione}: Sono dei particolari alberi binari di ricerca che hanno la caratteristica di essere bilanciati e di mantenere il bilanciamento tra l'altezza dele foglie anche in seguito ad inserimenti e cancellazioni. Le principali caratteristiche sono: ogni nodo è colorato di rosso o di nero, le chiavi vengono salvate solo nei nodi interni dell'albero e le foglie sono dei nodi speciali Nil. Per essere un albero red-black un ABR deve rispettare dei vincoli:
 \begin{itemize}
  	\item La radice deve essere nera

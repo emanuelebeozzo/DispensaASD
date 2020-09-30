@@ -4,7 +4,7 @@
 \chapter{Strutture dati base}
 Nelle seguenti sottosezioni saranno elencate le specifiche (dati e operazioni) delle strutture dati base che saranno usate nei capitoli successivi.
 
-\subsection{Insiemi}
+\section{Insiemi}
 \begin{lstlisting}[caption= Specifica SET]
 % Restituisce la cardinalita' dell'insieme
 int = size()
@@ -22,7 +22,7 @@ SET intersection(SET A, SET B)
 SET difference(SET A, SET B)
 \end{lstlisting}
 
-\subsection{Dizionari}
+\section{Dizionari}
 \begin{lstlisting}[ caption= Specifica dizionari]
 % Restituisce il valore associato alla chiave k se presente, nil altrimenti
 ITEM lookup(ITEM k)
@@ -33,7 +33,7 @@ remove(ITEM k)
 \end{lstlisting}
 L'implementazione più conosciuta è l'HashTable. 
 
-\subsection{Stack}
+\section{Stack}
 \begin{lstlisting}[ caption= Specifica STACK]
 % Restituisce true se la pila e' vuota
 boolean isEmpty()
@@ -47,7 +47,7 @@ ITEM top()
 
 \newpage
 
-\subsection{Queue}
+\section{Queue}
 \begin{lstlisting}[ caption= Specifica QUEUE]
 % Restituisce true se la coda e' vuota
 boolean isEmpty()

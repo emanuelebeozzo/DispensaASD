@@ -12,7 +12,8 @@ ricercaLocale()
 		$Sol = S$
 	return $Sol$
 \end{lstlisting}
-\subsection{Il problema del flusso massimo}
+
+\section{Il problema del flusso massimo}
 \textbf{Rete di flusso}:\\
 Una \textcolor{red}{rete di flusso $G = (V, E, s, t, c)$} è data da:
 \begin{itemize}
@@ -156,7 +157,8 @@ Qualora impiegassimo una visita in ampiezza (BFS) per individuare il cammino aum
 In questo caso dunque si presentano due limiti superiori per lo stesso algoritmo, da una parte abbiamo $\mathcal{O}((V + E)|f^{*}|)$ (liste di adiacenza) o $\mathcal{O}(V^2 |f^*|)$ (matrice di adiacenza), mentre dall'altra  $\mathcal{O}(VE^2)$.\\
 Entrambi sono limiti superiori validi, dunque per determinare la complessità dell'algoritmo è sufficiente scegliere il più basso. \\
 Dunque, utilizzando una visita in ampiezza la complessità è data da $\mathcal{O}(min((V + E)|f^{*}|, VE^2))$ (liste di adiacenza),\\ $\mathcal{O}(min(V^2|f^{*}|, VE^2))$ (matrice di adiacenza).
-\subsection{Teoremi e lemmi utili}
+
+\section{Teoremi e lemmi utili}
 In questa sottosezione sono mostrati alcuni Lemmi e Teoremi utili per la dimostrazione della complessità e della correttezza dell'algoritmo di Edmonds e Karp, che non verranno dimostrate per brevità.
 
 \bigskip
@@ -198,7 +200,8 @@ Il \textcolor{red}{flusso massimo} è limitato superiormente dalla capacità del
 	\item non esiste nessun cammino aumentante per $G$;
 	\item esiste un \textcolor{red}{taglio minimo} $(S, T)$ tale che $C(S, T) = |f|$.
 \end{itemize}
-\subsection{Esempio di flusso massimo}
+
+\section{Esempio di flusso massimo}
 \textbf{Problema - Job Assignment}
 
 \bigskip
