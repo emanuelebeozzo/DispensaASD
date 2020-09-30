@@ -3,12 +3,6 @@
 \usepackage{subfiles}
 \usepackage{stile/style}
 \usepackage{tocloft}
-\usepackage{fontawesome}
-
-% Preambolo
-% \advance\cftsecnumwidth 0.3em\relax
-% \advance\cftsubsecindent 0.3em\relax
-% \advance\cftsubsecnumwidth 0.4em\relax
 
 \begin{document}
 \frontmatter
@@ -16,24 +10,27 @@
 		\begin{center}
 		{\Huge \href{https://github.com/emanuelebeozzo/CheatSheetAlgoritmi}{\textbf{CheatSheet}} \par}
     		\vspace{0.5cm}
-    		{\Large \textbf{Corso di Algoritmi e Strutture Dati del Professor}
+    		{\Large \textbf{Corso di Algoritmi e Strutture Dati} \par
     		\vspace{0.2cm}
-    		\textbf{Alberto Montresor - Università di Trento} \par}
+			\textbf{Professor Alberto Montresor} \par
+			\vspace{0.2cm}
+			\textbf{Università di Trento} \par
+			}
 		\vspace*{\fill}
     		{\Large 
-    		\faGithub \hspace{0.2em} \href{https://github.com/Simone-Alghisi}{Simone Alghisi},	
-    		\faGithub \hspace{0.2em} \href{https://github.com/emanuelebeozzo}{Emanuele Beozzo}, 
+    		\faGithub \hspace{0.2em} \href{https://github.com/Simone-Alghisi}{Simone Alghisi}\\
+    		\faGithub \hspace{0.2em} \href{https://github.com/emanuelebeozzo}{Emanuele Beozzo}\\
     		\faGithub \hspace{0.2em} \href{https://github.com/samuelebortolotti}{Samuele Bortolotti}
     		\par}
     		\vspace{0.5cm}
     		{\today}
 		\end{center}
 	\end{titlepage}
-	% \newpage
+	
 	\tableofcontents
-	% \newpage
+	
 	\lstlistoflistings
-	% \newpage
+	
 	% parte teorica
 	\mainmatter
 	\subfile{teoria/01_pseudocode}
@@ -56,7 +53,7 @@
 	\subfile{teoria/18_algoritmi_probabilistici}
 	\subfile{teoria/21_ordinamento}
 
-	\backmatter
+	
 	% esercitazioni
 	\subfile{esercitazioni/01_esercitazione_1}
 	\subfile{esercitazioni/02_esercitazione_2}
@@ -103,4 +100,6 @@
 	\subfile{esercizi_vari/14_esame_19122014}
 	\subfile{esercizi_vari/15_esame_21072014}
 	\subfile{esercizi_vari/16_esercizi_vari}
+
+	\backmatter
 \end{document}
