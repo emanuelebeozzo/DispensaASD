@@ -1,17 +1,17 @@
-\documentclass[12pt, a4paper]{article}
+\documentclass[12pt, a4paper]{book}
 
 \usepackage{subfiles}
 \usepackage{stile/style}
 \usepackage{tocloft}
-\usepackage{hyperref}
 \usepackage{fontawesome}
 
 % Preambolo
-\advance\cftsecnumwidth 0.3em\relax
-\advance\cftsubsecindent 0.3em\relax
-\advance\cftsubsecnumwidth 0.4em\relax
+% \advance\cftsecnumwidth 0.3em\relax
+% \advance\cftsubsecindent 0.3em\relax
+% \advance\cftsubsecnumwidth 0.4em\relax
 
 \begin{document}
+\frontmatter
 	\begin{titlepage}
 		\begin{center}
 		{\Huge \href{https://github.com/emanuelebeozzo/CheatSheetAlgoritmi}{\textbf{CheatSheet}} \par}
@@ -26,15 +26,16 @@
     		\faGithub \hspace{0.2em} \href{https://github.com/samuelebortolotti}{Samuele Bortolotti}
     		\par}
     		\vspace{0.5cm}
-    		{\Large Settembre 15, 2020}
+    		{\today}
 		\end{center}
 	\end{titlepage}
-	\newpage
+	% \newpage
 	\tableofcontents
-	\newpage
+	% \newpage
 	\lstlistoflistings
-	\newpage
+	% \newpage
 	% parte teorica
+	\mainmatter
 	\subfile{teoria/01_pseudocode}
 	\subfile{teoria/02_valutazione_algoritmi}
 	\subfile{teoria/03_equazioni_di_ricorrenza}
@@ -54,6 +55,8 @@
 	\subfile{teoria/17_backtracking}
 	\subfile{teoria/18_algoritmi_probabilistici}
 	\subfile{teoria/21_ordinamento}
+
+	\backmatter
 	% esercitazioni
 	\subfile{esercitazioni/01_esercitazione_1}
 	\subfile{esercitazioni/02_esercitazione_2}
