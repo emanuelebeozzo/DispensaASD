@@ -2,7 +2,7 @@
 \begin{document}
 
 \chapter{Valutazione di algoritmi}
-\section{Sottovettore di Somma Massima: Algoritmo di Kadane}
+\section{Sottovettore di Somma Massima: Algoritmo di Kadane}[Sottovettore di Somma Massima]
 \textbf{Problema}: Dato un vettore di interi $A[1...n]$, restituire il sottovettore $A[i...j]$ (con $i, j < n$ e $i \leq j$) di somma massimale, ovvero la cui somma degli elementi $\sum_{k=i}^j A[k]$ è più grande o uguale alla somma degli elementi di qualunque altro sottovettore.\\
 \textbf{Soluzione} (con Programmazione Dinamica): \textbf{Algoritmo di Kadane}
 \begin{lstlisting}[caption=Kadane Algorithm]
@@ -37,11 +37,10 @@ Nella versione seguente viene ritornata una coppia $<$$int$, $int$$>$ che contie
 			minPos = i
 	return (min, minPos)
 \end{lstlisting}
-\newpage
 
 \section{Ricerca Binaria}
 \textbf{Problema}: Dato un vettore ordinato di interi $S[1...n]$ e un intero $v$, controllare se nel vettore è presente un elemento $A[i] = v$ (con $0 \leq i \leq n$) e in quel caso restituirne l'indice.\\
-\textbf{Soluzione} (Ricerca Binaria): Analizzo l'elemento centrale del sottovettore (indice $m$)
+\textbf{Soluzione} (Ricerca Binaria): Analizzo l'elemento centrale del sottovettore (indice $m$). Possiamo distinguere tre casi:
 \begin{itemize}
 	\item $S[m]=v$ allora ho trovato il valore cercato;
 	\item $S[m]<v$ allora vuol dire che dovrò cercare il valore nella metà di destra;
@@ -63,10 +62,11 @@ int binarySearch(int[] S, int v, int start, int end)
 
 \section{Analisi degli Algoritmi}
 \section{Tempo di Calcolo}
+Possiamo fare le seguenti assunzioni:
 \begin{itemize}
-	\item Ogni istruzione richiede un tempo costante per essere eseguita;
-	\item Questa costante è potenzialmente diversa per ogni istruzione;
-	\item Ogni istruzione viene eseguita un certo numero (\#) di volte che dipende da codice a codice
+	\item ogni istruzione richiede un tempo costante per essere eseguita;
+	\item questa costante è potenzialmente diversa per ogni istruzione;
+	\item ogni istruzione viene eseguita un certo numero (\#) di volte che dipende da codice a codice.
 \end{itemize}
 \textbf{Funzione min()}
 \begin{lstlisting}[caption=Ricerca Minimo + calcolo del costo]
@@ -79,16 +79,15 @@ int min(int[] S, int n)			% Costo # Volte
 \end{lstlisting}
 $T(n) = c1 + c2n + c3(n-1) + c4(n-1) + c5 = (c2 + c3 + c4)n + (c1 + c5 - c3 - c4) = \textcolor{red}{an + b}$
 
-\newpage
-
-\section{Complessità Algoritmi vs Complessità Problemi: Moltiplicazione di Gauss}
+\section[Moltiplicazione di Gauss]{Complessità Algoritmi vs Complessità Problemi: Moltiplicazione di Gauss}
 \textbf{Problema: Moltiplicazione numeri complessi}
 \begin{itemize}
 	\item $(a + bi)(c + di) = [ac - bd] + [ad + bc]i$
 	\item Input: $a, b, c, d$
 	\item Output: $ac - bd, ad + bc$
 \end{itemize}
-Se consideriamo un modello di calcolo dove la moltiplicazione costa 1 mentre le addizioni e le sottrazioni costano 0.01 otteniamo che il costo dell'algoritmo risulta essere 2*(2 + 0.01) = 4.02\\
+Se consideriamo un modello di calcolo dove la moltiplicazione costa 1 mentre le addizioni e le sottrazioni costano 0.01 otteniamo che il costo dell'algoritmo risulta essere 2*(2 + 0.01) = 4.02
+
 Usiamo la tecnica della \textbf{moltiplicazione di Gauss}:
 \begin{itemize}
 	\item $A_1 = a \cdot c$
@@ -115,10 +114,10 @@ Sia $g(n)$ una funzione di costo; indichiamo con $\Omega(g(n))$ un insieme di fu
 \begin{center}
 $\exists c_1 > 0, \exists c_2 > 0, \exists m \geq 0$ : $\textcolor{red}{c_1g(n) \leq f(n) \leq c_2g(n)} , \forall n \geq m$
 \end{center}
-\newpage
-\begin{flushleft}
+
+% \begin{flushleft}
 \textbf{Regola Generale:}
-\end{flushleft}
+% \end{flushleft}
 \begin{itemize}
 	\item \textbf{Espressioni Polinomiali}\\
 		$\textcolor{red}{a_{k} n^k + a_{k-1} n^{k-1} + ... + a_{1}n + a_{0}, a_{k} > 0 \implies f(n) = \Theta(n^k)}$
