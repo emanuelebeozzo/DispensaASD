@@ -309,7 +309,7 @@ La complessità dell'algoritmo precedente è dunque di $\mathcal{O}(n + m)$ in q
 \begin{tabular}{lllll}
 Dijkstra       &  $O(n^2)$ & Pesi positivi, grafi densi &  \\
 Johnson        &  $O(m \log n)$ &  Pesi positivi, grafi sparsi &  \\
-Fredman-Tarjan &  $O(n + n \log n)$ & Pesi positivi, grafi densi,dimensioni molto grandi  & \\
+Fredman-Tarjan &  $O(n + n \log n)$ & Pesi positivi, grafi densi, dimensioni molto grandi  & \\
 Bellman-Ford-Moore &  $O(mn)$ & Pesi negativi &  \\
 DAG               & $O(mn)$ & DAG  &  \\
 BFS	 & $O(mn)$ & Senza pesi &  \\
@@ -322,20 +322,26 @@ La soluzione che fa uso della BFS è sostanzialmente l'algoritmo di Erdos introd
 \textbf{Possibili soluzioni}
 
 \bigskip
-\begin{tabular}{@{}lll@{}}
-\toprule
-Input & Complessità & Approccio  \\ \midrule
+\begin{table}[H]
+	\centering
+	\small
+	\setlength\tabcolsep{2pt}
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		Input & Complessità & Approccio  \\ \midrule
+		
+		Pesi positivi, grafo denso       &  $O(n \cdot n^2)$ & Applicazione ripetuta dell’algoritmo di Dijkstra   \\
+		
+		Pesi positivi, grafo sparso        &  $O(n \cdot (m \log n))$ &  Applicazione ripetuta dell’algoritmo di Johnson   \\
+		
+		Pesi negativi &  $O(n \cdot nm)$ & Applicazione ripetuta di Bellman-Ford-Moore  \\
+		
+		Pesi negativi, grafo denso &  $O(n^3)$ & Algoritmo di Floyd e Warshall   \\
+		
+		Pesi negativi, grafo sparso               & $O(nm \log n)$ & Algoritmo di Johnson per sorgente multipla    \\ \bottomrule
+		\end{tabular}
+\end{table}
 
-Pesi positivi, grafo denso       &  $O(n \cdot n^2)$ & Applicazione ripetuta dell’algoritmo di Dijkstra   \\
-
-Pesi positivi, grafo sparso        &  $O(n \cdot (m \log n))$ &  Applicazione ripetuta dell’algoritmo di Johnson   \\
-
-Pesi negativi &  $O(n \cdot nm)$ & Applicazione ripetuta di Bellman-Ford-Moore  \\
-
-Pesi negativi, grafo denso &  $O(n^3)$ & Algoritmo di Floyd e Warshall   \\
-
-Pesi negativi, grafo sparso               & $O(nm \log n)$ & Algoritmo di Johnson per sorgente multipla    \\ \bottomrule
-\end{tabular}
 
 \bigskip
 \bigskip

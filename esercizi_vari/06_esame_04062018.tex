@@ -15,8 +15,12 @@ Ad esempio, se $X = [12,13,11,6,23,19]$, $w = 27$, $k= 3$, il valore da restitui
 Il problema descritto può essere risolto tramite programmazione dinamica: il primo passo per avviarsi verso la soluzione consiste nel definire correttamente il tipo di struttura che dovremo utilizzare per risolvere il problema. Se pensiamo di utilizzare una semplice matrice e di porre idealmente i $n$ valori sulle righe e il valori da 1 a $w$ sulle colonne come vincolo per impedirci di superare il numero in questione ci accorgiamo subito che non siamo in grado di tenere traccia di quanti numeri abbiamo sommato fino a questo momento (ricordiamoci che la somma deve essere $k-vincolata$ e che possiamo usare solo $k$ numeri per avvicinarci il più possibile al nostro $w$). Dunque abbiamo bisogno di una matrice a \emph{3 dimensioni} che possiamo definire nel modo seguente
 \begin{equation*}
   	DP[i][j][s]=\begin{cases}
-  		0 & \text{$j = 0 \lor i < 0$}\\
-  		max\{DP[i-1][j-1][k - X[i]] + X[i], DP[i-1][j][s]\} &\text{$s \geq X[i]$}\\
+		  0 & \text{$j = 0 \lor i < 0$}\\
+		  \begin{aligned}
+			max\{ &
+			DP[i-1][j-1][k - X[i]] + X[i],\\ &
+			DP[i-1][j][s]\}
+		  \end{aligned} & \text{$s \geq X[i]$}\\
     	DP[i-1][j][s] & \text{altrimenti}
   	\end{cases}
 \end{equation*}
