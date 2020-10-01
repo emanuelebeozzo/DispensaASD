@@ -48,5 +48,5 @@ L'algoritmo proposto per la soluzione ha complessità $\mathcal{O}(nwk)$ che è 
 La correttezza può essere provata dimostrando la sottostruttura ottima: sia $X_{p}$ il problema di dover trovare la sequenza di al massimo $k$ valori scegliendo tra $n$ valori differenti per ottenere al più il valore $w$. Sia $S$ la soluzione ottimale al problema proposto e contenente quindi il più grande insieme di numeri $k-vincolato$ la cui somma è al più $w$. Supponiamo ora per assurdo che la soluzione ottimale al problema $X_{p} - \{j\}$ non sia $S - \{j\}$, questo vuol dire che esiste $S'$ soluzione ottimale.
 
 Da qui si può ricavare dunque che $\sum(S') > \sum(S - \{j\}) \rightarrow \sum(S' \cup \{j\}) > \sum(S)$ ma ciò contraddice il fatto che $S$ sia la soluzione ottimale di cardinalità massima. Per comodità della dimostrazione è anche possibile osservare che per essere incluso in $S'$, $j$ deve essere un valore che sommato agli altri non fa superare $w$ e il numero di valori in $S'$ è $< k$. Dunque $S$ non contiene un valore che gli avrebbe permesso di ottenere la somma massima e quindi $S$ non è in realtà la soluzione ottima al problema: ciò è assurdo perché contraddice la nostra ipotesi iniziale.
-\newpage
+ 
 \end{document}

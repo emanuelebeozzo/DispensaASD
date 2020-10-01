@@ -92,7 +92,7 @@ dfs(GRAPH G, Node r)
 \end{lstlisting}
 \end{adjustbox}
 \end{itemize}
-\newpage
+ 
 
 \section{Cammini più brevi: BFS}
 \textbf{Problema}: Dato un grafo G e un nodo r, calcolare il cammino più breve da r a tutti gli altri nodi. Le distanze sono misurate come il numero di archi attraversati.
@@ -129,7 +129,7 @@ printPath(NODE r, NODE s, NODE[] parent)
 \section{Componenti connesse: DFS}
 \textbf{Problema}: Dato un grafo G non orientato verificare se è connesso (cioè  ogni suo nodo è raggiungibile da ogni altro nodo) e identificare le sue componenti connesse (cioè sottografi massimali e connessi).\\
 \textbf{Soluzione}: Un grafo è connesso se, al termine della DFS tutti i nodi sono stati marcati come visitati. Altrimenti la visita deve ricominciare da capo da un nodo non marcato, identificando una nuova componente del grafo. Strutture necessarie: un vettore \textit{id} che contiene gli identificatori delle componenti, in cui \textit{id}[u] è il numero che identifica la componente connessa a cui appartiene il nodo u. Se l'id di un nodo è uguale a 0, vuol dire che quel nodo deve essere ancora visitato.\
-\newpage
+ 
 \begin{lstlisting}[ caption= Componenti connesse (cc) con ricorsione]
 int[] cc(GRAPH G)
 	int[] id = new int[1...G.size()]
@@ -175,7 +175,7 @@ boolean hasCycleRec(GRAPH G, Node u, Node p, boolean[] visited)
 	return false
 \end{lstlisting}
 
-\newpage
+ 
 \subsection{Albero di copertura DFS}
 \textbf{Problema}: Dato un grafo G orientato creare un albero di copertura T e classificare gli archi presenti nel grafo.\
 \textbf{Soluzione}: Ogni volta che si esamina un arco da un nodo marcato ad uno non marcato,chiamiamo questo arco come arco dell'albero. Gli archi (u,v) non inclusi nell'albero (cioè non archi dell'albero) sono classificati in 3 categorie: 
@@ -212,7 +212,7 @@ dfs-schema(GRAPH G, Node u, int& time, int[] dt, int[] ft)
 \section{Grafo orientato aciclico(DAG): DFS}
 \textbf{Problema}: Dato un grafo G orientato verificare se è aciclico, cioè se non contiene cicli (con lunghezza maggiore uguale a 2). Restituire true se G contiene un cicli, false altrimenti.\
 \textbf{Soluzione}: La soluzione usata per i grafi non orientati non è sempre funzionante. Per risolvere il problema dobbiamo usare il concetto dell'albero di copertura DFS e i vari tipi di archi. Esiste un teorema che afferma che un grafo orientato è aciclico $\iff$ non esistono archi all'indietro nel grafo.
-\newpage
+ 
 
 \begin{lstlisting}[ caption= Grafo orientato aciclico (hasCycle)]
 boolean hasCycle(GRAPH G, Node u, int &time, int[] dt, int[] ft)
@@ -261,7 +261,7 @@ ts-dfs(GRAPH G, NODE u, boolean[] visited, STACK S)
 	\item Calcolare il grafo trasposto G$^{T}$ di G
 	\item Effettuare una DFS per il calcolo delle cc sul grafo trasposto e usando come ordine di visita l'ordinamento topologico. 
 \end{itemize} 
-\newpage
+ 
 \begin{lstlisting}[ caption= Calcolo delle componenti fortemente connesse]
 int[] scc(GRAPH G)
 	STACK S = topSort(G) 	
@@ -300,5 +300,5 @@ ccdfs(GRAPH G, int counter,NODE u, int[] id)
 \end{lstlisting}
 \textbf{Realtà}: Nella realtà viene usato l'algoritmo di Tarjan che richiede solo una visita e non due e non richiede la trasposizione del grafo.
 
-\newpage
+ 
 \end{document}

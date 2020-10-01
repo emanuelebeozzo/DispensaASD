@@ -31,7 +31,7 @@ Aggiungiamo due intervalli fittizi:
 	\item  Intervallo $n+1$: $a_{n+1} = + \infty$ 
 \end{itemize}
 Il problema iniziale corrisponde al problema $S[0,n+1]$ (ricordiamo che $S$ definisce gli intervalli che cominciano dopo $i$ - cioè dopo $- \infty$ e prima di $j$ - cioè prima di $+ \infty$).
-\newpage
+ 
 \begin{flushleft}
 \textbf{Teorema}
 \end{flushleft}
@@ -83,7 +83,7 @@ Sia $S[i...j]$ un sottoproblema non vuoto e $m$ l'intervallo di $S[i ...j]$ con 
 	\item il sottoproblema $S[i...m]$ è vuoto
 	\item $m$ è compreso in qualche soluzione ottima di $S[i ...j]$
 \end{itemize}
-\newpage
+ 
 \begin{flushleft}
 \textbf{Dimostrazione 1}
 \end{flushleft}
@@ -188,7 +188,7 @@ Possiamo fare meglio di così? Non se utilizziamo programmazione dinamica: provi
 \begin{center}
 Selezioniamo la moneta $j$ più grande tale per cui $t[j] \leq R$, e poi risolviamo il problema $S(R - t[j])$.
 \end{center}
-\newpage
+ 
 \begin{lstlisting}[caption=Resto (Greedy)]
 int[] resto(int[] t, int n, int R)
 	int[] x = new int[1...n]
@@ -270,7 +270,7 @@ Si vuole rappresentare i dati in modo efficiente impiegando il numero minore di 
 
 Nella seguente immagine vengono mostrate codifiche differenti: la codifica ASCII estesa, una basata sui caratteri effettivamente presenti all'interno del testo mentre l'ultima basata sulla frequenza con cui compaiono i caratteri. L'ultimo caso è il più interessante poiché utilizza meno bit per memorizzare il carattere che compare più di frequente: questo viene definito \textcolor{red}{codice a prefissi}.\\
 In un codice a prefisso, \textcolor{red}{nessun codice è un prefisso di un altro codice}. Ad esempio non è possibile mappare $a = 0$, $b = 1$, $c = 11$ poiché come interpreto poi 111111?
-\newpage
+ 
 \begin{flushleft}
 \textbf{Rappresentazione ad albero per la decodifica}
 \end{flushleft}
@@ -295,7 +295,7 @@ L'immagine precedente rappresenta un albero binario di decodifica che tuttavia h
 \caption{Albero Binario di Decodifica - Rimozione nodo}
 \end{figure}
 
-\newpage
+ 
 \begin{flushleft}
 \textbf{Definizione Formale del problema}
 \end{flushleft}
@@ -382,7 +382,7 @@ SET mst-generico(GRAPH G, int[] w)
 		A = A $\cup$ $\{[u, v]\}$
 	return A
 \end{lstlisting}
-\newpage
+ 
 \begin{flushleft}
 \textbf{Definizioni}
 \end{flushleft}
@@ -418,7 +418,7 @@ Sia $T$ un albero di copertura minimo che contiene $A$ e $(u, v)$ un arco legger
 	\item $(u, v) \in T$: allora $(u, v)$ è sicuro per $A$
 	\item $(u, v) \notin T$: trasformiamo $T$ in un albero $T'$ contenente $(u, v)$ e dimostriamo che $T'$ è un albero di copertura minimo
 \end{itemize}
-\newpage
+ 
 \begin{flushleft}
 \emph{Consideriamo la seguente situazione}:
 \end{flushleft}
@@ -471,7 +471,7 @@ Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A.
 \bigskip
 
 L'idea generale è di prendere una componente connessa $C$ nella foresta $G_{A}$ e un qualunque arco leggero $[u, v]$ che connette $C$ a qualche altra componente connessa di $G_{A}$ (di fatto anch'essa è un albero di peso minimo in quanto i suoi archi appartengono a un sottoinsieme contenuto in qualche albero di copertura di peso minimo). $[u, v]$ non può essere altro se un arco sicuro per $A$.
-\newpage
+ 
 
 \subsection{Algoritmo di Kruskal}
 \textbf{Idea}
@@ -525,7 +525,7 @@ Il tempo di esecuzione per l'algoritmo di Kruskal dipende dalla realizzazione de
 Complessivamente dunque il costo dell'algoritmo sarà dato da $\mathcal{O}(n + m \log m + m) = \mathcal{O}(m \log m)$\\
 Sappiamo però che $m$, il numero totale degli archi che compongono il nostro grafo, può essere al massimo pari a $n-1$ per ogni nodo nel caso di un grafo completo: questo significa un totale di $n^{2}$ archi. La complessità può essere sostanzialmente riscritta come $\mathcal{O}(m \log n^{2})$.\\
 Per le proprietà degli logaritmi possiamo però a questo punto portare all'esterno il 2 all'esponente che, diventando una costante, può essere tranquillamente ignorato e la complessità finale risulta dunque essere \textcolor{red}{$\mathcal{O}(m \log n)$}.
-\newpage
+ 
 \begin{flushleft}
 \textbf{Evoluzione algoritmo di Kruskal - Esempio}
 \end{flushleft}
@@ -540,7 +540,7 @@ Per le proprietà degli logaritmi possiamo però a questo punto portare all'este
 	\caption{Evoluzione algoritmo di Kruskal - Completo}
 \end{figure}
 Come si può osservare alcuni gli archi 6, 7 e 8 archi nell'immagine completa sono colorati in grigio in quanto sono stati estratti prima dell'arco 9 poiché di peso minore, tuttavia sono stati scartati in quanto l'operazione di find del Merge-Find Set ha restituito il medesimo rappresentante in quanto i due nodi facevano già parte dell'albero di copertura di peso minimo creato nel corso dell'algoritmo. Gli archi 10, 11 e 14 non sono stati analizzati invece poichè sono stati raggiunti gli $n-1$ archi che costruiscono l'albero.
-\newpage
+ 
 
 \subsection{Algoritmo di Prim}
 \textbf{Idea}
@@ -626,5 +626,5 @@ La scelta del tipo di struttura da utilizzare dipende dal tipo di grafo in quest
 \end{center}
 
 Nel caso dell'algoritmo di Prim gli archi che si vanno a considerare seguono come logica quello dell'ultimo arco aggiunto. Gli archi colorati di grigio (non tratteggiati) indicano quelli che sono stati analizzati dall'algoritmo e la cui priorità è stata modificata ma non è detto che saranno quelli che verranno usati per formare l'albero di copertura di peso minimo.
-\newpage
+ 
 \end{document}

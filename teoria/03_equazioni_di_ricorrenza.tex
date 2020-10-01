@@ -2,7 +2,7 @@
 \begin{document}
 
 \chapter{Equazioni di Ricorrenza}
-\section{Metodo dell'Albero di Ricorsione, o per Livelli}
+\section[Metodo dell'Albero di Ricorsione]{Metodo dell'Albero di Ricorsione, o per Livelli}
 Srotoliamo la ricorrenza in un albero i cui nodi rappresentano i costi ai vari livelli di ricorsione.\\
 \textbf{Primo Esempio}
 \begin{center}
@@ -77,7 +77,7 @@ $T(n)$ =  $\sum\limits_{i=0}^{\log{n-1}} {4^{i} \cdot n^{3}/2^{3i}} + 4^{\log{n}
 
 \textcolor{red}{$\leq$} $n^{3}$ $\sum\limits_{i=0}^{\textcolor{red}{\infty}} {(\frac{1}{2})^{i}} + n^{2}$ =
 $n^{3}$ $\cdot$ \textcolor{red}{$\frac{1}{1-\frac{1}{2}}$} + $n^{2}$ = $2n^{3} + n^2$
-\newpage
+
 \begin{flushleft}
 Abbiamo dimostrato che T(n) = $\mathcal{O}$($n^{3}$): non possiamo affermare che sia $\Theta(n) = n^{3}$ perchè abbiamo dimostrato solo un limite superiore.
 \end{flushleft}
@@ -153,7 +153,7 @@ $T(n) =  T(\lfloor n/2 \rfloor) + n \geq c( \lfloor n/2 \rfloor) + n \geq cn/2$ 
 \bigskip
 
 $cn/2 - 1 + n \stackrel{?}{\geq} cn \iff c/2 - 1/n + 1 \geq c \iff c \leq 2 - 2/n$
-\newpage
+
 \begin{flushleft}
 Mettendo assieme le due condizioni si ha che nel caso base (per $n \leq 1$) $c \leq 1$ e nel passo induttivo (per $n > 1$) $c \leq 2 - 2/n$ (quindi nel caso peggiore, cioè per $n = 2$, si ha $c \leq 1$): un valore $c$ che soddisfa entrambe le disequazioni per un $n \geq 1$ è $c = 1$. Questo vale ovviamente per $n = 1$ e quindi per $m = 1$.
 \end{flushleft}
@@ -359,5 +359,5 @@ Caso (1) poichè $a = 1$, il costo è polinomiale $\implies$ $T(n) = \Theta(n^{\
 $T(n) = T(n - 2) +  T(n - 1) + 1 \implies a = 2, \beta = 0$
 
 Caso (2) poichè $a = 2$, il costo è esponenziale $\implies$ $T(n) = \Theta(a^{n}n^{\beta}) = \Theta(2^n)$
-\newpage
+
 \end{document}

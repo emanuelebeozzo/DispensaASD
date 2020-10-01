@@ -42,7 +42,7 @@ int promessiSposiRec(string[] T, string[] P, int[][] DP, int i, int j)
 			DP[i][j] = promessiSposiRec(T, P, DP, i-1, j)
 	return DP[i][j]
 \end{lstlisting}
-\newpage
+ 
 La complessità dell'algoritmo è $\mathcal{O}(nm)$ mentre è possibile scrivere la sua equazione di ricorrenza nel seguente modo:
 \begin{equation*}
   	DP[i][j] =\begin{cases}
@@ -170,7 +170,7 @@ int 2partition(int[] V, int n)
 \end{lstlisting}
 La complessità di questa soluzione è ovviamente $\mathcal{O}(n)$.\\
 Nella soluzione con $k=3$ è sempre possibile creare un vettore $DP$: a differenza del caso precedente è necessario usare due cicli per fissare gli indici a cui verrà spezzato il vettore e applicare un ragionamento simile a quello fatto in precedenza
-\newpage
+ 
 \begin{lstlisting}[caption=3-partizioni]
 int 3partition(int[] V, int n)
 	int[] DP = new int[1...n]
@@ -222,7 +222,7 @@ int partitionRec(int[] V, int[] tot, int[][] DP, int i, int t)
 				DP[i][t] = min(DP[i][t], cost)
 		return DP[i][j]
 \end{lstlisting}
-\newpage
+ 
 \noindent
 Sia $DP[i][t]$ il minimo costo associato al sotto-problema di trovare la migliore t-partizione nel vettore $V[1...i]$. Il problema iniziale corrisponde a $DP[n][k]$ – ovvero trovare la migliore k-partizione in $V[1...i]$.
 \begin{equation*}
@@ -256,9 +256,14 @@ La complessità dell'algoritmo proposto è pari a $\mathcal{O}(n^{2})$ ed è pos
 \begin{equation*}
     DP[i][j]=\begin{cases}
         0 & \text{$A[i][j] = 0$}\\
-        1 & \text{$A[i][j] = 1 \land (i = 1 \lor j = 1)$} \\
-        min\{DP[i-1][j], DP[i][j-1], DP[i-1][j-1]\}+1 & \text{altrimenti}
+		1 & \text{$A[i][j] = 1 \land (i = 1 \lor j = 1)$} \\
+		\begin{aligned}
+			min\{ &
+			DP[i-1][j],\\ &
+			DP[i][j-1],\\ &
+			DP[i-1][j-1]\} + 1
+		\end{aligned} & \text{altrimenti}
     \end{cases}
 \end{equation*}
-\newpage
+ 
 \end{document}

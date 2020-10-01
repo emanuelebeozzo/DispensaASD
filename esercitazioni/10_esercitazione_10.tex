@@ -37,7 +37,7 @@ Il costo dell'algoritmo greedy proposto ha complessità $\mathcal{O}(n \log n)$ 
 	\item $m = S[i]$, quindi la stazione più vicina si trova in prima posizione e la soluzione ha cardinalità minima.
 	\item $m \neq S[i]$ allora è possibile riordinare gli elementi di $S$ in modo da scambiare $S[i]$ con $m$ e ottenere una permutazione della soluzione con cardinalità minima.
 \end{itemize}
-\newpage
+ 
 \begin{flushleft}
 \textbf{Batterie - DP}
 \end{flushleft}
@@ -134,7 +134,7 @@ Dato un grafo orientato $G= (V, E)$ e due vertici $s$, $t$ contenuti in $V$,desc
 L'esercizio proposto non è altro che una Rete di Flusso $G(V, E, c, s, t)$ dove i nodi $s$ e $t$ sono rispettivamente supersorgente e superpozzo.\\
 Visto che non è necessario aggiungere archi definiamo la funzione di capacità $c: V \times V \rightarrow R$  che associa ad ogni $(u, v) \in V$ il valore 1 in modo che venga percorso esattamente una e una sola volta.\\
 Il numero di cammini edge-disjoint sarà dato dal flusso massimo $\mid f^* \mid$ associato a tale rete di flusso che è limitato superiormente da $\mathcal{O}(n)$ perché ci sono al più $(n-1)$ archi che escono dalla sorgente (o che entrano nel pozzo).
-\newpage
+ 
 \textbf{Torri di Controllo}
 \begin{itemize}
     \item Si consideri un insieme di aerei $A=\{a_1,..., a_n\}$ e un insieme di torri di controllo $T=\{t_1,..., t_m\}$.
@@ -175,5 +175,5 @@ Supponendo di aver rappresentato il grafo con liste di adiacenza posso definire 
 Il limite superiore per Ford e Fulkerson è dunque, nel caso peggiore, $\mathcal{O}((\mid V \mid + \mid E \mid) \mid f^* \mid)$ = $\mathcal{O}((2 + n + m + n + m + nm) n)$ = $\mathcal{O}((2 + 2n + 2m + nm) n)$ = $\mathcal{O}(2n + 2n^2 + 2nm + n^2m)$ = $\mathcal{O}(n^2m)$. \\
 Mentre invece quello dettato dall'algoritmo di Edmonds e Karp vale: $\mathcal{O}(\mid V \mid (\mid E \mid)^2)$ = $\mathcal{O}((2 + n + m)(n + m + nm)^2)$ = $\mathcal{O}((2 + n + m)(n^2 + m^2 + n^2m^2 + 2nm + 2nm^2 + n^2m))$ = ... = $\mathcal{O}(n^2m^3)$.
 La complessità per il calcolo del flusso massimo è dunque $\mathcal{O}(min(n^2m, n^2m^3)) = \mathcal{O}(n^2m)$.
-\newpage
+ 
 \end{document}

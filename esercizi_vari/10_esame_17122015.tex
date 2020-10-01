@@ -38,5 +38,5 @@ int kSubsequenceRec(int[] V, int[][] DP, int i, int j, int k)
 	return DP[i][j]
 \end{lstlisting}
 L'algoritmo proposto per la soluzione ha complessità $\mathcal{O}(nk)$ dunque visto che $k \leq n$ possiamo dire con certezza essere sicuramente pari a $\mathcal{O}(n^{2})$. Ogni volta viene esaminata la possibilità di prendere un numero dell'insieme aumentando la nostra somma massima e diminuire di conseguenza il numero di valori in successione che è possibile prendere, oppure non prendere un determinato valore semplicemente passando al successivo e ricominciare da con la possibilità di prendere $k$ valori consecutivi. Tra queste due opzioni viene scelta quella che porta il massimo del guadagno. Nel caso in cui si siano già presi $k$ valori consecutivi l'unica opzione è quella di saltare il valore corrente ma riprendere dal successivo con la possibilità di prendere $k$ valori consecutivi.
-\newpage
+ 
 \end{document}

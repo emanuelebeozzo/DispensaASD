@@ -42,5 +42,5 @@ bool gapColoringRec(GRAPH G, SET S, int[] color, int u)
 	return false
 \end{lstlisting}
 L'idea generale è questa: si visita il grafo tramite un meccanismo di backtrack, avendo a disposizione un insieme $C$ di colori ancora non utilizzati, rispettando le regole di colorazione e restituendo \textbf{true} se si riescono ad utilizzare tutti i colori. La complessità è ovviamente \emph{superpolinomiale}; nel caso limite di un grafo completo,è necessario provare tutte le permutazioni dei nodi a partire da 1, che sono $\mathcal{O}(n!)$; ovviamente, il controllo sulla regole dei valori consecutivi causerà il pruning di tanti casi, ma la soluzione resta comunque superpolinomiale.
-\newpage
+ 
 \end{document}

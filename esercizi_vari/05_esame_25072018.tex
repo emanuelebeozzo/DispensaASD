@@ -38,7 +38,7 @@ Possiamo dunque descrivere i seguenti casi:
 Il risultato che stiamo cercando si troverà nella posizione $DP[n][k]$. 
 
 L'algoritmo proposto per la risoluzione del problema che sfrutta memoization è il seguente:
-\newpage
+ 
 \begin{lstlisting}[ caption = Conta i modi per formare la somma k]
 int countSum(int[] V, int k)
 	int[][] DP = new int[1...n][1...k]
@@ -63,5 +63,5 @@ int countRec(int[] V, int i, int j, int[][] DP)
 \end{lstlisting}
 La tabella ha dimensione $n \cdot k$, dove $k = \mathcal{O}(n)$. \\ 
 Per riempire ogni cella della tabella, sono necessari $\mathcal{O}(n^2)$ passi. \\ Quindi il costo totale è $\mathcal{O}(n^4)$. 
-\newpage
+ 
 \end{document}

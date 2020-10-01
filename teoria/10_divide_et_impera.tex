@@ -35,7 +35,7 @@ void QuickSort(ITEM A[], int start, int end)
 \section{Gap}
 \textbf{Problema}: Dato un vettore V di interi contenente n $\geq$ 2 elementi e tale che V[1] $<$ V[n], trovare la posizione di un gap nel vettore. In un vettore V contente almeno 2 interi, un gap è un indice i tale che 1 $<$ i $\leq$ n, tale che V[i-1] $<$ V[i]. Le condizioni poste nel problema di avere almeno 2 elementi e che valga V[1] $<$ V[n], garantiscono che ci sia almeno un gap.\\
 \textbf{Soluzione}: implementazione ricorsiva con tecnica divide-et-impera. Uso una funzione wrapper per avere a disposizione più parametri.
-\newpage
+ 
 \begin{lstlisting}[ caption=Gap]
 int gap(int[] V, int n)
 	return gapRect(V, 1, n)
@@ -50,5 +50,5 @@ int gapRec(int[] V, int i, int j)
 	else 
 		return gapRec(V, i, m)
 \end{lstlisting}
-\newpage
+ 
 \end{document}

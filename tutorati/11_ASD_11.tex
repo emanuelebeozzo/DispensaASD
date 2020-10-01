@@ -5,7 +5,7 @@
 \textbf{Valore unico}
 
 Dato un vettore ordinato di interi in cui gli elementi compaiono esattamente due volte tranne un elemento, trovare e restituire tale elemento che compare solo una volta. La soluzione più efficiente si basa su una ricerca binaria modificata. Usiamo indici tra 1 e n per il vettore. Se consideriamo l'elemento a metà del vettore, il suo indice sarà pari o dispari. Se tale indice è dispari e se il suo l'elemento successivo è uguale, vuol dire che tutti gli elementi prima sono presenti a coppie e quindi cerchiamo solo nella  metà successiva al mediano, altrimenti sappiamo che tutti gli elementi dopo sono coppie e dobbiamo cerca negli elementi precedenti. Il ragionamento è lo stesso per il caso di indice dell'elemento a metà pari e il test dell'elemento precedente.
-\newpage
+ 
 \begin{lstlisting}[ caption= Valore unico]
 int singleRec(ITEM[] A, int i, int j)
 	if i = j then
@@ -48,5 +48,5 @@ int zero(ITEM[] A, int n)
 	return zerorec(A, 1, n)
 \end{lstlisting}
 
-\newpage
+ 
 \end{document}

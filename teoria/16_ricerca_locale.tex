@@ -41,7 +41,7 @@ Il \textcolor{red}{valore di un flusso} $f$ è definito come:
   	|f| = \sum_{(s, v) \in E} f(s, v)
 \end{equation*}
 ovvero come la quantità di flusso uscente da $s$.
-\newpage
+ 
 \begin{flushleft}
 \textbf{Flusso massimo}:\\
 Data una rete G = $(V, E, s, t, c)$, trovare un flusso che abbia valore massimo fra tutti i flussi associabili alla rete.
@@ -241,5 +241,5 @@ Si costruisce una rete di flusso $G = (V, E, s, p, c)$:
 \end{itemize}
 Il flusso massimo della rete di flusso, definita precedentemente, darà come risultato il massimo sottoinsieme cercato. \\
 Complessità del problema:\\ il massimo flusso ottenibile in questa rete di flusso è dell'ordine di $\mathcal{O}(V)$, rappresentato dal numero di job presenti. Supponendo che il grafo G sia memorizzato con liste di adiacenza l'algoritmo di Ford-Fulkerson esegue in un tempo pari a $\mathcal{O}((V + E)V) = \mathcal{O}(VE)$ (nota bene: la complessità considerata è la seguente, e non quella definita da Edmonds e Karp in quanto superiore).
-\newpage
+ 
 \end{document}

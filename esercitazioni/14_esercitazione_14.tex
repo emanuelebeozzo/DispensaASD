@@ -34,7 +34,7 @@ L'algoritmo conta le occorrenze di 0 fino a quando non incontra un 1, a quel pun
 Sia $G= (V, E, s, t, c)$ una rete di flusso con valori interi. Si supponga di conoscere un flusso massimo in $G$, e si supponga che la capacità di un singolo arco $(u, v) \in E$ sia aumentata di una unità. Progettare un algoritmo per aggiornare il flusso massimo in tempo $\mathcal{O}(n+m)$ oppure $\mathcal{O}(n^{2})$.
 
 La soluzione al problema consiste nel modificare la versione dell'algoritmo maxFlow \hfill \break (\emph{Ford-Fulkerson}) presentato nella sezione di \emph{Ricerca Locale} della dispensa. Essendo che tra i vari dati vi è anche il flusso massimo attuale e la funzione di capacità è possibile ricavarsi la capacità residua tramite differenza e il cammino aumentante implementato tramite una visita bfs e una memorizzazione tramite liste di adiacenza.
-\newpage
+ 
 \begin{lstlisting}[caption=Aggiornamento Flusso Massimo]
 int mirrored(int[] V, int n)
 	% Rete Residua
@@ -95,7 +95,7 @@ Una scuola vuole organizzare un ballo di fine anno. Ci sono $n$ maschi e $m$ fem
 \centering
 \includegraphics[width=0.5\textwidth]{../img/Locale_4.jpg}
 \end{figure}
-\newpage
+ 
 \begin{flushleft}
 \textbf{Piscina}
 \end{flushleft}
@@ -146,5 +146,5 @@ Siete responsabile dei corsi di nuoto organizzati da una piscina pubblica. I cor
 \centering
 \includegraphics[width=0.7\textwidth]{../img/Locale_5.jpg}
 \end{figure}
-\newpage
+ 
 \end{document}

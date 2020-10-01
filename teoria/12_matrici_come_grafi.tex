@@ -72,7 +72,7 @@ int dfs(ITEM[][]A, int r, int j, int n)
     	return 0
 \end{lstlisting}
 L'esempio precedente riporta una semplice DFS con i principi illustrati in precedenza. Tale BFS ritorna un valore in base ad una certa condizione, la procedura ne ritorna il massimo in tutta la matrice quadrata vista come grafo.
-\newpage
+ 
 \section{Visita di una matrice in BFS}
 \begin{lstlisting}[caption=Schema BFS con Matrice quadra]
 int grid(int[][] M, int n)
@@ -99,5 +99,5 @@ int grid(int[][] M, int n)
 \end{lstlisting}
 L'esempio precedente è stato fatto seguendo il principio di un algoritmo di \textit{Erdos} sulla matrice. Questo schema è liberamente modificabile, si ricordi tuttavia di settare i nodi come visitati, in modo da non inserirli più volte nella coda, in questo esempio è stato utilizzato un vettore delle distanze, ma come prima è possibile modificare le celle vistitate in modo da rendere falsa la condizione di visita oppure utilizzare una matrice di appoggio di booleani che per ogni cella segna se è stata visitata o meno. Si noti infine come è molto importane controllare che le chiamate non abbiano superato gli indici della matrice.
 
-\newpage
+ 
 \end{document}

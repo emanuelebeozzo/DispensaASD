@@ -25,7 +25,7 @@ Se il valore da confrontare risulta essere minore del minimo dell'intervallo all
 \textbf{Alberobello}
 
 La funzione nicetree riceve in input un array di caratteri contenente la visita in pre ordine di un albero; sfruttando la visita in pre ordine è possibile fare un visita fittizia dell'albero tenendo conto delle caratteristiche di un alberobello: se troviamo una I all'interno dell'array di caratteri sappiamo che questo avrà per forza di cose un sottoalbero destro e uno sinistro e, per come è definita la visita in pre ordine di un albero, visiteremo per forza di cose prima tutto il suo sottoalbero sinistro. Invece quando incontreremo una L sapremo di essere arrivati in una foglia e quindi che dovremo risalire ed guardare il prossimo carattere. Visto che il problema richiede l'altezza dell'albero il caso base della nostra funzione sarà per l'appunto trovare una L e quindi risalire nella ricorsione ad un livello superiore, mentre ogni volta che troveremo una I dovremo prima chiamare la ricorsione sul sottoalbero sinistro (incrementando mano a mano l'altezza) e, solamente dopo essere certi di averla visitata completamente, fare la ricorsione sul sottoalbero destro.
-\newpage
+ 
 \begin{lstlisting}[caption=Alberobello]
 int nicetreeRec(ITEM[] S, int& pos, int n)
 	if pos $\leq$ n then

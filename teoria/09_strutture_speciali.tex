@@ -253,7 +253,7 @@ int find(int x)
 		\hline
 	\end{tabular}
 \end{center}
-\newpage
+ 
 \subsection[Componenti connesse dinamiche]{Esempio applicazione MFSET - Componenti connesse dinamiche}
 \textbf{Problema}: Questa struttura dati può essere trovare le componenti connesse di un grafo non orientato dinamico.
 
@@ -277,5 +277,5 @@ MFSET cc(Graph G)
 \bigskip
 
 \textbf{Complessità}: $\mathcal{O}(n) + m$ operazioni di merge(), che si solito ha costo $\mathcal{O}(1)$ costante e la complessità risultante sarebbe $\mathcal{O}(n+m)$. Questo algoritmo è preferibile rispetto a quello visto fino ad ora quando il grafo che dobbiamo gestire è dinamico (possiamo aggiungere anche su quel grafo) in quando con questa versione basterebbe eseguire una merge() sull'arco aggiunto, mentre con la versione classica bisognerebbe eseguire da capo l'algoritmo. 
-\newpage
+ 
 \end{document}

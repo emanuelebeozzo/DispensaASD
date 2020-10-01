@@ -5,7 +5,7 @@
 \textbf{Prima Occorrenza}
 
 Visto che il vettore di interi che viene passato è ordinato possiamo utilizzare la ricerca binaria in modo da trovare in complessità logaritmica la prima occorrenza di un numero \textit{v}. Di seguito viene proposta un'implementazione definita poco elegante ma che ci è venuta subito in mente: l'idea è quella di continuare la ricerca dicotomica nella parte sinistra dell'array quando si trova l'elemento cercato (con l'accortezza di includere all'interno di questo array anche l'elemento appena analizzato - nel caso in cui fosse effettivamente la prima occorrenza) e restituire l'indice soltanto quando si analizza uno e un solo elemento.
-\newpage
+ 
 \begin{lstlisting}[caption=Prima Occorrenza]
 int binaryFirst(int[] A, int start, int end, int v)
 	if start $==$ end then

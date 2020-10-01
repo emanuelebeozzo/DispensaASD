@@ -221,7 +221,7 @@ Ogni volta che una scelta viene effettuata viene registrata all'interno del vett
 Viene contato il numero di elementi compresi nella soluzione attraverso la funzione \emph{count}: se abbiamo terminato di analizzare l'intero insieme e la dimensione è pari a $k$ allora processiamo la soluzione, altrimenti se abbiamo terminato l'analisi e la cardinalità di $S$ è superiore a $k$ la scartiamo, se invece abbiamo ancora elementi da scansionare proseguiamo con le scelte. \\
 Possiamo, invece che contare ogni volta il numero di elementi inseriti, utilizzare una variabile missing, la quale sarà inizializzata a $k$ ed identifica il numero di elementi che sono necessari per completare la soluzione corrente. \\ 
 Come nella soluzione precedente, se terminata l'analisi dell'insieme $missing$ è pari a $0$ allora processiamo la soluzione (abbiamo inserito esattamente $k$ elementi) altrimenti la scartiamo, se mancano dei numeri da scandire allora effettueremo la scelta decrementando $missing$ di $1$, se abbiamo deciso che l'elemento $i$-esimo è compreso in $S$, oppure lasciandolo invariato, se si è deciso di non comprenderlo nella soluzione. 
-\newpage
+ 
 \begin{flushleft}
 Una maniera più intelligente per implementare la procedura \emph{kssRec} è la seguente:
 \end{flushleft}
@@ -261,7 +261,7 @@ kssRec(int n, int missing, int[] S, int i)
 \end{lstlisting}
 È 	possibile ottenere un \emph{pruning} totale facendo un ulteriore accorgimento nel caso in cui il $missing > 0$. \\
 Se abbiamo altri valori da analizzare e con gli elementi rimasti non siamo in grado, nemmeno scegliendoli tutti, di riempire $S$ con esattamente $k$ elementi allora è possibile scartare la soluzione corrente ($n - (i - 1) < missing$).  
-\newpage
+ 
  \begin{lstlisting}[ caption= K-subsets pruning totale]
 kSubsets(int n, int k)
 	int[] S = new int[1 ... n]
@@ -602,5 +602,5 @@ La complessità è $\mathcal{O}(n \log n)$ dato da:
 	\item La rimozione di punti con angolo uguale richiede $\mathcal{O}(n)$
 	\item Ogni punto viene aggiunto/rimosso al massimo una volta (il costo è dunque $\mathcal{O}(n)$)
 \end{itemize}
-\newpage
+ 
 \end{document}

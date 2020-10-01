@@ -29,7 +29,7 @@ Proponiamo 3 soluzioni al problema:
 	\item domino2(): soluzione con programmazione dinamica che memorizza il risultato in una tabella DP. L'approccio è bottom-up cioè si parte risolvendo i casi base e risalendo si risolvono problemi sempre più grandi. La tabella $DP$ in questo caso memorizza il risultato per ogni sottoproblema con dimensione tra 0 e $n$.
 	\item domino3(): la soluzione proposta è uguale alla precedente con la differenza che l'uso di memoria è ridotto salvando solo la soluzione degli ultimi 3 sottoproblemi. 
 \end{itemize}
-\newpage
+ 
 \noindent
 \textbf{Implementazione:}
 \begin{lstlisting}[ caption= Domino/Fibonacci versione $\mathcal{O}(2^n)$]
@@ -82,7 +82,7 @@ Il costo per le varie versioni è il seguente:
 \textbf{Problema:} Hateville è un villaggio particolare, composto da $n$ case, numerate da 1 a $n$ lungo una singola strada. Ad Hateville ognuno odia i propri vicini della porta accanto, da entrambi i lati. Quindi, il vicino i odia i vicini $i-1$ e $i+1$ (se esistenti).
 Hateville vuole organizzare una sagra e vi ha affidato il compito di
 raccogliere i fondi. Ogni abitante i ha intenzione di donare una quantità $D[i]$, ma non intende partecipare ad una raccolta fondi a cui partecipano uno o entrambi i propri vicini. Scrivere un algoritmo che restituisca il sottoinsieme di indici S  $\subseteq$ $\{$1, ..., n $\}$ tale per cui la donazione totale T = $\sum\limits_{i \in S} {D[i]}$ è massimale. 
-\newpage
+ 
 \begin{flushleft}
 \textbf{Soluzione:} Definiamo il problema in questi termini: 
 \end{flushleft}
@@ -183,7 +183,7 @@ Considerando i vari casi (prendere o meno l'ultimo elemento e i vari casi base) 
     	max(DP[i -1][c-w[i]]+p[i], DP[i-1][c]) & \text{$altrimenti$}
   	\end{cases}
 \end{equation*}
-\newpage
+ 
 \noindent
 \textbf{Implementazione:}
 \begin{lstlisting}[ caption= Knapsack versione $\mathcal{O}(nC)$ con programmazione dinamica]
@@ -213,7 +213,7 @@ Passi per utilizzare la memoization:
 	\item Ogni volta che si deve risolvere un sottoproblema, si controlla nella tabella se è già stato risolto precedentemente: in caso affermativo si usa il risultato della tabella, altrimenti si calcola il risultato e lo si memorizza
 	\item Ogni sottoproblema viene calcolato una sola volta e memorizzato come nella versione bottom-up
 \end{itemize}
-\newpage
+ 
 \subsection{Zaino (Knapsack)}
 \textbf{Problema:} Il problema è lo stesso visto per la programmazione dinamica. \\
 \textbf{Implementazione:}
@@ -255,7 +255,7 @@ int knapsackRec(int[] w, int[] p, int i, int c, Hash DP)
 	return DP.lookup((i, c))
 \end{lstlisting}
 \textbf{Complessità:} La complessità dell'algoritmo è $\mathcal{O}(nC)$, quindi non sembrerebbe esserci nessun vantaggio se non la semplicità di convertire codice ricorsivo in memoization. Utilizzando l'hash al posto di una matrice per DP non è necessario fare l'inizializzazione e il costo di esecuzione diventa $\mathcal{O}( min (2^{n}, nC))$.
-\newpage
+ 
 \subsection{Zaino (Knapsack) senza limiti}
 \textbf{Problema:} Il problema è lo stesso visto nei casi precedenti con la modifica che non si pone limite al numero di volte che un oggetto può essere selezionato. Come modificare dunque la formula ricorsiva in questo caso? Potrebbe venirci in mente una soluzione basata sulla programmazione greedy ma per come è espresso il problema siamo certi del fatto che esista una soluzione basata su programmazione dinamica.
 
@@ -353,7 +353,7 @@ LIST solution(int[] w, int c, int[] pos)
 		return L
 \end{lstlisting}
 Quello che viene restituito dalla funzione $solution()$ è una lista di indici dove i suoi elementi possono comparire più di una volta (multinsieme). Notiamo che se $c=0$ allora lo zaino è stato riempito perfettamente mentre per $pos[c]<0$ allora lo zaino non può essere riempito interamente (rimarrà della capacità residua ma nessun oggetto in grado di riempirlo perfettamente).
-\newpage
+ 
 
 \section{Altri esempi di programmazione dinamica} 
 \subsection{Sottosequenza comune massimale}
@@ -423,7 +423,7 @@ $LCS(ALBERTO, PIERO)$ = $longest (LCS(ALBER, PIER), LCS(ALBERT, PIE))$
 
 La più lunga sottosequenza tra $T(i)$ e $U(j)$ quando uno dei due è vuoto è $LCS(T(i), U(0))$ = $\emptyset$
 
-\newpage
+ 
 
 \textbf{Formula Completa}
 
@@ -546,7 +546,7 @@ Sia $DP[0...m][0...n]$ una tabella di programmazione dinamica tale che $DP[i][j]
   	\end{cases}
 \end{equation*}
 dove $d = iif(P[i] == T[j]$, 0 , 1).
-\newpage
+ 
 \begin{flushleft}
 La formula tratta i vari casi: se $P[i]=T[j]$ avanza su entrambi i caratteri, se $P[i] \neq T[j]$ avanza aggiungi 1 e trova la soluzione minima tra avanzare sul pattern (inserimento), avanzare sul testo (cancellazione) e avanzare su entrambi i caratteri (sostituzione).
 \end{flushleft}
@@ -601,7 +601,7 @@ Definizione ricorsiva:
     	min_{i \leq k < j}(DP[i][k]+DP[k+1][j]+c_{i-1} \cdot c_{k} \cdot c_{j})  & \text{$i < j$}  
   	\end{cases}
 \end{equation*}
-\newpage
+ 
 \begin{lstlisting}[caption= Calcolo prodotto di matrici e stampa parentesizzazione ottima usando matrice last]
 %ricostruzione della soluzione (stampa prodotto)
 printPar(int[][] last , int i, int j)
@@ -655,7 +655,7 @@ computePar(int[] c, int n)
 	return DP[1][n]
 \end{lstlisting}
 \textbf{Costo computazionale:} Il costo di $computePar()$ è pari a $\mathcal{O}(n^{3})$.
-\newpage
+ 
 
 \subsection{Insieme indipendente di intervalli pesati}
 \label{sec:indSet}
@@ -682,7 +682,7 @@ Definiamo la ricorrenza:
   	\end{cases}
 \end{equation*}
 dove $DP[i]$ contiene il profitto massimo ottenibile con i primi i intervalli.
-\newpage
+ 
 \noindent
 \textbf{Implementazione:}
 \begin{lstlisting}[caption= Insieme indipendente di intervalli pesati]
@@ -726,5 +726,5 @@ In totale il costo di $maxinterval()$ è pari a $\mathcal{O}(n \log n)$ in quant
 	\item Calcolare il valore di una soluzione ottima "bottom-up" (programmazione dinamica) / "top-down" (memoization)
 	\item Ricostruzione di una soluzione ottima
 \end{itemize}
-\newpage
+ 
 \end{document}

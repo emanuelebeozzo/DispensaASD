@@ -73,7 +73,7 @@ Dove d è il costo dell'InsertionSort visto che verrà usato quello per riordina
 A questo punto è possibile applicare il \textit{Master Theorem} per ricavare la forma chiusa dell'equazione di ricorrenza come segue: \\
 $a = 3$, $b = \frac{3}{2}$, $\beta = 0$, , $\alpha = \log_b(a) = \log_\frac{3}{2}(3)$. \\
 Possiamo osservare che $\alpha > \beta$, dunque vale che: $T(n) = \Theta(n^{\log_{\frac{3}{2}}(3)})$. \\ Questa complessità sarà sufficientemente bassa per finire sul libro del nostro amato Montresor? La risposta putroppo è no; il professor Sortino dovrà impegnarsi di più se vuole avere questo grande onore. Si può notare infatti che $\log_{\frac{3}{2}}(3)$ è un valore compreso tra 2 e 3 in quanto: $\frac{3}{2}^2 = \frac{9}{4} < 3$ $\frac{3}{2}^3 = \frac{27}{8} >3 $. \\ La ricorrenza ricavata è quindi $\Theta(n^2) < \Theta(n^{\log_{\frac{3}{2}}(3)}) < \Theta(n^3)$ che è peggiore di tutti gli algoritmi di ordinamento visti fino ad ora, fatta eccezione per il bogosort.
-\newpage
+ 
 \textbf{Alberi - Indovina l'albero}\\
 Gli ordini di visita di un albero binario di 9 nodi sono i seguenti:
 
@@ -185,5 +185,5 @@ int monotone(TREE T)
 	return max(maxl, maxr)
 \end{lstlisting}
 
-\newpage
+ 
 \end{document}
