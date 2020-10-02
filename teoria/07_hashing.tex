@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\section{Hashing}
+\chapter{Hashing}
 \textbf{Descrizione}: L'hash è la struttura dati più efficiente che implementa il concetto di dizionario: consente di memorizzare insiemi dinamici di coppie $<$chiave, valore$>$. Le coppie vengono indicizzate in base alla chiave. La struttura si basa su una funzione di hash che mappa ogni chiave k dell'insieme universo in un intero h(k)
 e un array  che verrà usato per salvare i dati. Quando due o più chiavi hanno lo stesso valore hash, diciamo che è avvenuta una collisione. Esistono due principali metodi di gestione delle collisioni: 
 \begin{itemize}
@@ -9,7 +9,7 @@ e un array  che verrà usato per salvare i dati. Quando due o più chiavi hanno 
  	\item Indirizzamento aperto: tutte le chiavi vengono memorizzate nel vettore stesso, senza strutture aggiuntive. Se lo slot scelto per l'inserimento p già utilizzato, se ne cerca uno "alternativo". Esistono diverse tecniche di ricerca con indirizzamento aperto: ispezione lineare (agglomerazione primaria), ispezione quadratica e doppio hashing. 
 \end{itemize}
 
-\subsection{Doppio hashing}
+\section{Doppio hashing}
 \textbf{Descrizione}: Usa una funzione del tipo: H(k,i) = (H$_{1}$(k) + i $\cdot$ H$_{2}$(k)) mod m, con m lunghezza del vettore e H$_{1}$, H$_{2}$ funzioni di hash.H$_{1}$ fornisce la prima ispezione, H$_{2}$ le ispezioni successive. Un doppio hash permette le seguenti operazioni: inserimento, cancellazione (usando uno speciale valore deleted) e ricerca. 
 \begin{lstlisting}[ caption= Hashing Doppio: struttura]
 % Definizione struttura
@@ -18,7 +18,7 @@ HASH
 	ITEM[] V		% Tabella dei valori
 	int m			% Dimensione della tabella
 \end{lstlisting}
-\newpage
+ 
 \begin{lstlisting}[ caption= Hashing Doppio: specifica]
 HASH Hash(int dim)
 	HASH t = new HASH
@@ -63,5 +63,5 @@ remove(ITEM k)
 		K[i] = deleted
 \end{lstlisting}
 
-\newpage
+ 
 \end{document}

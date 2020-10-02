@@ -1,8 +1,8 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\section{Backtracking}
-\subsection{Introduzione}
+\chapter{Backtracking}
+\section{Introduzione}
 In alcuni problemi è richiesto oppure è necessario analizzare l'intero spazio delle soluzioni ammissibili, in particolare possiamo usufruire della tecnica di backtracking ogni volta in cui ci è richiesto di:
 \begin{itemize}
 	\item elencare \textcolor{red}{tutte} le soluzioni \textcolor{red}{\emph{ammissibili}} (problemi di enumerazione)
@@ -11,7 +11,8 @@ In alcuni problemi è richiesto oppure è necessario analizzare l'intero spazio 
 	\item trovare \textcolor{red}{una} delle soluzioni \textcolor{red}{\emph{ammissibili}} migliori rispetto ad un certo criterio di valutazione (problemi di ottimizzazione)
 \end{itemize}
 Analizzare tutte le possibili soluzioni è ovviamente molto costoso in quanto lo spazio delle possibili soluzioni può avere dimensione superpolinomiale, anche se a volte è l'unica soluzione deterministica possibile. Fortunatamente, in alcuni casi, è possibile ridurre lo spazio delle soluzioni effettivamente analizzate, nonostante la complessità computazionale rimanga di fatto invariata. 
-\subsection{Tecnica di backtracking}
+
+\section{Tecnica di backtracking}
 Durante il corso abbiamo visto due possibili modalità per implementare la tecnica di backtracking: 
 \begin{itemize}
 	\item La \textbf{ricorsione}, un metodo sistematico per esplorare lo spazio di ricerca salvando le scelte fatte fino ad ora grazie ad una struttura dati passata come parametro alla procedura
@@ -22,8 +23,8 @@ Durante il corso abbiamo visto due possibili modalità per implementare la tecni
 	\item Una soluzione viene rappresentata come un vettore di scelte $S[1...n]$ (ovviamente in base al problema da risolvere è possibile utilizzare una struttura dati differente)
 	\item Il contenuto degli elementi $S[i]$ è preso da un insieme di scelte $C$ dipendente dal problema
 \end{itemize}
-\newpage
-\subsection{Enumerazione}
+
+\section{Enumerazione}
 Lo schema parziale per la risoluzione di problemi di enumerazione potrebbe essere il seguente: 
  \begin{lstlisting}[ caption= Schema generale risoluzione problema di enumerazione]
 enumeration($\langle$dati del problema$\rangle$, ITEM[] S, int i, $\langle$dati parziali$\rangle$)
@@ -70,7 +71,8 @@ L'esporazione dello spazio delle soluzioni, ammissibili e non, da origine a quel
 	\includegraphics{../img/backtracking_albero_delle_decisioni}
 \end{center}
 Grazie ad alcuni accorgimenti è possibile evitare di attraversare i rami dell'albero delle decisioni che sicuramente porteranno a soluzioni non ammissibili, questa tecnica è detta \emph{potatura} o \emph{pruning}.
-\subsection{Sottoinsiemi}
+
+\section{Sottoinsiemi}
 Un esempio di problema di enumerazione potrebbe essere quello di elencare tutti i possibili sottoinsiemi dell'insieme $\{ 1, ..., n\}$
  \begin{lstlisting}[ caption= Schema generale enumerazione subsets]
  subsets(int n)
@@ -110,7 +112,8 @@ Si osserva che la ricorsione termina quando $i > n$, ovvero sono stati analizzat
 		print "}"
 \end{lstlisting}
 La complessità rimane invariata: $\Theta(n \cdot 2^n)$. 
-\subsection{Permutazioni}
+
+\section{Permutazioni}
 Un altro esempio di problema di enumerazione è quello che prevede di stampare tutte le permutazioni di un insieme $A$.
  \begin{lstlisting}[ caption= Schema generale permutazioni]
  permutations(SET A)
@@ -165,7 +168,8 @@ In questo caso si ha:
 	\item $2n$ swap per ogni permutazione
 	\item Il costo totale è dunque: $\Theta(n \cdot n!)$
 \end{itemize}
-\subsection{Enumerazione conclusione}
+
+\section{Enumerazione conclusione}
 Lo schema conclusivo per tutti i problemi di enumerazione, da adattare al caso specifico, è il seguente:
  \begin{lstlisting}[ caption= Schema generale enumerazione completo]
 enumeration($\langle$dati del problema$\rangle$, ITEM[] S, int i, $\langle$dati parziali$\rangle$)
@@ -185,7 +189,8 @@ enumeration($\langle$dati del problema$\rangle$, ITEM[] S, int i, $\langle$dati 
 			% Chiamata ricorsiva
 			enumeration($\langle$dati problema$\rangle$, S, i + 1, $\langle$dati parziali$\rangle$)
 \end{lstlisting}
-\subsection{Sottoinsiemi di k elementi}
+
+\section{Sottoinsiemi di k elementi}
 Un ulteriore problema di enumerazione è quello di elencare tutti i possibili insiemi di $k$ elementi di un insieme $\{1, ..., n\}$. \\
 Possiamo affrontarlo utilizzando lo schema introdotto poc'anzi.
  \begin{lstlisting}[ caption= Sottoinsiemi di k elementi inefficiente]
@@ -216,7 +221,7 @@ Ogni volta che una scelta viene effettuata viene registrata all'interno del vett
 Viene contato il numero di elementi compresi nella soluzione attraverso la funzione \emph{count}: se abbiamo terminato di analizzare l'intero insieme e la dimensione è pari a $k$ allora processiamo la soluzione, altrimenti se abbiamo terminato l'analisi e la cardinalità di $S$ è superiore a $k$ la scartiamo, se invece abbiamo ancora elementi da scansionare proseguiamo con le scelte. \\
 Possiamo, invece che contare ogni volta il numero di elementi inseriti, utilizzare una variabile missing, la quale sarà inizializzata a $k$ ed identifica il numero di elementi che sono necessari per completare la soluzione corrente. \\ 
 Come nella soluzione precedente, se terminata l'analisi dell'insieme $missing$ è pari a $0$ allora processiamo la soluzione (abbiamo inserito esattamente $k$ elementi) altrimenti la scartiamo, se mancano dei numeri da scandire allora effettueremo la scelta decrementando $missing$ di $1$, se abbiamo deciso che l'elemento $i$-esimo è compreso in $S$, oppure lasciandolo invariato, se si è deciso di non comprenderlo nella soluzione. 
-\newpage
+ 
 \begin{flushleft}
 Una maniera più intelligente per implementare la procedura \emph{kssRec} è la seguente:
 \end{flushleft}
@@ -256,7 +261,7 @@ kssRec(int n, int missing, int[] S, int i)
 \end{lstlisting}
 È 	possibile ottenere un \emph{pruning} totale facendo un ulteriore accorgimento nel caso in cui il $missing > 0$. \\
 Se abbiamo altri valori da analizzare e con gli elementi rimasti non siamo in grado, nemmeno scegliendoli tutti, di riempire $S$ con esattamente $k$ elementi allora è possibile scartare la soluzione corrente ($n - (i - 1) < missing$).  
-\newpage
+ 
  \begin{lstlisting}[ caption= K-subsets pruning totale]
 kSubsets(int n, int k)
 	int[] S = new int[1 ... n]
@@ -286,7 +291,8 @@ kssRec(int n, int missing, int[] S, int i)
 			S[i] = c
 			kssRec(n, missing - c, S, i + 1)
 \end{lstlisting}
-\subsection{Enumerazione con interruzione alla prima soluzione}
+
+\section{Enumerazione con interruzione alla prima soluzione}
 Ci sono dei problemi che non richiedono esplicitamente di analizzare l'intero spazio delle soluzioni, ma solamente di avere una soluzione ammissibile al problema. In questi casi è possibile utilizzare backtrack ma con una condizione di arresto al primo risultato accettabile. Uno schema per implementare quanto detto è il seguente:
  \begin{lstlisting}[ caption= Schema generale risoluzione problema di enumerazione con interruzione]
 boolean enumeration($\langle$dati del problema$\rangle$, ITEM[] S, int i, $\langle$dati parziali$\rangle$)
@@ -304,7 +310,8 @@ boolean enumeration($\langle$dati del problema$\rangle$, ITEM[] S, int i, $\lang
 				return true
 		return false
 \end{lstlisting}
-\subsection{Subset sum backtracking}
+
+\section{Subset sum backtracking}
 Il problema è il seguente: Dati un vettore $A$ contenente $n$ interi positivi ed un intero positivo $k$, esiste un sotto insieme $S \subseteq \{1. . . n\}$ tale che $\sum_{i \in S} a[i] = k$? \\
 Un modo per risolvere il problema, senza usare programmazione dinamica, è quello di usare una tecnica di backtracking che risolve il problema con complessità $\mathcal{O}(2^n)$. Tuttavia non siamo interessati a tutte le possibili soluzioni, ma solamente ad una, è quindi sufficiente utilizzare lo schema di risoluzione visto precedentemente in modo da fermare l'esecuzione quando si trova la prima soluzione valida:
  \begin{lstlisting}[ caption= Subset sum]
@@ -327,7 +334,8 @@ boolean ssRec(int[] A, int n, int missing, int[] S, int i)
 \end{lstlisting}
 Anche in questo caso come nel problema dei \emph{Subsets di k elementi}, usiamo una variabile $missing$ che indica il valore mancante da sommare per ottenere il valore $k$ richiesto. \\
 Se $missing = 0$ significa che abbiamo trovato una soluzione valida, dove la somma degli elementi da come risultato $k$ e quindi terminiamo la procedura, se abbiamo terminato gli elementi disponibili da scegliere e $missing > 0$ oppure nel caso in cui $missing < 0$ la soluzione trovata non è ammissibile, mentre se abbiamo ancora valori da scandire e $missing > 0$ allora procediamo con le scelte.
-\subsection{Il problema delle otto regine}
+
+\section{Il problema delle otto regine}
 Anche in questo caso siamo interessati alla prima soluzione valida e quindi utilizziamo un approccio basato su backtrack come per il precedente. 
 Nello specifico il problema è il seguente: \\
 Dobbiamo posizionare $n$ regine in una scacchiera $n \times n$, in modo tale che nessuna regina ne "minacci" un'altra, ovvero che non ci siano regine che stiano sulla stessa riga, colonna e diagonale di un'altra.\\
@@ -373,8 +381,8 @@ Il problema delle $n$ regine è molto costoso, anche se abbiamo lavorato parecch
 La \emph{Minimum-conflicts heuristic} per il problema delle $n$ è così definita: \\
 Si parte da una soluzione iniziale "ragionevolmente buona", e si muove il pezzo con il più grande numero di conflitti nella casella della stessa colonna che genera il numero minimo di conflitti. Si ripete fino a quando non ci sono più pezzi da muovere. \\
 Questo algoritmo può essere eseguito in tempo lineare, ma come accennato poc'anzi, non garantisce che il risultato sia corretto.
-\newpage
-\subsection{Sudoku}
+
+\section{Sudoku}
 Il problema del Sudoku non ha bisogno di presentazioni. \\
 Come è intuibile (è nella sezione di backtracking) esiste una soluzione basata su backtrack per completare il gioco. \\
 La soluzione proposta è la seguente: 
@@ -426,7 +434,8 @@ boolean check(int[][] S, int x, int y, int c)
 \end{lstlisting}
 Questo algoritmo termina quando si sono posizionati tutti i valori $i == 81$ (il Sudoku è una tabella formata da 9 tabelle $3 \times 3$). 
 Per ogni decisione viene lanciata la procedura \emph{moves} che ritorna le sole mosse che non generano conflitti, cioè quelle per cui tale valore non sia già presente su una riga, su una colonna della griglia oppure all'interno della stessa tabella. \\ Se non sono più disponibili mosse che non generino conflitti si setta la vecchia mossa e si torna alla scelta precedente scegliendo un nuovo valore.
-\subsection{Knight tour}
+
+\section{Knight tour}
 Si consideri ancora una scacchiera $n \times n$; lo scopo è trovare un "giro di cavallo", ovvero un percorso di mosse valide del cavallo in modo che ogni casella venga visitata al più una volta.
 \begin{center}
 	\includegraphics{../img/backtracking_knight_tour}
@@ -477,7 +486,8 @@ Se non rimane alcuna scelta valida si ritorna sui propri passi effettuando una s
 	\item È un esempio del più generale "problema del cammino hamiltoniano", per il quale non esistono soluzioni polinomiali
 	\item Per questo particolare problema, tuttavia, esistono degli algoritmi di costo lineare nel numero di caselle, basati su divide-impera
 \end{itemize}
-\subsection{Inviluppo convesso}
+
+\section{Inviluppo convesso}
 \textbf{Definizioni:}
 \begin{itemize}
 	\item \textbf{Poligono convesso}: un poligono nel piano è \textcolor{red}{convesso} se ogni segmento di retta che congiunge due punti del poligono sta interamente nel poligono stesso (bordo incluso).
@@ -504,7 +514,8 @@ boolean sameSide(POINT $p_1$, POINT $p_2$, POINT $p$, POINT $q$)
 	return $((d_x \cdot d_{y1} - d_y \cdot d_{x1}) \cdot (d_x \cdot d_{y_2} - d_y \cdot d_{x_2}) \geq 0)$
 \end{lstlisting}
 Un algoritmo, più efficiente del primo approccio proposto, per trovare l'invippo convesso è quello di \emph{Jarvis} detto algoritmo di \emph{Gift Packing} la cui complessità è $\mathcal{O}(n \cdot h)$.
-\subsection{Algoritmo di Jarvis}
+
+\section{Algoritmo di Jarvis}
 Descriviamo il comportamento di questo algoritmo nelle tre macro aree che lo compongono:
 \begin{itemize}
 \item Inserimento dei primi punti nell'inviluppo convesso, i punti \{0, 1\}
@@ -530,7 +541,8 @@ Schema riassuntivo del funzionamento dell'algoritmo di Jarvis:
 \begin{center}
 	\includegraphics{../img/backtracking_inviluppo_convesso_jarvis}
 \end{center}
-\subsection{Algoritmo di Graham}
+
+\section{Algoritmo di Graham}
 Un altro algoritmo per il calcolo dell'inviluppo convesso è l'algoritmo di Graham, il quale fa utilizzo di backtracking iterativo.
 Il primo passo consiste nell'ordinare i punti seguendo le seguenti direttive:
 \begin{itemize}
@@ -590,5 +602,5 @@ La complessità è $\mathcal{O}(n \log n)$ dato da:
 	\item La rimozione di punti con angolo uguale richiede $\mathcal{O}(n)$
 	\item Ogni punto viene aggiunto/rimosso al massimo una volta (il costo è dunque $\mathcal{O}(n)$)
 \end{itemize}
-\newpage
+ 
 \end{document}

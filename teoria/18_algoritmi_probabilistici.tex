@@ -1,15 +1,15 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\section{Algoritmi probabilistici}
-\subsection{Introduzione}
+\chapter{Algoritmi probabilistici}
+\section{Introduzione}
 Gli algoritmi probabilistici, prendono tale nome perché la casualità è un fattore determinante nella loro esecuzione. \\
 Esistono algoritmi probabilistici di due diverse tipologie:
 \begin{itemize}
 	\item Algoritmi la cui correttezza è probabilistica (\textcolor{red}{Montecarlo})
 	\item Algoritmi corretti, il cui tempo di funzionamento è probabilistico (\textcolor{red}{Las Vegas})
 \end{itemize}
-\subsection{Test di primalità}
+\section{Test di primalità}
 Ci chiediamo quale potrebbe essere un algoritmo per determinare se un numero $n$ in input risulta primo oppure no. 
 Un approccio basilare al problema potrebbe essere quello di considerare tutti i valori $i$ da 2 a $\lfloor \sqrt{n} \rfloor$, se uno di questi valori divide perfettamente $n$, ovvero il modulo della divisione $n/i$ da resto $0$, allora il numero $n$ non può essere primo. \\
 Se non siamo in grado di trovare un divisore esatto di $n$ durante questa analisi allora il numero considerato è sicuramente primo. 
@@ -76,7 +76,7 @@ Se \textcolor{red}{esiste} un intero $b$, con $2 \leq b < n$ tale che \textcolor
 allora n è composto (quindi non primo). \\
 Rabin ha dimostrato che se il numero $n$ è composto, allora ci sono almeno $3/4 (n - 1)$ testimoni in $[2, ..., n - 1]$. Un \emph{testimone} è un valore che attesta la non primalità di un numero, ossia che rende vera almeno una delle due affermazioni della contrapposizione. Il test per verificare se il valore è composto ha probabilità inferiore a $1/4$ di rispondere erroneamente. L'algoritmo sarà ancora non deterministico data la presenza di \emph{strong liar}, dei valori validano la contrapposizione nonostante il numero analizzato non sia primo. \\
 L'implementazione di questo algoritmo è la seguente:
-\newpage
+ 
  \begin{lstlisting}[ caption= Numero primo Miller-Rabin (Montecarlo)]
  boolean isPrimeMillerRabin(int n, int k)
  	int m, v = { si prende la rappresentazione di n - 1 in binario, esso sara' composto da un valore m (in binario) seguito da un numero v di zeri}
@@ -110,7 +110,7 @@ Tale algoritmo ha una complessità computazionale particolare che non discuterem
  Esso ha una probabilità di errore del $(1/4)^k$ dove $k$ è il numero di tentativi con cui viene ricercato il testimone. \\
  Nonostante non sia deterministico è comunque utilizzato dato il costo computazionale relativamente basso. \\
 Come si può intuire tutti gli algoritmi proposti fino ad ora, fatta eccezione per la prima soluzione deterministica, sono algoritmi della categoria \emph{Montecarlo} in quanto la loro correttezza è probabilistica, ovvero siamo sempre sicuri di non essere in presenza di numeri primi se viene ritornato \textbf{false}, non possiamo dire di esserlo se viene restituito \textbf{true}.
-\subsection{Algoritmi probabilistici: statistica}
+\section{Algoritmi probabilistici: statistica}
 I casi analizzati sono i più semplici, cioè quelli che ci permettono di trovare alcune caratteristiche che sono statisticamente rilevanti da un vettore numerico. \\
 Alcuni esempi sono:
 \begin{itemize}
@@ -118,7 +118,7 @@ Alcuni esempi sono:
 	\item Varianza: $\sigma^2 = \frac{1}{n} \sum_{i = 1}^{n} (A[i] - \mu)^2$
 	\item Moda: il valore (o i valori) più frequenti
 \end{itemize} 
-\subsection{Il calcolo della mediana}
+\section{Il calcolo della mediana}
 Il problema della mediana è quello di calcolare, dato un vettore $A$ contenente $n$ valori, l'elemento/i che occuperebbe/ro la posizione centrale se il vettore $A$ fosse ordinato. \\
 Ovviamente è possibile riordinare il vettore mediante un algoritmo di ordinamento basato su confronti di costo computazionale pari a $\mathcal{O}(n \log n)$ e prelevare l'elemento a metà. \\
 Ci chiediamo ora se è possibile fare meglio di così, estendendo il problema del calcolo della mediana a quello della selezione, dato che la mediana è un suo sottoproblema: \\
@@ -220,7 +220,7 @@ ITEM select(ITEM[] A, int start, int end, int k)
 	else
 		return select(A, q + 1, end, k - q)
 \end{lstlisting}
-\newpage
+ 
 \begin{lstlisting}[caption=median5]
 ITEM median5(ITEM[] A, int start, int end)
 	ITEM median
@@ -269,5 +269,5 @@ L'algoritmo \emph{select()} esegue nel caso pessimo $\mathcal{O}(n)$ confronti:
     T(n) = T(n/5) + T(7n/10) + 11/5 n
 \end{equation*}
 Quest'ultimo algoritmo è deterministico, dunque esegue in tempo lineare su qualsiasi input, tuttavia molto spesso gli viene preferito quello \emph{Las Vegas} in quanto possiede fattori moltiplicativi più bassi e ha comunque un tempo \emph{atteso} $\mathcal{O}(n)$, con caso peggiore $\mathcal{O}(n^2)$.
-\newpage
+ 
 \end{document}

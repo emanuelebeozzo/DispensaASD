@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esame 08/06/2017}
+\section{Esame 08/06/2017}
 \textbf{Alberi binari strutturalmente diversi h-vincolati} 
 
 Scrivere un algoritmo che data una coppia di interi $n, h$, restituisca il numero di alberi binari strutturalmente diversi contenenti $n$ nodi e di altezza al più $h$. 
@@ -67,5 +67,5 @@ int countTreeRec(int n, int h, int[][] DP)
 		return DP[n][h]
 \end{lstlisting}
 La complessità della soluzione proposta è $\mathcal{O}(hn^2)$ dato il fatto che è necessaria al più una complessità $\mathcal{O}(n)$ per riempire una cella della tabella delle soluzioni di dimensione $n \times h$.
-\newpage
+ 
 \end{document}

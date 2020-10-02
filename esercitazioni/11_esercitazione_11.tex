@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esercitazione 11 - 27/04/20}
+\section{Esercitazione 11 - 27/04/20}
 \textbf{Zaino}
 Si consideri il problema dello zaino. Scrivere un algoritmo che prenda in input un vettore $w$ di pesi di dimensionene una capacità $C$, e stampi tutti i sottoinsiemi di indici corrispondente a sottoinsiemi di oggetti il cui peso sia inferiore o uguale a $C$.
 \begin{lstlisting}[caption=Stampa i subsets di Knapsack]
@@ -35,7 +35,7 @@ La complessità della funzione presentata è dell'ordine di $\mathcal{O}(n \cdot
 Scrivere un algoritmo che stampa tutte le possibili stringhe composte da $n$ caratteri $R$ e da $m$ caratteri $G$, per un totale di $n+m$ caratteri.\\
 Scrivere un algoritmo che conta tutte queste possibili stringhe - ovviamente senza generarle tutte e poi contandole.\\
 Calcolare la complessità computazionale degli algoritmi proposti.
-\newpage
+ 
 \begin{lstlisting}[caption=Permutazioni dei caratteri G e R e conteggio]
 primaElementare(int n, int m)
     int[] S = new int[1..n + m]
@@ -87,7 +87,7 @@ Sia $DP[i][j$] il numero di sequenze ottenibili considerando $i$ caratteri $R$ e
         DP[i-1][j] + DP[i][j-1] & \text{altrimenti} 
     \end{cases}
 \end{equation*}
-\newpage
+ 
 \begin{flushleft}
 \textbf{Somma di Quadrati - Compito 26/01/2016}
 \end{flushleft}
@@ -178,5 +178,5 @@ processSolution(ITEM[] S, int n)
     print "}"
 \end{lstlisting}
 Il costo della soluzione è pari a $\mathcal{O}(k \cdot n^{k})$: per arrivare a tale complessità basta pensare al fatto che il numero di nodi che forma il k-cammino è pari a $k+1$ ma uno di questi è $s$ (invariante) e quindi i nodi variabili sono k. Supponendo di avere un grafo completo (i cui nodi hanno dunque $n-1$ archi ognuno) si ha che è possibile scegliere fra $n-1$ nodi come nodo adiacente a $s$, dopodiché $n-2$ per il nodo adiacente a $n-1$ e così via fino a $n-k$ nodi. La complessità dunque è data da $(n-1) \cdot (n-2) \cdot (n-3) \cdot ... \cdot (n-k) = n^{k}$. Il termine $k$ invece è ottenuto dal costo della stampa di $k$ termini.
-\newpage
+ 
 \end{document}

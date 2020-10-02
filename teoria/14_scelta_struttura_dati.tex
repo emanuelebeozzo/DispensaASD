@@ -1,8 +1,8 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\section{Scelta della struttura dati}
-\subsection{Il problema dei cammini minimi a sorgente singola}
+\chapter{Scelta della struttura dati}
+\section{Il problema dei cammini minimi a sorgente singola}
 Il problema dei cammini minimi che andremo ad affrontare prevede un pattern comune per una serie di algoritmi diversi tra loro, dove, cambiando solamente la struttura dati di riferimento, è possibile ottenere soluzioni con caratteristiche e complessità differenti.
 
 \bigskip
@@ -69,7 +69,7 @@ In seguito verrà mostrato un pattern generico per la risoluzione del problema d
 				d[v] = d[u] + G.w(u, v)
 	return(T, d)
 \end{lstlisting}
-\newpage
+ 
 \begin{flushleft}
 \textbf{Algoritmo di Dijkstra, 1959}\\
 Algoritmo che fa uso come struttura dati di una coda a priorità basata su vettore, esso funziona bene solamente con i pesi positivi ed ha un costo computazionale di $\mathcal{O}(n^2)$ per via del metodo $deleteMin()$ che ha una compessità di $\mathcal{O}(n)$, richiamato per ogni nodo del grafo.
@@ -179,7 +179,7 @@ Riga & Costo & Ripetizioni &  &  \\ \midrule
 
 \bigskip
 Dal quale risulta un costo totale di $\mathcal{O}(m \log n)$
-\newpage
+ 
 \begin{flushleft}
 \textbf{Algoritmo di Fredman-Tarjan, 1987}
 \end{flushleft}
@@ -229,7 +229,7 @@ Riga & Costo & Ripetizioni &  &  \\ \midrule
 
 \bigskip
 Dal quale risulta un costo totale di $\mathcal{O}(m + n \log n)$, dove $^{(*)}$ indica che il costo è derivato da un analisi ammortizzata.
-\newpage
+ 
 \begin{flushleft}
 \textbf{Algoritmo di Bellman-Ford-Moore, 1958}
 \end{flushleft}
@@ -279,7 +279,7 @@ Riga & Costo & Ripetizioni &  &  \\ \midrule
 \bigskip
 Dal quale risulta un costo totale di $\mathcal{O}(mn)$, dato dal fatto che ogni nodo può essere inserito ed estratto al massimo $n-1$ volte.
 
-\newpage
+ 
 \textbf{Cammini minimi su DAG} \\
 Algoritmo basato su uno stack che contiene i nodi che fanno parte dell'ordinamento topologico a partire dalla sorgente. Si basa sul fatto che, se sappiamo che il grafo in questione non possiede cicli, non c'è modo di tornare su un nodo già visitato e abbassare il suo costo.
 \begin{lstlisting}[caption=Algoritmo per i DAG: cammini minimi a sorgente singola]
@@ -309,7 +309,7 @@ La complessità dell'algoritmo precedente è dunque di $\mathcal{O}(n + m)$ in q
 \begin{tabular}{lllll}
 Dijkstra       &  $O(n^2)$ & Pesi positivi, grafi densi &  \\
 Johnson        &  $O(m \log n)$ &  Pesi positivi, grafi sparsi &  \\
-Fredman-Tarjan &  $O(n + n \log n)$ & Pesi positivi, grafi densi,dimensioni molto grandi  & \\
+Fredman-Tarjan &  $O(n + n \log n)$ & Pesi positivi, grafi densi, dimensioni molto grandi  & \\
 Bellman-Ford-Moore &  $O(mn)$ & Pesi negativi &  \\
 DAG               & $O(mn)$ & DAG  &  \\
 BFS	 & $O(mn)$ & Senza pesi &  \\
@@ -318,24 +318,30 @@ BFS	 & $O(mn)$ & Senza pesi &  \\
 \bigskip
 La soluzione che fa uso della BFS è sostanzialmente l'algoritmo di Erdos introdotto qualche capitolo fa.
 
-\subsection{Il problema dei cammini minimi a sorgente multipla}
+\section{Il problema dei cammini minimi a sorgente multipla}
 \textbf{Possibili soluzioni}
 
 \bigskip
-\begin{tabular}{@{}lll@{}}
-\toprule
-Input & Complessità & Approccio  \\ \midrule
+\begin{table}[H]
+	\centering
+	\small
+	\setlength\tabcolsep{2pt}
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		Input & Complessità & Approccio  \\ \midrule
+		
+		Pesi positivi, grafo denso       &  $O(n \cdot n^2)$ & Applicazione ripetuta dell’algoritmo di Dijkstra   \\
+		
+		Pesi positivi, grafo sparso        &  $O(n \cdot (m \log n))$ &  Applicazione ripetuta dell’algoritmo di Johnson   \\
+		
+		Pesi negativi &  $O(n \cdot nm)$ & Applicazione ripetuta di Bellman-Ford-Moore  \\
+		
+		Pesi negativi, grafo denso &  $O(n^3)$ & Algoritmo di Floyd e Warshall   \\
+		
+		Pesi negativi, grafo sparso               & $O(nm \log n)$ & Algoritmo di Johnson per sorgente multipla    \\ \bottomrule
+		\end{tabular}
+\end{table}
 
-Pesi positivi, grafo denso       &  $O(n \cdot n^2)$ & Applicazione ripetuta dell’algoritmo di Dijkstra   \\
-
-Pesi positivi, grafo sparso        &  $O(n \cdot (m \log n))$ &  Applicazione ripetuta dell’algoritmo di Johnson   \\
-
-Pesi negativi &  $O(n \cdot nm)$ & Applicazione ripetuta di Bellman-Ford-Moore  \\
-
-Pesi negativi, grafo denso &  $O(n^3)$ & Algoritmo di Floyd e Warshall   \\
-
-Pesi negativi, grafo sparso               & $O(nm \log n)$ & Algoritmo di Johnson per sorgente multipla    \\ \bottomrule
-\end{tabular}
 
 \bigskip
 \bigskip
@@ -396,5 +402,5 @@ Ciò che abbiamo definito fino ad ora può essere riassunto dalla seguente ricor
 \end{lstlisting}
 La prima parte dell'algoritmo si occupa della trasformazione del nostro grafo, che abbiamo sempre assunto essere espresso mediante liste di adiacenza, in un grafo rappresentato da una matrice di adiacenza. Una volta fatto questo, si fissa il parametro $k$ (che rappresenta il vincolo del cammino preso in analisi), e per ogni coppia di nodi si verificano i percorsi migliori facendo le opportune modifiche sul costo. \\
 La complessità totale dell'algoritmo è $\mathcal{O}(n^3)$ dovuta alla presenza di tre cicli for annidati che iterano sui nodi del grafo.
-\newpage
+ 
 \end{document}

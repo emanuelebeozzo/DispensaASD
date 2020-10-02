@@ -1,9 +1,8 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esercitazione 13 - 13/05/20}
-\textbf{Cubi}
-
+\section{Esercitazione 13 - 13/05/20}
+\textbf{Cubi} \\
 Siano dati $n$ cubi. Su ogni faccia del cubo è presente una lettera dell'alfabeto. Ogni cubo può essere descritto da una stringa di $6$ caratteri (e.g. $abcdef$), che rappresenta le 6 facce del cubo. Sia data una parola costituita da $t \leq n$ caratteri. \textbf{Descrivere} un algoritmo che ritorni $true$ se è possibile comporre la parola utilizzando $t$ degli $n$ cubi (scegliendo una faccia per ognuno di essi), $false$ altrimenti. Discutere correttezza e complessità dell'algoritmo risultante.
 
 Il problema sottoposto fa parte delle Reti di Flusso quindi procediamo in questo modo alla \hfill \break risoluzione:
@@ -220,5 +219,5 @@ Visto che un anagramma non è altro che una permutazione di un insieme di letter
 Il costo complessivo dell'algoritmo è quindi pari a $\mathcal{O}(nk \log{k})$.
 
 In alternativa a questa soluzione è anche possibile immaginare di utilizzare un singolo set al cui interno vengono inserite le varie lettere che compongono una parola e controllare le altre, man mano rimuovendole dall'insieme nel caso in cui siano permutazione stampandole. Il costo di questa soluzione è pari a $\mathcal{O}(k \cdot n^{2})$ supponendo che l'operazione contains costi $\mathcal{O}(1)$.
-\newpage
+ 
 \end{document}

@@ -1,8 +1,8 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\section{Strutture dati speciali}
-\subsection{Heap}
+\chapter{Strutture dati speciali}
+\section{Heap}
 \label{sec:heap}
 \textbf{Descrizione}: Struttura dati che associa i vantaggi dell'albero a quelli di un array. Gli alberi binari \emph{max-heap} (rispettivamente \emph{min-heap}) sono \textbf{alberi binari completi} tali per cui il valore memorizzato in ogni nodo è maggiore (rispettivamente minore) dei valori memorizzati nei suoi figli. Un albero binario si dice completo se:
 \begin{itemize}
@@ -54,7 +54,7 @@ heapSort(ITEM[] A, int n)
 \end{lstlisting}
 \textbf{Complessità computazionale}: La chiamata di heapBuild() costa $\Theta$(\textit{n}), mentre la chiamata maxHeapRestore() costa $\Theta$(\textit{log i}) con $i$ elementi nell'heap. La maxHeapRestore() viene eseguita per un numero di volte che va da 2 a $n$ e quindi il costo totale è $\Theta$(\textit{n log n}).
 
-\subsection{Code a priorità}
+\section{Code a priorità}
 \textbf{Descrizione}: Le code a priorità sono usa struttura dati astratta simile ad una coda in cui ogni elemento inserito possiede una priorità. Possono esistere min-priority queue in cui l'estrazione avviene per valori crescenti di priorità, mentre nelle max-priority queue l'estrazione avviene per priorità decrescente.\\
 \textbf{Specifica}: interfaccia dei metodi per la gestione della coda a priorità.\
 \begin{lstlisting}[ caption= Min Priority Queue Specifica]
@@ -143,7 +143,7 @@ decrease(PriorityItem x, int p)
 
 \bigskip
 
-\subsection{Insiemi disgiunti - Merge Find Set}
+\section{Insiemi disgiunti - Merge Find Set}
 \textbf{Motivazione e operazioni fondamentali}: Siamo interessati a gestire una collezione 	\hfill \break $S = {S_1, S_2, ...S_k}$ di insiemi dinamici disgiunti tali che: 
 \begin{itemize}
 	\item $\forall i,j : i \neq j \Rightarrow S_i \cap S_j = \emptyset$ 
@@ -169,7 +169,7 @@ int find(int x)
 merge(int x, int y)
 \end{lstlisting}
 \textbf{Realizzazione}: Esistono 2 possibili tecniche per memorizzare gli insiemi disgiunti usando due strutture dati differenti.
-\subsubsection{Realizzazione basata su insieme di liste}
+\subsection{Realizzazione basata su insieme di liste}
 \textbf{Descrizione}: Ogni insieme viene rappresentato da una lista concatenata. Il primo oggetto di una lista è il rappresentante dell'insieme e ogni elemento delle lista contiene: un intero/oggetto, un puntatore all'elemento successivo e un puntatore al rappresentante.
 
 \bigskip
@@ -179,14 +179,14 @@ merge(int x, int y)
 	\item Operazione \emph{find(x)}: viene restituito il rappresentante dell'insieme $x$. L'operazione di find(x) richiede tempo $\mathcal{O}(1)$.
 	\item Operazione di \emph{merge(x,y)}: si "appende" la lista che contiene $y$ alla lista che contiene $x$, modificando i puntatori ai rappresentanti nella lista "appesa" (per ogni elemento di $y$ devo modificare il rappresentante). Nel caso pessimo, il costo per $n$ operazioni è $\mathcal{O}(n^{2})$ quindi il costo ammortizzato di una operazione vale $\mathcal{O}(n)$. 
 \end{itemize}
-\subsubsection{Realizzazione basata su insieme di alberi (foresta)}
+\subsection{Realizzazione basata su insieme di alberi (foresta)}
 \textbf{Descrizione}: Ogni insieme viene rappresentato da un albero. La radice è il rappresentante dell'insieme e ha un puntatore a sé stessa (per indicare che è il quel nodo il rappresentante). Ogni nodo dell'albero contiene: un intero/oggetto, un puntatore al padre.\\
 \textbf{Operazioni}:
 \begin{itemize}
 	\item Operazione \emph{find(x)}: risale la lista dei padri di $x$ fino a trovare la radice e restituisce la radice stessa come rappresentante. Il costo è $\mathcal{O}(n)$ nel caso pessimo di albero lineare (in pratica una lista)
 	\item Operazione di \emph{merge(x,y)}: si aggancia l'albero radicato in $y$ alla radice dell'albero $x$ modificando il puntatore al padre della radice di $y$. Il costo è $\mathcal{O}(1)$ (non consideriamo il costo del find per cercare la radice).  
 \end{itemize}
-\subsubsection{Euristiche per migliorare la realizzazione}
+\subsection{Euristiche per migliorare la realizzazione}
 \textbf{Definizione algoritmo euristico}: particolare tipo di algoritmo progettato per risolvere il problema più velocemente, qualora i metodi classici siano troppo lenti o per trovare una soluzione approssimata qualora i metodi classici falliscano nel restituire una soluzione esatta. Applicheremo delle euristiche ai metodi find e merge visti finito ad ora per migliorare la complessità delle due realizzazioni. 
 
 \bigskip
@@ -253,8 +253,8 @@ int find(int x)
 		\hline
 	\end{tabular}
 \end{center}
-\newpage
-\subsubsection{Esempio applicazione MFSET - Componenti connesse dinamiche}
+ 
+\subsection[Componenti connesse dinamiche]{Esempio applicazione MFSET - Componenti connesse dinamiche}
 \textbf{Problema}: Questa struttura dati può essere trovare le componenti connesse di un grafo non orientato dinamico.
 
 \bigskip
@@ -277,5 +277,5 @@ MFSET cc(Graph G)
 \bigskip
 
 \textbf{Complessità}: $\mathcal{O}(n) + m$ operazioni di merge(), che si solito ha costo $\mathcal{O}(1)$ costante e la complessità risultante sarebbe $\mathcal{O}(n+m)$. Questo algoritmo è preferibile rispetto a quello visto fino ad ora quando il grafo che dobbiamo gestire è dinamico (possiamo aggiungere anche su quel grafo) in quando con questa versione basterebbe eseguire una merge() sull'arco aggiunto, mentre con la versione classica bisognerebbe eseguire da capo l'algoritmo. 
-\newpage
+ 
 \end{document}

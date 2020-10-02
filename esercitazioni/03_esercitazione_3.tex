@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esercitazione 3 - 26/11/19}
+\section{Esercitazione 3 - 26/11/19}
 \textbf{Grafi – Stessa distanza}
 
 \begin{itemize}
@@ -34,7 +34,7 @@ int stessaDistanza(GRAPH G, NODE s, NODE v)
 \end{lstlisting}
 L'algoritmo utilizza due volte la procedura di Erdos, che è possibile trovare nell'apposita sezione Grafi. \\ Si ricorda che la procedura di Erdos ritorna la distanza minima, intesa come numero di archi attraversati, dal nodo passato a tutti gli altri nodi, salvando il valore di $+\infty$ se il nodo non è raggiungibile dalla sorgente. Dunque è facile trovare la soluzione al problema trovando i nodi abbiano la stessa distanza dalla rispettiva radice e che siano raggiungibli.
 La soluzione presentata è dunque corretta, per la breve spiegazione riportata in precedenza, e si può notare che la complessità è dell'ordine di $\Theta(n + m)$ 
-\newpage
+ 
 \textbf{Grafi – Grafi bipartiti}
 
 \begin{itemize}
@@ -75,7 +75,7 @@ int[] is2colorabile_bfs(GRAPH G, NODE r)
 \end{lstlisting}
 Questo primo approccio richiede una radice del grafo e cerca di assegnare ad ogni nodo un colore mediante una visita in bfs. Si noti che qualora trova un adiacente con colore uguale al nodo corrente restituisce nil in quanto non sono possibili 2-colorazioni. Ovviamente questa soluzione, dato che sfrutta una bfs funziona solamente per grafi connessi, in quanto colora i nodi che sono raggiungibili dalla radice.\\
 Una soluzione che prevede la visita di tutti i nodi di un grafo può essere data dalla seguente soluzione:
-\newpage
+ 
 \begin{lstlisting}[ caption=Grafi-bipartiti-dfs]
 boolean is2colorabile_rec_dfs(GRAPH G, NODE u, int[] colors, int color)
 	colors[u] = color
@@ -111,7 +111,7 @@ La soluzione dell'algoritmo proposto è $\Theta(n + m)$ in entrambe le versioni,
 	\item Nota: è facile scrivere un algoritmo $\mathcal{O}(nm)$; esistono tuttavia algoritmi di complessità $\mathcal{O}(n^2)$ (con matrice di adiacenza) e $\mathcal{O}(n + m)$.
 \end{itemize}
 
-\newpage
+ 
 \begin{lstlisting}[ caption=Distanza fra partizioni]
 int distanzaPartizioni(GRAPH G, SET V1, SET V2)
 	QUEUE q = new QUEUE
@@ -148,7 +148,7 @@ La complessità della soluzione proposta è pari a $\Theta(n + m)$ dato dal cost
 \end{itemize}
 
 Soluzione al primo problema:
-\newpage
+ 
 \begin{lstlisting}[ caption=Numero archi per connettere il grafo]
 int n_cc(GRAPH G)
 	int[] ids = new int[1..G.V()]

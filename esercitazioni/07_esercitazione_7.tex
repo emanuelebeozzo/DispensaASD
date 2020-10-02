@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esercitazione 7 - 02/03/20}
+\section{Esercitazione 7 - 02/03/20}
 \textbf{Mosse su scacchiera}
 \begin{itemize}
 	\item Supponete di avere una scacchiera di dimensione $n \times n$ che rappresenta una scacchiera e un pedone che dovete muovere dall'estremità inferiore a quella superiore.
@@ -65,7 +65,7 @@ L'equazione di ricorrenza è la seguente
     	max_{\forall j < i} (DP[j] + e[i]) & \text{$altrimenti$}
   	\end{cases}
 \end{equation*}
-\newpage
+ 
 \begin{flushleft}
 \textbf{Palindroma}
 \end{flushleft}
@@ -97,5 +97,5 @@ Il costo è pari a $\mathcal{O}(n^{2})$ per via della matrice anche se di fatto 
     	min(DP[i-1][j], DP[i][j+1])+1 & \text{$altrimenti$}
   	\end{cases}
 \end{equation*}
-\newpage
+ 
 \end{document}

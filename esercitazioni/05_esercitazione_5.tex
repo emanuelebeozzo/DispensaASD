@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esercitazione 5 - 19/12/19}
+\section{Esercitazione 5 - 19/12/19}
 \textbf{Per fare un albero (binario di ricerca) ci vuole...}\\
 Dato un vettore \textit{V} di \textit{n} interi ordinati e distinti, scrivere una procedurache costruisce un albero binario di ricerca di altezza minima.Discuterne la correttezza e la complessità
 
@@ -39,7 +39,7 @@ Dunque: $\alpha > \beta$ allora $T(n) = \Theta(n^\alpha) = \Theta(n)$
 \bigskip
 \textbf{Good vs bad guys}\\
 Fra ogni coppia di wrestler professionisti può esserci una rivalità oppureno. Per ragioni di marketing, è una buona idea dividere i wrestler professionisti in due gruppi, "buoni" e "cattivi", e farli combattere fra di loro. Supponete di avere in input un insieme di rivalità, rappresentate comeun vettore di coppie \textit{(x, y)}, dove \textit{x} e \textit{y} sono identificatori di wrestler compresi fra \textit{1} ed \textit{n}. Scrivere un algoritmo che restituisca \textit{true} se è possibile suddividere i wrestler professionisti in due sottoinsiemi non vuoti ("buoni" e"cattivi"), non necessariamente della stessa dimensione, in modo tale che non ci siano rivalità all’intero dei due gruppi; \textit{false} altrimenti.
-\newpage
+ 
 \begin{flushleft}
 Soluzione proposta:
 \end{flushleft}
@@ -76,7 +76,7 @@ boolean 2wrestlercolorabile_rec(GRAPH G, NODE u, int colors[], int color)
 \end{lstlisting}
 Il problema proposto è un problema di grafo 2-colorabile, infatti è necessario, dopo la costruzione del grafo a partire dai vettori di rivalità, effetuare una visita in dfs con la colorazione del grafo. \\
 La spiegazione della colorazione del grafo la si può trovare nel'esercitazione 3 sotto la voce "Grafi bipartiti".
-\newpage
+ 
 \textbf{Grafi – Pozzo universale}
 
 \begin{itemize}
@@ -158,5 +158,5 @@ Segue che: $\alpha = \beta$ dunque $S(k) = \Theta(k^\alpha \log(k)) = \Theta(k^2
 Esprimiamo la ricorrenza in termini di $T(n)$ applicando la sostituzione $k = \log(n)$, derivata dalla precedente sostituzione $n = 2^k$:\\
 $T(n) = \Theta(\log^2(n)\log(\log(n)))$
 
-\newpage
+ 
 \end{document}

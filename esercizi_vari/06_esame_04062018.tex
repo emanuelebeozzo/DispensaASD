@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esame 04/06/2018}
+\section{Esame 04/06/2018}
 \textbf{Esercizio B4}
 
 Siano dati un vettore $X$ contenente $n$ valori interi positivi distinti e due valori interi positivi $k, w$, con $k \leq n$. La \emph{somma massimale} $(k, w)-vincolata$ di $X$ è il più grande valore $v$ ottenibile come somma di non più di $k$ valori contenuti in $X$, tale che $v \leq w$. Formalmente
@@ -15,8 +15,12 @@ Ad esempio, se $X = [12,13,11,6,23,19]$, $w = 27$, $k= 3$, il valore da restitui
 Il problema descritto può essere risolto tramite programmazione dinamica: il primo passo per avviarsi verso la soluzione consiste nel definire correttamente il tipo di struttura che dovremo utilizzare per risolvere il problema. Se pensiamo di utilizzare una semplice matrice e di porre idealmente i $n$ valori sulle righe e il valori da 1 a $w$ sulle colonne come vincolo per impedirci di superare il numero in questione ci accorgiamo subito che non siamo in grado di tenere traccia di quanti numeri abbiamo sommato fino a questo momento (ricordiamoci che la somma deve essere $k-vincolata$ e che possiamo usare solo $k$ numeri per avvicinarci il più possibile al nostro $w$). Dunque abbiamo bisogno di una matrice a \emph{3 dimensioni} che possiamo definire nel modo seguente
 \begin{equation*}
   	DP[i][j][s]=\begin{cases}
-  		0 & \text{$j = 0 \lor i < 0$}\\
-  		max\{DP[i-1][j-1][k - X[i]] + X[i], DP[i-1][j][s]\} &\text{$s \geq X[i]$}\\
+		  0 & \text{$j = 0 \lor i < 0$}\\
+		  \begin{aligned}
+			max\{ &
+			DP[i-1][j-1][k - X[i]] + X[i],\\ &
+			DP[i-1][j][s]\}
+		  \end{aligned} & \text{$s \geq X[i]$}\\
     	DP[i-1][j][s] & \text{altrimenti}
   	\end{cases}
 \end{equation*}
@@ -48,5 +52,5 @@ L'algoritmo proposto per la soluzione ha complessità $\mathcal{O}(nwk)$ che è 
 La correttezza può essere provata dimostrando la sottostruttura ottima: sia $X_{p}$ il problema di dover trovare la sequenza di al massimo $k$ valori scegliendo tra $n$ valori differenti per ottenere al più il valore $w$. Sia $S$ la soluzione ottimale al problema proposto e contenente quindi il più grande insieme di numeri $k-vincolato$ la cui somma è al più $w$. Supponiamo ora per assurdo che la soluzione ottimale al problema $X_{p} - \{j\}$ non sia $S - \{j\}$, questo vuol dire che esiste $S'$ soluzione ottimale.
 
 Da qui si può ricavare dunque che $\sum(S') > \sum(S - \{j\}) \rightarrow \sum(S' \cup \{j\}) > \sum(S)$ ma ciò contraddice il fatto che $S$ sia la soluzione ottimale di cardinalità massima. Per comodità della dimostrazione è anche possibile osservare che per essere incluso in $S'$, $j$ deve essere un valore che sommato agli altri non fa superare $w$ e il numero di valori in $S'$ è $< k$. Dunque $S$ non contiene un valore che gli avrebbe permesso di ottenere la somma massima e quindi $S$ non è in realtà la soluzione ottima al problema: ciò è assurdo perché contraddice la nostra ipotesi iniziale.
-\newpage
+ 
 \end{document}

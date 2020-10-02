@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esame 06/06/2016}
+\section{Esame 06/06/2016}
 \textbf{Esercizio B4}\\
 Scrivere un algoritmo che preso in input $n$ e $k$, restituisca il numero totale di vettori $distinti$ di lunghezza $n$, contenenti valori interi compresi fra $1$ e $k$, ordinati dalla relazione $\leq$.Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale.
 \textbf{Soluzione:}\\
@@ -47,5 +47,5 @@ int orderedPremutation(int n, int k)
 	return DP[n][k]
 \end{lstlisting}
 L'algoritmo proposto per la soluzione ha complessità $\mathcal{O}(nk)$ in quanto si riempie mediante programmazione dinamica una matrice grande $n \times k$.
-\newpage
+ 
 \end{document}

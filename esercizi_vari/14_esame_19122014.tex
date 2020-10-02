@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esame 19/12/2014}
+\section{Esame 19/12/2014}
 \textbf{Numero minimo di intervalli unitari} 
 
 Dato un vettore $V$ di $n$ numeri reali, bisogna calcolare il numero minimo di intervalli di lunghezza \emph{unitaria} in grado di ricoprire tutti i valori di $V$.  Un intervallo di lunghezza unitaria è definito da una coppia $[x, x + 1]$, estremi inclusi. Ad esempio se $n= 5$ e $V=\{2.5,3.8,1.5,3.1,1.8\}$, allora il numero minimo di intervalli unitari è $2$ e una possibile soluzione è $[1.5,2.5] ,[3,4]$. Scrivere un algoritmo 
@@ -38,5 +38,5 @@ int minIntervals(real[] V, int n)
 	return intervalli
 \end{lstlisting}
 La complessità computazionale di questa soluzione greedy è $\mathcal{O}(n \log n)$ dovuta all'ordinamento del vettore V di valori reali.
-\newpage
+ 
 \end{document}

@@ -1,12 +1,12 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 
 \begin{document}
-\section{Programmazione Greedy}
-\subsection{Introduzione}
+\chapter{Programmazione Greedy}
+\section{Introduzione}
 Nella sezione precedente ci siamo occupati di risolvere alcuni problemi mediante l'utilizzo di programmazione dinamica e, in alcuni di questi casi, abbiamo dovuto controllare tutte le possibili soluzioni ottenute poiché non eravamo certi di dove potesse trovarsi il risultato. In questo capitolo ci occuperemo invece della programmazione greedy e ciò di selezionare una sola tra le scelte possibili, quella che ci sembra la migliore (localmente ottima), dimostrando però che questa scelta si rivela poi essere ottima a livello globale.
 
 \textbf{ATTENZIONE:} Non tutti i problemi hanno una scelta ingorda come soluzione!
-\subsection{Insieme indipendente massimale di intervalli}
+\section{Insieme indipendente massimale di intervalli}
 \textbf{Input}\\
 Sia $S$ = $\{1, 2, ..., n\}$ un insieme di intervalli della retta reale. Ogni intervallo $[a_i, b_i]$ con $i \in S$, è chiuso a sinistra e aperto a destra.
 \begin{itemize}
@@ -15,7 +15,7 @@ Sia $S$ = $\{1, 2, ..., n\}$ un insieme di intervalli della retta reale. Ogni in
 \end{itemize}
 \textbf{Definizione del Problema} \\
 Un \textcolor{red}{insieme indipendente massimale} è un sottoinsieme di massima cardinalità formato da intervalli tutti disgiunti tra loro.
-\subsubsection{Dalla programmazione dinamica...}
+\subsection{Dalla programmazione dinamica...}
 Prima di parlare della risoluzione del problema con la tecnica greedy proviamo a vedere come avremmo affrontato il problema con programmazione dinamica, definendo la sottostruttura ottima, per cercare la cosiddetta scelta ingorda.
 
 \textbf{Sottostruttura Ottima}
@@ -31,7 +31,7 @@ Aggiungiamo due intervalli fittizi:
 	\item  Intervallo $n+1$: $a_{n+1} = + \infty$ 
 \end{itemize}
 Il problema iniziale corrisponde al problema $S[0,n+1]$ (ricordiamo che $S$ definisce gli intervalli che cominciano dopo $i$ - cioè dopo $- \infty$ e prima di $j$ - cioè prima di $+ \infty$).
-\newpage
+ 
 \begin{flushleft}
 \textbf{Teorema}
 \end{flushleft}
@@ -69,7 +69,7 @@ Sia $DP[i][j]$ la dimensione del più grande sottoinsieme $A[i...j] \subseteq S[
   		\end{cases}
 	\end{equation*}
 \end{center}
-\subsubsection{...alla soluzione ingorda}
+\subsection{...alla soluzione ingorda}
 Grazie alla precedente definizione possiamo scrivere un algoritmo basato su programmazione dinamica o memoization e, visto che dobbiamo risolvere tutti i sottoproblemi, il costo totale è pari a $\mathcal{O}(n^3)$.
 
 Nel caso di intervalli pesati abbiamo visto che è possibile sviluppare una soluzione con costo $\mathcal{O}(n\log{n})$, ma siamo sicuri che sia necessario analizzare tutti i possibili valori $k$?
@@ -83,7 +83,7 @@ Sia $S[i...j]$ un sottoproblema non vuoto e $m$ l'intervallo di $S[i ...j]$ con 
 	\item il sottoproblema $S[i...m]$ è vuoto
 	\item $m$ è compreso in qualche soluzione ottima di $S[i ...j]$
 \end{itemize}
-\newpage
+ 
 \begin{flushleft}
 \textbf{Dimostrazione 1}
 \end{flushleft}
@@ -116,7 +116,7 @@ Sia \textcolor{red}{$A[i..j] = A'[i...j] - \{ m' \} \cup \{ m \}$} una nuova sol
 	\item \textcolor{red}{Non è più necessario analizzare tutti i possibili valori di k}: faccio una scelta ingorda ma sicura, seleziono l'attività $m$ con il minor tempo di fine
 	\item \textcolor{red}{Non è più necessario analizzare due sottoproblemi}: elimino tutte le attività che non sono compatibili con la scelta ingorda e dunque mi rimane da risolvere solamente il sottoproblema $S[m...j]$
 \end{itemize}
-\subsubsection{Algoritmo}
+\subsection{Algoritmo}
 \begin{lstlisting}[caption=indipendent Set (Greedy)]
 SET indipendentSet(int[] a, int[] b)
 	$\{$ordina $a$ e $b$ in modo che $b[1] \leq b[2] \leq ... \leq b[n]$$\}$
@@ -131,7 +131,7 @@ SET indipendentSet(int[] a, int[] b)
 	return $S$
 \end{lstlisting}
 La complessità dell'algoritmo è $\mathcal{O}(n\log{n})$ se l'input non è ordinato oppure $\mathcal{O}(n)$ nel caso in cui sia già ordinato.
-\subsection{Problema del resto}
+\section{Problema del resto}
 \textbf{Input}\\
 Un insieme di tagli di monete, memorizzati in un vettore di interi positivi $t[1...n]$ e un intero $R$ rappresentante il resto che dobbiamo restituire.
 
@@ -188,7 +188,7 @@ Possiamo fare meglio di così? Non se utilizziamo programmazione dinamica: provi
 \begin{center}
 Selezioniamo la moneta $j$ più grande tale per cui $t[j] \leq R$, e poi risolviamo il problema $S(R - t[j])$.
 \end{center}
-\newpage
+ 
 \begin{lstlisting}[caption=Resto (Greedy)]
 int[] resto(int[] t, int n, int R)
 	int[] x = new int[1...n]
@@ -201,7 +201,8 @@ int[] resto(int[] t, int n, int R)
 \end{lstlisting}
 Questo algoritmo funziona? La risposta è: \textcolor{red}{Dipende dal set di monete che viene utilizzato}\\
 Ad esempio se il nostro insieme di monete fosse composto semplicemente da $[10, 8, 1]$ e volessimo dare un resto pari a 16, il nostro algoritmo restituirebbe $10 + 1 + 1 + 1+ 1 + 1 + 1$ quando in realtà la soluzione ottimale sarebbe $8 + 8$. In questi casi la programmazione greedy non ci aiuta, anzi.
-\subsection{Approccio Greedy, senza Programmazione Dinamica}
+
+\section{Approccio Greedy, senza Programmazione Dinamica}
 \begin{itemize}
 	\item \textcolor{red}{Evidenziare i "passi di decisione"}
 	\begin{itemize}
@@ -222,7 +223,8 @@ scelta ingorda può essere unito a tale scelta
 		\item Nota: può essere necessario pre-processare l'input
 	\end{itemize}
 \end{itemize}
-\subsection{Zaino Frazionario (o Reale)}
+
+\section{Zaino Frazionario (o Reale)}
 Riedizione di Knapsack dove si ha
 \begin{itemize}
 	\item Un intero positivo $C$ - capacità dello zaino
@@ -251,7 +253,8 @@ La complessità di questo algoritmo è $\mathcal{O}(n)$ nel caso in cui l'input 
 
 \textbf{Correttezza (informale)}
 Assumiamo che gli oggetti siano ordinati per profitto specifico decrescente e che $x$ sia la soluzione ottimale. Supponiamo ora che del primo oggetto sia stata prelevata una quantità $x[1] < min(C/w[i], 1) < 1$, dunque è possibile costruire una nuova soluzione $x'$ dove $x'[1] = min(C/w[i], 1)$ di conseguenza la quantità prelevata di uno o più oggetti si è ridotta. Otteniamo dunque che il profitto di $x'$ è maggiore o uguale a quello di $x$, tuttavia può solo che essere uguale in quanto avevamo presupposto che $x$ fosse soluzione ottimale.
-\subsection{Compressione di Huffman}
+
+\section{Compressione di Huffman}
 Si vuole rappresentare i dati in modo efficiente impiegando il numero minore di bit per la rappresentazione in modo da risparmiare spazio su disco. Una tecnica possibile è la \textcolor{red}{codifica dei caratteri} che avviene tramite una \textcolor{red}{funzione di codifica} $f : f(c) = x$
 \begin{itemize}
 	\item $c$ è un possibile carattere preso da un alfabeto
@@ -263,10 +266,11 @@ Si vuole rappresentare i dati in modo efficiente impiegando il numero minore di 
 \centering
 \includegraphics[width=0.8\textwidth]{../img/Greedy_1.jpg}
 \caption{Possibili codifiche dei caratteri}
-\end{figure} \\
+\end{figure}
+
 Nella seguente immagine vengono mostrate codifiche differenti: la codifica ASCII estesa, una basata sui caratteri effettivamente presenti all'interno del testo mentre l'ultima basata sulla frequenza con cui compaiono i caratteri. L'ultimo caso è il più interessante poiché utilizza meno bit per memorizzare il carattere che compare più di frequente: questo viene definito \textcolor{red}{codice a prefissi}.\\
 In un codice a prefisso, \textcolor{red}{nessun codice è un prefisso di un altro codice}. Ad esempio non è possibile mappare $a = 0$, $b = 1$, $c = 11$ poiché come interpreto poi 111111?
-\newpage
+ 
 \begin{flushleft}
 \textbf{Rappresentazione ad albero per la decodifica}
 \end{flushleft}
@@ -276,18 +280,22 @@ Un \textcolor{red}{albero binario di decodifica} viene così rappresentato
 	\item L'arco del figlio destro di ogni nodo è un 1
 	\item Le sue foglie sono caratteri dell'alfabeto
 \end{itemize}
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{../img/Greedy_2.png}
 	\caption{Albero Binario di Decodifica - Rappresentazione}
 \end{figure}
-L'immagine precedente rappresenta un albero binario di decodifica che tuttavia ha un problema: il suo figlio destro infatti non serve a discriminare un carattere in particolare e quindi può essere tranquillamente tolto senza rendere la sequenza incomprensibile come nell'esempio precedente. Se quindi un nodo possiede un solo figlio all'interno di un albero binario di decodifica è possibile rimuovere il nodo e compattare l'albero.\\
+
+L'immagine precedente rappresenta un albero binario di decodifica che tuttavia ha un problema: il suo figlio destro infatti non serve a discriminare un carattere in particolare e quindi può essere tranquillamente tolto senza rendere la sequenza incomprensibile come nell'esempio precedente. Se quindi un nodo possiede un solo figlio all'interno di un albero binario di decodifica è possibile rimuovere il nodo e compattare l'albero.
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.7\textwidth]{../img/Greedy_3.png}
 \caption{Albero Binario di Decodifica - Rimozione nodo}
 \end{figure}
-\newpage
+
+ 
 \begin{flushleft}
 \textbf{Definizione Formale del problema}
 \end{flushleft}
@@ -332,7 +340,8 @@ TREE huffman(int[] c, int f, int n)
 		Q.insert($z$.f, $z$)
 	return Q.deleteMin()
 \end{lstlisting}
-\subsection{Alberi di Copertura di peso minimo}
+
+\section{Alberi di Copertura di peso minimo}
 Dato un grafo pesato, determinare come interconnettere tutti i suoi nodi minimizzando il costo del peso associato ai suoi archi.
 \begin{itemize}
 	\item \textcolor{red}{Albero di copertura (di peso) minimo}
@@ -373,7 +382,7 @@ SET mst-generico(GRAPH G, int[] w)
 		A = A $\cup$ $\{[u, v]\}$
 	return A
 \end{lstlisting}
-\newpage
+ 
 \begin{flushleft}
 \textbf{Definizioni}
 \end{flushleft}
@@ -383,11 +392,13 @@ SET mst-generico(GRAPH G, int[] w)
 	\item Un taglio \textcolor{red}{rispetta} un insieme di archi $A$ se nessun arco di $A$ attraversa il taglio
 	\item Un arco che attraversa un taglio è \textcolor{red}{leggero} nel taglio se il suo peso è minimo fra i pesi degli archi che attraversano un taglio
 \end{itemize}
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{../img/Greedy_4.jpg}
 	\caption{Albero di copertura di peso minimo - Taglio}
 \end{figure}
+
 \textbf{Arco Sicuro: Teorema}
 \begin{itemize}
 	\item Sia $G = (V, E)$ un grafo \emph{non orientato} e $connesso$
@@ -407,7 +418,7 @@ Sia $T$ un albero di copertura minimo che contiene $A$ e $(u, v)$ un arco legger
 	\item $(u, v) \in T$: allora $(u, v)$ è sicuro per $A$
 	\item $(u, v) \notin T$: trasformiamo $T$ in un albero $T'$ contenente $(u, v)$ e dimostriamo che $T'$ è un albero di copertura minimo
 \end{itemize}
-\newpage
+ 
 \begin{flushleft}
 \emph{Consideriamo la seguente situazione}:
 \end{flushleft}
@@ -460,8 +471,9 @@ Allora l'arco $[u, v]$ è \textcolor{red}{sicuro} per A.
 \bigskip
 
 L'idea generale è di prendere una componente connessa $C$ nella foresta $G_{A}$ e un qualunque arco leggero $[u, v]$ che connette $C$ a qualche altra componente connessa di $G_{A}$ (di fatto anch'essa è un albero di peso minimo in quanto i suoi archi appartengono a un sottoinsieme contenuto in qualche albero di copertura di peso minimo). $[u, v]$ non può essere altro se un arco sicuro per $A$.
-\newpage
-\subsubsection{Algoritmo di Kruskal}
+ 
+
+\subsection{Algoritmo di Kruskal}
 \textbf{Idea}
 \begin{itemize}
 	\item Ingrandire sottoinsiemi disgiunti di un albero di copertura minimo connettendoli fra di loro fino ad avere l’albero complessivo
@@ -513,7 +525,7 @@ Il tempo di esecuzione per l'algoritmo di Kruskal dipende dalla realizzazione de
 Complessivamente dunque il costo dell'algoritmo sarà dato da $\mathcal{O}(n + m \log m + m) = \mathcal{O}(m \log m)$\\
 Sappiamo però che $m$, il numero totale degli archi che compongono il nostro grafo, può essere al massimo pari a $n-1$ per ogni nodo nel caso di un grafo completo: questo significa un totale di $n^{2}$ archi. La complessità può essere sostanzialmente riscritta come $\mathcal{O}(m \log n^{2})$.\\
 Per le proprietà degli logaritmi possiamo però a questo punto portare all'esterno il 2 all'esponente che, diventando una costante, può essere tranquillamente ignorato e la complessità finale risulta dunque essere \textcolor{red}{$\mathcal{O}(m \log n)$}.
-\newpage
+ 
 \begin{flushleft}
 \textbf{Evoluzione algoritmo di Kruskal - Esempio}
 \end{flushleft}
@@ -528,8 +540,9 @@ Per le proprietà degli logaritmi possiamo però a questo punto portare all'este
 	\caption{Evoluzione algoritmo di Kruskal - Completo}
 \end{figure}
 Come si può osservare alcuni gli archi 6, 7 e 8 archi nell'immagine completa sono colorati in grigio in quanto sono stati estratti prima dell'arco 9 poiché di peso minore, tuttavia sono stati scartati in quanto l'operazione di find del Merge-Find Set ha restituito il medesimo rappresentante in quanto i due nodi facevano già parte dell'albero di copertura di peso minimo creato nel corso dell'algoritmo. Gli archi 10, 11 e 14 non sono stati analizzati invece poichè sono stati raggiunti gli $n-1$ archi che costruiscono l'albero.
-\newpage
-\subsubsection{Algoritmo di Prim}
+ 
+
+\subsection{Algoritmo di Prim}
 \textbf{Idea}
 \begin{itemize}
 	\item L'algoritmo di Prim procede mantenendo in $A$ un singolo albero
@@ -613,5 +626,5 @@ La scelta del tipo di struttura da utilizzare dipende dal tipo di grafo in quest
 \end{center}
 
 Nel caso dell'algoritmo di Prim gli archi che si vanno a considerare seguono come logica quello dell'ultimo arco aggiunto. Gli archi colorati di grigio (non tratteggiati) indicano quelli che sono stati analizzati dall'algoritmo e la cui priorità è stata modificata ma non è detto che saranno quelli che verranno usati per formare l'albero di copertura di peso minimo.
-\newpage
+ 
 \end{document}

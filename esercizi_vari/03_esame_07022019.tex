@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esame 07/02/2019}
+\section{Esame 07/02/2019}
 \textbf{Esercizio A1} Trovare un limite superiore, il più stretto possibile per la seguente equazione di ricorrenza: \
 \begin{equation*}
   	T(n)=\begin{cases}
@@ -49,7 +49,7 @@ Proviamo a dimostrare che
 	I valori $\dfrac{b+1}{n}$ sono minori o uguali di 5/4 (per T(1) vale 5/4), per 1 $\leq$ n $\leq$ 16; quindi tutte queste disequazioni sono soddisfatte da c $geq$ 5/4. 
 \end{itemize}
 Abbiamo quindi dimostrato che T(n)= $\mathcal{O}(n)$, con m= 1 e c $\geq$ 5/4.
-\newpage 
+  
 \textbf{Le croci}  \\
 Si consideri una matrice binaria $M$ di dimensione $n \times n$. Scrivere un algoritmo
 \begin{center}
@@ -130,5 +130,5 @@ int cross(int[][] M, int n)
 	return maxSoFar
 \end{lstlisting}
 Come è facilmente intuibile, il costo computazionale di tale procedura è di $\Theta(n^2)$.
-\newpage
+ 
 \end{document}

@@ -1,8 +1,8 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\section{Insiemi e dizionari}
-\subsection{Insiemi con vettori booleani}
+\chapter{Insiemi e dizionari}
+\section{Insiemi con vettori booleani}
 \textbf{Descrizione}: Un insieme è una collezione di m oggetti con valori compresi tra 1..m. Un insieme può essere memorizzato in un vettore booleano di m elementi, con l'indice che rappresenta l'elemento e il contenuto del vettore se l'elemento è presente o meno. I vantaggi sono: implementazione semplice e velocità nel verificare se un elemento appartiene all'insieme, mentre come svantaggi abbiamo che occupiamo O(m) memoria anche per salvare pochi elementi e che alcune operazioni vengono eseguite in O(m).\\
 \textbf{Implementazione}: Possibile implementazione del Set attraverso vettori booleani.\
 \begin{lstlisting}[ caption= Set con vettore booleano: operazioni base]
@@ -40,7 +40,7 @@ remove(int x)
 			size = size-1
 			v[x]= false
 \end{lstlisting}
-\newpage
+ 
 \begin{lstlisting}[ caption= Set con vettore booleano: operazioni base]
 % definizione struttura dati SET
 SET union(SET A, SET B)
@@ -66,7 +66,7 @@ SET difference(SET A, SET B)
 \end{lstlisting}	
 \textbf{Implementazioni reali}: In Java e C++ sono già implementati i set e sono già presenti nelle librerie standard con in nome BitSet. Esistono anche implementazioni dei set con liste, vettori non ordinati o strutture dati più complesse come alberi e hash table.
 
-\subsection{Bloom Filters}
+\section{Bloom Filters}
 \textbf{Descrizione}: Struttura dati che unisce i vantaggi dei BitSet a quelli delle tabelle di Hash. Vantaggi: struttura dati dinamica e bassa occupazione di memoria. Svantaggi: non è possibile effettuare cancellazioni, le risposte ricevute dalla struttura sono probabilistiche e i dati non sono realmente memorizzati nella struttura.\\
 \textbf{Specifica}: Sono presenti due principali operazioni:
 \begin{itemize}

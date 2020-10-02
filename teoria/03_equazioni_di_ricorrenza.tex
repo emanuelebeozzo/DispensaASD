@@ -1,8 +1,8 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\section{Equazioni di Ricorrenza}
-\subsection{Metodo dell'Albero di Ricorsione, o per Livelli}
+\chapter{Equazioni di Ricorrenza}
+\section[Metodo dell'Albero di Ricorsione]{Metodo dell'Albero di Ricorsione, o per Livelli}
 Srotoliamo la ricorrenza in un albero i cui nodi rappresentano i costi ai vari livelli di ricorsione.\\
 \textbf{Primo Esempio}
 \begin{center}
@@ -77,14 +77,15 @@ $T(n)$ =  $\sum\limits_{i=0}^{\log{n-1}} {4^{i} \cdot n^{3}/2^{3i}} + 4^{\log{n}
 
 \textcolor{red}{$\leq$} $n^{3}$ $\sum\limits_{i=0}^{\textcolor{red}{\infty}} {(\frac{1}{2})^{i}} + n^{2}$ =
 $n^{3}$ $\cdot$ \textcolor{red}{$\frac{1}{1-\frac{1}{2}}$} + $n^{2}$ = $2n^{3} + n^2$
-\newpage
+
 \begin{flushleft}
 Abbiamo dimostrato che T(n) = $\mathcal{O}$($n^{3}$): non possiamo affermare che sia $\Theta(n) = n^{3}$ perchè abbiamo dimostrato solo un limite superiore.
 \end{flushleft}
 Tuttavia basta notare che l'equazione originale possiede un termine del tipo $an^{3}$ (con $a \in \mathbb{N}$) $\implies$ $T(n) = \Omega(n^{3})$
 
 Visto che abbiamo dimostrato anche il limite inferiore $\implies$ T(n) = $\Theta(n^{3})$ 
-\subsection{Metodo di Sostituzione, o per Tentativi}
+
+\section{Metodo di Sostituzione, o per Tentativi}
 Metodo in cui si cerca di indovinare una soluzione, in base alla propria esperienza, e si dimostra la correttezza di questa soluzione tramite \textcolor{red}{induzione}
 
 \bigskip
@@ -152,7 +153,7 @@ $T(n) =  T(\lfloor n/2 \rfloor) + n \geq c( \lfloor n/2 \rfloor) + n \geq cn/2$ 
 \bigskip
 
 $cn/2 - 1 + n \stackrel{?}{\geq} cn \iff c/2 - 1/n + 1 \geq c \iff c \leq 2 - 2/n$
-\newpage
+
 \begin{flushleft}
 Mettendo assieme le due condizioni si ha che nel caso base (per $n \leq 1$) $c \leq 1$ e nel passo induttivo (per $n > 1$) $c \leq 2 - 2/n$ (quindi nel caso peggiore, cioè per $n = 2$, si ha $c \leq 1$): un valore $c$ che soddisfa entrambe le disequazioni per un $n \geq 1$ è $c = 1$. Questo vale ovviamente per $n = 1$ e quindi per $m = 1$.
 \end{flushleft}
@@ -251,7 +252,7 @@ A questo punto non resta che scegliere il valore maggiore per cui vale $c$, in q
 
 Quindi abbiamo dimostrato che vale per $n = 2$ in poi e una coppia è $n = 2$, $c = 24$ (e quindi $m = 2$).
 
-\subsection{Metodo dell'Esperto, o delle Ricorrenze Comuni}
+\section{Metodo dell'Esperto, o delle Ricorrenze Comuni}
 Siano $a$ e $b$ due costanti intere tali che $a \geq 1$ e $b \geq 2$ e, $c, \beta$ costanti reali tali che $c > 0$ e $\beta \geq 0$. Sia $T(n)$ data dalla relazione di ricorrenza:
 	\begin{equation*}
   		T(n)=\begin{cases}
@@ -272,8 +273,9 @@ Posto $\alpha$ = $\log{a}/\log{b}$ = $\log_{b}{a}$, allora:
 $T(n) = 4T(n/16) + n^{2}$ $\implies$ $a = 4$, $b = 16$\\
 $\beta = 2$\\
 $\alpha = \log{b} / \log{a} = \log{16} / \log{4} = \log_{16}{4} = 1/2$\\
-Visto che $\beta > \alpha \implies T(n) = \Theta(n^{\beta}) = \Theta(n^{2})$ 
-\subsection{Ricorrenze Lineari con Partizione Bilanciata (Estesa)}
+Visto che $\beta > \alpha \implies T(n) = \Theta(n^{\beta}) = \Theta(n^{2})$
+
+\section{Ricorrenze Lineari con Partizione Bilanciata (Estesa)}
 Sia $a$ $\geq$ 1, $b$ $>$ 1, $f(n)$ asintoticamente positiva, e sia
 	\begin{equation*}
   		T(n)=\begin{cases}
@@ -330,7 +332,8 @@ $\exists c$ $\leq$ 1, $\exists m$ $>$ 0 : $af(n/b) \leq cf(n), \forall n$ $\geq$
 $af(n/b) = 3n/4\log{n/4} = 3n/4\log{n} - 3n/4\log{4} \leq 3n/4\log{n} \stackrel{?}{\leq} cn\log{n}$
 
 L'ultima disequazione è soddisfatta da $c = 3/4$ e $m = 1$
-\subsection{Ricorrenze Lineari di Ordine Costante}
+
+\section{Ricorrenze Lineari di Ordine Costante}
 Siano $a\textsubscript{$1$}$, $a\textsubscript{$2$}$, $...$, $a\textsubscript{$h$}$ costanti intere non negative, con $h$ costante positiva, $c$ e $\beta$ costanti reali tali che $c$ $>$ 0 e $\beta$ $\geq$ 0, e sia $T(n)$ definita dalla relazione di ricorrenza:
 	\begin{equation*}
   		T(n)=\begin{cases}
@@ -356,5 +359,5 @@ Caso (1) poichè $a = 1$, il costo è polinomiale $\implies$ $T(n) = \Theta(n^{\
 $T(n) = T(n - 2) +  T(n - 1) + 1 \implies a = 2, \beta = 0$
 
 Caso (2) poichè $a = 2$, il costo è esponenziale $\implies$ $T(n) = \Theta(a^{n}n^{\beta}) = \Theta(2^n)$
-\newpage
+
 \end{document}

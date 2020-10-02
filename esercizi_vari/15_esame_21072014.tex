@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esame 21/07/2014}
+\section{Esame 21/07/2014}
 \textbf{Esercizio B4}\\
 Sia data una stringa $s[1...n]$ di $n$ caratteri. Scrivere un algoritmo che restituisce la lunghezza della \emph{sottosequenza palindroma massimale} contenuta all'interno di s. Ricordiamo che una $sottosequenza$ è un sottoinsieme ordinato dei caratteri di $s$, anche non contigui. Ricordiamo che una stringa $palindroma$ si legge allo stesso modo da sinistra a destra e da destra a sinistra. Per $massimale$, si intende che non esistono sottosequenze palindrome più lunghe (ma possono esisterne altre della stessa lunghezza). Ad esempio, se l'input è “BBABCBCAB”, allora l'output deve essere 7 in quanto “BABCBAB” è la più lunga sottosequenza palindroma contenuta in essa. “BBBBB” e “BBCBB” sono anch'esse sottosequenze palindrome, ma non sono massimali. Discutere informalmente la correttezza della soluzione proposta e calcolare la complessità computazionale. Opzionale: scrivere un'estensione all'algoritmo che stampi una sottosequenza massimale.
 
@@ -60,5 +60,5 @@ printMaxPalindromeSubsequence(string s, int[][] DP, int i, int j)
 				printMaxPalindromeSubsequence(s, DP, i, j-1)
 \end{lstlisting}
 In questo caso la complessità dell'algoritmo è pari a $\mathcal{O}(n \cdot n^{2}) = \mathcal{O}(n^{3})$ poiché la stampa costa al massimo $2n$ (che si traduce in $\mathcal{O}(n)$): nel caso peggiore infatti verrà visitata al massimo tutta una riga e tutta una colonna (tutti i caratteri sono differenti).
-\newpage
+ 
 \end{document}

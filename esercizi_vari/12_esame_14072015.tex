@@ -1,7 +1,7 @@
 \documentclass[../cheatSheetAlgoritmi.tex]{subfiles}
 \begin{document}
 
-\subsection{Esame 14/07/2015}
+\section{Esame 14/07/2015}
 \textbf{Alice, Bob e Car: Nodo più vicino ad A e B senza passare da C} 
 
 Si supponga che Alice, Bob e Carl siano posizionati su tre nodi in un grafo orientato $G= (V, E)$, associato ad una funzione di peso $w$ con pesi interi non negativi. Alice e Bob vogliono incontrarsi in un altro nodo del grafo, senza che Carl lo venga a sapere. 
@@ -35,5 +35,5 @@ int secretPlace(GRAPH G, NODE Alice, NODE Bob, NODE Carl)
 La complessità di tale algoritmo dipende ovviamente dalla scelta della struttura dati di riferimento. Se siamo consapevoli di avere a disposizione un grafo molto denso utilizzeremo la procedura \emph{camminiMinimi} implementata grazie ad una coda a priorità basata su vettore (algoritmo di Dijkstra) e avremo una complessità pari a $\mathcal{O}(n^2)$. 
 
 Se il grafo invece è sparso, o non denso, possiamo fare affidamento su una coda a priorità implementata tramite heap binario (algoritmo di Johnson) e dunque avere complessità pari a $\mathcal{O}(m \log n)$.
-\newpage
+ 
 \end{document}
